@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { MapPin } from "lucide-react";
 import { activeSocials, industryLinks, pageLinks, site } from "@/config/site";
 import { PillLink } from "./Button";
 import { Logo } from "./Logo";
@@ -78,7 +79,10 @@ export function Footer() {
               </FooterCol>
             )}
             <FooterCol title="Our location">
-              <li className="text-ink">{site.locationLabel}</li>
+              <li className="inline-flex items-center gap-2 text-ink">
+                <MapPin aria-hidden className="size-4 shrink-0" />
+                {site.locationLabel}
+              </li>
               <li>
                 <a href={site.mapsUrl} target="_blank" rel="noopener noreferrer" className={linkCls}>
                   {site.address}

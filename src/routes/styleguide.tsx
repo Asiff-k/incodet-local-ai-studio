@@ -35,7 +35,7 @@ function Styleguide() {
         <div className="mt-16 grid gap-12">
           <div>
             <Label>Typography</Label>
-            <p className="type-h1">Heading one</p>
+            <p className="type-h1 text-ink">Heading one</p>
             <p className="type-h2 mt-4 text-ink">Heading two</p>
             <p className="type-h3 mt-4 text-ink">Heading three</p>
             <p className="mt-4">Body text at 18px with a comfortable line height.</p>
