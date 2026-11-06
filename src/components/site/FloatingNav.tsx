@@ -120,8 +120,8 @@ function MenuOverlay({ onClose }: { onClose: () => void }) {
       } else if (e.key === "Tab") {
         const f = focusables();
         if (!f.length) return;
-        const first = f[0];
-        const last = f[f.length - 1];
+        const first = f[0]!;
+        const last = f[f.length - 1]!;
         if (e.shiftKey && document.activeElement === first) {
           e.preventDefault();
           last.focus();
