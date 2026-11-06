@@ -78,12 +78,18 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   staticData: { sitemap: false },
-  head: () => ({
+  head: ({ matches }) => {
+    const isNotFound = matches.some(
+      (m) => (m as { globalNotFound?: boolean }).globalNotFound || m.status === "notFound",
+    );
+    return {
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { name: "theme-color", content: "#0A0A0A" },
-      { title: "Incodet | Websites, AI Agents & Custom Software" },
+      ...(isNotFound
+        ? [{ title: "Page not found | Incodet" }, { name: "robots", content: "noindex" }]
+        : [{ title: "Incodet | Websites, AI Agents & Custom Software" }]),
       {
         name: "description",
         content:
@@ -107,7 +113,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: "https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap",
       },
     ],
-  }),
+    };
+  },
   shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
