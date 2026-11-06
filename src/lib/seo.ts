@@ -1,6 +1,7 @@
 import { site } from "@/config/site";
 import type { FaqItem } from "@/content/faq";
 
+// PNG is the share image: page head tags keep one og:image, and some platforms skip WebP previews.
 export const ogImage = {
   webp: `${site.siteUrl}/og/incodet-og.webp`,
   png: `${site.siteUrl}/og/incodet-og.png`,
@@ -28,8 +29,6 @@ export function seoHead(
       { property: "og:type", content: opts.type ?? "website" },
       { property: "og:url", content: url },
       { property: "og:site_name", content: site.name },
-      { property: "og:image", content: ogImage.webp },
-      { property: "og:image:type", content: "image/webp" },
       { property: "og:image", content: ogImage.png },
       { property: "og:image:type", content: "image/png" },
       { property: "og:image:width", content: "1200" },
