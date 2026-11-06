@@ -28,7 +28,9 @@ import { Route as PortalIndexRouteImport } from './routes/portal.index'
 import { Route as PortalDemoRouteImport } from './routes/portal.demo'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
 import { Route as AuthenticatedAdminClientsRouteImport } from './routes/_authenticated/admin.clients'
+import { Route as AuthenticatedAdminInvoicesRouteImport } from './routes/_authenticated/admin.invoices'
 import { Route as AuthenticatedAdminMessagesRouteImport } from './routes/_authenticated/admin.messages'
+import { Route as AuthenticatedAdminProjectsRouteImport } from './routes/_authenticated/admin.projects'
 import { Route as AuthenticatedPortalDashboardRouteImport } from './routes/_authenticated/portal.dashboard'
 
 const IndexRoute = IndexRouteImport.update({
@@ -126,10 +128,22 @@ const AuthenticatedAdminClientsRoute =
     path: '/clients',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
+const AuthenticatedAdminInvoicesRoute =
+  AuthenticatedAdminInvoicesRouteImport.update({
+    id: '/invoices',
+    path: '/invoices',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 const AuthenticatedAdminMessagesRoute =
   AuthenticatedAdminMessagesRouteImport.update({
     id: '/messages',
     path: '/messages',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminProjectsRoute =
+  AuthenticatedAdminProjectsRouteImport.update({
+    id: '/projects',
+    path: '/projects',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
 const AuthenticatedPortalDashboardRoute =
@@ -157,7 +171,9 @@ export interface FileRoutesByFullPath {
   '/case-studies/': typeof CaseStudiesIndexRoute
   '/portal/': typeof PortalIndexRoute
   '/admin/clients': typeof AuthenticatedAdminClientsRoute
+  '/admin/invoices': typeof AuthenticatedAdminInvoicesRoute
   '/admin/messages': typeof AuthenticatedAdminMessagesRoute
+  '/admin/projects': typeof AuthenticatedAdminProjectsRoute
   '/portal/dashboard': typeof AuthenticatedPortalDashboardRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
 }
@@ -178,7 +194,9 @@ export interface FileRoutesByTo {
   '/case-studies': typeof CaseStudiesIndexRoute
   '/portal': typeof PortalIndexRoute
   '/admin/clients': typeof AuthenticatedAdminClientsRoute
+  '/admin/invoices': typeof AuthenticatedAdminInvoicesRoute
   '/admin/messages': typeof AuthenticatedAdminMessagesRoute
+  '/admin/projects': typeof AuthenticatedAdminProjectsRoute
   '/portal/dashboard': typeof AuthenticatedPortalDashboardRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
 }
@@ -202,7 +220,9 @@ export interface FileRoutesById {
   '/case-studies/': typeof CaseStudiesIndexRoute
   '/portal/': typeof PortalIndexRoute
   '/_authenticated/admin/clients': typeof AuthenticatedAdminClientsRoute
+  '/_authenticated/admin/invoices': typeof AuthenticatedAdminInvoicesRoute
   '/_authenticated/admin/messages': typeof AuthenticatedAdminMessagesRoute
+  '/_authenticated/admin/projects': typeof AuthenticatedAdminProjectsRoute
   '/_authenticated/portal/dashboard': typeof AuthenticatedPortalDashboardRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
 }
@@ -226,7 +246,9 @@ export interface FileRouteTypes {
     | '/case-studies/'
     | '/portal/'
     | '/admin/clients'
+    | '/admin/invoices'
     | '/admin/messages'
+    | '/admin/projects'
     | '/portal/dashboard'
     | '/admin/'
   fileRoutesByTo: FileRoutesByTo
@@ -247,7 +269,9 @@ export interface FileRouteTypes {
     | '/case-studies'
     | '/portal'
     | '/admin/clients'
+    | '/admin/invoices'
     | '/admin/messages'
+    | '/admin/projects'
     | '/portal/dashboard'
     | '/admin'
   id:
@@ -270,7 +294,9 @@ export interface FileRouteTypes {
     | '/case-studies/'
     | '/portal/'
     | '/_authenticated/admin/clients'
+    | '/_authenticated/admin/invoices'
     | '/_authenticated/admin/messages'
+    | '/_authenticated/admin/projects'
     | '/_authenticated/portal/dashboard'
     | '/_authenticated/admin/'
   fileRoutesById: FileRoutesById
@@ -429,11 +455,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminClientsRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/invoices': {
+      id: '/_authenticated/admin/invoices'
+      path: '/invoices'
+      fullPath: '/admin/invoices'
+      preLoaderRoute: typeof AuthenticatedAdminInvoicesRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/_authenticated/admin/messages': {
       id: '/_authenticated/admin/messages'
       path: '/messages'
       fullPath: '/admin/messages'
       preLoaderRoute: typeof AuthenticatedAdminMessagesRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/projects': {
+      id: '/_authenticated/admin/projects'
+      path: '/projects'
+      fullPath: '/admin/projects'
+      preLoaderRoute: typeof AuthenticatedAdminProjectsRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
     '/_authenticated/portal/dashboard': {
@@ -448,13 +488,17 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedAdminRouteChildren {
   AuthenticatedAdminClientsRoute: typeof AuthenticatedAdminClientsRoute
+  AuthenticatedAdminInvoicesRoute: typeof AuthenticatedAdminInvoicesRoute
   AuthenticatedAdminMessagesRoute: typeof AuthenticatedAdminMessagesRoute
+  AuthenticatedAdminProjectsRoute: typeof AuthenticatedAdminProjectsRoute
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
 }
 
 const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
   AuthenticatedAdminClientsRoute: AuthenticatedAdminClientsRoute,
+  AuthenticatedAdminInvoicesRoute: AuthenticatedAdminInvoicesRoute,
   AuthenticatedAdminMessagesRoute: AuthenticatedAdminMessagesRoute,
+  AuthenticatedAdminProjectsRoute: AuthenticatedAdminProjectsRoute,
   AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
 }
 
