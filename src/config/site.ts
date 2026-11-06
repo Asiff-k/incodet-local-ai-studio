@@ -17,6 +17,8 @@ export const site = {
     instagram: "",
     tiktok: "",
   },
+  // Cal.com booking link, format "username/event-slug". Empty shows the "Online booking opens soon" card.
+  calLink: "",
   // Pexels clip 33227529 (free license), self-hosted and re-encoded.
   heroVideo: { src: "/videos/hero.mp4", poster: "/videos/hero-poster.webp" },
 } as const;

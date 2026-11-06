@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, BookOpen, CalendarDays, Contact, FolderKanban, LayoutDashboard, Stethoscope, type LucideIcon } from "lucide-react";
 import { BookingCta, Process } from "@/components/home/HomeSections";
 import { PillLink, pillButton } from "@/components/site/Button";
+import { ContactForm } from "@/components/site/ContactForm";
 import { CaseStudyGridCard } from "@/components/site/CaseStudyCard";
 import { PageHero, seoHead } from "@/components/site/PageHero";
 import { Card, Reveal, Section, SectionHeading } from "@/components/site/primitives";
@@ -85,6 +86,13 @@ function CustomSoftwarePage() {
               See pricing <ArrowRight aria-hidden className="size-4" />
             </Link>
           </div>
+        </Reveal>
+      </Section>
+
+      <Section theme="soft">
+        <SectionHeading title="Tell us what you need" />
+        <Reveal className="mx-auto mt-12 max-w-3xl">
+          <ContactForm sourcePage="custom-software" />
         </Reveal>
       </Section>
 
