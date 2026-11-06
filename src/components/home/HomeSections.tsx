@@ -373,7 +373,7 @@ export function Reviews() {
   return (
     <Section theme="soft">
       <SectionHeading title="What our clients say" />
-      <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+      <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
         {reviews.map((r) => (
           <Card key={r.name + r.business}>
             <blockquote className="type-body text-ink">{r.quote}</blockquote>
