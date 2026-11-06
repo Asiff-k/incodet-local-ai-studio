@@ -10,33 +10,193 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BookRouteImport } from './routes/book'
+import { Route as CaseStudiesRouteImport } from './routes/case-studies'
+import { Route as CustomSoftwareRouteImport } from './routes/custom-software'
+import { Route as PortalRouteImport } from './routes/portal'
+import { Route as PricingRouteImport } from './routes/pricing'
+import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as StyleguideRouteImport } from './routes/styleguide'
+import { Route as TermsRouteImport } from './routes/terms'
+import { Route as IndustriesBarberShopsRouteImport } from './routes/industries.barber-shops'
+import { Route as IndustriesEpoxyFlooringRouteImport } from './routes/industries.epoxy-flooring'
+import { Route as IndustriesRoofingRouteImport } from './routes/industries.roofing'
+import { Route as IndustriesSalonsRouteImport } from './routes/industries.salons'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BookRoute = BookRouteImport.update({
+  id: '/book',
+  path: '/book',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CaseStudiesRoute = CaseStudiesRouteImport.update({
+  id: '/case-studies',
+  path: '/case-studies',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CustomSoftwareRoute = CustomSoftwareRouteImport.update({
+  id: '/custom-software',
+  path: '/custom-software',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PortalRoute = PortalRouteImport.update({
+  id: '/portal',
+  path: '/portal',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PricingRoute = PricingRouteImport.update({
+  id: '/pricing',
+  path: '/pricing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StyleguideRoute = StyleguideRouteImport.update({
+  id: '/styleguide',
+  path: '/styleguide',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IndustriesBarberShopsRoute = IndustriesBarberShopsRouteImport.update({
+  id: '/industries/barber-shops',
+  path: '/industries/barber-shops',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IndustriesEpoxyFlooringRoute = IndustriesEpoxyFlooringRouteImport.update({
+  id: '/industries/epoxy-flooring',
+  path: '/industries/epoxy-flooring',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IndustriesRoofingRoute = IndustriesRoofingRouteImport.update({
+  id: '/industries/roofing',
+  path: '/industries/roofing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IndustriesSalonsRoute = IndustriesSalonsRouteImport.update({
+  id: '/industries/salons',
+  path: '/industries/salons',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/book': typeof BookRoute
+  '/case-studies': typeof CaseStudiesRoute
+  '/custom-software': typeof CustomSoftwareRoute
+  '/portal': typeof PortalRoute
+  '/pricing': typeof PricingRoute
+  '/privacy': typeof PrivacyRoute
+  '/styleguide': typeof StyleguideRoute
+  '/terms': typeof TermsRoute
+  '/industries/barber-shops': typeof IndustriesBarberShopsRoute
+  '/industries/epoxy-flooring': typeof IndustriesEpoxyFlooringRoute
+  '/industries/roofing': typeof IndustriesRoofingRoute
+  '/industries/salons': typeof IndustriesSalonsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/book': typeof BookRoute
+  '/case-studies': typeof CaseStudiesRoute
+  '/custom-software': typeof CustomSoftwareRoute
+  '/portal': typeof PortalRoute
+  '/pricing': typeof PricingRoute
+  '/privacy': typeof PrivacyRoute
+  '/styleguide': typeof StyleguideRoute
+  '/terms': typeof TermsRoute
+  '/industries/barber-shops': typeof IndustriesBarberShopsRoute
+  '/industries/epoxy-flooring': typeof IndustriesEpoxyFlooringRoute
+  '/industries/roofing': typeof IndustriesRoofingRoute
+  '/industries/salons': typeof IndustriesSalonsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/book': typeof BookRoute
+  '/case-studies': typeof CaseStudiesRoute
+  '/custom-software': typeof CustomSoftwareRoute
+  '/portal': typeof PortalRoute
+  '/pricing': typeof PricingRoute
+  '/privacy': typeof PrivacyRoute
+  '/styleguide': typeof StyleguideRoute
+  '/terms': typeof TermsRoute
+  '/industries/barber-shops': typeof IndustriesBarberShopsRoute
+  '/industries/epoxy-flooring': typeof IndustriesEpoxyFlooringRoute
+  '/industries/roofing': typeof IndustriesRoofingRoute
+  '/industries/salons': typeof IndustriesSalonsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/book'
+    | '/case-studies'
+    | '/custom-software'
+    | '/portal'
+    | '/pricing'
+    | '/privacy'
+    | '/styleguide'
+    | '/terms'
+    | '/industries/barber-shops'
+    | '/industries/epoxy-flooring'
+    | '/industries/roofing'
+    | '/industries/salons'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/book'
+    | '/case-studies'
+    | '/custom-software'
+    | '/portal'
+    | '/pricing'
+    | '/privacy'
+    | '/styleguide'
+    | '/terms'
+    | '/industries/barber-shops'
+    | '/industries/epoxy-flooring'
+    | '/industries/roofing'
+    | '/industries/salons'
+  id:
+    | '__root__'
+    | '/'
+    | '/book'
+    | '/case-studies'
+    | '/custom-software'
+    | '/portal'
+    | '/pricing'
+    | '/privacy'
+    | '/styleguide'
+    | '/terms'
+    | '/industries/barber-shops'
+    | '/industries/epoxy-flooring'
+    | '/industries/roofing'
+    | '/industries/salons'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BookRoute: typeof BookRoute
+  CaseStudiesRoute: typeof CaseStudiesRoute
+  CustomSoftwareRoute: typeof CustomSoftwareRoute
+  PortalRoute: typeof PortalRoute
+  PricingRoute: typeof PricingRoute
+  PrivacyRoute: typeof PrivacyRoute
+  StyleguideRoute: typeof StyleguideRoute
+  TermsRoute: typeof TermsRoute
+  IndustriesBarberShopsRoute: typeof IndustriesBarberShopsRoute
+  IndustriesEpoxyFlooringRoute: typeof IndustriesEpoxyFlooringRoute
+  IndustriesRoofingRoute: typeof IndustriesRoofingRoute
+  IndustriesSalonsRoute: typeof IndustriesSalonsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +208,107 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/book': {
+      id: '/book'
+      path: '/book'
+      fullPath: '/book'
+      preLoaderRoute: typeof BookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/case-studies': {
+      id: '/case-studies'
+      path: '/case-studies'
+      fullPath: '/case-studies'
+      preLoaderRoute: typeof CaseStudiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/custom-software': {
+      id: '/custom-software'
+      path: '/custom-software'
+      fullPath: '/custom-software'
+      preLoaderRoute: typeof CustomSoftwareRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/portal': {
+      id: '/portal'
+      path: '/portal'
+      fullPath: '/portal'
+      preLoaderRoute: typeof PortalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pricing': {
+      id: '/pricing'
+      path: '/pricing'
+      fullPath: '/pricing'
+      preLoaderRoute: typeof PricingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/styleguide': {
+      id: '/styleguide'
+      path: '/styleguide'
+      fullPath: '/styleguide'
+      preLoaderRoute: typeof StyleguideRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/industries/barber-shops': {
+      id: '/industries/barber-shops'
+      path: '/industries/barber-shops'
+      fullPath: '/industries/barber-shops'
+      preLoaderRoute: typeof IndustriesBarberShopsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/industries/epoxy-flooring': {
+      id: '/industries/epoxy-flooring'
+      path: '/industries/epoxy-flooring'
+      fullPath: '/industries/epoxy-flooring'
+      preLoaderRoute: typeof IndustriesEpoxyFlooringRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/industries/roofing': {
+      id: '/industries/roofing'
+      path: '/industries/roofing'
+      fullPath: '/industries/roofing'
+      preLoaderRoute: typeof IndustriesRoofingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/industries/salons': {
+      id: '/industries/salons'
+      path: '/industries/salons'
+      fullPath: '/industries/salons'
+      preLoaderRoute: typeof IndustriesSalonsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BookRoute: BookRoute,
+  CaseStudiesRoute: CaseStudiesRoute,
+  CustomSoftwareRoute: CustomSoftwareRoute,
+  PortalRoute: PortalRoute,
+  PricingRoute: PricingRoute,
+  PrivacyRoute: PrivacyRoute,
+  StyleguideRoute: StyleguideRoute,
+  TermsRoute: TermsRoute,
+  IndustriesBarberShopsRoute: IndustriesBarberShopsRoute,
+  IndustriesEpoxyFlooringRoute: IndustriesEpoxyFlooringRoute,
+  IndustriesRoofingRoute: IndustriesRoofingRoute,
+  IndustriesSalonsRoute: IndustriesSalonsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -28,3 +28,6 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+- Contact details, socials and hero media live only in src/config/site.ts; components read from it so brand data changes in one place.
+- Shared site UI lives in src/components/site; typography utilities are named type-* (not text-*) so they never clash with color classes in cn/tailwind-merge.
