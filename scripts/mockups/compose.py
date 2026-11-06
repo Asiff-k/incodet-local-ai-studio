@@ -54,7 +54,7 @@ def html(slug, c1, c2):
 def to_webp(png, out, size, limit_kb):
     for q in (82, 76, 70, 64, 58, 50):
         subprocess.run(["magick", str(png), "-resize", size, "-quality", str(q), "-define", "webp:method=6", str(out)], check=True)
-        if out.stat().st_size / 1024 < limit_kb: break
+        if out.stat().st_size / 1000 < limit_kb: break
     return q
 
 async def main():
