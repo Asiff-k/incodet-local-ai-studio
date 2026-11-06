@@ -30,7 +30,21 @@ HIDE = """
     const t = (el.textContent||'').trim();
     if (/^Edit with Lovable$/i.test(t)) el.style.setProperty('display','none','important');
   });
-  document.body.style.overflow='';
+  // Fixed/sticky overlays: consent dialogs (by text) and floating chat bubbles (small, bottom corner).
+  const vw = innerWidth, vh = innerHeight;
+  document.querySelectorAll('body *').forEach(el => {
+    const cs = getComputedStyle(el);
+    if (cs.position !== 'fixed' && cs.position !== 'sticky') return;
+    const r = el.getBoundingClientRect();
+    const t = (el.textContent||'');
+    const consent = /cookie|consent|privacy matters|before you continue|accept all|reject|necessary only/i.test(t) && r.top > 40;
+    const bubble = r.width < 160 && r.height < 160 && r.top > vh * 0.6 && (r.left > vw * 0.6 || r.right < vw * 0.4);
+    if (consent || bubble) el.style.setProperty('display','none','important');
+  });
+  document.querySelectorAll('[role="dialog"],[aria-modal="true"]').forEach(el => {
+    if (/cookie|consent|privacy|accept/i.test(el.textContent||'')) el.style.setProperty('display','none','important');
+  });
+  document.documentElement.style.overflow=''; document.body.style.overflow='';
 })()
 """
 
