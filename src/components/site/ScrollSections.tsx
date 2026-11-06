@@ -104,7 +104,7 @@ export function HorizontalScrollCards({ children }: { children: ReactNode[] }) {
   }, [pinned, children.length]);
 
   return (
-    <div ref={outer} style={pinned ? { height } : undefined} className="relative">
+    <div ref={outer} style={pinned ? { height } : undefined} className={cn("relative", !pinned && "overflow-hidden")}>
       <div className={cn(pinned && "sticky top-0 flex h-screen items-center overflow-hidden")}>
         <div
           ref={track}
@@ -112,7 +112,7 @@ export function HorizontalScrollCards({ children }: { children: ReactNode[] }) {
             "flex gap-5 px-4 md:px-8",
             pinned
               ? "will-change-transform"
-              : "snap-x snap-mandatory overflow-x-auto pb-4 [scrollbar-width:none]",
+              : "w-full snap-x snap-mandatory overflow-x-auto pb-4 [scrollbar-width:none]",
           )}
         >
           {children.map((c, i) => (
