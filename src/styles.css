@@ -146,7 +146,7 @@
   line-height: 1.25;
   font-weight: 500;
 }
-@utility text-body {
+@utility type-body {
   font-size: 18px;
   line-height: 1.45;
 }
