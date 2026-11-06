@@ -67,7 +67,9 @@ async def main():
             if only and slug not in only: continue
             if not (RAW / f"{slug}-desktop.png").exists():
                 print("SKIP (no capture)", slug); continue
-            await page.set_content(html(slug, c1, c2), wait_until="load")
+            doc = HERE / "raw" / f"_{slug}.html"
+            doc.write_text(html(slug, c1, c2))
+            await page.goto(doc.resolve().as_uri(), wait_until="load")
             png = Path(f"/tmp/mockup-{slug}.png")
             await page.screenshot(path=str(png))
             q1 = to_webp(png, OUT / f"{slug}.webp", "1600x1000", 180)
