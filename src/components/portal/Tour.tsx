@@ -66,7 +66,6 @@ export function Tour({ steps, open, onClose }: { steps: TourStep[]; open: boolea
     el?.scrollIntoView({ block: "center", behavior: reduce ? "auto" : "smooth" });
     measure();
     const t = window.setTimeout(measure, reduce ? 0 : 450);
-    nextRef.current?.focus();
     window.addEventListener("resize", measure);
     window.addEventListener("scroll", measure, { passive: true });
     return () => {
@@ -75,6 +74,11 @@ export function Tour({ steps, open, onClose }: { steps: TourStep[]; open: boolea
       window.removeEventListener("scroll", measure);
     };
   }, [open, step, measure]);
+
+  const hasRect = !!rect;
+  useEffect(() => {
+    if (open && hasRect) nextRef.current?.focus({ preventScroll: true });
+  }, [open, i, hasRect]);
 
   useEffect(() => {
     if (!open) return;
