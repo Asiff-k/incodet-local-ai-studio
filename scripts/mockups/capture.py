@@ -23,6 +23,7 @@ HIDE = """
   [id*="intercom" i],[class*="intercom" i],[id*="crisp" i],[class*="crisp" i],[id*="tawk" i],
   [id*="hubspot-messages" i],[class*="chat-widget" i],[id*="chat-widget" i],[class*="drift" i],
   iframe[src*="chat" i],iframe[title*="chat" i],
+  a[href*="wa.me"],a[href*="whatsapp" i],[class*="whatsapp" i],[id*="whatsapp" i],
   #lovable-badge,[id*="lovable" i],a[href*="lovable.dev"],[class*="lovable-badge" i]
   {display:none!important;visibility:hidden!important}`;
   const s = document.createElement('style'); s.textContent = css; document.head.appendChild(s);
@@ -38,8 +39,9 @@ HIDE = """
     const r = el.getBoundingClientRect();
     const t = (el.textContent||'');
     const consent = /cookie|consent|privacy matters|before you continue|accept all|reject|necessary only/i.test(t) && r.top > 40;
+    const chat = /chat with us|need help\?/i.test(t) && r.top > vh * 0.5;
     const bubble = r.width < 160 && r.height < 160 && r.top > vh * 0.6 && (r.left > vw * 0.6 || r.right < vw * 0.4);
-    if (consent || bubble) el.style.setProperty('display','none','important');
+    if (consent || bubble || chat) el.style.setProperty('display','none','important');
   });
   document.querySelectorAll('[role="dialog"],[aria-modal="true"]').forEach(el => {
     if (/cookie|consent|privacy|accept/i.test(el.textContent||'')) el.style.setProperty('display','none','important');
