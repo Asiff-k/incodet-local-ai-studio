@@ -1,8 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import {
   ArrowRight,
-  ArrowUpRight,
-  Check,
   Hammer,
   House,
   Layers,
@@ -27,7 +25,7 @@ import { services, type Service } from "@/content/services";
 import { PillLink, pillButton } from "@/components/site/Button";
 import { Accordion, SegmentedTabs } from "@/components/site/Interactive";
 import { Logo } from "@/components/site/Logo";
-import { Card, ImagePlaceholder, PillBadge, Reveal, Section, SectionHeading } from "@/components/site/primitives";
+import { Card, PillBadge, Reveal, Section, SectionHeading } from "@/components/site/primitives";
 import { RevealText } from "@/components/site/RevealText";
 import { HorizontalScrollCards, StackedPanels } from "@/components/site/ScrollSections";
 import { cn } from "@/lib/utils";

@@ -24,6 +24,8 @@ export type CaseStudy = {
   includes?: CaseStudyInclude[];
   /** Drop a WebP at this path in /public; until then a placeholder frame renders. */
   image: { src: string; alt: string; ready: boolean };
+  challenge?: string;
+  solution?: string;
   todo?: boolean;
 };
 
@@ -95,8 +97,12 @@ const all: CaseStudy[] = [
     description:
       "Proof of concept for a white-label real estate media platform: a 360° WebGL tour viewer and an SVG floor plan engine in one, with lead capture and custom branding.",
     tags: ["Next.js", "WebGL", "SVG", "Responsive"],
+    challenge:
+      "Real estate agents often use one vendor for 360° tours and another for floor plans, each with its own branding. We call it the double vendor trap.",
+    solution:
+      "One white-label platform with a 360° WebGL tour viewer with hotspots, an SVG floor plan engine with a one-click toggle between the two, lead capture and custom branding.",
     liveUrl: "https://virtual-tour-poc.vercel.app/tour/50ad98c9",
-    image: { src: img("brhex-studio"), alt: "BRHEX Studio 360° tour platform", ready: false },
+    image: { src: img("brhex-studio"), alt: "360° tour viewer in the BRHEX Studio platform", ready: true },
   },
   {
     slug: "bloom-studio",
@@ -107,7 +113,7 @@ const all: CaseStudy[] = [
     description:
       "A sample salon website showing how AI concierge features handle bookings and questions for UK salons.",
     liveUrl: "https://bloom.incodet.com",
-    image: { src: img("bloom-studio"), alt: "Bloom Studio salon website", ready: false },
+    image: { src: img("bloom-studio"), alt: "Homepage of the Bloom Studio salon website", ready: true },
   },
   {
     slug: "a1-airport-cars",
@@ -126,3 +132,5 @@ const all: CaseStudy[] = [
 
 export const caseStudies = visible(all, ["name", "category", "description"]);
 export const featuredCaseStudies = caseStudies.filter((c) => c.featured);
+
+export const getCaseStudy = (slug: string) => caseStudies.find((c) => c.slug === slug);
