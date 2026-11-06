@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 import type { ReactNode } from "react";
 import { site } from "@/config/site";
-import { caseStudies } from "@/content/caseStudies";
+import { featuredCaseStudies as caseStudies } from "@/content/caseStudies";
 import { faq } from "@/content/faq";
 import { industries, type Industry } from "@/content/industries";
 import { plans, plansNote } from "@/content/plans";
@@ -307,6 +307,8 @@ export function CaseStudiesPreview() {
               <div className="flex flex-col justify-center p-2 md:p-4">
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="type-small text-muted-foreground">{c.category}</span>
+                  <span aria-hidden className="type-small text-muted-foreground">·</span>
+                  <span className="type-small text-muted-foreground">{c.year}</span>
                   {c.demo && (
                     <span className="rounded-full bg-bg-soft px-3 py-1 type-small font-medium text-ink">Demo project</span>
                   )}
@@ -314,6 +316,26 @@ export function CaseStudiesPreview() {
                 <h3 className="mt-3 type-h3">{c.title ?? c.name}</h3>
                 {c.title && <p className="mt-1 font-medium text-ink">{c.name}</p>}
                 <p className="mt-4 type-body">{c.description}</p>
+                {c.includes && c.includes.length > 0 && (
+                  <div className="mt-5">
+                    <p className="type-small font-medium text-ink">Includes</p>
+                    <ul className="mt-2 flex flex-col gap-1.5">
+                      {c.includes.slice(0, 3).map((it) => (
+                        <li key={it.label} className="type-small">
+                          {it.url ? (
+                            <a href={it.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-ink underline-offset-4 hover:underline">
+                              {it.label} ({it.year}) <ArrowUpRight aria-hidden className="size-3.5" />
+                            </a>
+                          ) : (
+                            <span className="text-ink">{it.label} ({it.year})</span>
+                          )}
+                          {it.concept && <span className="ml-2 rounded-full bg-bg-soft px-2 py-0.5 text-muted-foreground">Concept</span>}
+                        </li>
+                      ))}
+                      {c.includes.length > 3 && <li className="type-small text-muted-foreground">+ more</li>}
+                    </ul>
+                  </div>
+                )}
                 {c.tags && c.tags.length > 0 && (
                   <ul className="mt-5 flex flex-wrap gap-2" aria-label="Technologies">
                     {c.tags.map((t) => (
@@ -325,7 +347,7 @@ export function CaseStudiesPreview() {
                   <PillLink to="/case-studies">Read Case Study</PillLink>
                   {c.liveUrl && (
                     <ExternalPill href={c.liveUrl} variant="secondary">
-                      View Live Demo <ArrowUpRight aria-hidden className="size-4" />
+                      {c.demo ? "View Live Demo" : "Visit Live Site"} <ArrowUpRight aria-hidden className="size-4" />
                     </ExternalPill>
                   )}
                 </div>
