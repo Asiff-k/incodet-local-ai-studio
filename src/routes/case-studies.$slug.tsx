@@ -9,6 +9,7 @@ import { Reveal, Section, SectionHeading } from "@/components/site/primitives";
 import { featuredCaseStudies, getCaseStudy } from "@/content/caseStudies";
 
 export const Route = createFileRoute("/case-studies/$slug")({
+  staticData: { sitemap: true },
   loader: ({ params }) => {
     const c = getCaseStudy(params.slug);
     if (!c) throw notFound();

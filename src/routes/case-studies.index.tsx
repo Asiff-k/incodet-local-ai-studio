@@ -6,6 +6,7 @@ import { Reveal, Section } from "@/components/site/primitives";
 import { caseStudies } from "@/content/caseStudies";
 
 export const Route = createFileRoute("/case-studies/")({
+  staticData: { sitemap: true },
   head: () =>
     seoHead(
       "Our Work | Incodet",

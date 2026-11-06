@@ -21,6 +21,7 @@ const description =
   "Booking websites, 24/7 AI chatbots and calling agents, and custom software for small, growing and established businesses. Pay only for what you use.";
 
 export const Route = createFileRoute("/")({
+  staticData: { sitemap: true },
   head: () => seoHead(title, description, "/", { scripts: [...organizationLd(), faqLd(faq)] }),
   component: Index,
 });

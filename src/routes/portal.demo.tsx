@@ -5,6 +5,7 @@ import { getDemoPortal } from "@/content/demoPortal";
 import { PortalDashboard } from "@/components/portal/PortalDashboard";
 
 export const Route = createFileRoute("/portal/demo")({
+  staticData: { sitemap: false },
   head: () => ({
     meta: [
       { title: "Portal Demo | Incodet" },

@@ -6,6 +6,7 @@ import { Logo } from "@/components/site/Logo";
 import { pillButton } from "@/components/site/Button";
 
 export const Route = createFileRoute("/_authenticated/admin")({
+  staticData: { sitemap: false },
   head: () => ({
     meta: [
       { title: "Admin | Incodet" },

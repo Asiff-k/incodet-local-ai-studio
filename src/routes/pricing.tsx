@@ -20,6 +20,7 @@ const pricingFaq = [
 ];
 
 export const Route = createFileRoute("/pricing")({
+  staticData: { sitemap: true },
   head: () =>
     seoHead(
       "Pricing | Incodet",

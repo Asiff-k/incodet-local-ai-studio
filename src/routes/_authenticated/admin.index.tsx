@@ -4,6 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { AdminTitle } from "@/components/admin/ui";
 
 export const Route = createFileRoute("/_authenticated/admin/")({
+  staticData: { sitemap: false },
   component: Overview,
 });
 

@@ -9,6 +9,7 @@ import { getIndustry } from "@/content/industries";
 const { page } = getIndustry("epoxy-flooring");
 
 export const Route = createFileRoute("/industries/epoxy-flooring")({
+  staticData: { sitemap: true },
   head: () => seoHead(page.title, page.description, page.to, { scripts: [faqLd(faqFor(industryFaq))] }),
   component: () => <IndustryPage slug="epoxy-flooring" />,
 });

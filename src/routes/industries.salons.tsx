@@ -9,6 +9,7 @@ import { getIndustry } from "@/content/industries";
 const { page } = getIndustry("salons");
 
 export const Route = createFileRoute("/industries/salons")({
+  staticData: { sitemap: true },
   head: () => seoHead(page.title, page.description, page.to, { scripts: [faqLd(faqFor(industryFaq))] }),
   component: () => <IndustryPage slug="salons" />,
 });

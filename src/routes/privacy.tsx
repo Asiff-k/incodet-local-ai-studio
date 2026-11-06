@@ -4,6 +4,7 @@ import { seoHead } from "@/components/site/PageHero";
 import { site } from "@/config/site";
 
 export const Route = createFileRoute("/privacy")({
+  staticData: { sitemap: true },
   head: () => seoHead("Privacy Policy | Incodet", "How Incodet collects, uses, stores and protects your personal information, and the choices you have.", "/privacy"),
   component: PrivacyPage,
 });
