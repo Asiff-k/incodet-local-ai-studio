@@ -17,6 +17,8 @@ import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as StyleguideRouteImport } from './routes/styleguide'
 import { Route as TermsRouteImport } from './routes/terms'
+import { Route as CaseStudiesIndexRouteImport } from './routes/case-studies.index'
+import { Route as CaseStudiesSlugRouteImport } from './routes/case-studies.$slug'
 import { Route as IndustriesBarberShopsRouteImport } from './routes/industries.barber-shops'
 import { Route as IndustriesEpoxyFlooringRouteImport } from './routes/industries.epoxy-flooring'
 import { Route as IndustriesRoofingRouteImport } from './routes/industries.roofing'
@@ -62,6 +64,16 @@ const TermsRoute = TermsRouteImport.update({
   path: '/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CaseStudiesIndexRoute = CaseStudiesIndexRouteImport.update({
+  id: '/case-studies/',
+  path: '/case-studies/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CaseStudiesSlugRoute = CaseStudiesSlugRouteImport.update({
+  id: '/case-studies/$slug',
+  path: '/case-studies/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndustriesBarberShopsRoute = IndustriesBarberShopsRouteImport.update({
   id: '/industries/barber-shops',
   path: '/industries/barber-shops',
@@ -92,10 +104,12 @@ export interface FileRoutesByFullPath {
   '/privacy': typeof PrivacyRoute
   '/styleguide': typeof StyleguideRoute
   '/terms': typeof TermsRoute
+  '/case-studies/$slug': typeof CaseStudiesSlugRoute
   '/industries/barber-shops': typeof IndustriesBarberShopsRoute
   '/industries/epoxy-flooring': typeof IndustriesEpoxyFlooringRoute
   '/industries/roofing': typeof IndustriesRoofingRoute
   '/industries/salons': typeof IndustriesSalonsRoute
+  '/case-studies/': typeof CaseStudiesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -106,10 +120,12 @@ export interface FileRoutesByTo {
   '/privacy': typeof PrivacyRoute
   '/styleguide': typeof StyleguideRoute
   '/terms': typeof TermsRoute
+  '/case-studies/$slug': typeof CaseStudiesSlugRoute
   '/industries/barber-shops': typeof IndustriesBarberShopsRoute
   '/industries/epoxy-flooring': typeof IndustriesEpoxyFlooringRoute
   '/industries/roofing': typeof IndustriesRoofingRoute
   '/industries/salons': typeof IndustriesSalonsRoute
+  '/case-studies': typeof CaseStudiesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -121,10 +137,12 @@ export interface FileRoutesById {
   '/privacy': typeof PrivacyRoute
   '/styleguide': typeof StyleguideRoute
   '/terms': typeof TermsRoute
+  '/case-studies/$slug': typeof CaseStudiesSlugRoute
   '/industries/barber-shops': typeof IndustriesBarberShopsRoute
   '/industries/epoxy-flooring': typeof IndustriesEpoxyFlooringRoute
   '/industries/roofing': typeof IndustriesRoofingRoute
   '/industries/salons': typeof IndustriesSalonsRoute
+  '/case-studies/': typeof CaseStudiesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -137,10 +155,12 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/styleguide'
     | '/terms'
+    | '/case-studies/$slug'
     | '/industries/barber-shops'
     | '/industries/epoxy-flooring'
     | '/industries/roofing'
     | '/industries/salons'
+    | '/case-studies/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -151,10 +171,12 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/styleguide'
     | '/terms'
+    | '/case-studies/$slug'
     | '/industries/barber-shops'
     | '/industries/epoxy-flooring'
     | '/industries/roofing'
     | '/industries/salons'
+    | '/case-studies'
   id:
     | '__root__'
     | '/'
@@ -165,10 +187,12 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/styleguide'
     | '/terms'
+    | '/case-studies/$slug'
     | '/industries/barber-shops'
     | '/industries/epoxy-flooring'
     | '/industries/roofing'
     | '/industries/salons'
+    | '/case-studies/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -180,10 +204,12 @@ export interface RootRouteChildren {
   PrivacyRoute: typeof PrivacyRoute
   StyleguideRoute: typeof StyleguideRoute
   TermsRoute: typeof TermsRoute
+  CaseStudiesSlugRoute: typeof CaseStudiesSlugRoute
   IndustriesBarberShopsRoute: typeof IndustriesBarberShopsRoute
   IndustriesEpoxyFlooringRoute: typeof IndustriesEpoxyFlooringRoute
   IndustriesRoofingRoute: typeof IndustriesRoofingRoute
   IndustriesSalonsRoute: typeof IndustriesSalonsRoute
+  CaseStudiesIndexRoute: typeof CaseStudiesIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -244,6 +270,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TermsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/case-studies/': {
+      id: '/case-studies/'
+      path: '/case-studies'
+      fullPath: '/case-studies/'
+      preLoaderRoute: typeof CaseStudiesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/case-studies/$slug': {
+      id: '/case-studies/$slug'
+      path: '/case-studies/$slug'
+      fullPath: '/case-studies/$slug'
+      preLoaderRoute: typeof CaseStudiesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/industries/barber-shops': {
       id: '/industries/barber-shops'
       path: '/industries/barber-shops'
@@ -284,10 +324,12 @@ const rootRouteChildren: RootRouteChildren = {
   PrivacyRoute: PrivacyRoute,
   StyleguideRoute: StyleguideRoute,
   TermsRoute: TermsRoute,
+  CaseStudiesSlugRoute: CaseStudiesSlugRoute,
   IndustriesBarberShopsRoute: IndustriesBarberShopsRoute,
   IndustriesEpoxyFlooringRoute: IndustriesEpoxyFlooringRoute,
   IndustriesRoofingRoute: IndustriesRoofingRoute,
   IndustriesSalonsRoute: IndustriesSalonsRoute,
+  CaseStudiesIndexRoute: CaseStudiesIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
