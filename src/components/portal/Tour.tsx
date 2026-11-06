@@ -10,6 +10,11 @@ export const portalTourSteps: TourStep[] = [
   { target: "download", text: "Download a PDF copy any time" },
 ];
 
+function findTarget(t: string): HTMLElement | null {
+  const els = Array.from(document.querySelectorAll<HTMLElement>(`[data-tour="${t}"]`));
+  return els.find((e) => e.getClientRects().length > 0) ?? null;
+}
+
 function store(key: string, v?: string) {
   try {
     if (v === undefined) return window.localStorage.getItem(key);
@@ -40,7 +45,7 @@ export function Tour({ steps, open, onClose }: { steps: TourStep[]; open: boolea
   const [i, setI] = useState(0);
   const [rect, setRect] = useState<DOMRect | null>(null);
   const nextRef = useRef<HTMLButtonElement>(null);
-  const available = steps.filter((s) => typeof document !== "undefined" && document.querySelector(`[data-tour="${s.target}"]`));
+  const available = open ? steps.filter((s) => findTarget(s.target)) : [];
   const step = available[i];
 
   useEffect(() => {
@@ -49,13 +54,13 @@ export function Tour({ steps, open, onClose }: { steps: TourStep[]; open: boolea
 
   const measure = useCallback(() => {
     if (!step) return;
-    const el = document.querySelector<HTMLElement>(`[data-tour="${step.target}"]`);
+    const el = findTarget(step.target);
     if (el) setRect(el.getBoundingClientRect());
   }, [step]);
 
   useLayoutEffect(() => {
     if (!open || !step) return;
-    const el = document.querySelector<HTMLElement>(`[data-tour="${step.target}"]`);
+    const el = findTarget(step.target);
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     el?.scrollIntoView({ block: "center", behavior: reduce ? "auto" : "smooth" });
     measure();

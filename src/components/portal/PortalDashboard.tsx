@@ -66,10 +66,6 @@ export function PortalDashboard({
   const tour = useTour(`incodet-portal-tour-${mode}`, true);
   const invoiceNumbers = useMemo(() => new Map(data.invoices.map((i) => [i.id, i.number])), [data.invoices]);
   const payable = (s: InvoiceStatus) => s === "sent" || s === "overdue";
-  let payTagged = false;
-  let dlTagged = false;
-  const tagPay = () => (payTagged ? undefined : ((payTagged = true), "pay"));
-  const tagDl = () => (dlTagged ? undefined : ((dlTagged = true), "download"));
 
   return (
     <div className="container-site pb-[72px] md:pb-[120px]">
@@ -224,11 +220,11 @@ export function PortalDashboard({
                     </td>
                     <td className="py-4">
                       <div className="flex justify-end gap-2">
-                        <PillButton type="button" size="sm" variant="secondary" data-tour={tagDl()} onClick={() => onDownloadInvoice(inv)}>
+                        <PillButton type="button" size="sm" variant="secondary" data-tour="download" onClick={() => onDownloadInvoice(inv)}>
                           <Download aria-hidden className="size-4" /> Download invoice
                         </PillButton>
                         {payable(inv.status) && (
-                          <PillButton type="button" size="sm" data-tour={tagPay()} onClick={() => setPaying(inv)}>
+                          <PillButton type="button" size="sm" data-tour="pay" onClick={() => setPaying(inv)}>
                             Pay
                           </PillButton>
                         )}
@@ -254,11 +250,11 @@ export function PortalDashboard({
                     <dd className="text-ink">{usd(invoiceTotal(inv))}</dd>
                   </dl>
                   <div className="mt-4 flex flex-col gap-2">
-                    <PillButton type="button" size="sm" variant="secondary" data-tour={tagDl()} onClick={() => onDownloadInvoice(inv)}>
+                    <PillButton type="button" size="sm" variant="secondary" data-tour="download" onClick={() => onDownloadInvoice(inv)}>
                       <Download aria-hidden className="size-4" /> Download invoice
                     </PillButton>
                     {payable(inv.status) && (
-                      <PillButton type="button" size="sm" data-tour={tagPay()} onClick={() => setPaying(inv)}>
+                      <PillButton type="button" size="sm" data-tour="pay" onClick={() => setPaying(inv)}>
                         Pay
                       </PillButton>
                     )}
