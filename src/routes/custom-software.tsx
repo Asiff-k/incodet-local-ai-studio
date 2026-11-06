@@ -13,7 +13,7 @@ export const Route = createFileRoute("/custom-software")({
     seoHead(
       "Custom Software & SaaS Development | Incodet",
       "CRMs, dashboards, booking systems, client portals and full SaaS platforms, planned with you and built around how your business works.",
-    ),
+    , "/custom-software"),
   component: CustomSoftwarePage,
 });
 

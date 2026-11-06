@@ -4,6 +4,7 @@ import { BookingCta } from "@/components/home/HomeSections";
 import { pillButton } from "@/components/site/Button";
 import { CaseStudyGridCard, CaseStudyImage, CaseStudyMeta, ExternalPill, IncludeLabel, liveLabel } from "@/components/site/CaseStudyCard";
 import { seoHead } from "@/components/site/PageHero";
+import { breadcrumbLd } from "@/lib/seo";
 import { Reveal, Section, SectionHeading } from "@/components/site/primitives";
 import { featuredCaseStudies, getCaseStudy } from "@/content/caseStudies";
 
@@ -15,7 +16,10 @@ export const Route = createFileRoute("/case-studies/$slug")({
   },
   head: ({ loaderData }) =>
     loaderData
-      ? seoHead(`${loaderData.name} Case Study | Incodet`, loaderData.description, "article")
+      ? seoHead(`${loaderData.name} Case Study | Incodet`, loaderData.description, `/case-studies/${loaderData.slug}`, {
+          type: "article",
+          scripts: [breadcrumbLd([{ name: "Our work", path: "/case-studies" }, { name: loaderData.name, path: `/case-studies/${loaderData.slug}` }])],
+        })
       : { meta: [{ title: "Case study not found | Incodet" }, { name: "robots", content: "noindex" }] },
   component: CaseStudyPage,
   notFoundComponent: () => (

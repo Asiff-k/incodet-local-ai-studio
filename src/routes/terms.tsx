@@ -4,7 +4,7 @@ import { seoHead } from "@/components/site/PageHero";
 import { site } from "@/config/site";
 
 export const Route = createFileRoute("/terms")({
-  head: () => seoHead("Terms of Service | Incodet", "The terms that apply when you work with Incodet on websites, AI chatbots, AI phone agents and custom software."),
+  head: () => seoHead("Terms of Service | Incodet", "The terms that apply when you work with Incodet on websites, AI chatbots, AI phone agents and custom software.", "/terms"),
   component: TermsPage,
 });
 

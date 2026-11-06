@@ -12,7 +12,7 @@ export const Route = createFileRoute("/book")({
     seoHead(
       "Book a Free Call | Incodet",
       "Book a free discovery call with Incodet. We learn your business, your customers and what you need. Free, no commitment.",
-    ),
+    , "/book"),
   component: BookPage,
 });
 

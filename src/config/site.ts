@@ -1,6 +1,7 @@
 // Single source of truth for brand and contact details. Never hardcode these elsewhere.
 export const site = {
   name: "Incodet",
+  siteUrl: "https://incodet.com",
   logoUrl: "",
   email: "hello@incodet.com",
   phoneDisplay: "+61 451 526 342",
@@ -17,6 +18,8 @@ export const site = {
     instagram: "",
     tiktok: "",
   },
+  // Analytics: provider "plausible" (id = your domain) or "ga4" (id = G-XXXX). Empty = no banner, no scripts.
+  analytics: { provider: "" as "" | "plausible" | "ga4", id: "" },
   // Cal.com booking link, format "username/event-slug". Empty shows the "Online booking opens soon" card.
   calLink: "",
   // Pexels clip 33227529 (free license), self-hosted and re-encoded.

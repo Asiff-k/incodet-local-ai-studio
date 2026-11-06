@@ -10,7 +10,7 @@ export const Route = createFileRoute("/case-studies/")({
     seoHead(
       "Our Work | Incodet",
       "Websites, AI tools and platforms we have built for taxi companies, local businesses and technology teams.",
-    ),
+    , "/case-studies"),
   component: CaseStudiesPage,
 });
 
