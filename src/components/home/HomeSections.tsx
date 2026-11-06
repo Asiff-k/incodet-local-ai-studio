@@ -321,7 +321,7 @@ export function CaseStudiesPreview() {
                     ))}
                   </ul>
                 )}
-                <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <div className="mt-8 flex flex-wrap gap-3">
                   <PillLink to="/case-studies">Read Case Study</PillLink>
                   {c.liveUrl && (
                     <ExternalPill href={c.liveUrl} variant="secondary">
@@ -426,7 +426,7 @@ export function Faq() {
               <Logo variant="mark" />
               <p className="text-[18px] font-medium text-ink">Book a free call</p>
             </div>
-            <div className="mt-6 flex flex-col gap-3 sm:flex-row lg:flex-col xl:flex-row">
+            <div className="mt-6 flex flex-wrap gap-3">
               <PillLink to="/book">Book a Free Call</PillLink>
               <ExternalPill href={site.whatsapp} variant="secondary">
                 <MessageCircle aria-hidden className="size-4" /> WhatsApp
