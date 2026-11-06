@@ -1,5 +1,18 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Hero } from "@/components/site/Hero";
+import {
+  BookingCta,
+  CallingAgent,
+  CaseStudiesPreview,
+  FactsRow,
+  Faq,
+  IndustriesStrip,
+  PlansPreview,
+  Process,
+  Reviews,
+  Services,
+  WhoWeAre,
+} from "@/components/home/HomeSections";
 
 const title = "Incodet | Websites, AI Agents & Custom Software";
 const description =
@@ -23,11 +36,17 @@ function Index() {
   return (
     <>
       <Hero />
-      {/* Phase 2 fills this section. */}
-      <section
-        aria-label="More about Incodet"
-        className="relative z-10 -mt-px min-h-[70vh] rounded-t-card bg-bg-soft"
-      />
+      <IndustriesStrip />
+      <WhoWeAre />
+      <FactsRow />
+      <CallingAgent />
+      <Services />
+      <Process />
+      <CaseStudiesPreview />
+      <PlansPreview />
+      <Reviews />
+      <Faq />
+      <BookingCta />
     </>
   );
 }

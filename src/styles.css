@@ -32,6 +32,9 @@
   --color-panel-teal: var(--panel-teal);
   --color-panel-black: var(--panel-black);
   --color-on-dark: var(--on-dark);
+  --color-mint: var(--mint);
+  --color-mint-ink: var(--mint-ink);
+  --color-placeholder: var(--placeholder);
   --color-on-dark-muted: var(--on-dark-muted);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
@@ -67,6 +70,10 @@
   --dark: #000000;
   --dark-card: #111111;
   --on-dark: #ffffff;
+  --mint: #d1fae5;
+  --mint-ink: #064e3b;
+  --placeholder: #efefef;
+  --gradient-accent-soft: linear-gradient(135deg, color-mix(in oklab, var(--accent-from) 12%, var(--bg)), color-mix(in oklab, var(--accent-to) 14%, var(--bg)));
   --on-dark-muted: #b3b3b3;
   --accent-from: #3b6cf6;
   --accent-to: #8b5cf6;

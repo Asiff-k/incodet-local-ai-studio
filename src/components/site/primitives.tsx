@@ -5,15 +5,20 @@ export function PillBadge({
   icon,
   children,
   className,
+  tone = "light",
 }: {
   icon?: ReactNode;
   children: ReactNode;
   className?: string;
+  tone?: "light" | "mint";
 }) {
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-2 rounded-full border border-border bg-background px-4 py-1.5 type-small font-medium text-ink shadow-soft",
+        "inline-flex items-center gap-2 rounded-full px-4 py-1.5 type-small font-medium",
+        tone === "mint"
+          ? "bg-mint text-mint-ink"
+          : "border border-border bg-background text-ink shadow-soft",
         className,
       )}
     >
@@ -132,5 +137,19 @@ export function Reveal({
     >
       {children}
     </Tag>
+  );
+}
+
+/** Soft-grey frame shown until a real screenshot is dropped in. */
+export function ImagePlaceholder({ className, label = "Screenshot coming soon" }: { className?: string; label?: string }) {
+  return (
+    <div
+      data-placeholder="true"
+      role="img"
+      aria-label={label}
+      className={cn("flex items-center justify-center rounded-card-sm bg-placeholder", className)}
+    >
+      <span className="type-small text-muted-foreground">{label}</span>
+    </div>
   );
 }
