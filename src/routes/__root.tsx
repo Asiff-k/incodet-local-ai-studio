@@ -79,6 +79,7 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   staticData: { sitemap: false },
   head: ({ matches }) => {
+    console.log("HEADDBG", JSON.stringify(matches.map((m) => ({ id: m.routeId, s: m.status, g: (m as any).globalNotFound, e: !!m.error }))));
     const isNotFound = matches.some(
       (m) => (m as { globalNotFound?: boolean }).globalNotFound || m.status === "notFound",
     );
