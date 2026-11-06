@@ -11,32 +11,42 @@ const panelBg: Record<PanelColor, string> = {
   black: "bg-panel-black",
 };
 
-/** Full-width colored panels that stick and stack on scroll. */
-export function StackedPanels({
-  panels,
-}: {
-  panels: { title: string; body: ReactNode; color: PanelColor }[];
-}) {
+export type StackedPanel = {
+  title: string;
+  body: ReactNode;
+  color: PanelColor;
+  actions?: ReactNode;
+  visual?: ReactNode;
+};
+
+/** Full-width colored panels that stick and stack on scroll (md and up). Normal stack on mobile. */
+export function StackedPanels({ panels }: { panels: StackedPanel[] }) {
   return (
     <div className="container-site flex flex-col gap-6 pb-6">
       {panels.map((p, i) => (
         <article
           key={p.title}
           data-theme="dark"
-          style={{ top: `${88 + i * 24}px` }}
+          style={{ ["--stack-top" as string]: `${88 + i * 24}px` }}
           className={cn(
-            "sticky flex min-h-[70vh] flex-col justify-end overflow-hidden rounded-card p-8 text-on-dark md:min-h-[520px] md:p-14",
+            "relative overflow-hidden rounded-card p-7 text-on-dark md:sticky md:top-[var(--stack-top)] md:min-h-[540px] md:p-12",
             panelBg[p.color],
           )}
         >
           <span
             aria-hidden
-            className="absolute top-6 right-8 text-[56px] leading-none font-medium tracking-tight text-on-dark/90 md:top-10 md:right-14 md:text-[96px]"
+            className="absolute top-6 right-7 text-[44px] leading-none font-medium tracking-tight text-on-dark md:top-10 md:right-12 md:text-[88px]"
           >
             /{String(i + 1).padStart(2, "0")}
           </span>
-          <h3 className="type-h3 text-on-dark md:text-[44px] md:leading-[1.15]">{p.title}</h3>
-          <div className="mt-4 max-w-xl type-body text-on-dark">{p.body}</div>
+          <div className={cn("grid gap-10", p.visual && "lg:grid-cols-2 lg:items-end")}>
+            <div className="flex flex-col pt-20 md:min-h-[440px] md:justify-end md:pt-0">
+              <h3 className="type-h2 text-on-dark">{p.title}</h3>
+              <div className="mt-4 max-w-xl type-body text-on-dark">{p.body}</div>
+              {p.actions && <div className="mt-8">{p.actions}</div>}
+            </div>
+            {p.visual && <div className="lg:pt-24">{p.visual}</div>}
+          </div>
         </article>
       ))}
     </div>
