@@ -300,7 +300,7 @@ export function CaseStudiesPreview() {
           <Reveal key={c.slug}>
             <article className="grid gap-6 rounded-card border border-border bg-background p-4 md:grid-cols-2 md:gap-10 md:p-6">
               {c.image.ready ? (
-                <img src={c.image.src} alt={c.image.alt} loading="lazy" className="aspect-[4/3] w-full rounded-card-sm object-cover" />
+                <img src={c.image.src} alt={c.image.alt} loading="lazy" className="aspect-[16/10] w-full rounded-card-sm object-cover object-top" />
               ) : (
                 <ImagePlaceholder className="aspect-[4/3] w-full" />
               )}
