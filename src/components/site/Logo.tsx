@@ -21,7 +21,15 @@ export function Logo({ tone = "ink", variant = "full", className }: Props) {
   }
   if (variant === "mark") {
     return (
-      <span aria-label={site.name} className={cn("wordmark text-xl leading-none", color, className)}>
+      <span
+        role="img"
+        aria-label={site.name}
+        className={cn(
+          "wordmark flex size-6 items-center justify-center rounded-[6px] text-[15px] leading-none font-bold",
+          tone === "white" ? "bg-background text-ink" : "bg-ink text-primary-foreground",
+          className,
+        )}
+      >
         {site.name.charAt(0)}
       </span>
     );

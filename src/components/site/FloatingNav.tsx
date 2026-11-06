@@ -92,10 +92,11 @@ export function FloatingNav() {
   );
 }
 
-const menuLinks = [
+const menuTop = [
   { to: "/", label: "Home" },
   { to: "/pricing", label: "Pricing" },
-  ...industryLinks,
+];
+const menuRest = [
   { to: "/custom-software", label: "Custom Software" },
   { to: "/case-studies", label: "Case Studies" },
   { to: "/book", label: "Book a Call" },
@@ -112,7 +113,7 @@ function MenuOverlay({ onClose }: { onClose: () => void }) {
     document.body.style.overflow = "hidden";
     const focusables = () =>
       Array.from(el.querySelectorAll<HTMLElement>("a[href], button:not([disabled])"));
-    focusables()[0]?.focus();
+    el.querySelector<HTMLElement>("[data-autofocus]")?.focus();
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         e.preventDefault();
@@ -154,6 +155,7 @@ function MenuOverlay({ onClose }: { onClose: () => void }) {
           <button
             onClick={onClose}
             aria-label="Close menu"
+            data-autofocus
             className="flex size-12 items-center justify-center rounded-full bg-bg-soft text-ink hover:bg-border"
           >
             <X aria-hidden className="size-5" />
@@ -161,19 +163,24 @@ function MenuOverlay({ onClose }: { onClose: () => void }) {
         </div>
         <div className="mt-10 grid flex-1 gap-12 md:grid-cols-[1.4fr_1fr]">
           <nav aria-label="Menu">
-            <ul className="flex flex-col gap-1">
-              {menuLinks.map((l) => (
-                <li key={l.to}>
-                  <Link
-                    to={l.to}
-                    onClick={onClose}
-                    className="inline-block rounded-md text-[32px] leading-[1.25] font-medium tracking-tight text-ink transition-colors hover:text-muted-foreground md:text-[44px]"
-                  >
-                    {l.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <MenuList links={menuTop} onClose={onClose} />
+            <div className="my-4">
+              <p className="type-small text-muted-foreground">Industries</p>
+              <ul className="mt-2 flex flex-col gap-1">
+                {industryLinks.map((l) => (
+                  <li key={l.to}>
+                    <Link
+                      to={l.to}
+                      onClick={onClose}
+                      className="inline-block rounded-md text-[22px] leading-[1.3] font-medium tracking-tight text-ink transition-colors hover:text-muted-foreground md:text-[26px]"
+                    >
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <MenuList links={menuRest} onClose={onClose} />
           </nav>
           <div className="flex flex-col gap-6 pb-28 md:justify-end">
             <ul className="flex flex-col gap-3 type-body">
@@ -219,5 +226,19 @@ function MenuOverlay({ onClose }: { onClose: () => void }) {
         </div>
       </div>
     </div>
+  );
+}
+
+function MenuList({ links, onClose }: { links: { to: string; label: string }[]; onClose: () => void }) {
+  return (
+    <ul className="flex flex-col gap-1">
+      {links.map((l) => (
+        <li key={l.to}>
+          <Link to={l.to} onClick={onClose} className="inline-block rounded-md text-[32px] leading-[1.25] font-medium tracking-tight text-ink transition-colors hover:text-muted-foreground md:text-[44px]">
+            {l.label}
+          </Link>
+        </li>
+      ))}
+    </ul>
   );
 }
