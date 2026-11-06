@@ -90,7 +90,7 @@ export function IndustriesStrip() {
 /* 3. Who we are */
 export function WhoWeAre() {
   return (
-    <Section aria-label="Who we are" className="relative overflow-hidden">
+    <Section className="relative overflow-hidden">
       <div className="relative mx-auto max-w-5xl text-center">
         <Reveal>
           <PillBadge>Who we are</PillBadge>
