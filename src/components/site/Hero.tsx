@@ -1,11 +1,16 @@
-import { Check, MapPin } from "lucide-react";
+import { MapPin } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { site } from "@/config/site";
 import { usePrefersReducedMotion } from "@/hooks/use-motion";
 import { PillLink } from "./Button";
-import { PillBadge } from "./primitives";
 
 const ease = (t: number) => 1 - Math.pow(1 - t, 3);
+
+/** Save-Data makes the hero show the poster only. */
+function saveData() {
+  const c = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
+  return Boolean(c?.saveData);
+}
 
 export function Hero() {
   const reduced = usePrefersReducedMotion();
@@ -14,12 +19,16 @@ export function Hero() {
   const fade = useRef<HTMLDivElement>(null);
   const title = useRef<HTMLHeadingElement>(null);
   const extras = useRef<HTMLDivElement[]>([]);
-  const [loadVideo, setLoadVideo] = useState(false);
+  const [videoSrc, setVideoSrc] = useState<string | null>(null);
 
-  // Poster first; the video loads after the page has loaded, on larger screens only.
+  // Poster first; the video loads after the page has loaded. 720p under 768px.
   useEffect(() => {
-    if (reduced || !window.matchMedia("(min-width: 768px)").matches) return;
-    const go = () => setLoadVideo(true);
+    if (reduced || saveData()) {
+      setVideoSrc(null);
+      return;
+    }
+    const go = () =>
+      setVideoSrc(window.matchMedia("(min-width: 768px)").matches ? site.heroVideo.src : site.heroVideo.src720);
     if (document.readyState === "complete") go();
     else window.addEventListener("load", go, { once: true });
     return () => window.removeEventListener("load", go);
@@ -27,11 +36,11 @@ export function Hero() {
 
   useEffect(() => {
     const apply = (p: number) => {
-      if (media.current) media.current.style.transform = reduced ? "" : `scale(${1 + 0.08 * p})`;
-      if (fade.current) fade.current.style.opacity = String(p);
+      if (media.current) media.current.style.transform = reduced ? "" : `scale(${1 + 0.1 * p})`;
+      if (fade.current) fade.current.style.opacity = String(Math.min(1, p * 1.15));
       if (title.current) {
-        // Bottom stop moves from ink to light grey.
-        const g = Math.round(10 + (184 - 10) * p);
+        // Bottom stop moves from white to grey.
+        const g = Math.round(255 - (255 - 140) * p);
         title.current.style.setProperty("--hero-bottom", `rgb(${g},${g},${g})`);
       }
       extras.current.forEach((el) => {
@@ -70,16 +79,19 @@ export function Hero() {
   };
 
   return (
-    <div ref={outer} className={reduced ? "relative" : "relative h-[200svh]"}>
+    <div ref={outer} className={reduced ? "relative bg-dark" : "relative h-[200svh] bg-dark"}>
       <section
+        data-theme="dark"
         aria-labelledby="hero-title"
-        className="sticky top-0 flex h-svh min-h-[640px] items-center justify-center overflow-hidden bg-bg-soft"
+        className="sticky top-0 flex h-svh min-h-[640px] items-center justify-center overflow-hidden bg-dark"
       >
         <div ref={media} aria-hidden className="absolute inset-0 origin-center will-change-transform">
-          {loadVideo ? (
+          <img src={site.heroVideo.poster} alt="" className="absolute inset-0 size-full object-cover" fetchPriority="high" />
+          {videoSrc && (
             <video
-              className="size-full object-cover"
-              src={site.heroVideo.src}
+              key={videoSrc}
+              className="absolute inset-0 size-full object-cover"
+              src={videoSrc}
               poster={site.heroVideo.poster}
               autoPlay
               muted
@@ -87,49 +99,40 @@ export function Hero() {
               playsInline
               preload="auto"
             />
-          ) : (
-            <img src={site.heroVideo.poster} alt="" className="size-full object-cover" fetchPriority="high" />
           )}
         </div>
-        {/* Bright wash over the top two thirds keeps the black headline AA readable. */}
-        <div aria-hidden className="absolute inset-0 bg-[linear-gradient(180deg,var(--bg)_0%,color-mix(in_oklab,var(--bg)_82%,transparent)_45%,color-mix(in_oklab,var(--bg)_55%,transparent)_70%,transparent_100%)]" />
-        <div
-          ref={fade}
-          aria-hidden
-          style={{ opacity: 0 }}
-          className="absolute inset-0 bg-[linear-gradient(0deg,var(--bg-soft)_0%,var(--bg-soft)_45%,transparent_100%)]"
-        />
+        {/* Black wash keeps the white text AA readable over bright lightning frames. */}
+        <div aria-hidden className="absolute inset-0 bg-[linear-gradient(180deg,color-mix(in_oklab,var(--dark)_80%,transparent)_0%,color-mix(in_oklab,var(--dark)_62%,transparent)_45%,color-mix(in_oklab,var(--dark)_70%,transparent)_75%,var(--dark)_100%)]" />
+        <div ref={fade} aria-hidden style={{ opacity: 0 }} className="absolute inset-0 bg-dark" />
 
         <div className="container-site relative z-10 flex flex-col items-center pt-16 text-center">
           <div ref={addExtra}>
-            <PillBadge icon={<MapPin aria-hidden className="size-4" />}>{site.locationLabel}</PillBadge>
+            <span className="inline-flex items-center gap-2 rounded-full border border-on-dark/25 bg-on-dark/10 px-4 py-2 type-small font-medium text-on-dark backdrop-blur-sm">
+              <MapPin aria-hidden className="size-4" />
+              {site.locationLabel}
+            </span>
           </div>
           <h1
             id="hero-title"
             ref={title}
-            style={{ ["--hero-bottom" as string]: "var(--ink)" }}
-            className="type-h1 mt-6 max-w-[920px] bg-[linear-gradient(180deg,var(--ink)_20%,var(--hero-bottom)_100%)] bg-clip-text text-transparent"
+            style={{ ["--hero-bottom" as string]: "var(--on-dark)" }}
+            className="type-h1 mt-6 max-w-[920px] bg-[linear-gradient(180deg,var(--on-dark)_20%,var(--hero-bottom)_100%)] bg-clip-text text-transparent"
           >
             Websites, AI Agents &amp; Software That Grow With Your Business
           </h1>
           <div ref={addExtra} className="mt-6 max-w-[640px]">
-            <p className="text-body type-body">
+            <p className="type-body text-on-dark/80">
               AI that answers calls, books appointments and replies to customers while you work, so
               your business never stops. Built for businesses of every size.
             </p>
           </div>
-          <div ref={addExtra} className="mt-9 flex flex-col items-center gap-5">
-            <div className="flex flex-col gap-3 sm:flex-row">
-              <PillLink to="/book" size="lg">
-                Book a Free Call
-              </PillLink>
-              <PillLink to="/pricing" variant="secondary" size="lg">
-                See Plans
-              </PillLink>
-            </div>
-            <p className="inline-flex items-center gap-2 type-small font-medium text-ink">
-              <Check aria-hidden className="size-4" /> No lock-in contracts
-            </p>
+          <div ref={addExtra} className="mt-9 flex flex-col gap-3 sm:flex-row">
+            <PillLink to="/book" variant="primary-inverted" size="lg">
+              Book a Free Call
+            </PillLink>
+            <PillLink to="/pricing" variant="secondary-inverted" size="lg" className="border-on-dark">
+              See Plans
+            </PillLink>
           </div>
         </div>
       </section>
