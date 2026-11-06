@@ -31,3 +31,6 @@ use the editor.
 
 - Contact details, socials and hero media live only in src/config/site.ts; components read from it so brand data changes in one place.
 - Shared site UI lives in src/components/site; typography utilities are named type-* (not text-*) so they never clash with color classes in cn/tailwind-merge.
+
+- Industry pages share one template (src/components/site/IndustryPage.tsx) fed by src/content/industries.ts; add industries by data, not new layouts.
+- Case study detail pages are data-driven from src/content/caseStudies.ts and render only sections that have data.

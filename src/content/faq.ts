@@ -38,3 +38,7 @@ const all: FaqItem[] = [
 ];
 
 export const faq = visible(all, ["question", "answer"]);
+
+/** FAQ items picked by question, in the given order. */
+export const faqFor = (questions: string[]) =>
+  questions.map((q) => faq.find((f) => f.question === q)).filter((f): f is FaqItem => Boolean(f));

@@ -11,13 +11,14 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BookRouteImport } from './routes/book'
-import { Route as CaseStudiesRouteImport } from './routes/case-studies'
 import { Route as CustomSoftwareRouteImport } from './routes/custom-software'
 import { Route as PortalRouteImport } from './routes/portal'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as StyleguideRouteImport } from './routes/styleguide'
 import { Route as TermsRouteImport } from './routes/terms'
+import { Route as CaseStudiesIndexRouteImport } from './routes/case-studies.index'
+import { Route as CaseStudiesSlugRouteImport } from './routes/case-studies.$slug'
 import { Route as IndustriesBarberShopsRouteImport } from './routes/industries.barber-shops'
 import { Route as IndustriesEpoxyFlooringRouteImport } from './routes/industries.epoxy-flooring'
 import { Route as IndustriesRoofingRouteImport } from './routes/industries.roofing'
@@ -31,11 +32,6 @@ const IndexRoute = IndexRouteImport.update({
 const BookRoute = BookRouteImport.update({
   id: '/book',
   path: '/book',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CaseStudiesRoute = CaseStudiesRouteImport.update({
-  id: '/case-studies',
-  path: '/case-studies',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CustomSoftwareRoute = CustomSoftwareRouteImport.update({
@@ -68,6 +64,16 @@ const TermsRoute = TermsRouteImport.update({
   path: '/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CaseStudiesIndexRoute = CaseStudiesIndexRouteImport.update({
+  id: '/case-studies/',
+  path: '/case-studies/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CaseStudiesSlugRoute = CaseStudiesSlugRouteImport.update({
+  id: '/case-studies/$slug',
+  path: '/case-studies/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndustriesBarberShopsRoute = IndustriesBarberShopsRouteImport.update({
   id: '/industries/barber-shops',
   path: '/industries/barber-shops',
@@ -92,111 +98,118 @@ const IndustriesSalonsRoute = IndustriesSalonsRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/book': typeof BookRoute
-  '/case-studies': typeof CaseStudiesRoute
   '/custom-software': typeof CustomSoftwareRoute
   '/portal': typeof PortalRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
   '/styleguide': typeof StyleguideRoute
   '/terms': typeof TermsRoute
+  '/case-studies/$slug': typeof CaseStudiesSlugRoute
   '/industries/barber-shops': typeof IndustriesBarberShopsRoute
   '/industries/epoxy-flooring': typeof IndustriesEpoxyFlooringRoute
   '/industries/roofing': typeof IndustriesRoofingRoute
   '/industries/salons': typeof IndustriesSalonsRoute
+  '/case-studies/': typeof CaseStudiesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/book': typeof BookRoute
-  '/case-studies': typeof CaseStudiesRoute
   '/custom-software': typeof CustomSoftwareRoute
   '/portal': typeof PortalRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
   '/styleguide': typeof StyleguideRoute
   '/terms': typeof TermsRoute
+  '/case-studies/$slug': typeof CaseStudiesSlugRoute
   '/industries/barber-shops': typeof IndustriesBarberShopsRoute
   '/industries/epoxy-flooring': typeof IndustriesEpoxyFlooringRoute
   '/industries/roofing': typeof IndustriesRoofingRoute
   '/industries/salons': typeof IndustriesSalonsRoute
+  '/case-studies': typeof CaseStudiesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/book': typeof BookRoute
-  '/case-studies': typeof CaseStudiesRoute
   '/custom-software': typeof CustomSoftwareRoute
   '/portal': typeof PortalRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
   '/styleguide': typeof StyleguideRoute
   '/terms': typeof TermsRoute
+  '/case-studies/$slug': typeof CaseStudiesSlugRoute
   '/industries/barber-shops': typeof IndustriesBarberShopsRoute
   '/industries/epoxy-flooring': typeof IndustriesEpoxyFlooringRoute
   '/industries/roofing': typeof IndustriesRoofingRoute
   '/industries/salons': typeof IndustriesSalonsRoute
+  '/case-studies/': typeof CaseStudiesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/book'
-    | '/case-studies'
     | '/custom-software'
     | '/portal'
     | '/pricing'
     | '/privacy'
     | '/styleguide'
     | '/terms'
+    | '/case-studies/$slug'
     | '/industries/barber-shops'
     | '/industries/epoxy-flooring'
     | '/industries/roofing'
     | '/industries/salons'
+    | '/case-studies/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/book'
-    | '/case-studies'
     | '/custom-software'
     | '/portal'
     | '/pricing'
     | '/privacy'
     | '/styleguide'
     | '/terms'
+    | '/case-studies/$slug'
     | '/industries/barber-shops'
     | '/industries/epoxy-flooring'
     | '/industries/roofing'
     | '/industries/salons'
+    | '/case-studies'
   id:
     | '__root__'
     | '/'
     | '/book'
-    | '/case-studies'
     | '/custom-software'
     | '/portal'
     | '/pricing'
     | '/privacy'
     | '/styleguide'
     | '/terms'
+    | '/case-studies/$slug'
     | '/industries/barber-shops'
     | '/industries/epoxy-flooring'
     | '/industries/roofing'
     | '/industries/salons'
+    | '/case-studies/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BookRoute: typeof BookRoute
-  CaseStudiesRoute: typeof CaseStudiesRoute
   CustomSoftwareRoute: typeof CustomSoftwareRoute
   PortalRoute: typeof PortalRoute
   PricingRoute: typeof PricingRoute
   PrivacyRoute: typeof PrivacyRoute
   StyleguideRoute: typeof StyleguideRoute
   TermsRoute: typeof TermsRoute
+  CaseStudiesSlugRoute: typeof CaseStudiesSlugRoute
   IndustriesBarberShopsRoute: typeof IndustriesBarberShopsRoute
   IndustriesEpoxyFlooringRoute: typeof IndustriesEpoxyFlooringRoute
   IndustriesRoofingRoute: typeof IndustriesRoofingRoute
   IndustriesSalonsRoute: typeof IndustriesSalonsRoute
+  CaseStudiesIndexRoute: typeof CaseStudiesIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -213,13 +226,6 @@ declare module '@tanstack/react-router' {
       path: '/book'
       fullPath: '/book'
       preLoaderRoute: typeof BookRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/case-studies': {
-      id: '/case-studies'
-      path: '/case-studies'
-      fullPath: '/case-studies'
-      preLoaderRoute: typeof CaseStudiesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/custom-software': {
@@ -264,6 +270,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TermsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/case-studies/': {
+      id: '/case-studies/'
+      path: '/case-studies'
+      fullPath: '/case-studies/'
+      preLoaderRoute: typeof CaseStudiesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/case-studies/$slug': {
+      id: '/case-studies/$slug'
+      path: '/case-studies/$slug'
+      fullPath: '/case-studies/$slug'
+      preLoaderRoute: typeof CaseStudiesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/industries/barber-shops': {
       id: '/industries/barber-shops'
       path: '/industries/barber-shops'
@@ -298,17 +318,18 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BookRoute: BookRoute,
-  CaseStudiesRoute: CaseStudiesRoute,
   CustomSoftwareRoute: CustomSoftwareRoute,
   PortalRoute: PortalRoute,
   PricingRoute: PricingRoute,
   PrivacyRoute: PrivacyRoute,
   StyleguideRoute: StyleguideRoute,
   TermsRoute: TermsRoute,
+  CaseStudiesSlugRoute: CaseStudiesSlugRoute,
   IndustriesBarberShopsRoute: IndustriesBarberShopsRoute,
   IndustriesEpoxyFlooringRoute: IndustriesEpoxyFlooringRoute,
   IndustriesRoofingRoute: IndustriesRoofingRoute,
   IndustriesSalonsRoute: IndustriesSalonsRoute,
+  CaseStudiesIndexRoute: CaseStudiesIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

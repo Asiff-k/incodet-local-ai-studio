@@ -1,7 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { PagePlaceholder, pageHead } from "@/components/site/PagePlaceholder";
+import { IndustryPage } from "@/components/site/IndustryPage";
+import { seoHead } from "@/components/site/PageHero";
+import { getIndustry } from "@/content/industries";
+
+const { page } = getIndustry("roofing");
 
 export const Route = createFileRoute("/industries/roofing")({
-  head: () => pageHead("Roofing", "Websites, AI chatbots and 24/7 AI phone agents for roofing businesses."),
-  component: () => <PagePlaceholder title="Roofing" />,
+  head: () => seoHead(page.title, page.description),
+  component: () => <IndustryPage slug="roofing" />,
 });
