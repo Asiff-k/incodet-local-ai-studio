@@ -11,7 +11,6 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BookRouteImport } from './routes/book'
-import { Route as CaseStudiesRouteImport } from './routes/case-studies'
 import { Route as CustomSoftwareRouteImport } from './routes/custom-software'
 import { Route as PortalRouteImport } from './routes/portal'
 import { Route as PricingRouteImport } from './routes/pricing'
@@ -31,11 +30,6 @@ const IndexRoute = IndexRouteImport.update({
 const BookRoute = BookRouteImport.update({
   id: '/book',
   path: '/book',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CaseStudiesRoute = CaseStudiesRouteImport.update({
-  id: '/case-studies',
-  path: '/case-studies',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CustomSoftwareRoute = CustomSoftwareRouteImport.update({
@@ -92,7 +86,6 @@ const IndustriesSalonsRoute = IndustriesSalonsRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/book': typeof BookRoute
-  '/case-studies': typeof CaseStudiesRoute
   '/custom-software': typeof CustomSoftwareRoute
   '/portal': typeof PortalRoute
   '/pricing': typeof PricingRoute
@@ -107,7 +100,6 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/book': typeof BookRoute
-  '/case-studies': typeof CaseStudiesRoute
   '/custom-software': typeof CustomSoftwareRoute
   '/portal': typeof PortalRoute
   '/pricing': typeof PricingRoute
@@ -123,7 +115,6 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/book': typeof BookRoute
-  '/case-studies': typeof CaseStudiesRoute
   '/custom-software': typeof CustomSoftwareRoute
   '/portal': typeof PortalRoute
   '/pricing': typeof PricingRoute
@@ -140,7 +131,6 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/book'
-    | '/case-studies'
     | '/custom-software'
     | '/portal'
     | '/pricing'
@@ -155,7 +145,6 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/book'
-    | '/case-studies'
     | '/custom-software'
     | '/portal'
     | '/pricing'
@@ -170,7 +159,6 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/book'
-    | '/case-studies'
     | '/custom-software'
     | '/portal'
     | '/pricing'
@@ -186,7 +174,6 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BookRoute: typeof BookRoute
-  CaseStudiesRoute: typeof CaseStudiesRoute
   CustomSoftwareRoute: typeof CustomSoftwareRoute
   PortalRoute: typeof PortalRoute
   PricingRoute: typeof PricingRoute
@@ -213,13 +200,6 @@ declare module '@tanstack/react-router' {
       path: '/book'
       fullPath: '/book'
       preLoaderRoute: typeof BookRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/case-studies': {
-      id: '/case-studies'
-      path: '/case-studies'
-      fullPath: '/case-studies'
-      preLoaderRoute: typeof CaseStudiesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/custom-software': {
@@ -298,7 +278,6 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BookRoute: BookRoute,
-  CaseStudiesRoute: CaseStudiesRoute,
   CustomSoftwareRoute: CustomSoftwareRoute,
   PortalRoute: PortalRoute,
   PricingRoute: PricingRoute,
