@@ -36,3 +36,6 @@ use the editor.
 - Case study detail pages are data-driven from src/content/caseStudies.ts and render only sections that have data.
 - Contact form submissions go through the `submitContact` server function (src/lib/contact.functions.ts), which inserts with the admin client; contact_messages has no public insert policy so spam checks cannot be bypassed.
 - Owner notification emails use Resend directly only when the RESEND_API_KEY secret exists; without it the row is saved and sending is skipped, so the form never depends on email.
+- Portal access is granted only by the database: link_user_by_email (run by an auth.users trigger and the claim_portal_access RPC) assigns admin from admin_allowlist and client from clients.email; never assign roles from client code.
+- Clients never insert payments directly; "I've paid" goes through reportPayment (src/lib/portal.functions.ts), which checks invoice ownership via RLS before the admin insert.
+- Portal demo data lives only in src/content/demoPortal.ts and the dashboard UI (src/components/portal) is shared between demo and live via props.
