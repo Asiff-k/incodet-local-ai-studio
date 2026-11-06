@@ -16,7 +16,7 @@ SITES = {
   "brhex-studio": "https://virtual-tour-poc.vercel.app/tour/50ad98c9",
 }
 NO_MOBILE = {"brhex-studio"}
-HIDE = """
+HIDE = r"""
 (() => {
   const css = `[id*="cookie" i],[class*="cookie" i],[id*="consent" i],[class*="consent" i],
   [id*="onetrust" i],[class*="cc-window"],[id*="CybotCookiebot"],
