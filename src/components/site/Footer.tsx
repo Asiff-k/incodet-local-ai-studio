@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { MapPin } from "lucide-react";
-import { activeSocials, industryLinks, pageLinks, site } from "@/config/site";
+import { allSocials, industryLinks, pageLinks, site } from "@/config/site";
 import { PillLink } from "./Button";
 import { Logo } from "./Logo";
 import { SocialIcon } from "./SocialIcon";
@@ -67,17 +67,21 @@ export function Footer() {
                 </li>
               ))}
             </FooterCol>
-            {activeSocials.length > 0 && (
-              <FooterCol title="Follow Us">
-                {activeSocials.map((s) => (
-                  <li key={s.key}>
+            <FooterCol title="Follow Us">
+              {allSocials.map((s) => (
+                <li key={s.key}>
+                  {s.href ? (
                     <a href={s.href} target="_blank" rel="noopener noreferrer" className={`${linkCls} inline-flex items-center gap-2`}>
                       <SocialIcon name={s.key} /> {s.label}
                     </a>
-                  </li>
-                ))}
-              </FooterCol>
-            )}
+                  ) : (
+                    <span aria-label={`${s.label}, coming soon`} className="inline-flex items-center gap-2 text-body opacity-50">
+                      <SocialIcon name={s.key} /> <span aria-hidden>{s.label}</span>
+                    </span>
+                  )}
+                </li>
+              ))}
+            </FooterCol>
             <FooterCol title="Our location">
               <li className="inline-flex items-center gap-2 text-ink">
                 <MapPin aria-hidden className="size-4 shrink-0" />

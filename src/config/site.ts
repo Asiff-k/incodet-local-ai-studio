@@ -17,13 +17,15 @@ export const site = {
     facebook: "",
     instagram: "",
     tiktok: "",
+    threads: "",
   },
   // Analytics: provider "plausible" (id = your domain) or "ga4" (id = G-XXXX). Empty = no banner, no scripts.
   analytics: { provider: "" as "" | "plausible" | "ga4", id: "" },
   // Cal.com booking link, format "username/event-slug". Empty shows the "Online booking opens soon" card.
   calLink: "",
-  // Pexels clip 33227529 (free license), self-hosted and re-encoded.
-  heroVideo: { src: "/videos/hero.mp4", poster: "/videos/hero-poster.webp" },
+  // Pexels clip 10651140 by Kostas Exarhos (free license), cropped, slowed and self-hosted.
+  // src720 plays on screens under 768px.
+  heroVideo: { src: "/videos/hero.mp4", src720: "/videos/hero-720.mp4", poster: "/videos/hero-poster.webp" },
 } as const;
 
 export type SocialKey = keyof typeof site.socials;
@@ -33,7 +35,15 @@ export const socialLabels: Record<SocialKey, string> = {
   facebook: "Facebook",
   instagram: "Instagram",
   tiktok: "TikTok",
+  threads: "Threads",
 };
+
+/** Every social, set or not; unset ones render as non-clickable "coming soon" icons. */
+export const allSocials = (Object.keys(site.socials) as SocialKey[]).map((k) => ({
+  key: k,
+  label: socialLabels[k],
+  href: site.socials[k] as string,
+}));
 
 /** Only socials with a non-empty URL. */
 export const activeSocials = (Object.keys(site.socials) as SocialKey[])
