@@ -110,7 +110,7 @@ function PricingPage() {
                   {rows.map((r) => (
                     <div key={r.label} className="flex items-center justify-between gap-4 py-3">
                       <dt className="text-[15px] text-ink">{r.label}</dt>
-                      <dd className="shrink-0 text-right"><CellValue v={r.cells[ci] ?? false} /></dd>
+                      <dd className="max-w-[55%] text-right"><CellValue v={r.cells[ci] ?? false} /></dd>
                     </div>
                   ))}
                 </dl>
