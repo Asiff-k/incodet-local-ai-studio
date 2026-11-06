@@ -34,3 +34,5 @@ use the editor.
 
 - Industry pages share one template (src/components/site/IndustryPage.tsx) fed by src/content/industries.ts; add industries by data, not new layouts.
 - Case study detail pages are data-driven from src/content/caseStudies.ts and render only sections that have data.
+- Contact form submissions go through the `submitContact` server function (src/lib/contact.functions.ts), which inserts with the admin client; contact_messages has no public insert policy so spam checks cannot be bypassed.
+- Owner notification emails use Resend directly only when the RESEND_API_KEY secret exists; without it the row is saved and sending is skipped, so the form never depends on email.

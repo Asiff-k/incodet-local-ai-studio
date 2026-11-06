@@ -60,7 +60,7 @@ export const submitContact = createServerFn({ method: "POST" })
         return { ok: false, error: "Could not send your message." };
       }
 
-      const key = process.env.RESEND_API_KEY;
+      const key = process.env["RESEND_API_KEY"];
       if (!key) {
         console.log("email skipped: no RESEND_API_KEY");
         return { ok: true };
