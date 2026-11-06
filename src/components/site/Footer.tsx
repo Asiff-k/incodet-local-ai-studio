@@ -75,8 +75,9 @@ export function Footer() {
                       <SocialIcon name={s.key} /> {s.label}
                     </a>
                   ) : (
-                    <span aria-label={`${s.label}, coming soon`} className="inline-flex items-center gap-2 text-body opacity-50">
+                    <span className="inline-flex items-center gap-2 text-body opacity-50">
                       <SocialIcon name={s.key} /> <span aria-hidden>{s.label}</span>
+                      <span className="sr-only">{s.label}, coming soon</span>
                     </span>
                   )}
                 </li>
