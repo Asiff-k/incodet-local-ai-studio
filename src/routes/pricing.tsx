@@ -1,3 +1,4 @@
+import { faqLd } from "@/lib/seo";
 import { createFileRoute } from "@tanstack/react-router";
 import { Check, Minus } from "lucide-react";
 import { BookingCta } from "@/components/home/HomeSections";
@@ -10,12 +11,21 @@ import { faqFor } from "@/content/faq";
 import { plans } from "@/content/plans";
 import { cn } from "@/lib/utils";
 
+const pricingFaq = [
+  "What does each plan include?",
+  "What does pay for what you use mean?",
+  "How long does it take?",
+  "Is there a contract?",
+  "How can I pay?",
+];
+
 export const Route = createFileRoute("/pricing")({
+  staticData: { sitemap: true },
   head: () =>
     seoHead(
       "Pricing | Incodet",
       "Three simple plans for booking websites, AI chatbots and 24/7 AI calling agents. One-time setup, a simple monthly fee and no lock-in contracts.",
-    ),
+      "/pricing", { scripts: [faqLd(faqFor(pricingFaq))] }),
   component: PricingPage,
 });
 
@@ -144,13 +154,7 @@ function PricingPage() {
         <SectionHeading title="Questions, answered" />
         <Reveal className="mx-auto mt-12 max-w-3xl">
           <Accordion
-            items={faqFor([
-              "What does each plan include?",
-              "What does pay for what you use mean?",
-              "How long does it take?",
-              "Is there a contract?",
-              "How can I pay?",
-            ])}
+            items={faqFor(pricingFaq)}
           />
         </Reveal>
       </Section>

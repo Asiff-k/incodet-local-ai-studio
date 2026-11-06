@@ -8,11 +8,12 @@ import { PageHero, seoHead } from "@/components/site/PageHero";
 import { Reveal, Section, SectionHeading } from "@/components/site/primitives";
 
 export const Route = createFileRoute("/book")({
+  staticData: { sitemap: true },
   head: () =>
     seoHead(
       "Book a Free Call | Incodet",
       "Book a free discovery call with Incodet. We learn your business, your customers and what you need. Free, no commitment.",
-    ),
+      "/book"),
   component: BookPage,
 });
 

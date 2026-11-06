@@ -1,3 +1,5 @@
+import { faqLd, organizationLd, seoHead } from "@/lib/seo";
+import { faq } from "@/content/faq";
 import { createFileRoute } from "@tanstack/react-router";
 import { Hero } from "@/components/site/Hero";
 import {
@@ -19,16 +21,8 @@ const description =
   "Booking websites, 24/7 AI chatbots and calling agents, and custom software for small, growing and established businesses. Pay only for what you use.";
 
 export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title },
-      { name: "description", content: description },
-      { property: "og:title", content: title },
-      { property: "og:description", content: description },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  staticData: { sitemap: true },
+  head: () => seoHead(title, description, "/", { scripts: [...organizationLd(), faqLd(faq)] }),
   component: Index,
 });
 

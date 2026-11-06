@@ -8,7 +8,8 @@ import { AdminTitle, Box, ConfirmButton, Field, inputCls } from "@/components/ad
 import { PillButton } from "@/components/site/Button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
-export const Route = createFileRoute("/_authenticated/admin/clients")({ component: Clients });
+export const Route = createFileRoute("/_authenticated/admin/clients")({
+  staticData: { sitemap: false }, component: Clients });
 
 type Client = { id: string; name: string; business_name: string | null; email: string; user_id: string | null };
 

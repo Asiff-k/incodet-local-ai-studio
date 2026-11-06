@@ -1,18 +1,7 @@
-User-agent: Googlebot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-User-agent: Twitterbot
-Allow: /
-
-User-agent: facebookexternalhit
-Allow: /
-
 User-agent: *
 Allow: /
-
-User-agent: *
-Disallow: /portal/
+Disallow: /portal
 Disallow: /admin
+Disallow: /styleguide
+
+Sitemap: https://incodet.com/sitemap.xml

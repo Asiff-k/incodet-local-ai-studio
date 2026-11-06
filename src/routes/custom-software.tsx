@@ -9,11 +9,12 @@ import { Card, Reveal, Section, SectionHeading } from "@/components/site/primiti
 import { getCaseStudy, type CaseStudy } from "@/content/caseStudies";
 
 export const Route = createFileRoute("/custom-software")({
+  staticData: { sitemap: true },
   head: () =>
     seoHead(
       "Custom Software & SaaS Development | Incodet",
       "CRMs, dashboards, booking systems, client portals and full SaaS platforms, planned with you and built around how your business works.",
-    ),
+      "/custom-software"),
   component: CustomSoftwarePage,
 });
 

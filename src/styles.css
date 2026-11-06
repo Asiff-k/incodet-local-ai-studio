@@ -131,6 +131,7 @@
 }
 
 @utility type-h1 {
+  text-wrap: balance;
   font-size: 40px;
   line-height: 1.1;
   font-weight: 500;
@@ -140,6 +141,7 @@
   }
 }
 @utility type-h2 {
+  text-wrap: balance;
   font-size: 34px;
   line-height: 1.2;
   font-weight: 500;
@@ -212,4 +214,17 @@
     opacity: 1;
     transform: none;
   }
+}
+
+/* Soft sky backdrop for inner page heroes and the 404 page. */
+@utility bg-hero-sky {
+  background-color: #f7f9fc;
+  background-image:
+    radial-gradient(ellipse 60% 55% at 70% 0%, rgb(255 255 255 / 0.9), rgb(255 255 255 / 0) 70%),
+    linear-gradient(180deg, #ffffff 0%, #eef2f7 100%);
+}
+
+h1,
+h2 {
+  text-wrap: balance;
 }

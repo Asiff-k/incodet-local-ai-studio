@@ -10,7 +10,8 @@ import { planLabels } from "@/lib/contact-schema";
 import { fmtDate } from "@/lib/portal-types";
 import { cn } from "@/lib/utils";
 
-export const Route = createFileRoute("/_authenticated/admin/messages")({ component: Messages });
+export const Route = createFileRoute("/_authenticated/admin/messages")({
+  staticData: { sitemap: false }, component: Messages });
 
 type Filter = "new" | "read" | "archived" | "all";
 

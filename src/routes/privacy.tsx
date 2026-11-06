@@ -4,7 +4,8 @@ import { seoHead } from "@/components/site/PageHero";
 import { site } from "@/config/site";
 
 export const Route = createFileRoute("/privacy")({
-  head: () => seoHead("Privacy Policy | Incodet", "How Incodet collects, uses, stores and protects your personal information, and the choices you have."),
+  staticData: { sitemap: true },
+  head: () => seoHead("Privacy Policy | Incodet", "How Incodet collects, uses, stores and protects your personal information, and the choices you have.", "/privacy"),
   component: PrivacyPage,
 });
 
@@ -33,7 +34,7 @@ function PrivacyPage() {
                 <li>Emails and messages we exchange with you, including WhatsApp messages.</li>
                 <li>Client portal account data, such as your login email and the project files and messages you share there.</li>
                 <li>Invoices and payment confirmations.</li>
-                <li>Basic analytics data about how our website is used, such as pages visited, device type and approximate location.</li>
+                <li>If you accept analytics, basic data about how our website is used, such as pages visited, device type and approximate location.</li>
               </ul>
             </>
           ),
@@ -78,7 +79,7 @@ function PrivacyPage() {
           h: "Cookies and analytics",
           body: (
             <p>
-              We only use essential cookies that our website needs to work. We use privacy-friendly analytics only after you give consent, and you can change your choice at any time.
+              We only use essential cookies and storage that our website needs to work. If we turn on privacy-friendly analytics, a banner asks for your consent first and no analytics scripts load unless you click Accept. If you decline, nothing is loaded. Your choice is saved in your browser, and you can change it at any time by clearing the stored data for this website in your browser settings.
             </p>
           ),
         },

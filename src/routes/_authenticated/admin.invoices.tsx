@@ -11,7 +11,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { paymentMethodLabels } from "@/config/payments";
 import { fmtDate, invoiceStatusLabels, invoiceTotal, usd, type InvoiceStatus } from "@/lib/portal-types";
 
-export const Route = createFileRoute("/_authenticated/admin/invoices")({ component: Invoices });
+export const Route = createFileRoute("/_authenticated/admin/invoices")({
+  staticData: { sitemap: false }, component: Invoices });
 
 const statuses = Object.keys(invoiceStatusLabels) as InvoiceStatus[];
 type Item = { description: string; quantity: number; unit_price: number };

@@ -10,7 +10,8 @@ import { Slider } from "@/components/ui/slider";
 import { Chip } from "@/components/portal/PortalDashboard";
 import { milestoneStatusLabels, projectStatusLabels, type MilestoneStatus, type ProjectStatus } from "@/lib/portal-types";
 
-export const Route = createFileRoute("/_authenticated/admin/projects")({ component: Projects });
+export const Route = createFileRoute("/_authenticated/admin/projects")({
+  staticData: { sitemap: false }, component: Projects });
 
 const projectStatuses = Object.keys(projectStatusLabels) as ProjectStatus[];
 const milestoneStatuses = Object.keys(milestoneStatusLabels) as MilestoneStatus[];

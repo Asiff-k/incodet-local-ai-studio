@@ -7,6 +7,7 @@ import { RevealText } from "@/components/site/RevealText";
 import { HorizontalScrollCards, StackedPanels } from "@/components/site/ScrollSections";
 
 export const Route = createFileRoute("/styleguide")({
+  staticData: { sitemap: false },
   head: () => ({
     meta: [
       { title: "Styleguide | Incodet" },

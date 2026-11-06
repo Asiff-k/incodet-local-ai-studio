@@ -15,6 +15,7 @@ import { Route as BookRouteImport } from './routes/book'
 import { Route as CustomSoftwareRouteImport } from './routes/custom-software'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as StyleguideRouteImport } from './routes/styleguide'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
@@ -60,6 +61,11 @@ const PricingRoute = PricingRouteImport.update({
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const StyleguideRoute = StyleguideRouteImport.update({
@@ -159,6 +165,7 @@ export interface FileRoutesByFullPath {
   '/custom-software': typeof CustomSoftwareRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/styleguide': typeof StyleguideRoute
   '/terms': typeof TermsRoute
   '/admin': typeof AuthenticatedAdminRouteWithChildren
@@ -183,6 +190,7 @@ export interface FileRoutesByTo {
   '/custom-software': typeof CustomSoftwareRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/styleguide': typeof StyleguideRoute
   '/terms': typeof TermsRoute
   '/case-studies/$slug': typeof CaseStudiesSlugRoute
@@ -208,6 +216,7 @@ export interface FileRoutesById {
   '/custom-software': typeof CustomSoftwareRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/styleguide': typeof StyleguideRoute
   '/terms': typeof TermsRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
@@ -234,6 +243,7 @@ export interface FileRouteTypes {
     | '/custom-software'
     | '/pricing'
     | '/privacy'
+    | '/sitemap.xml'
     | '/styleguide'
     | '/terms'
     | '/admin'
@@ -258,6 +268,7 @@ export interface FileRouteTypes {
     | '/custom-software'
     | '/pricing'
     | '/privacy'
+    | '/sitemap.xml'
     | '/styleguide'
     | '/terms'
     | '/case-studies/$slug'
@@ -282,6 +293,7 @@ export interface FileRouteTypes {
     | '/custom-software'
     | '/pricing'
     | '/privacy'
+    | '/sitemap.xml'
     | '/styleguide'
     | '/terms'
     | '/_authenticated/admin'
@@ -308,6 +320,7 @@ export interface RootRouteChildren {
   CustomSoftwareRoute: typeof CustomSoftwareRoute
   PricingRoute: typeof PricingRoute
   PrivacyRoute: typeof PrivacyRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   StyleguideRoute: typeof StyleguideRoute
   TermsRoute: typeof TermsRoute
   CaseStudiesSlugRoute: typeof CaseStudiesSlugRoute
@@ -362,6 +375,13 @@ declare module '@tanstack/react-router' {
       path: '/privacy'
       fullPath: '/privacy'
       preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/styleguide': {
@@ -525,6 +545,7 @@ const rootRouteChildren: RootRouteChildren = {
   CustomSoftwareRoute: CustomSoftwareRoute,
   PricingRoute: PricingRoute,
   PrivacyRoute: PrivacyRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   StyleguideRoute: StyleguideRoute,
   TermsRoute: TermsRoute,
   CaseStudiesSlugRoute: CaseStudiesSlugRoute,

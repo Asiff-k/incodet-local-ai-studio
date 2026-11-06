@@ -7,6 +7,7 @@ import { PillButton } from "@/components/site/Button";
 import { PillBadge, Reveal } from "@/components/site/primitives";
 
 export const Route = createFileRoute("/portal/")({
+  staticData: { sitemap: false },
   head: () => ({
     meta: [
       { title: "Client Portal | Incodet" },

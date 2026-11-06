@@ -108,8 +108,9 @@ export function HorizontalScrollCards({ children }: { children: ReactNode[] }) {
       <div className={cn(pinned && "sticky top-0 flex h-screen items-center overflow-hidden")}>
         <div
           ref={track}
+          {...(pinned ? {} : { tabIndex: 0, role: "region", "aria-label": "Scrollable cards" })}
           className={cn(
-            "flex gap-5 px-4 md:px-8",
+            "flex gap-5 px-4 md:px-8 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink",
             pinned
               ? "will-change-transform"
               : "w-full snap-x snap-mandatory overflow-x-auto pb-4 [scrollbar-width:none]",

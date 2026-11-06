@@ -11,6 +11,7 @@ import { PortalDashboard } from "@/components/portal/PortalDashboard";
 import { PillButton, pillButton } from "@/components/site/Button";
 
 export const Route = createFileRoute("/_authenticated/portal/dashboard")({
+  staticData: { sitemap: false },
   head: () => ({
     meta: [
       { title: "Dashboard | Incodet Client Portal" },
