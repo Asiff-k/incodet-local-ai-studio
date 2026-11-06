@@ -25,7 +25,7 @@ export const Route = createFileRoute("/pricing")({
     seoHead(
       "Pricing | Incodet",
       "Three simple plans for booking websites, AI chatbots and 24/7 AI calling agents. One-time setup, a simple monthly fee and no lock-in contracts.",
-    , "/pricing", { scripts: [faqLd(faqFor(pricingFaq))] }),
+      "/pricing", { scripts: [faqLd(faqFor(pricingFaq))] }),
   component: PricingPage,
 });
 
