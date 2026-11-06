@@ -39,3 +39,6 @@ use the editor.
 - Portal access is granted only by the database: link_user_by_email (run by an auth.users trigger and the claim_portal_access RPC) assigns admin from admin_allowlist and client from clients.email; never assign roles from client code.
 - Clients never insert payments directly; "I've paid" goes through reportPayment (src/lib/portal.functions.ts), which checks invoice ownership via RLS before the admin insert.
 - Portal demo data lives only in src/content/demoPortal.ts and the dashboard UI (src/components/portal) is shared between demo and live via props.
+- Public page heads use seoHead(title, description, path, opts) from src/lib/seo.ts so canonical, Open Graph, Twitter and JSON-LD stay consistent; the base URL is site.siteUrl.
+- Every route declares staticData.sitemap; /sitemap.xml is built from the router plus case study data, so new public pages only need sitemap: true.
+- Analytics scripts are injected only by CookieConsent after Accept, and the banner renders only when site.analytics has a provider and id.
