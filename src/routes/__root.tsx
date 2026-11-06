@@ -79,10 +79,12 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   staticData: { sitemap: false },
   head: ({ matches }) => {
-    console.log("HEADDBG", JSON.stringify(matches.map((m) => ({ id: m.routeId, s: m.status, g: (m as any).globalNotFound, e: !!m.error }))));
-    const isNotFound = matches.some(
-      (m) => (m as { globalNotFound?: boolean }).globalNotFound || m.status === "notFound",
-    );
+    // A 404 matches only the root route (or a match flagged notFound).
+    const isNotFound =
+      matches.length <= 1 ||
+      matches.some(
+        (m) => (m as { globalNotFound?: boolean }).globalNotFound || m.status === "notFound",
+      );
     return {
     meta: [
       { charSet: "utf-8" },
