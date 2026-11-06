@@ -85,15 +85,14 @@ function PrivacyPage() {
         {
           h: "How long we keep information",
           body: (
-            <ul>
-              <li>Enquiries and booking records are kept for up to 24 months.</li>
-              <li>Client project and invoice records are kept for 7 years for tax purposes.</li>
-            </ul>
+            <>
+              <ul>
+                <li>Enquiries and booking records are kept for up to 24 months.</li>
+                <li>Client project and invoice records are kept for 7 years for tax purposes.</li>
+              </ul>
+              <p>After these periods, we delete the information.</p>
+            </>
           ),
-        },
-        {
-          h: "",
-          body: <p>After these periods, we delete the information.</p>,
         },
         {
           h: "Your rights",
@@ -123,7 +122,7 @@ function PrivacyPage() {
             </p>
           ),
         },
-      ].filter((s) => s.h)}
+      ]}
     />
   );
 }
