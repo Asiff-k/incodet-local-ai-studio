@@ -35,7 +35,7 @@ export function PlanCards() {
                 ))}
               </ul>
               <p className={cn("mt-8 type-small", f ? "text-on-dark-muted" : "text-muted-foreground")}>{p.timeline}</p>
-              <PillLink to="/book" variant={f ? "primary-inverted" : "primary"} className="mt-5 w-full">
+              <PillLink to="/book" search={{ plan: p.id }} variant={f ? "primary-inverted" : "primary"} className="mt-5 w-full">
                 Book a Free Call
               </PillLink>
             </article>

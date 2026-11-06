@@ -43,9 +43,10 @@ export function PillLink({
   variant,
   size,
   onClick,
-}: { to: string; children: ReactNode; className?: string; onClick?: () => void } & V) {
+  search,
+}: { to: string; children: ReactNode; className?: string; onClick?: () => void; search?: Record<string, string> } & V) {
   return (
-    <Link to={to} onClick={onClick} className={cn(pillButton({ variant, size }), className)}>
+    <Link to={to} search={search as never} onClick={onClick} className={cn(pillButton({ variant, size }), className)}>
       {children}
     </Link>
   );
