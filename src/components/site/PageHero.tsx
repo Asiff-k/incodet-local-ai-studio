@@ -17,7 +17,7 @@ export function PageHero({
   className?: string;
 }) {
   return (
-    <section data-theme="light" className={cn("bg-bg-soft pt-36 pb-[72px] md:pt-44 md:pb-[120px]", className)}>
+    <section data-theme="light" className={cn("bg-hero-sky pt-36 pb-[72px] md:pt-44 md:pb-[120px]", className)}>
       <div className="container-site">
         <Reveal className="mx-auto max-w-4xl text-center">
           {badge && <PillBadge>{badge}</PillBadge>}

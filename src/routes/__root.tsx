@@ -18,17 +18,20 @@ import { FloatingNav } from "@/components/site/FloatingNav";
 import { Footer } from "@/components/site/Footer";
 import { PillLink } from "@/components/site/Button";
 import { Toaster } from "@/components/ui/sonner";
+import { CookieConsent } from "@/components/site/CookieConsent";
 import { supabase } from "@/integrations/supabase/client";
 
 function NotFoundComponent() {
   return (
-    <section className="flex min-h-[80vh] items-center justify-center bg-background px-4 pt-24">
-      <div className="max-w-md text-center">
+    <section className="bg-hero-sky flex min-h-[80vh] items-center justify-center px-4 pt-32 pb-[72px]">
+      <div className="max-w-xl text-center">
         <p className="type-small font-medium text-muted-foreground">Error 404</p>
         <h1 className="type-h1 mt-3">Page not found</h1>
-        <p className="mt-4">This page does not exist or has moved.</p>
-        <div className="mt-8">
-          <PillLink to="/">Back to home</PillLink>
+        <p className="mt-4 type-body">This page does not exist or has moved.</p>
+        <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+          <PillLink to="/">Home</PillLink>
+          <PillLink to="/pricing" variant="secondary">Pricing</PillLink>
+          <PillLink to="/book" variant="secondary">Book a Call</PillLink>
         </div>
       </div>
     </section>
@@ -79,6 +82,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "theme-color", content: "#0A0A0A" },
       { title: "Incodet | Websites, AI Agents & Custom Software" },
       {
         name: "description",
@@ -94,6 +98,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: appCss,
       },
       { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
+      { rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png" },
+      { rel: "manifest", href: "/site.webmanifest" },
       { rel: "preconnect", href: "https://api.fontshare.com" },
       { rel: "preconnect", href: "https://cdn.fontshare.com", crossOrigin: "anonymous" },
       {
@@ -154,6 +160,7 @@ function RootComponent() {
       {!isAdmin && <Footer />}
       {!isAdmin && !isPortalApp && <FloatingNav />}
       <Toaster position="top-center" />
+      {!isAdmin && <CookieConsent />}
     </QueryClientProvider>
   );
 }
