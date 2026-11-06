@@ -169,7 +169,7 @@ function CreateInvoice({ open, onClose, onCreated }: { open: boolean; onClose: (
       .insert({
         client_id: clientId,
         project_id: (fd.get("project_id") as string) || null,
-        issue_date: (fd.get("issue_date") as string) || undefined,
+        issue_date: (fd.get("issue_date") as string) || new Date().toISOString().slice(0, 10),
         due_date: (fd.get("due_date") as string) || null,
         status: fd.get("status") as InvoiceStatus,
         notes: String(fd.get("notes") ?? "").trim() || null,

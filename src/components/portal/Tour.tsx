@@ -33,6 +33,7 @@ export function useTour(storageKey: string, ready: boolean) {
       const t = window.setTimeout(() => setOpen(true), 400);
       return () => window.clearTimeout(t);
     }
+    return undefined;
   }, [ready, storageKey]);
   const close = useCallback(() => {
     store(storageKey, "done");
