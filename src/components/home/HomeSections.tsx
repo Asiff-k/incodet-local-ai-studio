@@ -14,11 +14,11 @@ import {
 } from "lucide-react";
 import type { ReactNode } from "react";
 import { site } from "@/config/site";
-import { featuredCaseStudies as caseStudies } from "@/content/caseStudies";
+import { featuredCaseStudies as caseStudies, mockupSm, recentProjects } from "@/content/caseStudies";
 import { faq } from "@/content/faq";
 import { industries, type Industry } from "@/content/industries";
 import { plansNote } from "@/content/plans";
-import { CaseStudyWideCard } from "@/components/site/CaseStudyCard";
+import { CaseStudyWideCard, mockupAlt } from "@/components/site/CaseStudyCard";
 import { PlanCards } from "@/components/site/PlanCards";
 import { reviews } from "@/content/reviews";
 import { services, type Service } from "@/content/services";
@@ -302,6 +302,46 @@ export function CaseStudiesPreview() {
           </Reveal>
         ))}
       </div>
+    </Section>
+  );
+}
+
+/* 8b. Recent projects gallery */
+export function RecentProjects() {
+  if (!recentProjects.length) return null;
+  return (
+    <Section>
+      <Reveal>
+        <h2 className="type-h2">Recent projects</h2>
+        <p className="mt-4 type-body">A closer look at websites we have launched.</p>
+      </Reveal>
+      <ul className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        {recentProjects.map((p) => (
+          <li key={p.name}>
+            <Link
+              to="/case-studies/$slug"
+              params={{ slug: p.caseStudy }}
+              className="group relative block overflow-hidden rounded-[28px] bg-bg-soft focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink"
+            >
+              <img
+                src={mockupSm(p.mockup)}
+                srcSet={`${mockupSm(p.mockup)} 800w, ${p.mockup} 1600w`}
+                sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                alt={mockupAlt(p.name, p.caseStudy === "brhex-studio")}
+                loading="lazy"
+                decoding="async"
+                width={800}
+                height={500}
+                className="aspect-[16/10] w-full object-cover transition-transform duration-500 group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+              />
+              <span className="absolute inset-x-3 bottom-3 flex items-center justify-between gap-3 rounded-full bg-background px-4 py-2 shadow-sm transition-opacity duration-300 [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover:opacity-100 [@media(hover:hover)]:group-focus-visible:opacity-100">
+                <span className="type-small font-medium text-ink">{p.name}</span>
+                <span className="type-small text-muted-foreground">{p.year}</span>
+              </span>
+            </Link>
+          </li>
+        ))}
+      </ul>
     </Section>
   );
 }
