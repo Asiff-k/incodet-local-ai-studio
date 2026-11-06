@@ -203,7 +203,7 @@ export function PortalDashboard({
                   <th className="py-3 font-medium">Due date</th>
                   <th className="py-3 font-medium">Amount (USD)</th>
                   <th className="py-3 font-medium">Status</th>
-                  <th className="py-3 font-medium">
+                  <th className="w-[260px] py-3 text-right font-medium">
                     <span className="sr-only">Actions</span>
                   </th>
                 </tr>
@@ -218,15 +218,17 @@ export function PortalDashboard({
                     <td className="py-4">
                       <Chip status={inv.status} label={invoiceStatusLabels[inv.status]} />
                     </td>
-                    <td className="py-4">
+                    <td className="w-[260px] py-4 text-right">
                       <div className="flex justify-end gap-2">
                         <PillButton type="button" size="sm" variant="secondary" data-tour="download" onClick={() => onDownloadInvoice(inv)}>
                           <Download aria-hidden className="size-4" /> Download invoice
                         </PillButton>
-                        {payable(inv.status) && (
-                          <PillButton type="button" size="sm" data-tour="pay" onClick={() => setPaying(inv)}>
+                        {payable(inv.status) ? (
+                          <PillButton type="button" size="sm" data-tour="pay" onClick={() => setPaying(inv)} className="w-[72px]">
                             Pay
                           </PillButton>
+                        ) : (
+                          <span aria-hidden className="invisible inline-block h-10 w-[72px]" />
                         )}
                       </div>
                     </td>
