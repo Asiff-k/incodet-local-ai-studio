@@ -24,12 +24,16 @@ export type CaseStudy = {
   includes?: CaseStudyInclude[];
   /** Drop a WebP at this path in /public; until then a placeholder frame renders. */
   image: { src: string; alt: string; ready: boolean };
+  /** Device mockup built by scripts/mockups (full 1600x1000; a -sm 800x500 sits beside it). */
+  mockup?: string;
   challenge?: string;
   solution?: string;
   todo?: boolean;
 };
 
 const img = (slug: string) => `/images/case-studies/${slug}.webp`;
+const mock = (slug: string) => `/images/mockups/${slug}.webp`;
+export const mockupSm = (src: string) => src.replace(/\.webp$/, "-sm.webp");
 
 const all: CaseStudy[] = [
   {
@@ -53,6 +57,7 @@ const all: CaseStudy[] = [
       { label: "Staff registration tool", year: "2026", image: img("western-cars-staff-registration") },
     ],
     image: { src: img("western-cars-brighton"), alt: "Homepage of the Western Cars Brighton website", ready: true },
+    mockup: mock("western-cars-brighton"),
   },
   {
     slug: "barkers-executive",
@@ -64,6 +69,7 @@ const all: CaseStudy[] = [
       "A premium website for an executive car and Gatwick transfer service in Horley, with online booking and corporate travel pages.",
     liveUrl: "https://barkersexecutive.vercel.app/",
     image: { src: img("barkers-executive"), alt: "Homepage of the Barkers Executive Cars website", ready: true },
+    mockup: mock("barkers-executive"),
   },
   {
     slug: "gm-taxis-lewes",
@@ -75,6 +81,7 @@ const all: CaseStudy[] = [
       "A modern website for a local taxi firm opposite Lewes station, covering airport runs, school runs, executive travel and online booking.",
     liveUrl: "https://gmtaxislewes.co.uk/",
     image: { src: img("gm-taxis-lewes"), alt: "Homepage of the GM Taxis Lewes website", ready: true },
+    mockup: mock("gm-taxis-lewes"),
   },
   {
     slug: "humandata-labs",
@@ -86,6 +93,7 @@ const all: CaseStudy[] = [
       "A website for a company that sources first-person video data for robotics and AI teams, with dataset requests and vendor partner applications.",
     liveUrl: "https://humandatalabs.tech/",
     image: { src: img("humandata-labs"), alt: "Homepage of the HumanData Labs website", ready: true },
+    mockup: mock("humandata-labs"),
   },
   {
     slug: "brhex-studio",
@@ -103,6 +111,7 @@ const all: CaseStudy[] = [
       "One white-label platform with a 360° WebGL tour viewer with hotspots, an SVG floor plan engine with a one-click toggle between the two, lead capture and custom branding.",
     liveUrl: "https://virtual-tour-poc.vercel.app/tour/50ad98c9",
     image: { src: img("brhex-studio"), alt: "360° tour viewer in the BRHEX Studio platform", ready: true },
+    mockup: mock("brhex-studio"),
   },
   {
     slug: "bloom-studio",
@@ -114,6 +123,7 @@ const all: CaseStudy[] = [
       "A sample salon website showing how AI concierge features handle bookings and questions for UK salons.",
     liveUrl: "https://bloom.incodet.com",
     image: { src: img("bloom-studio"), alt: "Homepage of the Bloom Studio salon website", ready: true },
+    mockup: mock("bloom-studio"),
   },
   {
     slug: "a1-airport-cars",
@@ -124,6 +134,7 @@ const all: CaseStudy[] = [
       "A website for a Worthing airport taxi service with flight tracking, 24 hour bookings and minibus options.",
     liveUrl: "https://a1airportcarsworthing.vercel.app/",
     image: { src: img("a1-airport-cars"), alt: "Homepage of the A1 Airport Cars Worthing website", ready: true },
+    mockup: mock("a1-airport-cars"),
   },
   { slug: "incblog", name: "IncBlog", category: "", year: "", description: "", image: { src: img("incblog"), alt: "", ready: false }, todo: true },
   { slug: "incodere", name: "Incodere", category: "", year: "", description: "", image: { src: img("incodere"), alt: "", ready: false }, todo: true },
@@ -134,3 +145,15 @@ export const caseStudies = visible(all, ["name", "category", "description"]);
 export const featuredCaseStudies = caseStudies.filter((c) => c.featured);
 
 export const getCaseStudy = (slug: string) => caseStudies.find((c) => c.slug === slug);
+
+/** Homepage "Recent projects" gallery. Littlehampton is part of the Western Cars case study. */
+export const recentProjects: { name: string; year: string; mockup: string; caseStudy: string }[] = [
+  { name: "Western Cars Brighton", year: "2026", mockup: mock("western-cars-brighton"), caseStudy: "western-cars" },
+  { name: "Barkers Executive Cars", year: "2026", mockup: mock("barkers-executive"), caseStudy: "barkers-executive" },
+  { name: "GM Taxis Lewes", year: "2026", mockup: mock("gm-taxis-lewes"), caseStudy: "gm-taxis-lewes" },
+  { name: "HumanData Labs", year: "2026", mockup: mock("humandata-labs"), caseStudy: "humandata-labs" },
+  { name: "BRHEX Studio", year: "2026", mockup: mock("brhex-studio"), caseStudy: "brhex-studio" },
+  { name: "Bloom Studio", year: "2026", mockup: mock("bloom-studio"), caseStudy: "bloom-studio" },
+  { name: "A1 Airport Cars Worthing", year: "2025", mockup: mock("a1-airport-cars"), caseStudy: "a1-airport-cars" },
+  { name: "Western Cars Littlehampton", year: "2026", mockup: mock("western-cars-littlehampton"), caseStudy: "western-cars" },
+];
