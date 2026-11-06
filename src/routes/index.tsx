@@ -10,6 +10,7 @@ import {
   Faq,
   IndustriesStrip,
   PlansPreview,
+  RecentProjects,
   Process,
   Reviews,
   Services,
@@ -37,6 +38,7 @@ function Index() {
       <Services />
       <Process />
       <CaseStudiesPreview />
+      <RecentProjects />
       <PlansPreview />
       <Reviews />
       <Faq />

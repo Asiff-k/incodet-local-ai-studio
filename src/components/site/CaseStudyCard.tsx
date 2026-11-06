@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
-import type { CaseStudy } from "@/content/caseStudies";
+import { mockupSm, type CaseStudy } from "@/content/caseStudies";
 import { pillButton } from "./Button";
 import { ImagePlaceholder } from "./primitives";
 import { cn } from "@/lib/utils";
@@ -27,7 +27,26 @@ export function liveLabel(c: CaseStudy) {
   return c.demo ? "View Live Demo" : "Visit Live Site";
 }
 
+export function mockupAlt(name: string, laptopOnly = false) {
+  return laptopOnly ? `${name} website shown on a laptop` : `${name} website shown on a laptop and phone`;
+}
+
 export function CaseStudyImage({ c, className, eager }: { c: CaseStudy; className?: string; eager?: boolean }) {
+  if (c.mockup) {
+    return (
+      <img
+        src={c.mockup}
+        srcSet={`${mockupSm(c.mockup)} 800w, ${c.mockup} 1600w`}
+        sizes="(min-width: 768px) 50vw, 100vw"
+        alt={mockupAlt(c.name, c.slug === "brhex-studio")}
+        loading={eager ? "eager" : "lazy"}
+        decoding="async"
+        width={1600}
+        height={1000}
+        className={cn("aspect-[16/10] w-full rounded-card-sm object-cover", className)}
+      />
+    );
+  }
   return c.image.ready ? (
     <img
       src={c.image.src}
