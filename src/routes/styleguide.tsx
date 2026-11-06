@@ -22,24 +22,24 @@ export const Route = createFileRoute("/styleguide")({
 });
 
 function Label({ children }: { children: string }) {
-  return <p className="mb-4 text-small font-medium text-muted-foreground">{children}</p>;
+  return <p className="mb-4 type-small font-medium text-muted-foreground">{children}</p>;
 }
 
 function Styleguide() {
   return (
     <>
       <Section className="pt-40">
-        <h1 className="text-h1">Styleguide</h1>
+        <h1 className="type-h1">Styleguide</h1>
         <p className="mt-4 max-w-2xl">Every reusable component in one place.</p>
 
         <div className="mt-16 grid gap-12">
           <div>
             <Label>Typography</Label>
-            <p className="text-h1">Heading one</p>
-            <p className="text-h2 mt-4 text-ink">Heading two</p>
-            <p className="text-h3 mt-4 text-ink">Heading three</p>
+            <p className="type-h1">Heading one</p>
+            <p className="type-h2 mt-4 text-ink">Heading two</p>
+            <p className="type-h3 mt-4 text-ink">Heading three</p>
             <p className="mt-4">Body text at 18px with a comfortable line height.</p>
-            <p className="text-small mt-2 text-muted-foreground">Small label text</p>
+            <p className="type-small mt-2 text-muted-foreground">Small label text</p>
           </div>
           <div>
             <Label>Buttons</Label>
@@ -62,7 +62,7 @@ function Styleguide() {
             <Label>Cards</Label>
             <div className="grid gap-5 md:grid-cols-2">
               <Card>
-                <h3 className="text-h3">Large card</h3>
+                <h3 className="type-h3">Large card</h3>
                 <p className="mt-3">Radius 28px with a soft shadow.</p>
               </Card>
               <Card size="sm">
@@ -140,7 +140,7 @@ function Styleguide() {
         <HorizontalScrollCards>
           {["Roofing", "Epoxy Flooring", "Salons", "Barber Shops", "Custom Software", "SaaS"].map((t) => (
             <Card key={t} className="h-[320px]">
-              <h3 className="text-h3">{t}</h3>
+              <h3 className="type-h3">{t}</h3>
               <p className="mt-3">Example card content.</p>
             </Card>
           ))}

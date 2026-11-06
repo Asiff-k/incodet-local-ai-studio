@@ -6,7 +6,7 @@ export function PagePlaceholder({ title }: { title: string }) {
     <section className="bg-background pt-40 pb-24 md:pt-48 md:pb-32">
       <div className="container-site text-center">
         <Reveal>
-          <h1 className="text-h1">{title}</h1>
+          <h1 className="type-h1">{title}</h1>
         </Reveal>
       </div>
     </section>

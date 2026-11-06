@@ -35,8 +35,8 @@ export function StackedPanels({
           >
             /{String(i + 1).padStart(2, "0")}
           </span>
-          <h3 className="text-h3 text-on-dark md:text-[44px] md:leading-[1.15]">{p.title}</h3>
-          <div className="mt-4 max-w-xl text-body text-on-dark">{p.body}</div>
+          <h3 className="type-h3 text-on-dark md:text-[44px] md:leading-[1.15]">{p.title}</h3>
+          <div className="mt-4 max-w-xl type-body text-on-dark">{p.body}</div>
         </article>
       ))}
     </div>

@@ -25,7 +25,7 @@ export function RevealText({
   }, "through");
 
   return (
-    <p ref={ref} className={cn("text-h3 md:text-[40px] md:leading-[1.25]", className)}>
+    <p ref={ref} className={cn("type-h3 md:text-[40px] md:leading-[1.25]", className)}>
       {words.map((w, i) => (
         <Fragment key={i}>
           <span

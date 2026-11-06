@@ -64,7 +64,7 @@ export function FloatingNav() {
           <Link to="/" aria-label="Incodet home" className="rounded-md">
             <Logo variant="mark" tone={inverted ? "ink" : "white"} />
           </Link>
-          <span className="text-small font-medium tabular-nums" aria-label={`Page scrolled ${pct}%`}>
+          <span className="type-small font-medium tabular-nums" aria-label={`Page scrolled ${pct}%`}>
             {pct}%
           </span>
           <div className="flex items-center">
@@ -78,7 +78,7 @@ export function FloatingNav() {
               aria-haspopup="dialog"
               aria-expanded={open}
               className={cn(
-                "flex h-10 items-center gap-2 rounded-full px-4 text-small font-medium transition-colors",
+                "flex h-10 items-center gap-2 rounded-full px-4 type-small font-medium transition-colors",
                 inverted ? "hover:bg-bg-soft" : "hover:bg-on-dark/10",
               )}
             >
@@ -176,7 +176,7 @@ function MenuOverlay({ onClose }: { onClose: () => void }) {
             </ul>
           </nav>
           <div className="flex flex-col gap-6 pb-28 md:justify-end">
-            <ul className="flex flex-col gap-3 text-body">
+            <ul className="flex flex-col gap-3 type-body">
               <li>
                 <a href={`mailto:${site.email}`} className="inline-flex items-center gap-3 text-ink hover:underline">
                   <Mail aria-hidden className="size-5" /> {site.email}

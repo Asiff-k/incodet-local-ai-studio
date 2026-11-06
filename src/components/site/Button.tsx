@@ -16,7 +16,7 @@ export const pillButton = cva(
       },
       size: {
         md: "h-12 px-6 text-[16px]",
-        sm: "h-10 px-5 text-small",
+        sm: "h-10 px-5 type-small",
         lg: "h-14 px-8 text-[17px]",
       },
     },

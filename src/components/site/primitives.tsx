@@ -13,7 +13,7 @@ export function PillBadge({
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-2 rounded-full border border-border bg-background px-4 py-1.5 text-small font-medium text-ink shadow-soft",
+        "inline-flex items-center gap-2 rounded-full border border-border bg-background px-4 py-1.5 type-small font-medium text-ink shadow-soft",
         className,
       )}
     >
@@ -67,8 +67,8 @@ export function SectionHeading({
 }) {
   return (
     <Reveal className={cn("mx-auto max-w-3xl text-center", className)}>
-      <h2 className="text-h2">{title}</h2>
-      {children && <p className="mx-auto mt-5 max-w-2xl text-body">{children}</p>}
+      <h2 className="type-h2">{title}</h2>
+      {children && <p className="mx-auto mt-5 max-w-2xl type-body">{children}</p>}
     </Reveal>
   );
 }

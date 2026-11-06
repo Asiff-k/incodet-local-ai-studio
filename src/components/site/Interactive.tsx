@@ -30,7 +30,7 @@ export function Accordion({
             </AccordionPrimitive.Trigger>
           </AccordionPrimitive.Header>
           <AccordionPrimitive.Content className="overflow-hidden data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down">
-            <div className="px-6 pb-6 text-body">{it.answer}</div>
+            <div className="px-6 pb-6 type-body">{it.answer}</div>
           </AccordionPrimitive.Content>
         </AccordionPrimitive.Item>
       ))}
@@ -80,7 +80,7 @@ export function SegmentedTabs({
               tabIndex={active === i ? 0 : -1}
               onClick={() => setActive(i)}
               className={cn(
-                "rounded-full px-5 py-2.5 text-small font-medium whitespace-nowrap transition-all duration-300",
+                "rounded-full px-5 py-2.5 type-small font-medium whitespace-nowrap transition-all duration-300",
                 active === i ? "bg-background text-ink shadow-soft" : "text-body hover:text-ink",
               )}
             >

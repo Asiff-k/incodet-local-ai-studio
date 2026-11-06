@@ -108,12 +108,12 @@ export function Hero() {
             id="hero-title"
             ref={title}
             style={{ ["--hero-bottom" as string]: "var(--ink)" }}
-            className="text-h1 mt-6 max-w-[920px] bg-[linear-gradient(180deg,var(--ink)_20%,var(--hero-bottom)_100%)] bg-clip-text text-transparent"
+            className="type-h1 mt-6 max-w-[920px] bg-[linear-gradient(180deg,var(--ink)_20%,var(--hero-bottom)_100%)] bg-clip-text text-transparent"
           >
             Websites, AI Agents &amp; Software That Grow With Your Business
           </h1>
           <div ref={addExtra} className="mt-6 max-w-[640px]">
-            <p className="text-body text-body">
+            <p className="text-body type-body">
               AI that answers calls, books appointments and replies to customers while you work, so
               your business never stops. Built for businesses of every size.
             </p>
@@ -127,7 +127,7 @@ export function Hero() {
                 See Plans
               </PillLink>
             </div>
-            <p className="inline-flex items-center gap-2 text-small font-medium text-ink">
+            <p className="inline-flex items-center gap-2 type-small font-medium text-ink">
               <Check aria-hidden className="size-4" /> No lock-in contracts
             </p>
           </div>

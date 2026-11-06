@@ -18,7 +18,7 @@ export function Footer() {
             </p>
             <dl className="mt-10 grid gap-6 sm:grid-cols-2">
               <div>
-                <dt className="text-small text-muted-foreground">Drop us a line</dt>
+                <dt className="type-small text-muted-foreground">Drop us a line</dt>
                 <dd className="mt-1">
                   <a href={`mailto:${site.email}`} className="text-ink hover:underline">
                     {site.email}
@@ -26,7 +26,7 @@ export function Footer() {
                 </dd>
               </div>
               <div>
-                <dt className="text-small text-muted-foreground">Call us</dt>
+                <dt className="type-small text-muted-foreground">Call us</dt>
                 <dd className="mt-1">
                   <a href={site.phoneHref} className="text-ink hover:underline">
                     {site.phoneDisplay}
@@ -34,7 +34,7 @@ export function Footer() {
                 </dd>
               </div>
               <div>
-                <dt className="text-small text-muted-foreground">Message us</dt>
+                <dt className="type-small text-muted-foreground">Message us</dt>
                 <dd className="mt-1">
                   <a href={site.whatsapp} target="_blank" rel="noopener noreferrer" className="text-ink hover:underline">
                     WhatsApp
@@ -88,7 +88,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-20 flex flex-col gap-4 border-t border-border pt-8 text-small text-muted-foreground md:flex-row md:items-center md:justify-between">
+        <div className="mt-20 flex flex-col gap-4 border-t border-border pt-8 type-small text-muted-foreground md:flex-row md:items-center md:justify-between">
           <p>© 2026 {site.name}. All rights reserved.</p>
           <div className="flex gap-6">
             <Link to="/privacy" className="hover:text-ink">
@@ -107,7 +107,7 @@ export function Footer() {
 function FooterCol({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div>
-      <h2 className="text-small font-medium text-muted-foreground">{title}</h2>
+      <h2 className="type-small font-medium text-muted-foreground">{title}</h2>
       <ul className="mt-4 flex flex-col gap-3 text-[16px]">{children}</ul>
     </div>
   );
