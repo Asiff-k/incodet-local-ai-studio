@@ -56,7 +56,8 @@ export async function loadPortal(): Promise<PortalAccess> {
         notes: i.notes,
         items: (i.invoice_items ?? []).map((it) => ({ ...it, quantity: Number(it.quantity), unit_price: Number(it.unit_price) })),
       })),
-      payments: payments.data ?? [],
+      // Admins can read every payment; keep only this client's.
+      payments: (payments.data ?? []).filter((p) => (invoices.data ?? []).some((i) => i.id === p.invoice_id)),
     },
   };
 }
