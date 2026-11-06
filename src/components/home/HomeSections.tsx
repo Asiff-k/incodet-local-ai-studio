@@ -315,7 +315,7 @@ export function RecentProjects() {
         <h2 className="type-h2">Recent projects</h2>
         <p className="mt-4 type-body">A closer look at websites we have launched.</p>
       </Reveal>
-      <ul className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+      <ul className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
         {recentProjects.map((p) => (
           <li key={p.name}>
             <Link
@@ -326,7 +326,7 @@ export function RecentProjects() {
               <img
                 src={mockupSm(p.mockup)}
                 srcSet={`${mockupSm(p.mockup)} 800w, ${p.mockup} 1600w`}
-                sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                sizes="(min-width: 1280px) 25vw, (min-width: 768px) 50vw, 100vw"
                 alt={mockupAlt(p.name, p.caseStudy === "brhex-studio")}
                 loading="lazy"
                 decoding="async"
