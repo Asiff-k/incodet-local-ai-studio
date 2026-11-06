@@ -19,7 +19,9 @@ import { site } from "@/config/site";
 import { featuredCaseStudies as caseStudies } from "@/content/caseStudies";
 import { faq } from "@/content/faq";
 import { industries, type Industry } from "@/content/industries";
-import { plans, plansNote } from "@/content/plans";
+import { plansNote } from "@/content/plans";
+import { CaseStudyWideCard } from "@/components/site/CaseStudyCard";
+import { PlanCards } from "@/components/site/PlanCards";
 import { reviews } from "@/content/reviews";
 import { services, type Service } from "@/content/services";
 import { PillLink, pillButton } from "@/components/site/Button";
@@ -245,10 +247,10 @@ const steps: { title: string; body: string; icon: LucideIcon; ui: () => ReactNod
   { title: "Launch & Support", body: "We go live, test everything and stay on to support and improve it.", icon: Rocket, ui: LaunchUI },
 ];
 
-export function Process() {
+export function Process({ title = "How it works", intro = "A simple process, from first call to launch." }: { title?: string; intro?: string }) {
   return (
     <Section>
-      <SectionHeading title="How it works">A simple process, from first call to launch.</SectionHeading>
+      <SectionHeading title={title}>{intro}</SectionHeading>
       <Reveal className="mt-12 rounded-card bg-[image:var(--gradient-accent-soft)] p-3 pt-6 md:p-8">
         <SegmentedTabs
           tabs={steps.map((s) => {
@@ -298,61 +300,7 @@ export function CaseStudiesPreview() {
       <div className="mt-12 flex flex-col gap-6">
         {caseStudies.map((c) => (
           <Reveal key={c.slug}>
-            <article className="grid gap-6 rounded-card border border-border bg-background p-4 md:grid-cols-2 md:gap-10 md:p-6">
-              {c.image.ready ? (
-                <img src={c.image.src} alt={c.image.alt} loading="lazy" className="aspect-[16/10] w-full rounded-card-sm object-cover object-top" />
-              ) : (
-                <ImagePlaceholder className="aspect-[4/3] w-full" />
-              )}
-              <div className="flex flex-col justify-center p-2 md:p-4">
-                <div className="flex flex-wrap items-center gap-2">
-                  <span className="type-small text-muted-foreground">{c.category}</span>
-                  <span aria-hidden className="type-small text-muted-foreground">·</span>
-                  <span className="type-small text-muted-foreground">{c.year}</span>
-                  {c.demo && (
-                    <span className="rounded-full bg-bg-soft px-3 py-1 type-small font-medium text-ink">Demo project</span>
-                  )}
-                </div>
-                <h3 className="mt-3 type-h3">{c.title ?? c.name}</h3>
-                {c.title && <p className="mt-1 font-medium text-ink">{c.name}</p>}
-                <p className="mt-4 type-body">{c.description}</p>
-                {c.includes && c.includes.length > 0 && (
-                  <div className="mt-5">
-                    <p className="type-small font-medium text-ink">Includes</p>
-                    <ul className="mt-2 flex flex-col gap-1.5">
-                      {c.includes.slice(0, 3).map((it) => (
-                        <li key={it.label} className="type-small">
-                          {it.url ? (
-                            <a href={it.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-ink underline-offset-4 hover:underline">
-                              {it.label} ({it.year}) <ArrowUpRight aria-hidden className="size-3.5" />
-                            </a>
-                          ) : (
-                            <span className="text-ink">{it.label} ({it.year})</span>
-                          )}
-                          {it.concept && <span className="ml-2 rounded-full bg-bg-soft px-2 py-0.5 text-muted-foreground">Concept</span>}
-                        </li>
-                      ))}
-                      {c.includes.length > 3 && <li className="type-small text-muted-foreground">+ more</li>}
-                    </ul>
-                  </div>
-                )}
-                {c.tags && c.tags.length > 0 && (
-                  <ul className="mt-5 flex flex-wrap gap-2" aria-label="Technologies">
-                    {c.tags.map((t) => (
-                      <li key={t} className="rounded-full border border-border px-3 py-1 type-small text-ink">{t}</li>
-                    ))}
-                  </ul>
-                )}
-                <div className="mt-8 flex flex-wrap gap-3">
-                  <PillLink to="/case-studies">Read Case Study</PillLink>
-                  {c.liveUrl && (
-                    <ExternalPill href={c.liveUrl} variant="secondary">
-                      {c.demo ? "View Live Demo" : "Visit Live Site"} <ArrowUpRight aria-hidden className="size-4" />
-                    </ExternalPill>
-                  )}
-                </div>
-              </div>
-            </article>
+            <CaseStudyWideCard c={c} />
           </Reveal>
         ))}
       </div>
@@ -368,42 +316,8 @@ export function PlansPreview() {
         <h2 className="type-h2">Pay for what you use. Nothing more.</h2>
         <p className="mt-4 type-small text-muted-foreground">All prices in USD. No lock-in contracts.</p>
       </Reveal>
-      <div className="mt-12 grid gap-5 lg:grid-cols-3">
-        {plans.map((p, i) => {
-          const f = p.featured;
-          return (
-            <Reveal key={p.id} delay={i * 80}>
-              <article
-                className={cn(
-                  "flex h-full flex-col rounded-card p-7 md:p-8",
-                  f ? "bg-dark text-on-dark-muted shadow-pill" : "border border-border bg-bg-soft",
-                )}
-              >
-                <div className="flex items-center justify-between gap-3">
-                  <h3 className={cn("type-h3", f && "text-on-dark")}>{p.name}</h3>
-                  {f && <span className="rounded-full bg-mint px-3 py-1 type-small font-medium text-mint-ink">Recommended</span>}
-                </div>
-                <p className={cn("mt-1 type-small", f ? "text-on-dark-muted" : "text-muted-foreground")}>{p.audience}</p>
-                <p className={cn("mt-8 text-[40px] leading-none font-medium tracking-tight", f ? "text-on-dark" : "text-ink")}>
-                  {p.setup}
-                </p>
-                <p className={cn("mt-2 type-small", f ? "text-on-dark-muted" : "text-muted-foreground")}>setup</p>
-                <p className={cn("mt-4 type-small font-medium", f ? "text-on-dark" : "text-ink")}>{p.monthly}</p>
-                <ul className="mt-8 flex flex-1 flex-col gap-3">
-                  {p.includes.map((it) => (
-                    <li key={it} className={cn("flex items-start gap-3 text-[16px]", f ? "text-on-dark" : "text-ink")}>
-                      <Check aria-hidden className="mt-1 size-4 shrink-0" /> {it}
-                    </li>
-                  ))}
-                </ul>
-                <p className={cn("mt-8 type-small", f ? "text-on-dark-muted" : "text-muted-foreground")}>{p.timeline}</p>
-                <PillLink to="/book" variant={f ? "primary-inverted" : "primary"} className="mt-5 w-full">
-                  Book a Free Call
-                </PillLink>
-              </article>
-            </Reveal>
-          );
-        })}
+      <div className="mt-12">
+        <PlanCards />
       </div>
       <div className="mt-10 flex flex-col items-center gap-5 text-center">
         <p className="max-w-2xl type-body">{plansNote}</p>
