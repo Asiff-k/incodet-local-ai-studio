@@ -9,10 +9,12 @@ import { cn } from "@/lib/utils";
 export function RevealText({
   text,
   accent = false,
+  size = "h3",
   className,
 }: {
   text: string;
   accent?: boolean;
+  size?: "h2" | "h3";
   className?: string;
 }) {
   const words = text.split(" ");
@@ -25,7 +27,7 @@ export function RevealText({
   }, "through");
 
   return (
-    <p ref={ref} className={cn("type-h3 md:text-[40px] md:leading-[1.25]", className)}>
+    <p ref={ref} className={cn(size === "h2" ? "type-h2" : "type-h3 md:text-[40px] md:leading-[1.25]", className)}>
       {words.map((w, i) => (
         <Fragment key={i}>
           <span
