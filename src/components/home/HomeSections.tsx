@@ -91,7 +91,7 @@ export function IndustriesStrip() {
 export function WhoWeAre() {
   return (
     <Section className="relative overflow-hidden">
-      <div className="relative mx-auto max-w-5xl text-center">
+      <div className="relative mx-auto max-w-5xl text-center md:pb-24">
         <Reveal>
           <PillBadge>Who we are</PillBadge>
         </Reveal>
@@ -102,13 +102,13 @@ export function WhoWeAre() {
           text="Incodet builds websites, AI agents and custom software for businesses of every size. Small businesses get online bookings, growing businesses automate calls and enquiries, and established companies get complete platforms. You pay for the features you need and use."
         />
         <div aria-hidden className="pointer-events-none hidden md:block">
-          <span className="absolute -top-2 left-[4%] -rotate-6 rounded-full bg-[image:var(--gradient-accent)] px-4 py-2 type-small font-semibold text-on-dark shadow-pill">
+          <span className="absolute top-0 left-[4%] -rotate-6 rounded-full bg-[image:var(--gradient-accent)] px-4 py-2 type-small font-semibold text-on-dark shadow-pill">
             24/7
           </span>
-          <span className="absolute top-[42%] -right-4 rotate-6 rounded-full border border-border bg-background px-4 py-2 type-small font-medium text-ink shadow-soft lg:-right-10">
+          <span className="absolute right-[8%] bottom-2 rotate-6 rounded-full border border-border bg-background px-4 py-2 type-small font-medium text-ink shadow-soft ">
             No lock-in
           </span>
-          <span className="absolute -bottom-8 left-[10%] rotate-3 rounded-full bg-ink px-4 py-2 type-small font-medium text-primary-foreground shadow-pill">
+          <span className="absolute bottom-0 left-[14%] -rotate-3 rounded-full bg-ink px-4 py-2 type-small font-medium text-primary-foreground shadow-pill">
             From $499
           </span>
         </div>
