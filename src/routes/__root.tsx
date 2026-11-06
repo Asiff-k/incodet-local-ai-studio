@@ -4,6 +4,7 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useRouterState,
   HeadContent,
   Scripts,
   type ErrorComponentProps,
@@ -16,6 +17,8 @@ import { TopBar } from "@/components/site/TopBar";
 import { FloatingNav } from "@/components/site/FloatingNav";
 import { Footer } from "@/components/site/Footer";
 import { PillLink } from "@/components/site/Button";
+import { Toaster } from "@/components/ui/sonner";
+import { supabase } from "@/integrations/supabase/client";
 
 function NotFoundComponent() {
   return (
@@ -120,6 +123,19 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const router = useRouter();
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const isAdmin = pathname.startsWith("/admin");
+  const isPortalApp = pathname.startsWith("/portal/");
+
+  useEffect(() => {
+    const { data } = supabase.auth.onAuthStateChange((event) => {
+      if (event !== "SIGNED_IN" && event !== "SIGNED_OUT" && event !== "USER_UPDATED") return;
+      router.invalidate();
+      if (event !== "SIGNED_OUT") queryClient.invalidateQueries();
+    });
+    return () => data.subscription.unsubscribe();
+  }, [router, queryClient]);
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -130,12 +146,13 @@ function RootComponent() {
       >
         Skip to content
       </a>
-      <TopBar />
+      {!isAdmin && <TopBar />}
       <main id="main">
         <Outlet />
       </main>
-      <Footer />
-      <FloatingNav />
+      {!isAdmin && <Footer />}
+      {!isAdmin && !isPortalApp && <FloatingNav />}
+      <Toaster position="top-center" />
     </QueryClientProvider>
   );
 }

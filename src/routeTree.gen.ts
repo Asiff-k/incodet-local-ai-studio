@@ -10,23 +10,36 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as BookRouteImport } from './routes/book'
 import { Route as CustomSoftwareRouteImport } from './routes/custom-software'
-import { Route as PortalRouteImport } from './routes/portal'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as StyleguideRouteImport } from './routes/styleguide'
 import { Route as TermsRouteImport } from './routes/terms'
+import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as CaseStudiesIndexRouteImport } from './routes/case-studies.index'
 import { Route as CaseStudiesSlugRouteImport } from './routes/case-studies.$slug'
 import { Route as IndustriesBarberShopsRouteImport } from './routes/industries.barber-shops'
 import { Route as IndustriesEpoxyFlooringRouteImport } from './routes/industries.epoxy-flooring'
 import { Route as IndustriesRoofingRouteImport } from './routes/industries.roofing'
 import { Route as IndustriesSalonsRouteImport } from './routes/industries.salons'
+import { Route as PortalIndexRouteImport } from './routes/portal.index'
+import { Route as PortalDemoRouteImport } from './routes/portal.demo'
+import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
+import { Route as AuthenticatedAdminClientsRouteImport } from './routes/_authenticated/admin.clients'
+import { Route as AuthenticatedAdminInvoicesRouteImport } from './routes/_authenticated/admin.invoices'
+import { Route as AuthenticatedAdminMessagesRouteImport } from './routes/_authenticated/admin.messages'
+import { Route as AuthenticatedAdminProjectsRouteImport } from './routes/_authenticated/admin.projects'
+import { Route as AuthenticatedPortalDashboardRouteImport } from './routes/_authenticated/portal.dashboard'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BookRoute = BookRouteImport.update({
@@ -37,11 +50,6 @@ const BookRoute = BookRouteImport.update({
 const CustomSoftwareRoute = CustomSoftwareRouteImport.update({
   id: '/custom-software',
   path: '/custom-software',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PortalRoute = PortalRouteImport.update({
-  id: '/portal',
-  path: '/portal',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PricingRoute = PricingRouteImport.update({
@@ -63,6 +71,11 @@ const TermsRoute = TermsRouteImport.update({
   id: '/terms',
   path: '/terms',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const CaseStudiesIndexRoute = CaseStudiesIndexRouteImport.update({
   id: '/case-studies/',
@@ -94,28 +107,80 @@ const IndustriesSalonsRoute = IndustriesSalonsRouteImport.update({
   path: '/industries/salons',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PortalIndexRoute = PortalIndexRouteImport.update({
+  id: '/portal/',
+  path: '/portal/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PortalDemoRoute = PortalDemoRouteImport.update({
+  id: '/portal/demo',
+  path: '/portal/demo',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
+const AuthenticatedAdminClientsRoute =
+  AuthenticatedAdminClientsRouteImport.update({
+    id: '/clients',
+    path: '/clients',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminInvoicesRoute =
+  AuthenticatedAdminInvoicesRouteImport.update({
+    id: '/invoices',
+    path: '/invoices',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminMessagesRoute =
+  AuthenticatedAdminMessagesRouteImport.update({
+    id: '/messages',
+    path: '/messages',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminProjectsRoute =
+  AuthenticatedAdminProjectsRouteImport.update({
+    id: '/projects',
+    path: '/projects',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedPortalDashboardRoute =
+  AuthenticatedPortalDashboardRouteImport.update({
+    id: '/portal/dashboard',
+    path: '/portal/dashboard',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/book': typeof BookRoute
   '/custom-software': typeof CustomSoftwareRoute
-  '/portal': typeof PortalRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
   '/styleguide': typeof StyleguideRoute
   '/terms': typeof TermsRoute
+  '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/case-studies/$slug': typeof CaseStudiesSlugRoute
   '/industries/barber-shops': typeof IndustriesBarberShopsRoute
   '/industries/epoxy-flooring': typeof IndustriesEpoxyFlooringRoute
   '/industries/roofing': typeof IndustriesRoofingRoute
   '/industries/salons': typeof IndustriesSalonsRoute
+  '/portal/demo': typeof PortalDemoRoute
   '/case-studies/': typeof CaseStudiesIndexRoute
+  '/portal/': typeof PortalIndexRoute
+  '/admin/clients': typeof AuthenticatedAdminClientsRoute
+  '/admin/invoices': typeof AuthenticatedAdminInvoicesRoute
+  '/admin/messages': typeof AuthenticatedAdminMessagesRoute
+  '/admin/projects': typeof AuthenticatedAdminProjectsRoute
+  '/portal/dashboard': typeof AuthenticatedPortalDashboardRoute
+  '/admin/': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/book': typeof BookRoute
   '/custom-software': typeof CustomSoftwareRoute
-  '/portal': typeof PortalRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
   '/styleguide': typeof StyleguideRoute
@@ -125,24 +190,41 @@ export interface FileRoutesByTo {
   '/industries/epoxy-flooring': typeof IndustriesEpoxyFlooringRoute
   '/industries/roofing': typeof IndustriesRoofingRoute
   '/industries/salons': typeof IndustriesSalonsRoute
+  '/portal/demo': typeof PortalDemoRoute
   '/case-studies': typeof CaseStudiesIndexRoute
+  '/portal': typeof PortalIndexRoute
+  '/admin/clients': typeof AuthenticatedAdminClientsRoute
+  '/admin/invoices': typeof AuthenticatedAdminInvoicesRoute
+  '/admin/messages': typeof AuthenticatedAdminMessagesRoute
+  '/admin/projects': typeof AuthenticatedAdminProjectsRoute
+  '/portal/dashboard': typeof AuthenticatedPortalDashboardRoute
+  '/admin': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/book': typeof BookRoute
   '/custom-software': typeof CustomSoftwareRoute
-  '/portal': typeof PortalRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
   '/styleguide': typeof StyleguideRoute
   '/terms': typeof TermsRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/case-studies/$slug': typeof CaseStudiesSlugRoute
   '/industries/barber-shops': typeof IndustriesBarberShopsRoute
   '/industries/epoxy-flooring': typeof IndustriesEpoxyFlooringRoute
   '/industries/roofing': typeof IndustriesRoofingRoute
   '/industries/salons': typeof IndustriesSalonsRoute
+  '/portal/demo': typeof PortalDemoRoute
   '/case-studies/': typeof CaseStudiesIndexRoute
+  '/portal/': typeof PortalIndexRoute
+  '/_authenticated/admin/clients': typeof AuthenticatedAdminClientsRoute
+  '/_authenticated/admin/invoices': typeof AuthenticatedAdminInvoicesRoute
+  '/_authenticated/admin/messages': typeof AuthenticatedAdminMessagesRoute
+  '/_authenticated/admin/projects': typeof AuthenticatedAdminProjectsRoute
+  '/_authenticated/portal/dashboard': typeof AuthenticatedPortalDashboardRoute
+  '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -150,23 +232,30 @@ export interface FileRouteTypes {
     | '/'
     | '/book'
     | '/custom-software'
-    | '/portal'
     | '/pricing'
     | '/privacy'
     | '/styleguide'
     | '/terms'
+    | '/admin'
     | '/case-studies/$slug'
     | '/industries/barber-shops'
     | '/industries/epoxy-flooring'
     | '/industries/roofing'
     | '/industries/salons'
+    | '/portal/demo'
     | '/case-studies/'
+    | '/portal/'
+    | '/admin/clients'
+    | '/admin/invoices'
+    | '/admin/messages'
+    | '/admin/projects'
+    | '/portal/dashboard'
+    | '/admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/book'
     | '/custom-software'
-    | '/portal'
     | '/pricing'
     | '/privacy'
     | '/styleguide'
@@ -176,30 +265,47 @@ export interface FileRouteTypes {
     | '/industries/epoxy-flooring'
     | '/industries/roofing'
     | '/industries/salons'
+    | '/portal/demo'
     | '/case-studies'
+    | '/portal'
+    | '/admin/clients'
+    | '/admin/invoices'
+    | '/admin/messages'
+    | '/admin/projects'
+    | '/portal/dashboard'
+    | '/admin'
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
     | '/book'
     | '/custom-software'
-    | '/portal'
     | '/pricing'
     | '/privacy'
     | '/styleguide'
     | '/terms'
+    | '/_authenticated/admin'
     | '/case-studies/$slug'
     | '/industries/barber-shops'
     | '/industries/epoxy-flooring'
     | '/industries/roofing'
     | '/industries/salons'
+    | '/portal/demo'
     | '/case-studies/'
+    | '/portal/'
+    | '/_authenticated/admin/clients'
+    | '/_authenticated/admin/invoices'
+    | '/_authenticated/admin/messages'
+    | '/_authenticated/admin/projects'
+    | '/_authenticated/portal/dashboard'
+    | '/_authenticated/admin/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   BookRoute: typeof BookRoute
   CustomSoftwareRoute: typeof CustomSoftwareRoute
-  PortalRoute: typeof PortalRoute
   PricingRoute: typeof PricingRoute
   PrivacyRoute: typeof PrivacyRoute
   StyleguideRoute: typeof StyleguideRoute
@@ -209,7 +315,9 @@ export interface RootRouteChildren {
   IndustriesEpoxyFlooringRoute: typeof IndustriesEpoxyFlooringRoute
   IndustriesRoofingRoute: typeof IndustriesRoofingRoute
   IndustriesSalonsRoute: typeof IndustriesSalonsRoute
+  PortalDemoRoute: typeof PortalDemoRoute
   CaseStudiesIndexRoute: typeof CaseStudiesIndexRoute
+  PortalIndexRoute: typeof PortalIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -219,6 +327,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/book': {
@@ -233,13 +348,6 @@ declare module '@tanstack/react-router' {
       path: '/custom-software'
       fullPath: '/custom-software'
       preLoaderRoute: typeof CustomSoftwareRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/portal': {
-      id: '/portal'
-      path: '/portal'
-      fullPath: '/portal'
-      preLoaderRoute: typeof PortalRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/pricing': {
@@ -269,6 +377,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/terms'
       preLoaderRoute: typeof TermsRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/case-studies/': {
       id: '/case-studies/'
@@ -312,14 +427,102 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndustriesSalonsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/portal/': {
+      id: '/portal/'
+      path: '/portal'
+      fullPath: '/portal/'
+      preLoaderRoute: typeof PortalIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/portal/demo': {
+      id: '/portal/demo'
+      path: '/portal/demo'
+      fullPath: '/portal/demo'
+      preLoaderRoute: typeof PortalDemoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/admin/': {
+      id: '/_authenticated/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/clients': {
+      id: '/_authenticated/admin/clients'
+      path: '/clients'
+      fullPath: '/admin/clients'
+      preLoaderRoute: typeof AuthenticatedAdminClientsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/invoices': {
+      id: '/_authenticated/admin/invoices'
+      path: '/invoices'
+      fullPath: '/admin/invoices'
+      preLoaderRoute: typeof AuthenticatedAdminInvoicesRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/messages': {
+      id: '/_authenticated/admin/messages'
+      path: '/messages'
+      fullPath: '/admin/messages'
+      preLoaderRoute: typeof AuthenticatedAdminMessagesRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/projects': {
+      id: '/_authenticated/admin/projects'
+      path: '/projects'
+      fullPath: '/admin/projects'
+      preLoaderRoute: typeof AuthenticatedAdminProjectsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/portal/dashboard': {
+      id: '/_authenticated/portal/dashboard'
+      path: '/portal/dashboard'
+      fullPath: '/portal/dashboard'
+      preLoaderRoute: typeof AuthenticatedPortalDashboardRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
+interface AuthenticatedAdminRouteChildren {
+  AuthenticatedAdminClientsRoute: typeof AuthenticatedAdminClientsRoute
+  AuthenticatedAdminInvoicesRoute: typeof AuthenticatedAdminInvoicesRoute
+  AuthenticatedAdminMessagesRoute: typeof AuthenticatedAdminMessagesRoute
+  AuthenticatedAdminProjectsRoute: typeof AuthenticatedAdminProjectsRoute
+  AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
+}
+
+const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
+  AuthenticatedAdminClientsRoute: AuthenticatedAdminClientsRoute,
+  AuthenticatedAdminInvoicesRoute: AuthenticatedAdminInvoicesRoute,
+  AuthenticatedAdminMessagesRoute: AuthenticatedAdminMessagesRoute,
+  AuthenticatedAdminProjectsRoute: AuthenticatedAdminProjectsRoute,
+  AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
+}
+
+const AuthenticatedAdminRouteWithChildren =
+  AuthenticatedAdminRoute._addFileChildren(AuthenticatedAdminRouteChildren)
+
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRouteWithChildren
+  AuthenticatedPortalDashboardRoute: typeof AuthenticatedPortalDashboardRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminRoute: AuthenticatedAdminRouteWithChildren,
+  AuthenticatedPortalDashboardRoute: AuthenticatedPortalDashboardRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   BookRoute: BookRoute,
   CustomSoftwareRoute: CustomSoftwareRoute,
-  PortalRoute: PortalRoute,
   PricingRoute: PricingRoute,
   PrivacyRoute: PrivacyRoute,
   StyleguideRoute: StyleguideRoute,
@@ -329,7 +532,9 @@ const rootRouteChildren: RootRouteChildren = {
   IndustriesEpoxyFlooringRoute: IndustriesEpoxyFlooringRoute,
   IndustriesRoofingRoute: IndustriesRoofingRoute,
   IndustriesSalonsRoute: IndustriesSalonsRoute,
+  PortalDemoRoute: PortalDemoRoute,
   CaseStudiesIndexRoute: CaseStudiesIndexRoute,
+  PortalIndexRoute: PortalIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
