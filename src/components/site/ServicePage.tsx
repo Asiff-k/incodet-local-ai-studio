@@ -23,8 +23,8 @@ export function BeforeAfter() {
  return <div className="service-comparison">
   <div aria-hidden={after} className="absolute inset-0 flex items-end justify-center pb-14 type-body text-ink" data-placeholder="true">Before image coming soon</div>
   <div aria-hidden={!after} data-placeholder="true" className={cn('service-comparison-after flex items-end justify-center pb-14 type-body text-ink',after&&'is-after')}>After image coming soon</div>
-  <div className="absolute inset-0 flex items-center justify-center">
-   <PillButton variant="secondary" aria-label="Show after image" aria-pressed={after} onClick={()=>setAfter(v=>!v)} className="size-20 p-0 shadow-soft" title={after?'Show before image':'Show after image'}><ArrowLeftRight aria-hidden className="size-7"/></PillButton>
+  <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+   <PillButton variant="secondary" aria-label="Show after image" aria-pressed={after} onClick={()=>setAfter(v=>!v)} className="pointer-events-auto size-20 p-0 shadow-soft" title={after?'Show before image':'Show after image'}><ArrowLeftRight aria-hidden className="size-7"/></PillButton>
   </div>
   <p aria-live="polite" className="sr-only">{after?'After image coming soon':'Before image coming soon'}</p>
  </div>;

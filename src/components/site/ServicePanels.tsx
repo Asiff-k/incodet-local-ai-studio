@@ -31,9 +31,9 @@ export function ServicePanels() {
    <div className="flex items-start justify-between gap-4"><h3 className="service-panel-title">{s.title}</h3><span aria-hidden className="service-panel-number">/{String(i+1).padStart(2,'0')}</span></div>
    <div className="service-panel-inner">
     <div className="flex flex-col gap-6 lg:grid lg:grid-cols-[1fr_auto_1.3fr] lg:items-center lg:gap-10">
-     <p className="flex max-w-[230px] items-start gap-3 type-small"><span aria-hidden className="mt-1.5 size-2 shrink-0 rounded-full bg-on-dark"/>{s.short}</p>
+     <p className="service-panel-copy flex max-w-[230px] items-start gap-3 type-small"><span aria-hidden className="mt-1.5 size-2 shrink-0 rounded-full bg-on-dark"/>{s.short}</p>
      <PillLink to={s.to} variant="primary-inverted" size="sm" className="self-start"><DiamondDots/>Get Started</PillLink>
-     <p className="max-w-md type-small">{s.description}</p>
+     <p className="service-panel-copy max-w-md type-small">{s.description}</p>
     </div>
     <ServiceStrip service={s}/>
    </div>

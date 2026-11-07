@@ -395,6 +395,7 @@ html.lenis, html.lenis body { height: auto; }
 .service-panel-title { font-size: 30px; line-height: 1.12; letter-spacing: 0; max-width: 530px; color: var(--on-dark); }
 .service-panel-number { font-size: 40px; line-height: 1; }
 .service-panel-inner { background: color-mix(in srgb, var(--on-dark) 14%, transparent); border-radius: 20px 20px 0 0; padding: 24px 20px 0; margin-top: 32px; }
+.bg-service-web .service-panel-copy { background: var(--color-service-web); border-radius: 8px; padding: 8px 12px; }
 .service-placeholder { background: color-mix(in srgb, var(--on-dark) 20%, transparent); backdrop-filter: blur(12px); }
 .service-placeholder span { background: var(--service-surface, var(--ink)); padding: 8px 12px; border-radius: 999px; color: var(--on-dark); }
 .service-panel .service-placeholder { --service-surface: var(--ink); }
@@ -409,7 +410,7 @@ html.lenis, html.lenis body { height: auto; }
  .service-panel-number { font-size: 72px; }
  .service-panel-inner { margin-top: 40px; padding: 32px 28px 0; }
  .service-image-strip { overflow: hidden; height: 230px; padding-bottom: 0; }
- .service-image-tile { width: 32%; min-width: 240px; height: 290px; }
+ .service-image-tile { width: 0; min-width: 0; flex: 1 1 0; height: 290px; }
  .service-comparison { height: 480px; }
 }
 @media (prefers-reduced-motion: reduce) {
