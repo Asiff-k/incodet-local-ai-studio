@@ -17,14 +17,13 @@ import { industryIcon } from "@/components/site/industryIcons";
 import { plansNote } from "@/content/plans";
 import { PlanCards } from "@/components/site/PlanCards";
 import { reviews } from "@/content/reviews";
-import { services, type Service } from "@/content/services";
+import { ServicePanels } from "@/components/site/ServicePanels";
 import { PillLink, pillButton } from "@/components/site/Button";
 import { Accordion, SegmentedTabs } from "@/components/site/Interactive";
 import { Logo } from "@/components/site/Logo";
 import { Card, PillBadge, Reveal, Section, SectionHeading } from "@/components/site/primitives";
 import { StatementWave } from "./StatementWave";
 import { FeaturedStudies } from "@/components/site/FeaturedStudies";
-import { StackedPanels } from "@/components/site/ScrollSections";
 import { cn } from "@/lib/utils";
 import {
   AutomationUI,
@@ -115,19 +114,6 @@ export function FactsRow() {
 }
 
 /* 6. Services */
-const serviceVisual: Record<Service["id"], ReactNode> = {
-  booking: <BookingSiteUI />,
-  chatbot: <ChatUI />,
-  calling: (
-    <div className="flex flex-col gap-3">
-      <CallCardUI />
-      <CalendarUI />
-    </div>
-  ),
-  automation: <AutomationUI />,
-  software: <DashboardUI />,
-};
-
 export function Services() {
   return (
     <section aria-labelledby="services-title" className="bg-background pt-[72px] md:pt-[120px]">
@@ -136,19 +122,7 @@ export function Services() {
           <h2 id="services-title" className="text-center type-h2">What we build</h2>
         </Reveal>
       </div>
-      <StackedPanels
-        panels={services.map((s) => ({
-          title: s.title,
-          color: s.color,
-          body: s.description,
-          actions: (
-            <PillLink to={s.cta.to} variant="primary-inverted">
-              {s.cta.label}
-            </PillLink>
-          ),
-          visual: <div className="mx-auto max-w-md">{serviceVisual[s.id]}</div>,
-        }))}
-      />
+      <ServicePanels />
     </section>
   );
 }

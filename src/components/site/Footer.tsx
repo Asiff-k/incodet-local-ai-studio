@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { MapPin } from "lucide-react";
 import { allSocials, industryLinks, pageLinks, site } from "@/config/site";
+import { services } from "@/content/services";
 import { PillLink } from "./Button";
 import { Logo } from "./Logo";
 import { SocialIcon } from "./SocialIcon";
@@ -48,7 +49,7 @@ export function Footer() {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-10 md:grid-cols-4">
+          <div className="grid grid-cols-2 gap-10 md:grid-cols-3">
             <FooterCol title="Pages">
               {pageLinks.map((l) => (
                 <li key={l.to}>
@@ -57,6 +58,10 @@ export function Footer() {
                   </Link>
                 </li>
               ))}
+            </FooterCol>
+            <FooterCol title="Services">
+              {services.map(s=><li key={s.id}><Link to={s.to} className={linkCls}>{s.title}</Link></li>)}
+              <li><Link to="/services" className={`${linkCls} font-medium text-ink`}>All services</Link></li>
             </FooterCol>
             <FooterCol title="Industries">
               {industryLinks.slice(0, 6).map((l) => (

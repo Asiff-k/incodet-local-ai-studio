@@ -15,7 +15,10 @@ export function SmoothScroll() {
       if (cancelled || !enabled.matches) return;
       const lenis = new Lenis({ duration: 1.05, anchors: true, syncTouch: false, prevent: (node) => Boolean(node.closest('[role="dialog"], [data-lenis-prevent]')) });
       const tick = (time: number) => lenis.raf(time * 1000);
-      lenis.on("scroll", ScrollTrigger.update);
+      lenis.on("scroll", () => {
+        ScrollTrigger.update();
+        window.dispatchEvent(new Event("incodet:lenis-scroll"));
+      });
       gsap.ticker.add(tick);
       const lock = () => {
         if (document.body.style.overflow === "hidden") lenis.stop();
