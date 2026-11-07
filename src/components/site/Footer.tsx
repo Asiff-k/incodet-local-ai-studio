@@ -59,13 +59,18 @@ export function Footer() {
               ))}
             </FooterCol>
             <FooterCol title="Industries">
-              {industryLinks.map((l) => (
+              {industryLinks.slice(0, 6).map((l) => (
                 <li key={l.to}>
                   <Link to={l.to} className={linkCls}>
                     {l.label}
                   </Link>
                 </li>
               ))}
+              <li>
+                <Link to="/industries" className={`${linkCls} font-medium text-ink`}>
+                  All industries
+                </Link>
+              </li>
             </FooterCol>
             <FooterCol title="Follow Us">
               {allSocials.map((s) => (

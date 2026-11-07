@@ -1,3 +1,4 @@
+import { industries } from "@/content/industries";
 // Single source of truth for brand and contact details. Never hardcode these elsewhere.
 export const site = {
   name: "Incodet",
@@ -59,9 +60,4 @@ export const pageLinks = [
   { to: "/portal", label: "Client Portal" },
 ] as const;
 
-export const industryLinks = [
-  { to: "/industries/roofing", label: "Roofing" },
-  { to: "/industries/epoxy-flooring", label: "Epoxy Flooring" },
-  { to: "/industries/salons", label: "Salons" },
-  { to: "/industries/barber-shops", label: "Barber Shops" },
-] as const;
+export const industryLinks = industries.map((i) => ({ to: i.to, label: i.name, icon: i.icon }));
