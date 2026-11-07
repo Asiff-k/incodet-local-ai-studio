@@ -4,6 +4,7 @@ import { PillLink } from './Button';
 import { CallCardUI, ChatUI } from '@/components/home/MiniUI';
 import { cn } from '@/lib/utils';
 import { ServiceSampleUI } from './ServiceSampleUI';
+import { serviceStripEntries } from '@/lib/service-strip';
 
 export function DiamondDots() {
  return <span aria-hidden className="grid size-4 rotate-45 grid-cols-2 gap-0.5"><i className="rounded-full bg-current"/><i className="rounded-full bg-current"/><i className="rounded-full bg-current"/><i className="rounded-full bg-current"/></span>;
@@ -17,14 +18,10 @@ export function ServiceImage({slug,eager=false}: {slug:string;eager?:boolean}) {
  return <img src={c.mockup ? mockupSm(c.mockup) : c.image.src} srcSet={c.mockup ? `${mockupSm(c.mockup)} 800w, ${c.mockup} 1600w` : undefined} sizes="(min-width: 768px) 420px, 300px" alt={`${c.name} ${c.type === 'Demo' ? 'demo' : c.type === 'Concept' ? 'concept' : 'website'} mockup`} loading={eager?'eager':'lazy'} decoding="async" width={800} height={500} className="size-full object-cover"/>;
 }
 export function ServiceStrip({service}: {service:Service}) {
- const entries: ('call'|'chat'|string|null)[]=[...service.images];
- if(service.ui) entries.push('call','chat');
- if(service.id==='business-automation') entries.push('notification','reminder','sync');
- while(entries.length<4) entries.push(null);
- let placeholders=0;
+ const entries=serviceStripEntries(service);
  return <div role="region" aria-label={`${service.title} images`} tabIndex={0} className="service-image-strip">
-  {entries.map((entry,i)=>{ const filler=!entry && ++placeholders>2; return <div key={`${entry}-${i}`} className="service-image-tile">
-   {entry==='call' ? <div className="h-full bg-background p-4"><CallCardUI/></div> : entry==='chat' ? <div className="h-full bg-background p-4"><ChatUI/></div> : entry && ['notification','reminder','sync'].includes(entry) ? <ServiceSampleUI kind={entry}/> : entry ? <ServiceImage slug={entry}/> : filler ? <ServiceSampleUI kind={service.id==='social-media-growth' ? 'social' : 'phone'}/> : <ServicePlaceholder className="size-full"/>}
+  {entries.map((entry,i)=>{ return <div key={`${entry}-${i}`} className="service-image-tile">
+   {entry==='call' ? <div className="h-full bg-background p-4"><CallCardUI/></div> : entry==='chat' ? <div className="h-full bg-background p-4"><ChatUI/></div> : entry && ['notification','reminder','sync','sample-phone','sample-social'].includes(entry) ? <ServiceSampleUI kind={entry==='sample-phone'?'phone':entry==='sample-social'?'social':entry}/> : entry ? <ServiceImage slug={entry}/> : <ServicePlaceholder className="size-full"/>}
   </div>;})}
  </div>;
 }

@@ -1,13 +1,14 @@
 # Roadmap: Round 2 Part A (homepage)
 
 ## Round 3 Part E
-- [ ] Service placeholder cap and generic UI fillers
-- [ ] Booking settings, secure storage and optional emails
-- [ ] Reusable calendar, project form, confirmation and calendar export
-- [ ] Homepage/book placement and plan/service preselection; remove Cal.com
-- [ ] Admin booking list/actions and overview count
-- [ ] Team locations and founding-year audit
-- [ ] Booking concurrency, cleanup, keyboard and responsive checks
+- [x] Service placeholder cap and generic UI fillers
+- [x] Booking settings, secure storage and optional emails (no email secret configured, safely skipped)
+- [x] Reusable calendar, project form, confirmation and calendar export
+- [x] Homepage/book placement and plan/service preselection; remove Cal.com
+- [x] Admin booking list/actions and overview count implemented with admin-only RLS
+- [ ] Authenticated admin end-to-end check: no auth users exist, session minting cannot supply an admin session
+- [x] Team locations and founding-year audit
+- [x] Real competing submissions: one stored booking, one conflict returned to calendar; Google/ICS checked; test row deleted. Keyboard and 375/768/1280 checks passed.
 
 ## Round 3 Part D
 - [x] Hide carousel cursor on native/Lenis scroll and viewport exit; both scroll flows checked in browser.
