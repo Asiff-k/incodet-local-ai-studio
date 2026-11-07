@@ -1,6 +1,6 @@
 import { industryIcon } from "./industryIcons";
 import { Link, useRouterState } from "@tanstack/react-router";
-import { House, Menu, PaintRoller, Scissors, Sparkles, X, type LucideIcon } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { industryLinks, site } from "@/config/site";
 import { cn } from "@/lib/utils";

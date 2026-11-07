@@ -2,15 +2,11 @@ import { Link } from "@tanstack/react-router";
 import {
   ArrowRight,
   Hammer,
-  House,
   Layers,
   MessageCircle,
-  PaintRoller,
   Phone,
   Plus,
   Rocket,
-  Scissors,
-  Sparkles,
   type LucideIcon,
 } from "lucide-react";
 import type { ReactNode } from "react";
