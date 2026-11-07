@@ -50,7 +50,8 @@ export function Footer() {
           </div>
 
           <div className="grid grid-cols-2 gap-10 md:grid-cols-3">
-            <FooterCol title="Pages">
+            <FooterCol title="Company">
+              <li><Link to="/deck" className={linkCls}>Company Deck</Link></li>
               {pageLinks.map((l) => (
                 <li key={l.to}>
                   <Link to={l.to} className={linkCls}>
