@@ -39,7 +39,6 @@ import {
   DashboardUI,
   DiscoveryUI,
   LaunchUI,
-  NotificationUI,
   PlanUI,
 } from "./MiniUI";
 

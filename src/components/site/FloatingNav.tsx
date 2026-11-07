@@ -1,11 +1,11 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { Menu, Mail, MessageCircle, Phone, X } from "lucide-react";
+import { House, Menu, PaintRoller, Scissors, Sparkles, X, type LucideIcon } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { activeSocials, industryLinks, site } from "@/config/site";
+import { industryLinks, site } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { Logo } from "./Logo";
 import { PillLink } from "./Button";
-import { SocialIcon } from "./SocialIcon";
+import { SocialRow } from "./SocialIcon";
 
 export function FloatingNav() {
   const [pct, setPct] = useState(0);
@@ -92,16 +92,22 @@ export function FloatingNav() {
   );
 }
 
-const menuTop = [
+const menuLinks = [
   { to: "/", label: "Home" },
   { to: "/pricing", label: "Pricing" },
-];
-const menuRest = [
   { to: "/custom-software", label: "Custom Software" },
   { to: "/case-studies", label: "Case Studies" },
-  { to: "/book", label: "Book a Call" },
   { to: "/portal", label: "Client Portal" },
+  { to: "/book", label: "Book a Call" },
 ];
+const industryIcons: Record<string, LucideIcon> = {
+  "/industries/roofing": House,
+  "/industries/epoxy-flooring": PaintRoller,
+  "/industries/salons": Sparkles,
+  "/industries/barber-shops": Scissors,
+};
+const label = "text-[13px] font-medium tracking-[0.08em] text-muted-foreground uppercase";
+const stagger = (i: number) => ({ animationDelay: `${60 + i * 30}ms` });
 
 function MenuOverlay({ onClose }: { onClose: () => void }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -139,6 +145,7 @@ function MenuOverlay({ onClose }: { onClose: () => void }) {
     };
   }, [onClose]);
 
+  let n = 0;
   return (
     <div
       ref={ref}
@@ -147,7 +154,7 @@ function MenuOverlay({ onClose }: { onClose: () => void }) {
       aria-label="Site menu"
       className="fixed inset-0 z-50 overflow-y-auto bg-background animate-in fade-in duration-300"
     >
-      <div className="container-site flex min-h-full flex-col py-6">
+      <div className="container-site flex min-h-full flex-col py-5">
         <div className="flex h-14 items-center justify-between">
           <Link to="/" onClick={onClose} aria-label="Incodet home" className="rounded-md">
             <Logo />
@@ -161,64 +168,77 @@ function MenuOverlay({ onClose }: { onClose: () => void }) {
             <X aria-hidden className="size-5" />
           </button>
         </div>
-        <div className="mt-10 grid flex-1 gap-12 md:grid-cols-[1.4fr_1fr]">
+        <div className="mt-8 grid flex-1 gap-10 pb-28 md:mt-10 md:grid-cols-[1.5fr_1fr] md:gap-16">
           <nav aria-label="Menu">
-            <MenuList links={menuTop} onClose={onClose} />
-            <div className="my-4">
-              <p className="type-small text-muted-foreground">Industries</p>
-              <ul className="mt-2 flex flex-col gap-1">
-                {industryLinks.map((l) => (
-                  <li key={l.to}>
+            <ul className="flex flex-col gap-1.5">
+              {menuLinks.map((l) => (
+                <li key={l.to} className="menu-item" style={stagger(n++)}>
+                  <Link
+                    to={l.to}
+                    onClick={onClose}
+                    className="inline-block rounded-md text-[30px] leading-[1.15] font-medium tracking-tight text-ink transition-[transform,color] duration-300 hover:translate-x-2 hover:text-muted-foreground md:text-[40px] motion-reduce:hover:translate-x-0"
+                  >
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <p className={`${label} menu-item mt-8`} style={stagger(n++)}>
+              Industries
+            </p>
+            <ul className="mt-3 grid grid-cols-2 gap-x-6 gap-y-2 xl:grid-cols-3">
+              {industryLinks.map((l) => {
+                const Icon = industryIcons[l.to] ?? House;
+                return (
+                  <li key={l.to} className="menu-item" style={stagger(n++)}>
                     <Link
                       to={l.to}
                       onClick={onClose}
-                      className="inline-block rounded-md text-[22px] leading-[1.3] font-medium tracking-tight text-ink transition-colors hover:text-muted-foreground md:text-[26px]"
+                      className="inline-flex items-center gap-2 rounded-md text-[17px] font-medium text-ink transition-colors hover:text-muted-foreground"
                     >
+                      <Icon aria-hidden className="size-4 shrink-0" strokeWidth={1.5} />
                       {l.label}
                     </Link>
                   </li>
-                ))}
-              </ul>
-            </div>
-            <MenuList links={menuRest} onClose={onClose} />
-          </nav>
-          <div className="flex flex-col gap-6 pb-28 md:justify-end">
-            <ul className="flex flex-col gap-3 type-body">
-              <li>
-                <a href={`mailto:${site.email}`} className="inline-flex items-center gap-3 text-ink hover:underline">
-                  <Mail aria-hidden className="size-5" /> {site.email}
-                </a>
-              </li>
-              <li>
-                <a href={site.whatsapp} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 text-ink hover:underline">
-                  <MessageCircle aria-hidden className="size-5" /> WhatsApp
-                </a>
-              </li>
-              <li>
-                <a href={site.phoneHref} className="inline-flex items-center gap-3 text-ink hover:underline">
-                  <Phone aria-hidden className="size-5" /> {site.phoneDisplay}
-                </a>
-              </li>
+                );
+              })}
             </ul>
-            {activeSocials.length > 0 && (
-              <ul className="flex gap-2">
-                {activeSocials.map((s) => (
-                  <li key={s.key}>
-                    <a
-                      href={s.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={s.label}
-                      className="flex size-11 items-center justify-center rounded-full border border-border text-ink hover:bg-bg-soft"
-                    >
-                      <SocialIcon name={s.key} />
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            )}
-            <div>
-              <PillLink to="/book" size="lg" onClick={onClose}>
+          </nav>
+          <div className="flex flex-col gap-5 md:border-l md:border-border md:pl-10">
+            <div className="menu-item hidden md:block" style={stagger(n++)}>
+              <Logo />
+            </div>
+            <dl className="flex flex-col gap-4">
+              <div className="menu-item" style={stagger(n++)}>
+                <dt className={label}>Drop us a line</dt>
+                <dd className="mt-1 text-[18px]">
+                  <a href={`mailto:${site.email}`} className="text-ink hover:underline">
+                    {site.email}
+                  </a>
+                </dd>
+              </div>
+              <div className="menu-item" style={stagger(n++)}>
+                <dt className={label}>WhatsApp</dt>
+                <dd className="mt-1 text-[18px]">
+                  <a href={site.whatsapp} target="_blank" rel="noopener noreferrer" className="text-ink hover:underline">
+                    Message us on WhatsApp
+                  </a>
+                </dd>
+              </div>
+              <div className="menu-item" style={stagger(n++)}>
+                <dt className={label}>Call us</dt>
+                <dd className="mt-1 text-[18px]">
+                  <a href={site.phoneHref} className="text-ink hover:underline">
+                    {site.phoneDisplay}
+                  </a>
+                </dd>
+              </div>
+            </dl>
+            <div className="menu-item" style={stagger(n++)}>
+              <SocialRow />
+            </div>
+            <div className="menu-item" style={stagger(n++)}>
+              <PillLink to="/book" onClick={onClose}>
                 Book a Free Call
               </PillLink>
             </div>
@@ -226,19 +246,5 @@ function MenuOverlay({ onClose }: { onClose: () => void }) {
         </div>
       </div>
     </div>
-  );
-}
-
-function MenuList({ links, onClose }: { links: { to: string; label: string }[]; onClose: () => void }) {
-  return (
-    <ul className="flex flex-col gap-1">
-      {links.map((l) => (
-        <li key={l.to}>
-          <Link to={l.to} onClick={onClose} className="inline-block rounded-md text-[32px] leading-[1.25] font-medium tracking-tight text-ink transition-colors hover:text-muted-foreground md:text-[44px]">
-            {l.label}
-          </Link>
-        </li>
-      ))}
-    </ul>
   );
 }
