@@ -17,7 +17,7 @@ export function StatementWave() {
     void loadScrollMotion().then(({ gsap, ScrollTrigger }) => {
       if (cancelled || !root.current) return;
       const mm = gsap.matchMedia();
-      mm.add({ desktop: "(min-width: 768px)", reduced: "(prefers-reduced-motion: reduce)" }, (context) => {
+      mm.add({ all: "(min-width: 0px)", desktop: "(min-width: 768px)", reduced: "(prefers-reduced-motion: reduce)" }, (context) => {
         const { desktop, reduced } = context.conditions ?? {};
         const el = root.current;
         if (!el) return;

@@ -23,12 +23,14 @@ export function Hero() {
 
   // Poster first; the video loads after the page has loaded. 720p under 768px.
   useEffect(() => {
-    if (reduced || saveData()) {
+    if (reduced || window.matchMedia("(prefers-reduced-motion: reduce)").matches || saveData()) {
       setVideoSrc(null);
       return;
     }
-    const go = () =>
+    const go = () => {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || saveData()) return;
       setVideoSrc(window.matchMedia("(min-width: 768px)").matches ? site.heroVideo.src : site.heroVideo.src720);
+    };
     if (document.readyState === "complete") go();
     else window.addEventListener("load", go, { once: true });
     return () => window.removeEventListener("load", go);
