@@ -62,7 +62,7 @@ const make = (c: Input): CaseStudy => ({
   description: c.description ?? c.solution,
   tint: c.tint ?? `bg-tint-${c.slug}`,
   image: { src: img(c.slug), alt: c.imageAlt ?? `Homepage of the ${c.name} website`, ready: true },
-  mockup: c.noMockup ? undefined : mock(c.slug),
+  ...(c.noMockup ? {} : { mockup: mock(c.slug) }),
 });
 
 const all: CaseStudy[] = [

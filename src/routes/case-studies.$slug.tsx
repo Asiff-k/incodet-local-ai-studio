@@ -44,7 +44,7 @@ export const Route = createFileRoute("/case-studies/$slug")({
 function CaseStudyPage() {
   const c = Route.useLoaderData();
   const idx = caseStudies.findIndex((x) => x.slug === c.slug);
-  const more = [1, 2, 3].map((k) => caseStudies[(idx + k) % caseStudies.length]).filter((x) => x.slug !== c.slug);
+  const more = [1, 2, 3].map((k) => caseStudies[(idx + k) % caseStudies.length]).filter((x): x is NonNullable<typeof x> => Boolean(x) && x!.slug !== c.slug);
   const steps = deliverySteps(c);
   return (
     <>
