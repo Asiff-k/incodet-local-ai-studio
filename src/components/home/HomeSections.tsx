@@ -247,7 +247,7 @@ export function Faq() {
 }
 
 /* 12. Booking CTA */
-export function BookingCta() {
+export function BookingCta({ service }: { service?: string } = {}) {
   return (
     <section aria-labelledby="cta-title" className="bg-background pt-[72px] md:pt-[120px]">
       <div className="container-site">
@@ -258,7 +258,7 @@ export function BookingCta() {
               We learn your business, your customers and what you need. Free, no commitment.
             </p>
             <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
-              <PillLink to="/book" variant="primary-inverted" size="lg">
+              <PillLink to="/book" search={service ? {service} : {}} variant="primary-inverted" size="lg">
                 Book a Free Call
               </PillLink>
               <ExternalPill href={site.whatsapp} variant="secondary-inverted">

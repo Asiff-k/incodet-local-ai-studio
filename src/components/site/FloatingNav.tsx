@@ -238,6 +238,7 @@ function MenuOverlay({ onClose }: { onClose: () => void }) {
             <div className="menu-item" style={stagger(n++)}>
               <SocialRow />
             </div>
+            <p className="menu-item type-small text-muted-foreground" style={stagger(n++)}>{site.teamsCitiesLabel}</p>
             <div className="menu-item" style={stagger(n++)}>
               <PillLink to="/book" onClick={onClose}>
                 Book a Free Call

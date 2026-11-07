@@ -98,6 +98,10 @@
 }
 
 :root {
+  --flag-blue: #012169;
+  --flag-red: #d80621;
+  --flag-green: #006a4e;
+  --flag-white: #ffffff;
   --wave-cyan: #5bc8e8;
   --wave-blue: #3b6cf6;
   --wave-purple: #8b5cf6;
@@ -417,3 +421,8 @@ html.lenis, html.lenis body { height: auto; }
  .service-panel { position: relative; top: auto; }
  .service-comparison-after { transition: none; }
 }
+
+.flag-blue { fill: var(--flag-blue); }
+.flag-red { fill: var(--flag-red); }
+.flag-green { fill: var(--flag-green); }
+.flag-white { fill: var(--flag-white); }

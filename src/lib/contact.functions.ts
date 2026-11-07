@@ -1,14 +1,8 @@
 import { createServerFn } from "@tanstack/react-start";
-import { getRequestHeader } from "@tanstack/react-start/server";
 import { site } from "@/config/site";
-import { contactPayload, MIN_FILL_MS, planLabels, RATE_LIMIT_PER_HOUR } from "./contact-schema";
+import { contactPayload, MIN_FILL_MS, planLabels } from "./contact-schema";
 
 type Result = { ok: true } | { ok: false; error: string };
-
-async function sha256(s: string) {
-  const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(s));
-  return Array.from(new Uint8Array(buf), (b) => b.toString(16).padStart(2, "0")).join("");
-}
 
 /** Public contact form endpoint ("submit-contact"). Validates, filters spam, stores, optionally emails. */
 export const submitContact = createServerFn({ method: "POST" })
@@ -26,22 +20,10 @@ export const submitContact = createServerFn({ method: "POST" })
 
     try {
       const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-      const ip =
-        getRequestHeader("cf-connecting-ip") ||
-        getRequestHeader("x-forwarded-for")?.split(",")[0]?.trim() ||
-        "unknown";
-      const ipHash = await sha256(`incodet:${ip}`);
-      const since = new Date(Date.now() - 3600_000).toISOString();
-
-      const { count } = await supabaseAdmin
-        .from("contact_rate_limits")
-        .select("id", { count: "exact", head: true })
-        .eq("ip_hash", ipHash)
-        .gte("created_at", since);
-      if ((count ?? 0) >= RATE_LIMIT_PER_HOUR) {
+      const { consumeFormAllowance } = await import('./form-spam.server');
+      if (!await consumeFormAllowance()) {
         return { ok: false, error: "Too many messages from this connection. Please try again later." };
       }
-      await supabaseAdmin.from("contact_rate_limits").insert({ ip_hash: ipHash });
 
       const { data: row, error } = await supabaseAdmin
         .from("contact_messages")

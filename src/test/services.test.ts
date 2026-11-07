@@ -1,8 +1,21 @@
 import { describe, expect, it } from 'vitest';
 import { getService, services } from '@/content/services';
 import { getCaseStudy } from '@/content/caseStudies';
+import { serviceStripEntries } from '@/lib/service-strip';
 
 describe('service rules',()=>{
+ it('limits each service strip to two missing-image positions',()=>{
+  for(const service of services) expect(serviceStripEntries(service).filter(e=>e===null).length).toBeLessThanOrEqual(2);
+ });
+ it('fills automation with notification, reminder and calendar sync',()=>{
+  expect(serviceStripEntries(getService('business-automation'))).toEqual(['western-cars-content-hub','notification','reminder','sync']);
+ });
+ it('fills extra app positions with phone screens',()=>{
+  expect(serviceStripEntries(getService('app-development'))).toEqual([null,null,'sample-phone','sample-phone']);
+ });
+ it('fills extra social positions with generic feed screens',()=>{
+  expect(serviceStripEntries(getService('social-media-growth'))).toEqual([null,null,'sample-social','sample-social']);
+ });
  it('keeps all eight services in the requested order',()=>{
   expect(services.map(s=>s.id)).toEqual(['web-development','ai-calling-agent','ai-chatbot','app-development','ui-ux-product-design','software','business-automation','social-media-growth']);
  });

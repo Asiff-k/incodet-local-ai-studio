@@ -1,4 +1,4 @@
-import { MapPin } from "lucide-react";
+import { Globe } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { site } from "@/config/site";
 import { usePrefersReducedMotion } from "@/hooks/use-motion";
@@ -110,8 +110,8 @@ export function Hero() {
         <div className="container-site relative z-10 flex flex-col items-center pt-16 text-center">
           <div ref={addExtra}>
             <span className="inline-flex items-center gap-2 rounded-full border border-on-dark/25 bg-on-dark/10 px-4 py-2 type-small font-medium text-on-dark backdrop-blur-sm">
-              <MapPin aria-hidden className="size-4" />
-              {site.locationLabel}
+              <Globe aria-hidden className="size-4 shrink-0" />
+              {site.teamsLabel}
             </span>
           </div>
           <h1

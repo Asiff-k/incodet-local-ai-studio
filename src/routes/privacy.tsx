@@ -20,7 +20,7 @@ function PrivacyPage() {
           h: "Who we are",
           body: (
             <p>
-              Incodet builds websites, AI chatbots, AI phone agents and custom software. We are based at {site.address}. You can contact us about privacy at any time at {email}.
+              Incodet builds websites, AI chatbots, AI phone agents and custom software. Our head office is in Perth at {site.address}, with teams in {site.locations.slice(1).map(l => l.city).join(', ').replace(/, ([^,]*)$/, ' and $1')}. You can contact us about privacy at any time at {email}.
             </p>
           ),
         },
@@ -68,7 +68,6 @@ function PrivacyPage() {
               <p>We use trusted providers to run our services. They only receive the information they need to do their job:</p>
               <ul>
                 <li>Website hosting and database providers.</li>
-                <li>Cal.com for booking calls.</li>
                 <li>AI voice and chat providers, currently including Vapi, OpenAI and ElevenLabs.</li>
                 <li>Payment providers Payoneer, Wise and PayPal, and banks.</li>
               </ul>

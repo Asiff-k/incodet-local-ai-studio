@@ -35,7 +35,7 @@ export function ServicePage({service:s}: {service:Service}) {
   <section className="bg-hero-sky pt-14 pb-14 md:pt-20 md:pb-16">
    <div className="container-site grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
     <div><p className="type-small text-muted-foreground">Services</p><h1 className="mt-5 text-[40px] leading-[1.12] text-ink md:text-[52px]">{s.heroTitle}</h1><p className="mt-6 max-w-xl type-body">{s.description}</p>
-     <div className="mt-8 flex flex-wrap items-center gap-6"><PillLink to="/book">Book a Call</PillLink><Link to="/case-studies" className="inline-flex items-center gap-2 text-ink underline underline-offset-4">View our work <ArrowRight aria-hidden className="size-4"/></Link></div>
+     <div className="mt-8 flex flex-wrap items-center gap-6"><PillLink to="/book" search={{service:s.id}}>Book a Call</PillLink><Link to="/case-studies" className="inline-flex items-center gap-2 text-ink underline underline-offset-4">View our work <ArrowRight aria-hidden className="size-4"/></Link></div>
     </div>
     <div className={cn('aspect-[8/5] overflow-hidden rounded-card',s.color)}>{s.images[0]?<ServiceImage slug={s.images[0]} eager/>:<ServicePlaceholder className="size-full"/>}</div>
    </div>
@@ -47,6 +47,6 @@ export function ServicePage({service:s}: {service:Service}) {
   <Section theme="soft"><SectionHeading title="How we work"/><ol className="mt-10 grid gap-8 md:grid-cols-2 lg:grid-cols-4">{process.map((p,i)=>{const Icon=p.icon;return <li key={p.title} className="border-t border-border pt-6"><div className="flex items-center justify-between"><Icon aria-hidden className="size-6 text-ink"/><span className="type-small text-muted-foreground">/0{i+1}</span></div><h3 className="mt-5 text-[22px] text-ink">{p.title}</h3><p className="mt-3 type-small">{p.body}</p></li>;})}</ol></Section>
   <Section><div className="grid gap-10 lg:grid-cols-[1fr_1.4fr]"><h2 className="type-h2">Questions, answered</h2><Accordion items={s.faq}/></div></Section>
   {s.id==='software'&&<><Section theme="soft"><div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-center"><p className="max-w-xl text-[20px] font-medium text-ink">Custom platforms usually start on our Scale plan: from $3,499 setup, from $299/month, live in 4 to 8 weeks.</p><PillLink to="/pricing" variant="secondary">See pricing <ArrowRight aria-hidden className="size-4"/></PillLink></div></Section><Section><SectionHeading title="Tell us what you need"/><div className="mx-auto mt-10 max-w-3xl"><ContactForm sourcePage="custom-software"/></div></Section></>}
-  <BookingCta/>
+  <BookingCta service={s.id}/>
  </>;
 }
