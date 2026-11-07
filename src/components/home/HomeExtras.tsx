@@ -26,10 +26,10 @@ const tiles: Tile[] = [
   { src: shot("brhex-studio"), w: 240, h: 150, left: "4%", top: "78%", speed: 1.05 },
   { src: shot("barkers-executive"), w: 220, h: 138, left: "26%", top: "84%", speed: 1.2, framed: true },
   { src: phone("western-cars-littlehampton"), w: 160, h: 346, left: "66%", top: "3%", speed: 1.2 },
-  { src: mock("a1-airport-cars"), w: 300, h: 188, right: "", left: "79%", top: "10%", speed: 0.9, framed: true } as Tile,
-  { src: shot("gm-taxis-lewes"), w: 260, h: 163, left: "80%", top: "44%", speed: 1.1 },
+  { src: mock("a1-airport-cars"), w: 280, h: 175, left: "77%", top: "10%", speed: 0.9, framed: true },
+  { src: shot("gm-taxis-lewes"), w: 260, h: 163, left: "79%", top: "44%", speed: 1.1 },
   { src: phone("barkers-executive"), w: 170, h: 368, left: "68%", top: "54%", speed: 0.85, framed: true },
-  { src: mock("bloom-studio"), w: 240, h: 150, left: "82%", top: "80%", speed: 1.25 },
+  { src: mock("bloom-studio"), w: 240, h: 150, left: "80%", top: "80%", speed: 1.25 },
   { src: phone("a1-airport-cars"), w: 160, h: 346, left: "58%", top: "86%", speed: 1 },
 ];
 const mobileTiles = [tiles[1], tiles[0], tiles[6], tiles[7], tiles[3], tiles[8], tiles[9], tiles[10]];
@@ -139,7 +139,7 @@ export function FloatingProjects() {
                 tileRefs.current[i] = el;
               }}
               className="absolute will-change-transform"
-              style={{ left: t.left, top: t.top, width: t.w, height: t.h, marginLeft: t.left.startsWith("8") ? -t.w / 2 : 0 }}
+              style={{ left: t.left, top: t.top, width: t.w, height: t.h }}
             >
               <TileImg t={t} className="float-tile size-full" style={{ transitionDelay: `${i * 60}ms` }} />
             </div>

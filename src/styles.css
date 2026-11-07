@@ -289,3 +289,12 @@ h2 {
 .menu-item {
   animation: menu-in 500ms var(--ease) both;
 }
+@keyframes portal-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}

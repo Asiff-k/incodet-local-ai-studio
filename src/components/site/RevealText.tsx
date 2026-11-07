@@ -14,7 +14,7 @@ export function RevealText({
 }: {
   text: string;
   accent?: boolean;
-  size?: "h2" | "h3";
+  size?: "h2" | "h3" | "statement";
   className?: string;
 }) {
   const words = text.split(" ");
@@ -27,7 +27,14 @@ export function RevealText({
   }, "through");
 
   return (
-    <p ref={ref} className={cn(size === "h2" ? "type-h2" : "type-h3 md:text-[40px] md:leading-[1.25]", className)}>
+    <p ref={ref} className={cn(
+        size === "h2"
+          ? "type-h2"
+          : size === "statement"
+            ? "text-[24px] leading-[1.3] font-medium tracking-tight md:text-[30px] lg:text-[40px]"
+            : "type-h3 md:text-[40px] md:leading-[1.25]",
+        className,
+      )}>
       {words.map((w, i) => (
         <Fragment key={i}>
           <span
