@@ -140,6 +140,32 @@ export function WorkCarousel() {
   const cursorPos = useRef({ x: 0, y: 0 });
   const [cursorOn, setCursorOn] = useState(false);
   const [overButton, setOverButton] = useState(false);
+  useEffect(() => {
+    const el = stage.current;
+    if (!el) return;
+    const checkPointer = () => {
+      const r = el.getBoundingClientRect();
+      const { x, y } = cursorTarget.current;
+      const inside = r.bottom > 0 && r.top < window.innerHeight && x >= r.left && x <= r.right && y >= r.top && y <= r.bottom;
+      const hit = inside ? document.elementFromPoint(x, y) : null;
+      setCursorOn(inside && Boolean(hit && el.contains(hit)));
+      setOverButton(Boolean(hit?.closest("a,button")));
+    };
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry?.isIntersecting) setCursorOn(false);
+      else checkPointer();
+    });
+    observer.observe(el);
+    window.addEventListener("scroll", checkPointer, { passive: true });
+    window.addEventListener("incodet:lenis-scroll", checkPointer);
+    window.addEventListener("resize", checkPointer);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", checkPointer);
+      window.removeEventListener("incodet:lenis-scroll", checkPointer);
+      window.removeEventListener("resize", checkPointer);
+    };
+  }, []);
   /** Shortest signed distance from the wheel position to card i, so the wheel loops both ways. */
   const offset = (i: number, p: number) => {
     const d = (((i - p) % n) + n) % n;

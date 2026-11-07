@@ -1,5 +1,12 @@
 # Roadmap: Round 2 Part A (homepage)
 
+## Round 3 Part D
+- [ ] Hide carousel cursor on native/Lenis scroll and viewport exit.
+- [ ] Study Orbix services; replace homepage with eight service panels.
+- [ ] Shared service template, seven new detail pages, index and restyled custom software.
+- [ ] Menu/footer/sitemap, page metadata and FAQ structured data.
+- [ ] Keyboard Before/After, content rules and responsive/browser tests.
+
 ## Round 3 Part C
 - [ ] Preview follow-up: automatic build reports build OK; hosted asset and homepage both return 401 Unauthorized, blocking deployed-version verification. Manual builds are managed by the harness.
 - [x] Cursor follow-up: body portal at layer 9000; navigation/menu at 9100/9200. Screenshot and temporary hit-test probe confirm cursor above cards; pointer passthrough preserved.
