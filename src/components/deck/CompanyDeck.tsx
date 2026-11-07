@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Link } from '@tanstack/react-router';
+import { Link, useRouterState } from '@tanstack/react-router';
 import { ChevronLeft, ChevronRight, Download, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { site } from '@/config/site';
@@ -7,6 +7,7 @@ import { createDeckSlides } from './DeckSlides';
 
 const slides = createDeckSlides();
 export function CompanyDeck() {
+ const routeHash=useRouterState({select:state=>state.location.hash});
  const [current,setCurrent]=useState(0);
  const [scale,setScale]=useState(1);
  const [stacked,setStacked]=useState(false);
@@ -25,6 +26,11 @@ export function CompanyDeck() {
   readHash();window.addEventListener('hashchange',readHash);
   return()=>window.removeEventListener('hashchange',readHash);
  },[go]);
+ useEffect(()=>{
+  if(!routeHash)return;
+  const value=Number(routeHash.replace(/^#/,''));
+  if(Number.isInteger(value)&&value>0)go(value-1);
+ },[routeHash,go]);
  useEffect(()=>{
   const resize=()=>{
    setStacked(window.matchMedia('(max-width: 767px) and (orientation: portrait)').matches);
