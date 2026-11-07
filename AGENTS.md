@@ -53,3 +53,4 @@ use the editor.
 - Booking settings and pure slot/calendar helpers are shared by the reusable widget and server validation; active slot uniqueness is enforced in the database so concurrent requests cannot double book.
 - Availability uses a narrowly projected public RPC; booking writes use validated server functions and shared atomic contact/booking spam allowance, while admin operations use caller-scoped RLS.
 - Company deck content derives from existing config/content exports; its standalone shell scales one fixed canvas on desktop and exposes the same slides as a mobile stack and print pages to keep facts and layouts consistent.
+- Deck navigation has one hash reader and preserves router history state; stacked tracking measures the viewport reading line only on portrait mobile screens and is suspended during printing to prevent competing index updates.

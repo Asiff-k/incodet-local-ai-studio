@@ -1,6 +1,7 @@
 # Roadmap: Round 2 Part A (homepage)
 
 ## Round 3 Part F
+- [ ] Fix competing deck navigation updates and verify 1536x674, 1280x800 and 375x812 hash, keyboard, dots, buttons, swipe and print isolation.
 - [x] Standalone 23-slide company deck with shared-source facts and reference-inspired visuals; additional featured work gets a More work slide
 - [x] Keyboard, hash/reload, real touch swipe, controls, mobile stack and print layout; 23 landscape pages verified from desktop and mobile
 - [x] Menu/footer/sitemap metadata; 375/768/1280 checks without horizontal scroll or runtime errors, no serious/critical axe findings, content-integrity tests pass
