@@ -1,5 +1,7 @@
 import { ArrowLeft, ArrowRight, ArrowUpRight, Check, CheckCircle2, Circle, CircleDot, Phone } from "lucide-react";
 import { useCallback, useEffect, useRef, useState, type CSSProperties, type PointerEvent as RPointerEvent } from "react";
+import { createPortal } from "react-dom";
+import { loadScrollMotion } from "@/lib/scroll-motion";
 import { showcase } from "@/content/caseStudies";
 import { PillLink } from "@/components/site/Button";
 import { PillBadge, Reveal } from "@/components/site/primitives";
@@ -55,110 +57,52 @@ function TileImg({ t, className, style }: { t: Tile; className?: string; style?:
 
 export function FloatingProjects() {
   const reduced = usePrefersReducedMotion();
-  const desktop = useMediaQuery("(min-width: 1024px)");
+  const desktop = useMediaQuery("(min-width: 768px)");
   const ref = useRef<HTMLElement>(null);
   const tileRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const [shown, setShown] = useState(false);
-
+  const animated = desktop && !reduced;
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      ([e]) => {
-        if (e?.isIntersecting) {
-          setShown(true);
-          io.disconnect();
-        }
-      },
-      { threshold: 0.15 },
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
-
-  // Parallax: each tile drifts at its own speed while the section scrolls by.
-  useEffect(() => {
-    if (!desktop || reduced) {
-      tileRefs.current.forEach((t) => t && (t.style.translate = ""));
-      return;
-    }
-    let raf = 0;
-    const update = () => {
-      raf = 0;
-      const el = ref.current;
-      if (!el) return;
-      const r = el.getBoundingClientRect();
-      const offset = r.top + r.height / 2 - window.innerHeight / 2;
-      tileRefs.current.forEach((t, i) => {
-        if (t) t.style.translate = `0 ${(-offset * (tiles[i]!.speed - 1)).toFixed(1)}px`;
+    let cancelled = false;
+    let revert: (() => void) | undefined;
+    void loadScrollMotion().then(({ gsap, ScrollTrigger }) => {
+      if (cancelled || !ref.current) return;
+      const mm = gsap.matchMedia();
+      mm.add("(min-width: 768px) and (prefers-reduced-motion: no-preference)", () => {
+        const el = ref.current;
+        if (!el) return;
+        const tl = gsap.timeline({ scrollTrigger: { id: "floating-burst", trigger: el, start: "top top", end: () => `+=${window.innerHeight * 2}`, pin: true, scrub: true, invalidateOnRefresh: true } });
+        tileRefs.current.forEach((tile, i) => {
+          if (!tile) return;
+          const angle = (i / tiles.length) * Math.PI * 2 - Math.PI / 2;
+          const dx = () => Math.cos(angle) * window.innerWidth * (0.38 + (i % 3) * 0.08);
+          const dy = () => Math.sin(angle) * window.innerHeight * (0.4 + (i % 2) * 0.1);
+          const at = i * 0.012;
+          tl.fromTo(tile, { x: 0, y: 0, scale: 0.2, opacity: 0, filter: "blur(7px)" }, { x: dx, y: dy, scale: 1, opacity: 1, filter: "blur(0px)", duration: 0.38, ease: "none" }, at)
+            .to(tile, { x: () => dx() * 2.5, y: () => dy() * 2.5, scale: 1.6, opacity: 0, duration: 0.4, ease: "none" }, 0.5 + at);
+        });
+        tl.to({}, { duration: 0.12 });
+        ScrollTrigger.refresh();
       });
-    };
-    const on = () => {
-      if (!raf) raf = requestAnimationFrame(update);
-    };
-    update();
-    window.addEventListener("scroll", on, { passive: true });
-    window.addEventListener("resize", on);
-    return () => {
-      window.removeEventListener("scroll", on);
-      window.removeEventListener("resize", on);
-      if (raf) cancelAnimationFrame(raf);
-    };
-  }, [desktop, reduced]);
-
+      revert = () => mm.revert();
+    });
+    return () => { cancelled = true; revert?.(); };
+  }, []);
   const text = (
-    <div className="relative z-10 mx-auto flex max-w-[620px] flex-col items-center text-center">
-      <h2 id="team-title" className="type-h2">
-        Get a full web and AI team for less than hiring in-house
-      </h2>
-      <p className="mt-5 type-body">
-        Local businesses lose calls, bookings and hours juggling freelancers, apps and missed messages. We design, build and
-        run your website and AI agents, so you can focus on the work.
-      </p>
-      <div className="mt-8">
-        <PillLink to="/pricing">See plans &amp; pricing</PillLink>
-      </div>
+    <div className="burst-text relative z-10 mx-auto flex max-w-[620px] flex-col items-center text-center">
+      <h2 id="team-title" className="type-h2">Get a full web and AI team for less than hiring in-house</h2>
+      <p className="mt-5 type-body">Local businesses lose calls, bookings and hours juggling freelancers, apps and missed messages. We design, build and run your website and AI agents, so you can focus on the work.</p>
+      <PillLink to="/pricing" className="mt-8">See plans &amp; pricing</PillLink>
       <p className="mt-10 type-small text-muted-foreground">We are available on socials</p>
       <SocialRow className="mt-3 justify-center" />
     </div>
   );
-
   return (
-    <section
-      ref={ref}
-      aria-labelledby="team-title"
-      className={cn("relative overflow-hidden bg-bg-soft", shown && "is-visible")}
-    >
-      {/* Desktop: a cloud of tiles behind the text */}
-      <div aria-hidden className="absolute inset-0 z-0 hidden lg:block">
-        {tiles.map((t, i) => (
-          <div
-            key={t.src}
-            ref={(el) => {
-              tileRefs.current[i] = el;
-            }}
-            className="absolute will-change-transform"
-            style={{ left: t.left, top: t.top, width: t.w, height: t.h }}
-          >
-            <TileImg t={t} className="float-tile size-full" style={{ transitionDelay: `${i * 60}ms` }} />
-          </div>
-        ))}
-      </div>
-      <div className="container-site relative py-[72px] md:py-[100px] lg:flex lg:min-h-[980px] lg:items-center lg:justify-center lg:py-0">
-        <div className="w-full">
-          {/* Mobile and tablet: 4 tiles above, 4 below */}
-          <div aria-hidden className="grid grid-cols-4 items-start gap-2 md:gap-4 lg:hidden">
-            {mobileTiles.slice(0, 4).map((t, i) => (
-              <TileImg key={t!.src} t={t!} className={cn("float-tile aspect-[3/5]", i % 2 && "mt-6")} style={{ transitionDelay: `${i * 60}ms` }} />
-            ))}
-          </div>
-          <div className="py-12 lg:py-0">{text}</div>
-          <div aria-hidden className="grid grid-cols-4 items-start gap-2 md:gap-4 lg:hidden">
-            {mobileTiles.slice(4).map((t, i) => (
-              <TileImg key={t!.src} t={t!} className={cn("float-tile aspect-[3/5]", i % 2 === 0 && "mt-6")} style={{ transitionDelay: `${(i + 4) * 60}ms` }} />
-            ))}
-          </div>
-        </div>
+    <section ref={ref} aria-labelledby="team-title" className={cn("burst-section relative overflow-hidden bg-bg-soft", animated && "burst-animated")}>
+      {animated && <div aria-hidden className="absolute inset-0 z-0">{tiles.map((t, i) => <div key={t.src} ref={(el) => { tileRefs.current[i] = el; }} className="burst-tile absolute left-1/2 top-1/2 will-change-transform" style={{ width: t.w, height: t.h, marginLeft: -t.w / 2, marginTop: -t.h / 2 }}><TileImg t={t} className="size-full" /></div>)}</div>}
+      <div className="container-site relative py-[72px] md:py-[100px]">
+        {!animated && <div aria-hidden className="grid grid-cols-4 items-start gap-2 md:gap-4">{mobileTiles.slice(0, 4).map((t, i) => t && <TileImg key={t.src} t={t} className={cn("aspect-[3/5]", i % 2 && "mt-6")} />)}</div>}
+        <div className={cn(!animated && "py-12")}>{text}</div>
+        {!animated && <div aria-hidden className="grid grid-cols-4 items-start gap-2 md:gap-4">{mobileTiles.slice(4).map((t, i) => t && <TileImg key={t.src} t={t} className={cn("aspect-[3/5]", i % 2 === 0 && "mt-6")} />)}</div>}
       </div>
     </section>
   );
@@ -405,6 +349,7 @@ export function WorkCarousel() {
                     className="absolute top-0 left-1/2 w-[135%] max-w-none -translate-x-1/2"
                   />
                 </div>
+                <div aria-hidden className="carousel-frost pointer-events-none absolute inset-x-0 bottom-0 h-[38%]" />
                 <a
                   href={it.url}
                   target="_blank"
@@ -422,12 +367,12 @@ export function WorkCarousel() {
           })}
         </ul>
 
-        {finePointer && (
+        {finePointer && cursorOn && createPortal(
           <div
             ref={cursor}
             aria-hidden
             className={cn(
-              "pointer-events-none fixed top-0 left-0 z-[60] transition-opacity duration-200",
+              "pointer-events-none fixed top-0 left-0 z-[35] transition-opacity duration-200",
               showCursor ? "opacity-100" : "opacity-0",
             )}
           >
@@ -444,7 +389,7 @@ export function WorkCarousel() {
                 style={{ transform: `translate(${dragging ? 52 : 38}px, -50%)` }}
               />
             </div>
-          </div>
+          </div>, document.body
         )}
       </div>
 
