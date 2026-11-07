@@ -53,6 +53,8 @@ const categoryFor: Record<CaseStudyType, string> = {
   Demo: "Demo project",
 };
 
+/* Tint classes used via make() (listed so Tailwind generates them):
+   bg-tint-western-cars-haywards-heath bg-tint-western-cars-pulborough bg-tint-western-cars-content-hub bg-tint-brighton-taxi bg-tint-western-cars-crawley bg-tint-western-cars-east-grinstead bg-tint-western-cars-horley bg-tint-western-cars-horsham bg-tint-western-cars-redesign-concept bg-tint-western-cars-staff-registration bg-tint-humandata-labs bg-tint-bloom-studio bg-tint-barkers-executive bg-tint-brhex-studio bg-tint-gm-taxis-lewes bg-tint-a1-airport-cars bg-tint-incblog bg-tint-incodere bg-tint-vyra-shops */
 const make = (c: Input): CaseStudy => ({
   ...c,
   category: c.category ?? categoryFor[c.type],

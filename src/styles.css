@@ -45,6 +45,25 @@
   --color-tint-bloom: var(--tint-bloom);
   --color-tint-a1: var(--tint-a1);
   --color-tint-littlehampton: var(--tint-littlehampton);
+  --color-tint-western-cars-haywards-heath: #e3e9f8;
+  --color-tint-western-cars-pulborough: #dff0e8;
+  --color-tint-western-cars-content-hub: #eae3f6;
+  --color-tint-brighton-taxi: #e2e4ea;
+  --color-tint-western-cars-crawley: #dceaf4;
+  --color-tint-western-cars-east-grinstead: #f4e6da;
+  --color-tint-western-cars-horley: #ddeff2;
+  --color-tint-western-cars-horsham: #eef0d9;
+  --color-tint-western-cars-redesign-concept: #f0e2ec;
+  --color-tint-western-cars-staff-registration: #e6ecf2;
+  --color-tint-humandata-labs: var(--tint-humandata);
+  --color-tint-bloom-studio: var(--tint-bloom);
+  --color-tint-barkers-executive: var(--tint-barkers);
+  --color-tint-brhex-studio: var(--tint-brhex);
+  --color-tint-gm-taxis-lewes: var(--tint-gm);
+  --color-tint-a1-airport-cars: var(--tint-a1);
+  --color-tint-incblog: #f2f3f5;
+  --color-tint-incodere: #f2f3f5;
+  --color-tint-vyra-shops: #f2f3f5;
 
   --color-hairline-dark: var(--hairline-dark);
   --color-on-dark-muted: var(--on-dark-muted);
