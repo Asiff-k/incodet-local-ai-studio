@@ -421,3 +421,8 @@ html.lenis, html.lenis body { height: auto; }
  .service-panel { position: relative; top: auto; }
  .service-comparison-after { transition: none; }
 }
+
+.flag-blue { fill: var(--flag-blue); }
+.flag-red { fill: var(--flag-red); }
+.flag-green { fill: var(--flag-green); }
+.flag-white { fill: var(--flag-white); }
