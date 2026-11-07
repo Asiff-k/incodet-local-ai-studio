@@ -14,8 +14,19 @@ SITES = {
   "a1-airport-cars": "https://a1airportcarsworthing.vercel.app/",
   "western-cars-littlehampton": "https://www.westerncarslittlehampton.co.uk/",
   "brhex-studio": "https://virtual-tour-poc.vercel.app/tour/50ad98c9",
+  "western-cars-haywards-heath": "https://www.westerncars-haywardsheath.co.uk/",
+  "western-cars-pulborough": "https://www.westerncarspulborough.co.uk/",
+  "western-cars-content-hub": "https://content.westerncars.com/",
+  "brighton-taxi": "https://brightontaxi.westerncarsbrighton.co.uk/",
+  "western-cars-crawley": "https://www.westerncars.co.uk/",
+  "western-cars-east-grinstead": "https://www.westerncars-eastgrinstead.co.uk/",
+  "western-cars-horley": "https://westerncars-horley.co.uk/",
+  "western-cars-horsham": "https://www.westerncars-horsham.co.uk/",
+  "western-cars-redesign-concept": "https://western-cars-website-prototype.vercel.app/",
+  # Internal tool: captured for the case study image only. Its URL is never used on the site.
+  "western-cars-staff-registration": "https://employeeinfogenerator.vercel.app/",
 }
-NO_MOBILE = {"brhex-studio"}
+NO_MOBILE = {"brhex-studio", "western-cars-staff-registration"}
 HIDE = r"""
 (() => {
   const css = `[id*="cookie" i],[class*="cookie" i],[id*="consent" i],[class*="consent" i],
