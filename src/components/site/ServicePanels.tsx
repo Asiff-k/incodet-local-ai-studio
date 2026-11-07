@@ -3,6 +3,7 @@ import { getCaseStudy, mockupSm } from '@/content/caseStudies';
 import { PillLink } from './Button';
 import { CallCardUI, ChatUI } from '@/components/home/MiniUI';
 import { cn } from '@/lib/utils';
+import { ServiceSampleUI } from './ServiceSampleUI';
 
 export function DiamondDots() {
  return <span aria-hidden className="grid size-4 rotate-45 grid-cols-2 gap-0.5"><i className="rounded-full bg-current"/><i className="rounded-full bg-current"/><i className="rounded-full bg-current"/><i className="rounded-full bg-current"/></span>;
@@ -19,10 +20,11 @@ export function ServiceStrip({service}: {service:Service}) {
  const entries: ('call'|'chat'|string|null)[]=[...service.images];
  if(service.ui) entries.push('call','chat');
  while(entries.length<4) entries.push(null);
+ let placeholders=0;
  return <div role="region" aria-label={`${service.title} images`} tabIndex={0} className="service-image-strip">
-  {entries.map((entry,i)=><div key={`${entry}-${i}`} className="service-image-tile">
-   {entry==='call' ? <div className="h-full bg-background p-4"><CallCardUI/></div> : entry==='chat' ? <div className="h-full bg-background p-4"><ChatUI/></div> : entry ? <ServiceImage slug={entry}/> : <ServicePlaceholder className="size-full"/>}
-  </div>)}
+  {entries.map((entry,i)=>{ const filler=!entry && ++placeholders>2; return <div key={`${entry}-${i}`} className="service-image-tile">
+   {entry==='call' ? <div className="h-full bg-background p-4"><CallCardUI/></div> : entry==='chat' ? <div className="h-full bg-background p-4"><ChatUI/></div> : entry ? <ServiceImage slug={entry}/> : filler ? <ServiceSampleUI kind={service.id==='business-automation' ? ['notification','reminder','sync'][i%3] ?? 'sync' : service.id==='social-media-growth' ? 'social' : 'phone'}/> : <ServicePlaceholder className="size-full"/>}
+  </div>;})}
  </div>;
 }
 export function ServicePanels() {

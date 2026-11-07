@@ -1,10 +1,10 @@
 import { Link } from "@tanstack/react-router";
-import { MapPin } from "lucide-react";
 import { allSocials, industryLinks, pageLinks, site } from "@/config/site";
 import { services } from "@/content/services";
 import { PillLink } from "./Button";
 import { Logo } from "./Logo";
 import { SocialIcon } from "./SocialIcon";
+import { TeamFlag } from './TeamFlag';
 
 const linkCls = "rounded-sm text-body transition-colors hover:text-ink";
 
@@ -93,19 +93,15 @@ export function Footer() {
                 </li>
               ))}
             </FooterCol>
-            <FooterCol title="Our location">
-              <li className="inline-flex items-center gap-2 text-ink">
-                <MapPin aria-hidden className="size-4 shrink-0" />
-                {site.locationLabel}
-              </li>
-              <li>
-                <a href={site.mapsUrl} target="_blank" rel="noopener noreferrer" className={linkCls}>
-                  {site.address}
-                </a>
-              </li>
-            </FooterCol>
           </div>
         </div>
+
+        <section aria-labelledby="teams-title" className="mt-16 border-t border-border pt-8">
+          <h2 id="teams-title" className="type-small font-medium text-muted-foreground">Our teams</h2>
+          <ul className="mt-6 grid grid-cols-2 gap-x-5 gap-y-8 md:grid-cols-3 xl:grid-cols-6">
+            {site.locations.map(location => <li key={location.city} className="min-w-0"><TeamFlag code={location.code} /><p className="mt-3 text-[15px] text-ink">{location.city}</p><p className="mt-1 text-[13px] text-muted-foreground">{location.country}</p>{'label' in location && <><p className="mt-2 text-[12px] font-medium text-ink">{location.label}</p><a href={site.mapsUrl} target="_blank" rel="noopener noreferrer" className="mt-2 block text-[13px] text-muted-foreground hover:text-ink hover:underline">{site.address}</a></>}</li>)}
+          </ul>
+        </section>
 
         <div className="mt-20 flex flex-col gap-4 border-t border-border pt-8 type-small text-muted-foreground md:flex-row md:items-center md:justify-between">
           <p>© 2026 {site.name}. All rights reserved.</p>
