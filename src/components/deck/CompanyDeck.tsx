@@ -12,9 +12,11 @@ export function CompanyDeck() {
  const [stacked,setStacked]=useState(false);
  const stage=useRef<HTMLDivElement>(null);
  const touch=useRef<{x:number;y:number}|null>(null);
+ const active=useRef(0);
  const go=useCallback((index:number,scroll=true)=>{
   const next=Math.max(0,Math.min(slides.length-1,index));
   setCurrent(next);
+  active.current=next;
   window.history.replaceState(null,'',`#${next+1}`);
   if(scroll&&window.matchMedia('(max-width: 767px) and (orientation: portrait)').matches) document.getElementById(`deck-slide-${next+1}`)?.scrollIntoView({behavior:'auto'});
  },[]);
@@ -39,8 +41,8 @@ export function CompanyDeck() {
    if(event.altKey||event.ctrlKey||event.metaKey||event.target instanceof HTMLInputElement||event.target instanceof HTMLTextAreaElement)return;
    if(event.key===' '&&(event.target instanceof HTMLButtonElement||event.target instanceof HTMLAnchorElement))return;
    let next:number|undefined;
-   if(['ArrowRight','ArrowDown','PageDown',' '].includes(event.key))next=current+1;
-   if(['ArrowLeft','ArrowUp','PageUp'].includes(event.key))next=current-1;
+   if(['ArrowRight','ArrowDown','PageDown',' '].includes(event.key))next=active.current+1;
+   if(['ArrowLeft','ArrowUp','PageUp'].includes(event.key))next=active.current-1;
    if(event.key==='Home')next=0;
    if(event.key==='End')next=slides.length-1;
    if(next!==undefined){event.preventDefault();go(next);}
@@ -58,8 +60,14 @@ export function CompanyDeck() {
   document.querySelectorAll('.deck-page').forEach(slide=>observer.observe(slide));
   return()=>observer.disconnect();
  },[stacked,go]);
+ const print=async()=>{
+  const images=Array.from(document.querySelectorAll<HTMLImageElement>('.deck-page img'));
+  images.forEach(image=>{image.loading='eager';});
+  await Promise.all(images.map(image=>image.decode().catch(()=>undefined)));
+  window.print();
+ };
  return <div className="company-deck" data-theme={slides[current]?.dark?'dark':'light'}>
-  <header className="deck-chrome"><Link to="/" className="deck-wordmark" aria-label={`${site.name} home`}>{site.name}</Link><div><Button variant="ghost" className="deck-print" onClick={()=>window.print()}><Download aria-hidden/>Download PDF</Button><Button asChild variant="ghost" size="icon" aria-label="Close deck"><Link to="/"><X aria-hidden/></Link></Button></div></header>
+  <header className="deck-chrome"><Link to="/" className="deck-wordmark" aria-label={`${site.name} home`}>{site.name}</Link><div><Button variant="ghost" className="deck-print" onClick={print}><Download aria-hidden/>Download PDF</Button><Button asChild variant="ghost" size="icon" aria-label="Close deck"><Link to="/"><X aria-hidden/></Link></Button></div></header>
   <div ref={stage} className="deck-stage" style={{'--deck-scale':scale} as React.CSSProperties} onTouchStart={event=>{const point=event.touches[0];if(point)touch.current={x:point.clientX,y:point.clientY};}} onTouchEnd={event=>{const point=event.changedTouches[0];const start=touch.current;touch.current=null;if(!start||!point)return;const x=point.clientX-start.x,y=point.clientY-start.y;if(Math.abs(x)>60&&Math.abs(x)>Math.abs(y)*1.5)go(current+(x<0?1:-1));}}>
    {slides.map((slide,index)=><section key={slide.id} id={`deck-slide-${index+1}`} data-slide-index={index} data-theme={slide.dark?'dark':'light'} className={`deck-page ${slide.dark?'deck-dark':'deck-light'} ${index===current?'is-current':''}`} aria-label={`${index+1} of ${slides.length}: ${slide.title}`} aria-hidden={!stacked&&index!==current} inert={!stacked&&index!==current?true:undefined}>
     <div className="deck-page-content">{slide.content}</div><div className="deck-page-footer"><span>{site.name} / Company Deck</span><span>{String(index+1).padStart(2,'0')} / {String(slides.length).padStart(2,'0')}</span></div>

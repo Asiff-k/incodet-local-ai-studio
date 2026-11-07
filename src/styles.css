@@ -523,12 +523,14 @@ html.lenis, html.lenis body { height: auto; }
 .deck-team-list p { font-size: 24px; color: var(--deck-muted); }
 .deck-team-list .deck-chip { font-size: 18px; padding: 8px 14px; margin-top: 12px; }
 .deck-availability { font-size: 30px; margin-top: 30px; }
-.deck-plans .deck-card { border: 1px solid var(--deck-line); padding: 32px; }
+.deck-plans .deck-card { border: 1px solid var(--deck-line); padding: 28px; }
 .deck-plans h3 { font-size: 44px; }
 .deck-plans p { font-size: 24px; }
-.deck-plans .deck-price { font-size: 52px; margin: 36px 0 18px; }
+.deck-plans .deck-price { font-size: 48px; margin: 20px 0 14px; }
 .deck-price span { font-size: 20px; display: block; }
-.deck-plans .deck-list li { font-size: 24px; }
+.deck-plans .deck-list { margin: 20px 0; }
+.deck-plans .deck-list li { font-size: 22px; margin: 12px 0; }
+.deck-plans .deck-chip { font-size: 22px; margin-bottom: 12px; padding: 10px 20px; }
 .deck-plan-featured { background: var(--ink); color: var(--on-dark); --deck-line: var(--on-dark-muted); }
 .deck-usage { display: flex; gap: 80px; margin-top: 80px; font-size: 36px; }
 .deck-usage p { max-width: 980px; }
