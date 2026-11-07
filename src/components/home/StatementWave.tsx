@@ -47,7 +47,7 @@ export function StatementWave() {
         const tl = gsap.timeline({ scrollTrigger: {
           id: "statement-wave", trigger: el, start: desktop ? "top top" : "top 85%",
           end: desktop ? () => `+=${window.innerHeight * 1.5}` : "bottom 40%",
-          pin: Boolean(desktop), scrub: true, invalidateOnRefresh: true,
+          pin: Boolean(desktop), scrub: true, invalidateOnRefresh: true, refreshPriority: 20,
           onRefresh: place,
         } });
         words.forEach((word, i) => {

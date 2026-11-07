@@ -19,7 +19,7 @@ export function FeaturedStudies() {
         cards.forEach((card, i) => {
           const next = cards[i + 1];
           if (!next) return;
-          gsap.to(card, { scale: 0.95, filter: "brightness(0.9)", ease: "none", scrollTrigger: { id: `featured-${i}`, trigger: next, start: "top 65%", end: "top 96px", scrub: true, invalidateOnRefresh: true } });
+          gsap.fromTo(card, { scale: 1, filter: "brightness(1)" }, { scale: 0.95, filter: "brightness(0.9)", ease: "none", scrollTrigger: { id: `featured-${i}`, trigger: next, start: "top 65%", end: "top 96px", scrub: true, invalidateOnRefresh: true } });
         });
         ScrollTrigger.refresh();
       });

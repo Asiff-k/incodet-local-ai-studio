@@ -62,6 +62,7 @@ export function FloatingProjects() {
   const tileRefs = useRef<(HTMLDivElement | null)[]>([]);
   const animated = desktop && !reduced;
   useEffect(() => {
+    if (!animated) return;
     let cancelled = false;
     let revert: (() => void) | undefined;
     void loadScrollMotion().then(({ gsap, ScrollTrigger }) => {
@@ -70,7 +71,7 @@ export function FloatingProjects() {
       mm.add("(min-width: 768px) and (prefers-reduced-motion: no-preference)", () => {
         const el = ref.current;
         if (!el) return;
-        const tl = gsap.timeline({ scrollTrigger: { id: "floating-burst", trigger: el, start: "top top", end: () => `+=${window.innerHeight * 2}`, pin: true, scrub: true, invalidateOnRefresh: true } });
+        const tl = gsap.timeline({ scrollTrigger: { id: "floating-burst", trigger: el, start: "top top", end: () => `+=${window.innerHeight * 2}`, pin: true, scrub: true, invalidateOnRefresh: true, refreshPriority: 30 } });
         tileRefs.current.forEach((tile, i) => {
           if (!tile) return;
           const angle = (i / tiles.length) * Math.PI * 2 - Math.PI / 2;
@@ -86,7 +87,7 @@ export function FloatingProjects() {
       revert = () => mm.revert();
     });
     return () => { cancelled = true; revert?.(); };
-  }, []);
+  }, [animated]);
   const text = (
     <div className="burst-text relative z-10 mx-auto flex max-w-[620px] flex-col items-center text-center">
       <h2 id="team-title" className="type-h2">Get a full web and AI team for less than hiring in-house</h2>
