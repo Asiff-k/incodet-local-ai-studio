@@ -1,5 +1,10 @@
 # Roadmap: Round 2 Part A (homepage)
 
+## Round 3 Part F
+- [ ] Standalone company deck with shared-source content and reference-inspired visuals
+- [ ] Keyboard, hash, swipe, controls, mobile stack and print layout
+- [ ] Menu/footer/sitemap metadata and responsive/accessibility verification
+
 ## Round 3 Part E
 - [x] Service placeholder cap and generic UI fillers
 - [x] Booking settings, secure storage and optional emails (no email secret configured, safely skipped)
