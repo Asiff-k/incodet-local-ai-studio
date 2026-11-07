@@ -21,6 +21,7 @@ import { Route as TermsRouteImport } from './routes/terms'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as CaseStudiesIndexRouteImport } from './routes/case-studies.index'
 import { Route as CaseStudiesSlugRouteImport } from './routes/case-studies.$slug'
+import { Route as IndustriesIndexRouteImport } from './routes/industries.index'
 import { Route as IndustriesBarberShopsRouteImport } from './routes/industries.barber-shops'
 import { Route as IndustriesCarRentalsRouteImport } from './routes/industries.car-rentals'
 import { Route as IndustriesCarWashRouteImport } from './routes/industries.car-wash'
@@ -98,6 +99,11 @@ const CaseStudiesIndexRoute = CaseStudiesIndexRouteImport.update({
 const CaseStudiesSlugRoute = CaseStudiesSlugRouteImport.update({
   id: '/case-studies/$slug',
   path: '/case-studies/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IndustriesIndexRoute = IndustriesIndexRouteImport.update({
+  id: '/industries/',
+  path: '/industries/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndustriesBarberShopsRoute = IndustriesBarberShopsRouteImport.update({
@@ -227,6 +233,7 @@ export interface FileRoutesByFullPath {
   '/industries/salons': typeof IndustriesSalonsRoute
   '/portal/demo': typeof PortalDemoRoute
   '/case-studies/': typeof CaseStudiesIndexRoute
+  '/industries/': typeof IndustriesIndexRoute
   '/portal/': typeof PortalIndexRoute
   '/admin/clients': typeof AuthenticatedAdminClientsRoute
   '/admin/invoices': typeof AuthenticatedAdminInvoicesRoute
@@ -258,6 +265,7 @@ export interface FileRoutesByTo {
   '/industries/salons': typeof IndustriesSalonsRoute
   '/portal/demo': typeof PortalDemoRoute
   '/case-studies': typeof CaseStudiesIndexRoute
+  '/industries': typeof IndustriesIndexRoute
   '/portal': typeof PortalIndexRoute
   '/admin/clients': typeof AuthenticatedAdminClientsRoute
   '/admin/invoices': typeof AuthenticatedAdminInvoicesRoute
@@ -292,6 +300,7 @@ export interface FileRoutesById {
   '/industries/salons': typeof IndustriesSalonsRoute
   '/portal/demo': typeof PortalDemoRoute
   '/case-studies/': typeof CaseStudiesIndexRoute
+  '/industries/': typeof IndustriesIndexRoute
   '/portal/': typeof PortalIndexRoute
   '/_authenticated/admin/clients': typeof AuthenticatedAdminClientsRoute
   '/_authenticated/admin/invoices': typeof AuthenticatedAdminInvoicesRoute
@@ -326,6 +335,7 @@ export interface FileRouteTypes {
     | '/industries/salons'
     | '/portal/demo'
     | '/case-studies/'
+    | '/industries/'
     | '/portal/'
     | '/admin/clients'
     | '/admin/invoices'
@@ -357,6 +367,7 @@ export interface FileRouteTypes {
     | '/industries/salons'
     | '/portal/demo'
     | '/case-studies'
+    | '/industries'
     | '/portal'
     | '/admin/clients'
     | '/admin/invoices'
@@ -390,6 +401,7 @@ export interface FileRouteTypes {
     | '/industries/salons'
     | '/portal/demo'
     | '/case-studies/'
+    | '/industries/'
     | '/portal/'
     | '/_authenticated/admin/clients'
     | '/_authenticated/admin/invoices'
@@ -423,6 +435,7 @@ export interface RootRouteChildren {
   IndustriesSalonsRoute: typeof IndustriesSalonsRoute
   PortalDemoRoute: typeof PortalDemoRoute
   CaseStudiesIndexRoute: typeof CaseStudiesIndexRoute
+  IndustriesIndexRoute: typeof IndustriesIndexRoute
   PortalIndexRoute: typeof PortalIndexRoute
 }
 
@@ -510,6 +523,13 @@ declare module '@tanstack/react-router' {
       path: '/case-studies/$slug'
       fullPath: '/case-studies/$slug'
       preLoaderRoute: typeof CaseStudiesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/industries/': {
+      id: '/industries/'
+      path: '/industries'
+      fullPath: '/industries/'
+      preLoaderRoute: typeof IndustriesIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/industries/barber-shops': {
@@ -704,6 +724,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndustriesSalonsRoute: IndustriesSalonsRoute,
   PortalDemoRoute: PortalDemoRoute,
   CaseStudiesIndexRoute: CaseStudiesIndexRoute,
+  IndustriesIndexRoute: IndustriesIndexRoute,
   PortalIndexRoute: PortalIndexRoute,
 }
 export const routeTree = rootRouteImport
