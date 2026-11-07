@@ -129,37 +129,35 @@ export function FloatingProjects() {
       aria-labelledby="team-title"
       className={cn("relative overflow-hidden bg-bg-soft", shown && "is-visible")}
     >
-      {/* Desktop cloud */}
-      <div className="relative hidden min-h-[980px] items-center lg:flex">
-        <div aria-hidden className="absolute inset-0 z-0">
-          {tiles.map((t, i) => (
-            <div
-              key={t.src}
-              ref={(el) => {
-                tileRefs.current[i] = el;
-              }}
-              className="absolute will-change-transform"
-              style={{ left: t.left, top: t.top, width: t.w, height: t.h }}
-            >
-              <TileImg t={t} className="float-tile size-full" style={{ transitionDelay: `${i * 60}ms` }} />
-            </div>
-          ))}
-        </div>
-        <div className="container-site">{text}</div>
+      {/* Desktop: a cloud of tiles behind the text */}
+      <div aria-hidden className="absolute inset-0 z-0 hidden lg:block">
+        {tiles.map((t, i) => (
+          <div
+            key={t.src}
+            ref={(el) => {
+              tileRefs.current[i] = el;
+            }}
+            className="absolute will-change-transform"
+            style={{ left: t.left, top: t.top, width: t.w, height: t.h }}
+          >
+            <TileImg t={t} className="float-tile size-full" style={{ transitionDelay: `${i * 60}ms` }} />
+          </div>
+        ))}
       </div>
-
-      {/* Mobile and tablet: 4 tiles above, 4 below */}
-      <div className="container-site py-[72px] md:py-[100px] lg:hidden">
-        <div aria-hidden className="grid grid-cols-4 items-start gap-2 md:gap-4">
-          {mobileTiles.slice(0, 4).map((t, i) => (
-            <TileImg key={t!.src} t={t!} className={cn("float-tile aspect-[3/5]", i % 2 && "mt-6")} style={{ transitionDelay: `${i * 60}ms` }} />
-          ))}
-        </div>
-        <div className="py-12">{text}</div>
-        <div aria-hidden className="grid grid-cols-4 items-start gap-2 md:gap-4">
-          {mobileTiles.slice(4).map((t, i) => (
-            <TileImg key={t!.src} t={t!} className={cn("float-tile aspect-[3/5]", i % 2 === 0 && "mt-6")} style={{ transitionDelay: `${(i + 4) * 60}ms` }} />
-          ))}
+      <div className="container-site relative py-[72px] md:py-[100px] lg:flex lg:min-h-[980px] lg:items-center lg:justify-center lg:py-0">
+        <div className="w-full">
+          {/* Mobile and tablet: 4 tiles above, 4 below */}
+          <div aria-hidden className="grid grid-cols-4 items-start gap-2 md:gap-4 lg:hidden">
+            {mobileTiles.slice(0, 4).map((t, i) => (
+              <TileImg key={t!.src} t={t!} className={cn("float-tile aspect-[3/5]", i % 2 && "mt-6")} style={{ transitionDelay: `${i * 60}ms` }} />
+            ))}
+          </div>
+          <div className="py-12 lg:py-0">{text}</div>
+          <div aria-hidden className="grid grid-cols-4 items-start gap-2 md:gap-4 lg:hidden">
+            {mobileTiles.slice(4).map((t, i) => (
+              <TileImg key={t!.src} t={t!} className={cn("float-tile aspect-[3/5]", i % 2 === 0 && "mt-6")} style={{ transitionDelay: `${(i + 4) * 60}ms` }} />
+            ))}
+          </div>
         </div>
       </div>
     </section>
