@@ -1,12 +1,12 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { ArrowUpRight, ChevronRight } from "lucide-react";
+import { ArrowUpRight, Check, ChevronRight } from "lucide-react";
 import { BookingCta } from "@/components/home/HomeSections";
 import { pillButton } from "@/components/site/Button";
-import { CaseStudyGridCard, CaseStudyImage, CaseStudyMeta, ExternalPill, IncludeLabel, liveLabel } from "@/components/site/CaseStudyCard";
+import { CaseStudyGridCard, CaseStudyImage, CaseStudyMeta, ExternalPill, liveLabel } from "@/components/site/CaseStudyCard";
 import { seoHead } from "@/components/site/PageHero";
 import { breadcrumbLd } from "@/lib/seo";
 import { Reveal, Section, SectionHeading } from "@/components/site/primitives";
-import { featuredCaseStudies, getCaseStudy } from "@/content/caseStudies";
+import { caseStudies, deliverySteps, getCaseStudy } from "@/content/caseStudies";
 
 export const Route = createFileRoute("/case-studies/$slug")({
   staticData: { sitemap: true },
@@ -43,14 +43,15 @@ export const Route = createFileRoute("/case-studies/$slug")({
 
 function CaseStudyPage() {
   const c = Route.useLoaderData();
-  const more = featuredCaseStudies.filter((x) => x.slug !== c.slug).slice(0, 2);
-  const gallery = (c.includes ?? []).filter((i) => i.image);
+  const idx = caseStudies.findIndex((x) => x.slug === c.slug);
+  const more = [1, 2, 3].map((k) => caseStudies[(idx + k) % caseStudies.length]).filter((x) => x.slug !== c.slug);
+  const steps = deliverySteps(c);
   return (
     <>
       <section className="bg-bg-soft pt-36 pb-12 md:pt-44 md:pb-16">
         <div className="container-site">
           <nav aria-label="Breadcrumb">
-            <ol className="flex items-center gap-1.5 type-small text-muted-foreground">
+            <ol className="flex flex-wrap items-center gap-1.5 type-small text-muted-foreground">
               <li><Link to="/case-studies" className="hover:text-ink">Our work</Link></li>
               <li aria-hidden><ChevronRight className="size-4" /></li>
               <li aria-current="page" className="text-ink">{c.name}</li>
@@ -64,6 +65,7 @@ function CaseStudyPage() {
             {c.liveUrl && (
               <ExternalPill href={c.liveUrl} variant="primary" className="mt-8">
                 {liveLabel(c)} <ArrowUpRight aria-hidden className="size-4" />
+                <span className="sr-only">(opens in a new tab)</span>
               </ExternalPill>
             )}
           </Reveal>
@@ -78,73 +80,61 @@ function CaseStudyPage() {
         </div>
       </section>
 
-      {(c.challenge || c.solution || (c.tags && c.tags.length > 0)) && (
-        <Section>
-          <div className="mx-auto grid max-w-5xl gap-12 md:grid-cols-2">
-            {c.challenge && (
-              <Reveal>
-                <h2 className="type-h2">The challenge</h2>
-                <p className="mt-5 type-body">{c.challenge}</p>
-              </Reveal>
-            )}
-            {c.solution && (
-              <Reveal delay={80}>
-                <h2 className="type-h2">Our solution</h2>
-                <p className="mt-5 type-body">{c.solution}</p>
-              </Reveal>
-            )}
-            {c.tags && c.tags.length > 0 && (
-              <Reveal className="md:col-span-2">
-                <h2 className="type-h3">Tech used</h2>
-                <ul className="mt-4 flex flex-wrap gap-2">
-                  {c.tags.map((t) => (
-                    <li key={t} className="rounded-full border border-border px-4 py-1.5 type-small text-ink">{t}</li>
-                  ))}
-                </ul>
-              </Reveal>
-            )}
-          </div>
-        </Section>
-      )}
-
-      {c.includes && c.includes.length > 0 && (
-        <Section>
-          <Reveal className="mx-auto max-w-3xl">
+      <Section>
+        <div className="mx-auto grid max-w-5xl gap-12 md:grid-cols-2">
+          <Reveal>
+            <h2 className="type-h2">The challenge</h2>
+            <p className="mt-5 type-body">{c.challenge}</p>
+          </Reveal>
+          <Reveal delay={80}>
             <h2 className="type-h2">What we built</h2>
-            <ul className="mt-8 divide-y divide-border rounded-card border border-border">
-              {c.includes.map((it) => (
-                <li key={it.label} className="px-6 py-4 text-[16px]">
-                  <IncludeLabel it={it} />
+            <p className="mt-5 type-body">{c.solution}</p>
+            <ul className="mt-6 flex flex-col gap-3">
+              {c.highlights.map((h) => (
+                <li key={h} className="flex items-start gap-3 type-body text-ink">
+                  <span className="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full bg-mint">
+                    <Check aria-hidden className="size-3.5 text-mint-ink" />
+                  </span>
+                  {h}
                 </li>
               ))}
             </ul>
           </Reveal>
-          {gallery.length > 0 && (
-            <div className="mt-16 grid gap-6 md:grid-cols-2">
-              {gallery.map((it, i) => (
-                <Reveal as="figure" key={it.label} delay={(i % 2) * 80}>
-                  <img
-                    src={it.image}
-                    alt={`Screenshot of the Western Cars ${it.label.toLowerCase()}`}
-                    loading="lazy"
-                    width={1440}
-                    height={900}
-                    className="aspect-[16/10] w-full rounded-card-sm border border-border object-cover object-top"
-                  />
-                  <figcaption className="mt-3 type-small text-muted-foreground">
-                    {it.label} ({it.year}){it.concept ? ", concept" : ""}
-                  </figcaption>
-                </Reveal>
-              ))}
-            </div>
+          {c.tags && c.tags.length > 0 && (
+            <Reveal className="md:col-span-2">
+              <h2 className="type-h3">Tech used</h2>
+              <ul className="mt-4 flex flex-wrap gap-2">
+                {c.tags.map((t) => (
+                  <li key={t} className="rounded-full border border-border px-4 py-1.5 type-small text-ink">{t}</li>
+                ))}
+              </ul>
+            </Reveal>
           )}
-        </Section>
-      )}
+        </div>
+      </Section>
+
+      <Section theme="soft">
+        <Reveal className="text-center">
+          <p className="type-small font-medium text-muted-foreground">Delivered: {c.period}</p>
+          <h2 className="mt-3 type-h2">How we delivered it</h2>
+        </Reveal>
+        <ol className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+          {steps.map((s, i) => (
+            <Reveal as="li" key={s.title} delay={i * 80} className="relative rounded-card border border-border bg-background p-6">
+              <span className="flex size-9 items-center justify-center rounded-full bg-ink type-small font-medium text-primary-foreground">
+                {i + 1}
+              </span>
+              <h3 className="mt-5 type-h3">{s.title}</h3>
+              <p className="mt-3 type-body">{s.body}</p>
+            </Reveal>
+          ))}
+        </ol>
+      </Section>
 
       {more.length > 0 && (
-        <Section theme="soft">
+        <Section>
           <SectionHeading title="More work" />
-          <div className="mt-12 grid gap-5 md:grid-cols-2">
+          <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {more.map((m, i) => (
               <Reveal key={m.slug} delay={i * 80}>
                 <CaseStudyGridCard c={m} headingLevel="h3" />
