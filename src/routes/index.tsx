@@ -9,12 +9,12 @@ import {
   Faq,
   IndustriesStrip,
   PlansPreview,
-  Process,
   Reviews,
   Services,
   WhoWeAre,
 } from "@/components/home/HomeSections";
 import { CallingAgent, ClientPortalPreview, FloatingProjects, WorkCarousel } from "@/components/home/HomeExtras";
+import { ScrollProcess } from "@/components/home/ScrollProcess";
 
 const title = "Incodet | Websites, AI Agents & Custom Software";
 const description =
@@ -37,7 +37,7 @@ function Index() {
       <FactsRow />
       <CallingAgent />
       <Services />
-      <Process />
+      <ScrollProcess />
       <CaseStudiesPreview />
       <ClientPortalPreview />
       <PlansPreview />

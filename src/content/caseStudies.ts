@@ -103,7 +103,7 @@ const all: CaseStudy[] = [
   }),
   make({
     slug: "western-cars-content-hub", name: "Western Cars Content Hub", type: "Platform", group: "western-cars",
-    category: "AI content platform", period: "Nov to Dec 2025", end: "2025-12",
+    category: "AI content platform", period: "Nov to Dec 2025", end: "2025-12", featured: 5,
     liveUrl: "https://content.westerncars.com/",
     challenge: "Every location site needed fresh local articles for search, but writing for each town by hand was not realistic.",
     solution: "A central AI blog platform that prepares one quality-checked article a day and serves it to every location site through a read-only content API.",
@@ -197,7 +197,7 @@ const all: CaseStudy[] = [
   make({
     slug: "brhex-studio", name: "BRHEX Studio", type: "Platform", group: "other",
     category: "Real estate platform", title: "A Combined 360° Tour & Auto-Floorplan Platform",
-    period: "Jun to Jul 2026", end: "2026-07", featured: 5, laptopOnly: true,
+    period: "Jun to Jul 2026", end: "2026-07", featured: 6, laptopOnly: true,
     description: "Proof of concept for a white-label real estate media platform: a 360° WebGL tour viewer and an SVG floor plan engine in one, with lead capture and custom branding.",
     tags: ["Next.js", "WebGL", "SVG", "Responsive"],
     challenge: "Real estate agents often use one vendor for 360° tours and another for floor plans, each with its own branding. We call it the double vendor trap.",
