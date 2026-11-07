@@ -236,7 +236,7 @@ export function WorkCarousel() {
       const k = reduced ? 1 : 0.22;
       c.x += (t.x - c.x) * k;
       c.y += (t.y - c.y) * k;
-      if (cursor.current) cursor.current.style.transform = `translate3d(${c.x}px, ${c.y}px, 0)`;
+      if (cursor.current) cursor.current.style.transform = `translate3d(${c.x}px, ${c.y}px, 0) translate(-50%, -50%)`;
       raf = requestAnimationFrame(loop);
     };
     raf = requestAnimationFrame(loop);
@@ -331,11 +331,7 @@ export function WorkCarousel() {
                   <span aria-hidden className="flex size-7 items-center justify-center rounded-full bg-live">
                     <span className="size-2.5 rounded-full bg-on-dark" />
                   </span>
-                  {it.concept ? (
-                    <span className="rounded-full bg-muted px-3 py-1 type-small font-medium text-ink">Concept</span>
-                  ) : (
-                    <span className="rounded-full bg-background px-3 py-1 type-small font-medium text-ink">Live Now</span>
-                  )}
+                  <span className={cn("rounded-full px-3 py-1 type-small font-medium text-ink", it.badge === "Live Now" ? "bg-background" : "bg-muted")}>{it.badge}</span>
                 </div>
                 <h3 className="pointer-events-none mt-5 text-[24px] leading-tight font-medium text-ink md:text-[28px]">{it.name}</h3>
                 <p className="pointer-events-none mt-2 line-clamp-2 type-small text-body">{it.description}</p>
@@ -373,12 +369,13 @@ export function WorkCarousel() {
           <div
             ref={cursor}
             aria-hidden
+            data-carousel-cursor
             className={cn(
-              "pointer-events-none fixed top-0 left-0 z-[35] transition-opacity duration-200",
+              "pointer-events-none fixed top-0 left-0 z-[9000] size-16 transition-opacity duration-200",
               showCursor ? "opacity-100" : "opacity-0",
             )}
           >
-            <div className="relative -translate-x-1/2 -translate-y-1/2">
+            <div className="relative">
               <span
                 className="absolute top-1/2 left-1/2 size-1.5 -translate-y-1/2 rounded-full bg-ink transition-transform duration-300"
                 style={{ transform: `translate(${dragging ? -58 : -44}px, -50%)` }}

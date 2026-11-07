@@ -47,3 +47,4 @@ use the editor.
 - Browser scroll tools load through loadScrollMotion after commit; each scene owns and reverts its GSAP context so navigation and preference changes never retain pins.
 - Homepage scroll process and shared featured deck live in dedicated components; custom software keeps its existing process so homepage motion changes stay scoped.
 - SmoothScroll owns Lenis with GSAP ticker synchronization and observes menu scroll locking; touch and reduced-motion users retain native scrolling.
+- The carousel cursor is portalled to the body with navigation layers above it; showcase badges derive from project type so demos and concepts remain distinct.

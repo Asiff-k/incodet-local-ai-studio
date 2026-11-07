@@ -1,6 +1,9 @@
 # Roadmap: Round 2 Part A (homepage)
 
 ## Round 3 Part C
+- [ ] Preview follow-up: automatic build reports build OK; hosted asset and homepage both return 401 Unauthorized, blocking deployed-version verification. Manual builds are managed by the harness.
+- [x] Cursor follow-up: body portal at layer 9000; navigation/menu at 9100/9200. Screenshot and temporary hit-test probe confirm cursor above cards; pointer passthrough preserved.
+- [x] Badge follow-up: Demo versus Concept classification tested, 12 content tests pass; Bloom Demo verified in browser. No overflow at 375/768/1280 or runtime errors.
 - [x] Study Orbix live motion (exact reference timing could not be established)
 - [x] Lenis synced with ScrollTrigger, accessible fallbacks
 - [x] Floating tile burst and colour-wave statement
