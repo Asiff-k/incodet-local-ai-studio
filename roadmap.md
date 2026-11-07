@@ -1,5 +1,14 @@
 # Roadmap: Round 2 Part A (homepage)
 
+## Round 3 Part C
+- [ ] Study Orbix live motion
+- [ ] Lenis synced with ScrollTrigger, accessible fallbacks
+- [ ] Floating tile burst and colour-wave statement
+- [ ] Portal DRAG cursor and frosted carousel cards
+- [ ] Scroll-driven process with 12 generated images
+- [ ] Shared six featured stacking cards on homepage and case studies
+- [ ] Verify reverse scrolling, keyboard, mobile, reduced motion and initial bytes
+
 - [x] 1 Storm hero video (dark hero, 1080p + 720p + poster)
 - [x] 2 Reduce "No lock-in"
 - [x] 3 Floating projects section
