@@ -48,3 +48,5 @@ use the editor.
 - Homepage scroll process and shared featured deck live in dedicated components; custom software keeps its existing process so homepage motion changes stay scoped.
 - SmoothScroll owns Lenis with GSAP ticker synchronization and observes menu scroll locking; touch and reduced-motion users retain native scrolling.
 - The carousel cursor is portalled to the body with navigation layers above it; showcase badges derive from project type so demos and concepts remain distinct.
+- Service pages and homepage panels share typed service data and dedicated templates; add services through data and leaf routes to keep navigation, FAQs and visuals consistent.
+- SmoothScroll broadcasts its Lenis scroll updates as a browser event so body-level overlays can recheck pointer visibility without owning a second scrolling instance.

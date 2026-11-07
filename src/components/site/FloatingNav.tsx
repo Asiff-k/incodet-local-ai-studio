@@ -3,6 +3,7 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { industryLinks, site } from "@/config/site";
+import { services } from "@/content/services";
 import { cn } from "@/lib/utils";
 import { Logo } from "./Logo";
 import { PillLink } from "./Button";
@@ -177,6 +178,11 @@ function MenuOverlay({ onClose }: { onClose: () => void }) {
                   </Link>
                 </li>
               ))}
+            </ul>
+            <p className={`${label} menu-item mt-8`} style={stagger(n++)}>Services</p>
+            <ul className="mt-3 grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-2">
+              {services.map(s=><li key={s.id} className="menu-item" style={stagger(n++)}><Link to={s.to} onClick={onClose} className="inline-block rounded-md text-[17px] font-medium text-ink hover:text-muted-foreground">{s.title}</Link></li>)}
+              <li><Link to="/services" onClick={onClose} className="text-[17px] font-medium text-ink hover:text-muted-foreground">All services</Link></li>
             </ul>
             <p className={`${label} menu-item mt-8`} style={stagger(n++)}>
               Industries
