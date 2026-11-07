@@ -1,6 +1,9 @@
 # Roadmap: Round 2 Part A (homepage)
 
 ## Round 3 Part C
+- [ ] Preview follow-up: verify latest hosted asset and homepage; automatic production build signals only.
+- [ ] Cursor follow-up: body portal at layer 9000 with navigation above; verify visual stacking and pointer passthrough.
+- [ ] Badge follow-up: preserve Demo versus Concept classification and test it.
 - [x] Study Orbix live motion (exact reference timing could not be established)
 - [x] Lenis synced with ScrollTrigger, accessible fallbacks
 - [x] Floating tile burst and colour-wave statement
