@@ -180,8 +180,10 @@ export function WorkCarousel() {
   const gap = mobile ? 16 : 28;
   const radius = (cardW + gap) / ((STEP_DEG * Math.PI) / 180);
 
-  const [pos, setPos] = useState(0);
-  const posRef = useRef(0);
+  const n = items.length;
+  // Opens on the third card so the wheel always shows cards on both sides.
+  const [pos, setPos] = useState(2);
+  const posRef = useRef(2);
   const anim = useRef(0);
   const drag = useRef<{ x: number; start: number; lastX: number; lastT: number; v: number; moved: boolean } | null>(null);
   const [dragging, setDragging] = useState(false);
@@ -192,8 +194,11 @@ export function WorkCarousel() {
   const cursorPos = useRef({ x: 0, y: 0 });
   const [cursorOn, setCursorOn] = useState(false);
   const [overButton, setOverButton] = useState(false);
-  const max = items.length - 1;
-  const clamp = (v: number) => Math.min(max + 0.35, Math.max(-0.35, v));
+  /** Shortest signed distance from the wheel position to card i, so the wheel loops both ways. */
+  const offset = (i: number, p: number) => {
+    const d = (((i - p) % n) + n) % n;
+    return d > n / 2 ? d - n : d;
+  };
 
   const set = (v: number) => {
     posRef.current = v;
@@ -203,7 +208,7 @@ export function WorkCarousel() {
   const animateTo = useCallback(
     (target: number) => {
       cancelAnimationFrame(anim.current);
-      const t = Math.min(max, Math.max(0, Math.round(target)));
+      const t = Math.round(target);
       if (reduced) {
         set(t);
         return;
@@ -219,7 +224,7 @@ export function WorkCarousel() {
       };
       anim.current = requestAnimationFrame(step);
     },
-    [max, reduced],
+    [reduced],
   );
 
   useEffect(() => () => cancelAnimationFrame(anim.current), []);
@@ -242,7 +247,7 @@ export function WorkCarousel() {
     d.v = (e.clientX - d.lastX) / dt;
     d.lastX = e.clientX;
     d.lastT = now;
-    set(clamp(d.start - dx / (cardW + gap)));
+    set(d.start - dx / (cardW + gap));
   };
   const onPointerUp = (e: RPointerEvent<HTMLDivElement>) => {
     const d = drag.current;
@@ -252,7 +257,7 @@ export function WorkCarousel() {
     if (!d.moved) {
       // A click on a side card centers it.
       const card = (document.elementsFromPoint(e.clientX, e.clientY) as HTMLElement[]).find((el) => el.dataset["index"]);
-      if (card) animateTo(Number(card.dataset["index"]));
+      if (card) animateTo(posRef.current + offset(Number(card.dataset["index"]), posRef.current));
       return;
     }
     const momentum = reduced ? 0 : (-d.v * 260) / (cardW + gap);
@@ -267,7 +272,7 @@ export function WorkCarousel() {
       if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
       e.preventDefault();
       cancelAnimationFrame(anim.current);
-      set(clamp(posRef.current + e.deltaX / (cardW + gap)));
+      set(posRef.current + e.deltaX / (cardW + gap));
       window.clearTimeout(wheelTimer.current);
       wheelTimer.current = window.setTimeout(() => animateTo(posRef.current), 140);
     };
@@ -292,8 +297,8 @@ export function WorkCarousel() {
     return () => cancelAnimationFrame(raf);
   }, [cursorOn, reduced]);
 
-  const active = Math.round(pos);
-  const go = (d: number) => animateTo(active + d);
+  const active = ((Math.round(pos) % n) + n) % n;
+  const go = (d: number) => animateTo(Math.round(posRef.current) + d);
   const showCursor = finePointer && cursorOn && !overButton;
 
   return (
@@ -353,7 +358,7 @@ export function WorkCarousel() {
         />
         <ul className="absolute inset-x-0 top-0">
           {items.map((it, i) => {
-            const d = i - pos;
+            const d = offset(i, pos);
             const hidden = Math.abs(d) > 4;
             const isActive = i === active;
             return (
@@ -447,7 +452,6 @@ export function WorkCarousel() {
         <button
           type="button"
           onClick={() => go(-1)}
-          disabled={active === 0}
           aria-label="Previous project"
           className="flex size-12 items-center justify-center rounded-full border border-border bg-background text-ink transition-colors hover:bg-bg-soft disabled:opacity-40"
         >
@@ -459,7 +463,6 @@ export function WorkCarousel() {
         <button
           type="button"
           onClick={() => go(1)}
-          disabled={active === max}
           aria-label="Next project"
           className="flex size-12 items-center justify-center rounded-full border border-border bg-background text-ink transition-colors hover:bg-bg-soft disabled:opacity-40"
         >

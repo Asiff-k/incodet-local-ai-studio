@@ -2,21 +2,19 @@ import { Link } from "@tanstack/react-router";
 import {
   ArrowRight,
   Hammer,
-  House,
   Layers,
   MessageCircle,
-  PaintRoller,
   Phone,
+  Plus,
   Rocket,
-  Scissors,
-  Sparkles,
   type LucideIcon,
 } from "lucide-react";
 import type { ReactNode } from "react";
 import { site } from "@/config/site";
-import { featuredCaseStudies as caseStudies } from "@/content/caseStudies";
+import { caseStudies as allCaseStudies, featuredCaseStudies as caseStudies } from "@/content/caseStudies";
 import { faq } from "@/content/faq";
-import { industries, type Industry } from "@/content/industries";
+import { industries } from "@/content/industries";
+import { industryIcon } from "@/components/site/industryIcons";
 import { plansNote } from "@/content/plans";
 import { CaseStudyWideCard } from "@/components/site/CaseStudyCard";
 import { PlanCards } from "@/components/site/PlanCards";
@@ -51,35 +49,36 @@ function ExternalPill({ href, children, variant }: { href: string; children: Rea
 }
 
 /* 2. Industries strip */
-const industryIcon: Record<Industry["icon"], LucideIcon> = {
-  roof: House,
-  floor: PaintRoller,
-  salon: Sparkles,
-  barber: Scissors,
-};
+
+const tileCls =
+  "group flex h-full flex-col items-center justify-center gap-2.5 rounded-card-sm border border-border bg-background p-6 text-center transition-shadow duration-300 hover:shadow-soft";
 
 export function IndustriesStrip() {
   return (
     <section aria-labelledby="industries-title" className="relative z-10 bg-bg-soft pt-4 pb-[72px] md:pb-[120px]">
       <div className="container-site">
         <h2 id="industries-title" className="text-center type-small font-medium text-muted-foreground">
-          Built for local service businesses
+          Built for businesses that run on calls and bookings
         </h2>
-        <ul className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
+        <ul className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4 lg:grid-cols-6">
           {industries.map((ind, i) => {
             const Icon = industryIcon[ind.icon];
             return (
-              <Reveal as="li" key={ind.slug} delay={i * 80}>
-                <Link
-                  to={ind.to}
-                  className="group flex h-full flex-col items-center justify-center gap-3 rounded-card-sm border border-border bg-background px-4 py-8 text-center transition-shadow duration-300 hover:shadow-soft md:py-10"
-                >
-                  <Icon aria-hidden className="size-7 text-ink" strokeWidth={1.5} />
-                  <span className="text-[17px] font-medium text-ink">{ind.name}</span>
+              <Reveal as="li" key={ind.slug} delay={(i % 6) * 60}>
+                <Link to={ind.to} className={tileCls}>
+                  <Icon aria-hidden className="size-6 text-ink" strokeWidth={1.5} />
+                  <span className="text-[15px] leading-tight font-medium text-ink">{ind.name}</span>
                 </Link>
               </Reveal>
             );
           })}
+          <Reveal as="li" delay={300}>
+            <Link to="/book" className={tileCls}>
+              <Plus aria-hidden className="size-6 text-ink" strokeWidth={1.5} />
+              <span className="text-[15px] leading-tight font-medium text-ink">Your business?</span>
+              <span className="type-small text-muted-foreground">Any business that takes bookings</span>
+            </Link>
+          </Reveal>
         </ul>
       </div>
     </section>
@@ -240,7 +239,7 @@ export function CaseStudiesPreview() {
           <p className="mt-4 type-body">Real projects with live links you can open.</p>
         </Reveal>
         <PillLink to="/case-studies" variant="secondary" className="self-start md:self-auto">
-          View all case studies <ArrowRight aria-hidden className="size-4" />
+          View all {allCaseStudies.length} case studies <ArrowRight aria-hidden className="size-4" />
         </PillLink>
       </div>
       <div className="mt-12 flex flex-col gap-6">

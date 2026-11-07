@@ -24,7 +24,7 @@ export function ExternalPill({
 }
 
 export function liveLabel(c: CaseStudy) {
-  return c.demo ? "View Live Demo" : "Visit Live Site";
+  return c.type === "Demo" ? "View Live Demo" : "Visit Live Site";
 }
 
 export function mockupAlt(name: string, laptopOnly = false) {
@@ -38,7 +38,7 @@ export function CaseStudyImage({ c, className, eager }: { c: CaseStudy; classNam
         src={c.mockup}
         srcSet={`${mockupSm(c.mockup)} 800w, ${c.mockup} 1600w`}
         sizes="(min-width: 768px) 50vw, 100vw"
-        alt={mockupAlt(c.name, c.slug === "brhex-studio")}
+        alt={mockupAlt(c.name, c.laptopOnly)}
         loading={eager ? "eager" : "lazy"}
         decoding="async"
         width={1600}
@@ -66,8 +66,9 @@ export function CaseStudyMeta({ c }: { c: CaseStudy }) {
     <div className="flex flex-wrap items-center gap-2">
       <span className="type-small text-muted-foreground">{c.category}</span>
       <span aria-hidden className="type-small text-muted-foreground">·</span>
-      <span className="type-small text-muted-foreground">{c.year}</span>
-      {c.demo && <span className="rounded-full bg-bg-soft px-3 py-1 type-small font-medium text-ink">Demo project</span>}
+      <span className="type-small text-muted-foreground">{c.period}</span>
+      {c.type === "Demo" && <span className="rounded-full bg-bg-soft px-3 py-1 type-small font-medium text-ink">Demo project</span>}
+      {c.type === "Concept" && <span className="rounded-full bg-bg-soft px-3 py-1 type-small font-medium text-ink">Concept</span>}
     </div>
   );
 }
@@ -104,38 +105,9 @@ export function CaseStudyWideCard({ c }: { c: CaseStudy }) {
             ))}
           </ul>
         )}
-        {c.includes && c.includes.length > 0 && (
-          <div className="mt-5">
-            <p className="type-small font-medium text-ink">Includes</p>
-            <ul className="mt-2 flex flex-col gap-1.5">
-              {c.includes.slice(0, 3).map((it) => (
-                <li key={it.label} className="type-small">
-                  <IncludeLabel it={it} />
-                </li>
-              ))}
-              {c.includes.length > 3 && <li className="type-small text-muted-foreground">+ more</li>}
-            </ul>
-          </div>
-        )}
         <CaseStudyActions c={c} />
       </div>
     </article>
-  );
-}
-
-export function IncludeLabel({ it }: { it: NonNullable<CaseStudy["includes"]>[number] }) {
-  return (
-    <>
-      {it.url ? (
-        <a href={it.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-ink underline-offset-4 hover:underline">
-          {it.label} ({it.year}) <ArrowUpRight aria-hidden className="size-3.5" />
-          <span className="sr-only">(opens in a new tab)</span>
-        </a>
-      ) : (
-        <span className="text-ink">{it.label} ({it.year})</span>
-      )}
-      {it.concept && <span className="ml-2 rounded-full bg-bg-soft px-2 py-0.5 text-muted-foreground">Concept</span>}
-    </>
   );
 }
 
@@ -148,7 +120,7 @@ export function CaseStudyGridCard({ c, headingLevel = "h2" }: { c: CaseStudy; he
       <div className="flex flex-1 flex-col p-2 pt-6 md:p-3 md:pt-6">
         <CaseStudyMeta c={c} />
         <H className="mt-3 type-h3">{c.name}</H>
-        <p className="mt-3 flex-1 type-body">{c.description}</p>
+        <p className="mt-3 flex-1 type-body">{c.solution}</p>
         <CaseStudyActions c={c} />
       </div>
     </article>

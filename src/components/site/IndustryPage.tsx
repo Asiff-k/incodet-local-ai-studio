@@ -86,6 +86,7 @@ export function IndustryPage({ slug }: { slug: string }) {
         <SectionHeading title="How the AI agent handles it" />
         <Reveal className="mt-12">
           <TranscriptCard {...p.transcript} />
+          {p.note && <p className="mx-auto mt-5 max-w-2xl text-center type-small text-muted-foreground">{p.note}</p>}
         </Reveal>
       </Section>
 

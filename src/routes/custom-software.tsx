@@ -28,7 +28,7 @@ const builds: { title: string; body: string; icon: LucideIcon }[] = [
 ];
 
 function CustomSoftwarePage() {
-  const related = ["brhex-studio", "western-cars"].map(getCaseStudy).filter((c): c is CaseStudy => Boolean(c));
+  const related = ["brhex-studio", "western-cars-content-hub"].map(getCaseStudy).filter((c): c is CaseStudy => Boolean(c));
   return (
     <>
       <PageHero

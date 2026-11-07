@@ -1,5 +1,6 @@
+import { industryIcon } from "./industryIcons";
 import { Link, useRouterState } from "@tanstack/react-router";
-import { House, Menu, PaintRoller, Scissors, Sparkles, X, type LucideIcon } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { industryLinks, site } from "@/config/site";
 import { cn } from "@/lib/utils";
@@ -100,12 +101,6 @@ const menuLinks = [
   { to: "/portal", label: "Client Portal" },
   { to: "/book", label: "Book a Call" },
 ];
-const industryIcons: Record<string, LucideIcon> = {
-  "/industries/roofing": House,
-  "/industries/epoxy-flooring": PaintRoller,
-  "/industries/salons": Sparkles,
-  "/industries/barber-shops": Scissors,
-};
 const label = "text-[13px] font-medium tracking-[0.08em] text-muted-foreground uppercase";
 const stagger = (i: number) => ({ animationDelay: `${60 + i * 30}ms` });
 
@@ -188,7 +183,7 @@ function MenuOverlay({ onClose }: { onClose: () => void }) {
             </p>
             <ul className="mt-3 grid grid-cols-2 gap-x-6 gap-y-2 xl:grid-cols-3">
               {industryLinks.map((l) => {
-                const Icon = industryIcons[l.to] ?? House;
+                const Icon = industryIcon[l.icon];
                 return (
                   <li key={l.to} className="menu-item" style={stagger(n++)}>
                     <Link

@@ -17,8 +17,18 @@ COLORS = {
   "bloom-studio": ("#F6E1E6", "#FCF5F7"),
   "a1-airport-cars": ("#F7EFD2", "#FCF9EE"),
   "western-cars-littlehampton": ("#E0E7F0", "#F6F8FB"),
+  "western-cars-haywards-heath": ("#E3E9F8", "#F5F7FC"),
+  "western-cars-pulborough": ("#DFF0E8", "#F4FAF7"),
+  "western-cars-content-hub": ("#EAE3F6", "#F7F4FB"),
+  "brighton-taxi": ("#E2E4EA", "#F5F6F8"),
+  "western-cars-crawley": ("#DCEAF4", "#F2F7FB"),
+  "western-cars-east-grinstead": ("#F4E6DA", "#FBF6F1"),
+  "western-cars-horley": ("#DDEFF2", "#F3F9FA"),
+  "western-cars-horsham": ("#EEF0D9", "#F9FAF0"),
+  "western-cars-redesign-concept": ("#F0E2EC", "#FAF4F8"),
+  "western-cars-staff-registration": ("#E6ECF2", "#F6F8FA"),
 }
-LAPTOP_ONLY = {"brhex-studio"}
+LAPTOP_ONLY = {"brhex-studio", "western-cars-staff-registration"}
 
 def html(slug, c1, c2):
     desk = (RAW / f"{slug}-desktop.png").resolve().as_uri()
