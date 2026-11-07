@@ -1,5 +1,10 @@
 # Roadmap: Round 2 Part A (homepage)
 
+## Round 3 Part F
+- [x] Standalone 23-slide company deck with shared-source facts and reference-inspired visuals; additional featured work gets a More work slide
+- [x] Keyboard, hash/reload, real touch swipe, controls, mobile stack and print layout; 23 landscape pages verified from desktop and mobile
+- [x] Menu/footer/sitemap metadata; 375/768/1280 checks without horizontal scroll or runtime errors, no serious/critical axe findings, content-integrity tests pass
+
 ## Round 3 Part E
 - [x] Service placeholder cap and generic UI fillers
 - [x] Booking settings, secure storage and optional emails (no email secret configured, safely skipped)

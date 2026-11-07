@@ -52,3 +52,4 @@ use the editor.
 - SmoothScroll broadcasts its Lenis scroll updates as a browser event so body-level overlays can recheck pointer visibility without owning a second scrolling instance.
 - Booking settings and pure slot/calendar helpers are shared by the reusable widget and server validation; active slot uniqueness is enforced in the database so concurrent requests cannot double book.
 - Availability uses a narrowly projected public RPC; booking writes use validated server functions and shared atomic contact/booking spam allowance, while admin operations use caller-scoped RLS.
+- Company deck content derives from existing config/content exports; its standalone shell scales one fixed canvas on desktop and exposes the same slides as a mobile stack and print pages to keep facts and layouts consistent.

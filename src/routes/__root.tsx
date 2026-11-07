@@ -145,6 +145,7 @@ function RootComponent() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const isAdmin = pathname.startsWith("/admin");
   const isPortalApp = pathname.startsWith("/portal/");
+  const isDeck = pathname === "/deck";
 
   useEffect(() => {
     const { data } = supabase.auth.onAuthStateChange((event) => {
@@ -157,7 +158,7 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <SmoothScroll />
+      {!isDeck && <SmoothScroll />}
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <a
         href="#main"
@@ -165,14 +166,14 @@ function RootComponent() {
       >
         Skip to content
       </a>
-      {!isAdmin && <TopBar />}
+      {!isAdmin && !isDeck && <TopBar />}
       <main id="main">
         <Outlet />
       </main>
-      {!isAdmin && <Footer />}
-      {!isAdmin && !isPortalApp && <FloatingNav />}
+      {!isAdmin && !isDeck && <Footer />}
+      {!isAdmin && !isPortalApp && !isDeck && <FloatingNav />}
       <Toaster position="top-center" />
-      {!isAdmin && <CookieConsent />}
+      {!isAdmin && !isDeck && <CookieConsent />}
     </QueryClientProvider>
   );
 }

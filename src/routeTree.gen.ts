@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as BookRouteImport } from './routes/book'
 import { Route as CustomSoftwareRouteImport } from './routes/custom-software'
+import { Route as DeckRouteImport } from './routes/deck'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
@@ -68,6 +69,11 @@ const BookRoute = BookRouteImport.update({
 const CustomSoftwareRoute = CustomSoftwareRouteImport.update({
   id: '/custom-software',
   path: '/custom-software',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DeckRoute = DeckRouteImport.update({
+  id: '/deck',
+  path: '/deck',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PricingRoute = PricingRouteImport.update({
@@ -271,6 +277,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/book': typeof BookRoute
   '/custom-software': typeof CustomSoftwareRoute
+  '/deck': typeof DeckRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -313,6 +320,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/book': typeof BookRoute
   '/custom-software': typeof CustomSoftwareRoute
+  '/deck': typeof DeckRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -356,6 +364,7 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/book': typeof BookRoute
   '/custom-software': typeof CustomSoftwareRoute
+  '/deck': typeof DeckRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -400,6 +409,7 @@ export interface FileRouteTypes {
     | '/'
     | '/book'
     | '/custom-software'
+    | '/deck'
     | '/pricing'
     | '/privacy'
     | '/sitemap.xml'
@@ -442,6 +452,7 @@ export interface FileRouteTypes {
     | '/'
     | '/book'
     | '/custom-software'
+    | '/deck'
     | '/pricing'
     | '/privacy'
     | '/sitemap.xml'
@@ -484,6 +495,7 @@ export interface FileRouteTypes {
     | '/_authenticated'
     | '/book'
     | '/custom-software'
+    | '/deck'
     | '/pricing'
     | '/privacy'
     | '/sitemap.xml'
@@ -528,6 +540,7 @@ export interface RootRouteChildren {
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   BookRoute: typeof BookRoute
   CustomSoftwareRoute: typeof CustomSoftwareRoute
+  DeckRoute: typeof DeckRoute
   PricingRoute: typeof PricingRoute
   PrivacyRoute: typeof PrivacyRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
@@ -587,6 +600,13 @@ declare module '@tanstack/react-router' {
       path: '/custom-software'
       fullPath: '/custom-software'
       preLoaderRoute: typeof CustomSoftwareRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/deck': {
+      id: '/deck'
+      path: '/deck'
+      fullPath: '/deck'
+      preLoaderRoute: typeof DeckRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/pricing': {
@@ -890,6 +910,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   BookRoute: BookRoute,
   CustomSoftwareRoute: CustomSoftwareRoute,
+  DeckRoute: DeckRoute,
   PricingRoute: PricingRoute,
   PrivacyRoute: PrivacyRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
