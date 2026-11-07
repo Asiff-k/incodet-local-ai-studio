@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
+import { Info } from "lucide-react";
 import { toast } from "sonner";
 import { getDemoPortal } from "@/content/demoPortal";
 import { PortalDashboard } from "@/components/portal/PortalDashboard";
@@ -24,9 +25,11 @@ function PortalDemo() {
   const [data] = useState(getDemoPortal);
   return (
     <div className="bg-bg-soft pt-24 md:pt-28">
-      <div role="note" className="border-y border-[#F5D565] bg-[#FEF3C7] text-[#3F2A00]">
+      <div role="note" className="border-y border-border bg-demo-note text-ink">
         <div className="container-site flex flex-wrap items-center justify-between gap-3 py-3 type-small">
-          <p className="font-medium">Sample project. This is example data, not a real client.</p>
+          <p className="inline-flex items-center gap-2 font-medium">
+            <Info aria-hidden className="size-4 shrink-0" /> Sample project. This is example data, not a real client.
+          </p>
           <Link to="/portal" className="font-medium underline underline-offset-4">
             Exit demo
           </Link>

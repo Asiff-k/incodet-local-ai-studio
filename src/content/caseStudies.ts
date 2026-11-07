@@ -157,3 +157,58 @@ export const recentProjects: { name: string; year: string; mockup: string; caseS
   { name: "A1 Airport Cars Worthing", year: "2025", mockup: mock("a1-airport-cars"), caseStudy: "a1-airport-cars" },
   { name: "Western Cars Littlehampton", year: "2026", mockup: mock("western-cars-littlehampton"), caseStudy: "western-cars" },
 ];
+
+/** Pastel card background per project (tokens in styles.css). */
+const tintFor: Record<string, string> = {
+  "western-cars": "bg-tint-western",
+  "barkers-executive": "bg-tint-barkers",
+  "gm-taxis-lewes": "bg-tint-gm",
+  "humandata-labs": "bg-tint-humandata",
+  "brhex-studio": "bg-tint-brhex",
+  "bloom-studio": "bg-tint-bloom",
+  "a1-airport-cars": "bg-tint-a1",
+};
+
+export type ShowcaseItem = {
+  key: string;
+  name: string;
+  description: string;
+  url: string;
+  year: number;
+  concept: boolean;
+  tint: string;
+  /** Wide device mockup or desktop screenshot. */
+  image: string;
+};
+
+const lastYear = (y: string) => Number(y.match(/\d{4}/g)?.pop() ?? 0);
+
+/** Every visible case study plus each Western Cars include with a live URL, newest first. Unlinked tools are never included. */
+export const showcase: ShowcaseItem[] = [
+  ...caseStudies
+    .filter((c) => c.liveUrl)
+    .map((c) => ({
+      key: c.slug,
+      name: c.name,
+      description: c.description,
+      url: c.liveUrl!,
+      year: lastYear(c.year),
+      concept: Boolean(c.demo),
+      tint: tintFor[c.slug] ?? "bg-bg-soft",
+      image: c.mockup ? mockupSm(c.mockup) : c.image.src,
+    })),
+  ...caseStudies.flatMap((c) =>
+    (c.includes ?? [])
+      .filter((i) => i.url && i.url !== c.liveUrl)
+      .map((i) => ({
+        key: `${c.slug}-${i.label}`,
+        name: `${c.name} ${i.label.replace(/ website$/, "")}`,
+        description: `${i.label}, part of our ${c.name} work.`,
+        url: i.url!,
+        year: lastYear(i.year),
+        concept: Boolean(i.concept),
+        tint: i.label.startsWith("Littlehampton") ? "bg-tint-littlehampton" : (tintFor[c.slug] ?? "bg-bg-soft"),
+        image: i.label.startsWith("Littlehampton") ? mockupSm(mock("western-cars-littlehampton")) : (i.image ?? c.image.src),
+      })),
+  ),
+].sort((a, b) => b.year - a.year);

@@ -4,18 +4,17 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Hero } from "@/components/site/Hero";
 import {
   BookingCta,
-  CallingAgent,
   CaseStudiesPreview,
   FactsRow,
   Faq,
   IndustriesStrip,
   PlansPreview,
-  RecentProjects,
   Process,
   Reviews,
   Services,
   WhoWeAre,
 } from "@/components/home/HomeSections";
+import { CallingAgent, ClientPortalPreview, FloatingProjects, WorkCarousel } from "@/components/home/HomeExtras";
 
 const title = "Incodet | Websites, AI Agents & Custom Software";
 const description =
@@ -32,13 +31,15 @@ function Index() {
     <>
       <Hero />
       <IndustriesStrip />
+      <FloatingProjects />
+      <WorkCarousel />
       <WhoWeAre />
       <FactsRow />
       <CallingAgent />
       <Services />
       <Process />
       <CaseStudiesPreview />
-      <RecentProjects />
+      <ClientPortalPreview />
       <PlansPreview />
       <Reviews />
       <Faq />

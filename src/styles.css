@@ -35,6 +35,18 @@
   --color-mint: var(--mint);
   --color-mint-ink: var(--mint-ink);
   --color-placeholder: var(--placeholder);
+  --color-demo-note: var(--demo-note);
+  --color-live: var(--live);
+  --color-tint-western: var(--tint-western);
+  --color-tint-barkers: var(--tint-barkers);
+  --color-tint-gm: var(--tint-gm);
+  --color-tint-humandata: var(--tint-humandata);
+  --color-tint-brhex: var(--tint-brhex);
+  --color-tint-bloom: var(--tint-bloom);
+  --color-tint-a1: var(--tint-a1);
+  --color-tint-littlehampton: var(--tint-littlehampton);
+
+  --color-hairline-dark: var(--hairline-dark);
   --color-on-dark-muted: var(--on-dark-muted);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
@@ -73,6 +85,18 @@
   --mint: #d1fae5;
   --mint-ink: #064e3b;
   --placeholder: #efefef;
+  --demo-note: #f2f3f5;
+  --live: #e5372e;
+  --tint-western: #dce6f7;
+  --tint-barkers: #e4def5;
+  --tint-gm: #ddf1e4;
+  --tint-humandata: #d8eeec;
+  --tint-brhex: #f2e8da;
+  --tint-bloom: #f6e1e6;
+  --tint-a1: #f7efd2;
+  --tint-littlehampton: #e0e7f0;
+
+  --hairline-dark: #222222;
   --gradient-accent-soft: linear-gradient(135deg, color-mix(in oklab, var(--accent-from) 12%, var(--bg)), color-mix(in oklab, var(--accent-to) 14%, var(--bg)));
   --on-dark-muted: #b3b3b3;
   --accent-from: #3b6cf6;
@@ -227,4 +251,50 @@
 h1,
 h2 {
   text-wrap: balance;
+}
+
+/* Floating project tiles: pop in one after another when the section enters. */
+.float-tile {
+  opacity: 0;
+  transform: scale(0.85);
+  filter: blur(6px);
+  transition:
+    opacity 600ms var(--ease),
+    transform 600ms var(--ease),
+    filter 600ms var(--ease);
+}
+.is-visible .float-tile {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .float-tile {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+/* Menu links slide up in sequence when the menu opens. */
+@keyframes menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.menu-item {
+  animation: menu-in 500ms var(--ease) both;
+}
+@keyframes portal-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }

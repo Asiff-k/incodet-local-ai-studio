@@ -14,11 +14,11 @@ import {
 } from "lucide-react";
 import type { ReactNode } from "react";
 import { site } from "@/config/site";
-import { featuredCaseStudies as caseStudies, mockupSm, recentProjects } from "@/content/caseStudies";
+import { featuredCaseStudies as caseStudies } from "@/content/caseStudies";
 import { faq } from "@/content/faq";
 import { industries, type Industry } from "@/content/industries";
 import { plansNote } from "@/content/plans";
-import { CaseStudyWideCard, mockupAlt } from "@/components/site/CaseStudyCard";
+import { CaseStudyWideCard } from "@/components/site/CaseStudyCard";
 import { PlanCards } from "@/components/site/PlanCards";
 import { reviews } from "@/content/reviews";
 import { services, type Service } from "@/content/services";
@@ -27,7 +27,7 @@ import { Accordion, SegmentedTabs } from "@/components/site/Interactive";
 import { Logo } from "@/components/site/Logo";
 import { Card, PillBadge, Reveal, Section, SectionHeading } from "@/components/site/primitives";
 import { RevealText } from "@/components/site/RevealText";
-import { HorizontalScrollCards, StackedPanels } from "@/components/site/ScrollSections";
+import { StackedPanels } from "@/components/site/ScrollSections";
 import { cn } from "@/lib/utils";
 import {
   AutomationUI,
@@ -39,7 +39,6 @@ import {
   DashboardUI,
   DiscoveryUI,
   LaunchUI,
-  NotificationUI,
   PlanUI,
 } from "./MiniUI";
 
@@ -88,29 +87,34 @@ export function IndustriesStrip() {
 }
 
 /* 3. Who we are */
+const whoTags = [
+  { label: "Never miss a call", cls: "bg-panel-orange -rotate-6", pos: "lg:-top-12 lg:left-[3%]" },
+  { label: "Book online 24/7", cls: "bg-panel-violet rotate-[5deg]", pos: "lg:bottom-0 lg:right-[3%]" },
+  { label: "Live in 1 to 2 weeks", cls: "bg-panel-blue -rotate-3", pos: "lg:bottom-0 lg:left-[3%]" },
+];
+
 export function WhoWeAre() {
   return (
     <Section className="relative overflow-hidden">
-      <div className="relative mx-auto max-w-5xl text-center md:pb-24">
+      <div className="mx-auto max-w-[1100px] text-center">
         <Reveal>
           <PillBadge>Who we are</PillBadge>
         </Reveal>
         <h2 className="sr-only">Who we are</h2>
-        <RevealText
-          size="h2"
-          className="mt-8"
-          text="Incodet builds websites, AI agents and custom software for businesses of every size. Small businesses get online bookings, growing businesses automate calls and enquiries, and established companies get complete platforms. You pay for the features you need and use."
-        />
-        <div aria-hidden className="pointer-events-none hidden md:block">
-          <span className="absolute top-0 left-[4%] -rotate-6 rounded-full bg-[image:var(--gradient-accent)] px-4 py-2 type-small font-semibold text-on-dark shadow-pill">
-            24/7
-          </span>
-          <span className="absolute right-[8%] bottom-2 rotate-6 rounded-full border border-border bg-background px-4 py-2 type-small font-medium text-ink shadow-soft ">
-            No lock-in
-          </span>
-          <span className="absolute bottom-0 left-[14%] -rotate-3 rounded-full bg-ink px-4 py-2 type-small font-medium text-primary-foreground shadow-pill">
-            From $499
-          </span>
+        <div className="relative mt-8">
+          <RevealText
+            size="statement"
+            text="Incodet builds websites, AI agents and custom software for businesses of every size. Small businesses get online bookings, growing businesses automate calls and enquiries, and established companies get complete platforms. You pay for the features you need and use."
+          />
+          <ul className="mt-8 flex flex-wrap justify-center gap-3 lg:mt-0">
+            {whoTags.map((t, i) => (
+              <Reveal as="li" key={t.label} delay={200 + i * 150} className={cn("lg:absolute", t.pos)}>
+                <span className={cn("inline-block rounded-full px-5 py-2.5 text-[15px] font-medium text-on-dark shadow-pill", t.cls)}>
+                  {t.label}
+                </span>
+              </Reveal>
+            ))}
+          </ul>
         </div>
       </div>
     </Section>
@@ -122,7 +126,7 @@ const facts = [
   { big: "24/7", label: "AI answers your calls" },
   { big: "1 to 2 weeks", label: "Starter websites launch" },
   { big: "From $499", label: "One-time setup" },
-  { big: "No lock-in", label: "Contracts" },
+  { big: "300 minutes", label: "AI calls included on Growth" },
 ];
 
 export function FactsRow() {
@@ -137,62 +141,6 @@ export function FactsRow() {
             </Reveal>
           ))}
         </ul>
-      </div>
-    </section>
-  );
-}
-
-/* 5. AI calling agent */
-const callSteps = [
-  { title: "A customer calls", body: "Day, night or weekend, including after hours.", ui: CallCardUI },
-  { title: "The AI agent answers", body: "It greets the caller, answers questions and gives your business information.", ui: ChatUI },
-  { title: "It books the appointment", body: "The booking goes straight into your calendar.", ui: CalendarUI },
-  { title: "You get the details", body: "Owner alerts by email or WhatsApp, with the caller's name and request.", ui: NotificationUI },
-];
-
-export function CallingAgent() {
-  return (
-    <section data-theme="dark" aria-labelledby="calling-title" className="bg-dark py-[72px] md:py-[120px]">
-      <div className="container-site text-center">
-        <Reveal>
-          <PillBadge tone="mint" icon={<Phone aria-hidden className="size-4" />}>
-            24/7 AI Calling Agent
-          </PillBadge>
-          <h2 id="calling-title" className="mx-auto mt-6 max-w-4xl type-h2 text-on-dark">
-            Picks up every call, books appointments and sends you the details.
-          </h2>
-        </Reveal>
-      </div>
-      <div className="mt-12 md:mt-4">
-        <HorizontalScrollCards>
-          {callSteps.map((s, i) => {
-            const dark = i % 2 === 0;
-            const UI = s.ui;
-            return (
-              <article
-                key={s.title}
-                className={cn(
-                  "flex h-[440px] flex-col justify-between rounded-card p-6 md:h-[480px] md:p-8",
-                  dark ? "border border-on-dark/15 bg-dark-card text-on-dark" : "bg-background text-ink",
-                )}
-              >
-                <div className="flex items-start justify-between">
-                  <span className="type-small font-medium opacity-80">Step {i + 1}</span>
-                </div>
-                <UI tone={dark ? "light" : "dark"} />
-                <div>
-                  <h3 className={cn("type-h3", dark ? "text-on-dark" : "text-ink")}>{s.title}</h3>
-                  <p className={cn("mt-2 type-body", dark ? "text-on-dark-muted" : "text-body")}>{s.body}</p>
-                </div>
-              </article>
-            );
-          })}
-        </HorizontalScrollCards>
-      </div>
-      <div className="mt-10 flex justify-center">
-        <PillLink to="/book" variant="primary-inverted" size="lg">
-          Book a Free Call
-        </PillLink>
       </div>
     </section>
   );
@@ -306,53 +254,13 @@ export function CaseStudiesPreview() {
   );
 }
 
-/* 8b. Recent projects gallery */
-export function RecentProjects() {
-  if (!recentProjects.length) return null;
-  return (
-    <Section>
-      <Reveal>
-        <h2 className="type-h2">Recent projects</h2>
-        <p className="mt-4 type-body">A closer look at websites we have launched.</p>
-      </Reveal>
-      <ul className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-        {recentProjects.map((p) => (
-          <li key={p.name}>
-            <Link
-              to="/case-studies/$slug"
-              params={{ slug: p.caseStudy }}
-              className="group relative block overflow-hidden rounded-[28px] bg-bg-soft focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink"
-            >
-              <img
-                src={mockupSm(p.mockup)}
-                srcSet={`${mockupSm(p.mockup)} 800w, ${p.mockup} 1600w`}
-                sizes="(min-width: 1280px) 25vw, (min-width: 768px) 50vw, 100vw"
-                alt={mockupAlt(p.name, p.caseStudy === "brhex-studio")}
-                loading="lazy"
-                decoding="async"
-                width={800}
-                height={500}
-                className="aspect-[16/10] w-full object-cover transition-transform duration-500 group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
-              />
-              <span className="absolute inset-x-3 bottom-3 flex items-center justify-between gap-3 rounded-full bg-background px-4 py-2 shadow-sm transition-opacity duration-300 [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover:opacity-100 [@media(hover:hover)]:group-focus-visible:opacity-100">
-                <span className="type-small font-medium text-ink">{p.name}</span>
-                <span className="type-small text-muted-foreground">{p.year}</span>
-              </span>
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </Section>
-  );
-}
-
 /* 9. Plans */
 export function PlansPreview() {
   return (
     <Section>
       <Reveal className="text-center">
         <h2 className="type-h2">Pay for what you use. Nothing more.</h2>
-        <p className="mt-4 type-small text-muted-foreground">All prices in USD. No lock-in contracts.</p>
+        <p className="mt-4 type-small text-muted-foreground">All prices in USD.</p>
       </Reveal>
       <div className="mt-12">
         <PlanCards />
