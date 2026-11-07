@@ -563,7 +563,7 @@ html.lenis, html.lenis body { height: auto; }
 .company-deck :focus-visible { outline-color: var(--on-dark); }
 .deck-light :focus-visible { outline-color: var(--ink); }
 @media (prefers-reduced-motion: reduce) { .deck-page { transition: none; translate: 0; } }
-@media (max-width: 767px) and (orientation: portrait) {
+@media screen and (max-width: 767px) and (orientation: portrait) {
  .deck-stage { position: relative; inset: auto; overflow: visible; padding-top: 64px; padding-bottom: 60px; }
  .deck-page { position: relative; top: auto; left: auto; width: 100%; height: auto; min-height: 540px; margin: 0; transform: none; visibility: visible; opacity: 1; translate: 0; }
  .deck-page-content { padding: 48px 24px 80px; }
