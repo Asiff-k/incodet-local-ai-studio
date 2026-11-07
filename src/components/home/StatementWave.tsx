@@ -61,6 +61,7 @@ export function StatementWave() {
           tl.to(pill, { opacity: 1, scale: 1.05, rotation: (tags[i]?.rotation ?? 0) + 3, duration: 1.2, ease: "back.out(2)" }, positions[i] ?? 0)
             .to(pill, { scale: 1, rotation: tags[i]?.rotation ?? 0, duration: 1 }, (positions[i] ?? 0) + 1.2);
         });
+        ScrollTrigger.sort();
         ScrollTrigger.refresh();
       });
       revert = () => mm.revert();

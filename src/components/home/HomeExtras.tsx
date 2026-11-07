@@ -82,6 +82,7 @@ export function FloatingProjects() {
             .to(tile, { x: () => dx() * 2.5, y: () => dy() * 2.5, scale: 1.6, opacity: 0, duration: 0.4, ease: "none" }, 0.5 + at);
         });
         tl.to({}, { duration: 0.12 });
+        ScrollTrigger.sort();
         ScrollTrigger.refresh();
       });
       revert = () => mm.revert();

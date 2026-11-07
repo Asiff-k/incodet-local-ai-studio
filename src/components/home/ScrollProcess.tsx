@@ -64,11 +64,12 @@ export function ScrollProcess() {
         gsap.set(cards, { opacity: (i: number) => i === activeRef.current ? 1 : 0 });
         gsap.set(layers, { opacity: (i: number) => i === activeRef.current ? 1 : 0 });
         if (reduced) { scrollToStep.current = select; return; }
-        const trigger = ScrollTrigger.create({ id: "process-steps", trigger: el, start: "top 80px", end: () => `+=${window.innerHeight * 4 / 3}`, pin: true, scrub: true, invalidateOnRefresh: true, refreshPriority: 10, onUpdate: (self) => select(Math.min(3, Math.floor(self.progress * 4))) });
+        const trigger = ScrollTrigger.create({ id: "process-steps", trigger: root.current, start: "top top", end: () => `+=${window.innerHeight * 4 / 3}`, pin: true, scrub: true, invalidateOnRefresh: true, refreshPriority: 10, onUpdate: (self) => select(Math.min(3, Math.floor(self.progress * 4))) });
         scrollToStep.current = (i) => {
           select(i);
           window.scrollTo({ top: trigger.start + (trigger.end - trigger.start) * (i + 0.1) / 4, behavior: "instant" });
         };
+        ScrollTrigger.sort();
         ScrollTrigger.refresh();
       });
       revert = () => { mm.revert(); scrollToStep.current = undefined; };
@@ -81,7 +82,7 @@ export function ScrollProcess() {
     if (focus) root.current?.querySelector<HTMLElement>(`#process-tab-${i}`)?.focus();
   };
   return (
-    <section ref={root} className="section-y bg-background" aria-label="How it works">
+    <section ref={root} className="scroll-process section-y relative bg-background" aria-label="How it works">
       <div className="container-site">
         <SectionHeading title="How it works">A simple process, from first call to launch.</SectionHeading>
         <div ref={panel} className="process-panel relative mt-12 hidden overflow-hidden rounded-card p-5 md:block md:p-6">

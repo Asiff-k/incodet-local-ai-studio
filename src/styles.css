@@ -363,6 +363,7 @@ h2 {
 .process-image-2 img { animation-duration: 6s; animation-delay: -4s; }
 @keyframes process-float { from { transform: translateY(-4px); } to { transform: translateY(4px); } }
 @media (min-width: 768px) {
+  .scroll-process { min-height: 100svh; display: flex; align-items: center; }
   .statement-wave { min-height: 100svh; display: flex; align-items: center; padding-block: 100px; }
   .wave-paragraph { font-size: 28px; }
   .wave-pill { position: absolute; translate: -50% -50%; z-index: 2; }
