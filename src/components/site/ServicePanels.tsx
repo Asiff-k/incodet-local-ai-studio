@@ -19,11 +19,12 @@ export function ServiceImage({slug,eager=false}: {slug:string;eager?:boolean}) {
 export function ServiceStrip({service}: {service:Service}) {
  const entries: ('call'|'chat'|string|null)[]=[...service.images];
  if(service.ui) entries.push('call','chat');
+ if(service.id==='business-automation') entries.push('notification','reminder','sync');
  while(entries.length<4) entries.push(null);
  let placeholders=0;
  return <div role="region" aria-label={`${service.title} images`} tabIndex={0} className="service-image-strip">
   {entries.map((entry,i)=>{ const filler=!entry && ++placeholders>2; return <div key={`${entry}-${i}`} className="service-image-tile">
-   {entry==='call' ? <div className="h-full bg-background p-4"><CallCardUI/></div> : entry==='chat' ? <div className="h-full bg-background p-4"><ChatUI/></div> : entry ? <ServiceImage slug={entry}/> : filler ? <ServiceSampleUI kind={service.id==='business-automation' ? ['notification','reminder','sync'][i%3] ?? 'sync' : service.id==='social-media-growth' ? 'social' : 'phone'}/> : <ServicePlaceholder className="size-full"/>}
+   {entry==='call' ? <div className="h-full bg-background p-4"><CallCardUI/></div> : entry==='chat' ? <div className="h-full bg-background p-4"><ChatUI/></div> : entry && ['notification','reminder','sync'].includes(entry) ? <ServiceSampleUI kind={entry}/> : entry ? <ServiceImage slug={entry}/> : filler ? <ServiceSampleUI kind={service.id==='social-media-growth' ? 'social' : 'phone'}/> : <ServicePlaceholder className="size-full"/>}
   </div>;})}
  </div>;
 }
