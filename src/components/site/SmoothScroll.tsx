@@ -24,12 +24,12 @@ export function SmoothScroll() {
       const observer = new MutationObserver(lock);
       observer.observe(document.body, { attributes: true, attributeFilter: ["style"] });
       lock();
-      document.documentElement.dataset.smoothScroll = "enabled";
+      document.documentElement.dataset["smoothScroll"] = "enabled";
       dispose = () => {
         observer.disconnect();
         gsap.ticker.remove(tick);
         lenis.destroy();
-        delete document.documentElement.dataset.smoothScroll;
+        delete document.documentElement.dataset["smoothScroll"];
       };
     };
     const change = () => { cancelled = true; dispose?.(); dispose = undefined; cancelled = false; void setup(); };
