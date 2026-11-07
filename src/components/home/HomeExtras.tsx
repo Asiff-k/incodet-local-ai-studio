@@ -253,8 +253,8 @@ export function WorkCarousel() {
     if (!d) return;
     if (!d.moved) {
       // A click on a side card centers it.
-      const card = (document.elementsFromPoint(e.clientX, e.clientY) as HTMLElement[]).find((el) => el.dataset.index);
-      if (card) animateTo(Number(card.dataset.index));
+      const card = (document.elementsFromPoint(e.clientX, e.clientY) as HTMLElement[]).find((el) => el.dataset["index"]);
+      if (card) animateTo(Number(card.dataset["index"]));
       return;
     }
     const momentum = reduced ? 0 : (-d.v * 260) / (cardW + gap);
