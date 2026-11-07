@@ -19,18 +19,18 @@ const mock = (s: string) => `/images/mockups/${s}-sm.webp`;
 
 // Desktop layout: a loose cloud left and right of the centered text.
 const tiles: Tile[] = [
-  { src: shot("western-cars-brighton"), w: 300, h: 188, left: "2%", top: "6%", speed: 1.15, framed: true },
-  { src: phone("bloom-studio"), w: 160, h: 346, left: "22%", top: "2%", speed: 0.9 },
-  { src: mock("humandata-labs"), w: 260, h: 163, left: "0%", top: "40%", speed: 1.25 },
-  { src: phone("gm-taxis-lewes"), w: 170, h: 368, left: "17%", top: "52%", speed: 0.85, framed: true },
-  { src: shot("brhex-studio"), w: 240, h: 150, left: "4%", top: "78%", speed: 1.05 },
-  { src: shot("barkers-executive"), w: 220, h: 138, left: "26%", top: "84%", speed: 1.2, framed: true },
-  { src: phone("western-cars-littlehampton"), w: 160, h: 346, left: "66%", top: "3%", speed: 1.2 },
-  { src: mock("a1-airport-cars"), w: 280, h: 175, left: "77%", top: "10%", speed: 0.9, framed: true },
-  { src: shot("gm-taxis-lewes"), w: 260, h: 163, left: "79%", top: "44%", speed: 1.1 },
-  { src: phone("barkers-executive"), w: 170, h: 368, left: "68%", top: "54%", speed: 0.85, framed: true },
-  { src: mock("bloom-studio"), w: 240, h: 150, left: "80%", top: "80%", speed: 1.25 },
-  { src: phone("a1-airport-cars"), w: 160, h: 346, left: "58%", top: "86%", speed: 1 },
+  { src: shot("western-cars-brighton"), w: 280, h: 175, left: "2%", top: "8%", speed: 1.15, framed: true },
+  { src: phone("bloom-studio"), w: 150, h: 325, left: "24%", top: "0%", speed: 0.9 },
+  { src: mock("humandata-labs"), w: 250, h: 156, left: "0%", top: "40%", speed: 1.25 },
+  { src: phone("gm-taxis-lewes"), w: 150, h: 325, left: "15%", top: "58%", speed: 0.85, framed: true },
+  { src: shot("brhex-studio"), w: 220, h: 138, left: "30%", top: "88%", speed: 1.05 },
+  { src: shot("barkers-executive"), w: 180, h: 113, left: "1%", top: "84%", speed: 1.2, framed: true },
+  { src: phone("western-cars-littlehampton"), w: 150, h: 325, left: "63%", top: "0%", speed: 1.2 },
+  { src: mock("a1-airport-cars"), w: 270, h: 169, left: "77%", top: "9%", speed: 0.9, framed: true },
+  { src: shot("gm-taxis-lewes"), w: 250, h: 156, left: "79%", top: "42%", speed: 1.1 },
+  { src: phone("barkers-executive"), w: 150, h: 325, left: "75%", top: "62%", speed: 0.85, framed: true },
+  { src: mock("bloom-studio"), w: 180, h: 113, left: "86%", top: "86%", speed: 1.25 },
+  { src: phone("a1-airport-cars"), w: 150, h: 325, left: "60%", top: "88%", speed: 1 },
 ];
 const mobileTiles = [tiles[1], tiles[0], tiles[6], tiles[7], tiles[3], tiles[8], tiles[9], tiles[10]];
 
