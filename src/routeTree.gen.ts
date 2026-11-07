@@ -35,6 +35,14 @@ import { Route as IndustriesRoofingRouteImport } from './routes/industries.roofi
 import { Route as IndustriesSalonsRouteImport } from './routes/industries.salons'
 import { Route as PortalIndexRouteImport } from './routes/portal.index'
 import { Route as PortalDemoRouteImport } from './routes/portal.demo'
+import { Route as ServicesIndexRouteImport } from './routes/services.index'
+import { Route as ServicesAiCallingAgentRouteImport } from './routes/services.ai-calling-agent'
+import { Route as ServicesAiChatbotRouteImport } from './routes/services.ai-chatbot'
+import { Route as ServicesAppDevelopmentRouteImport } from './routes/services.app-development'
+import { Route as ServicesBusinessAutomationRouteImport } from './routes/services.business-automation'
+import { Route as ServicesSocialMediaGrowthRouteImport } from './routes/services.social-media-growth'
+import { Route as ServicesUiUxProductDesignRouteImport } from './routes/services.ui-ux-product-design'
+import { Route as ServicesWebDevelopmentRouteImport } from './routes/services.web-development'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
 import { Route as AuthenticatedAdminClientsRouteImport } from './routes/_authenticated/admin.clients'
 import { Route as AuthenticatedAdminInvoicesRouteImport } from './routes/_authenticated/admin.invoices'
@@ -173,6 +181,49 @@ const PortalDemoRoute = PortalDemoRouteImport.update({
   path: '/portal/demo',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ServicesIndexRoute = ServicesIndexRouteImport.update({
+  id: '/services/',
+  path: '/services/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesAiCallingAgentRoute = ServicesAiCallingAgentRouteImport.update({
+  id: '/services/ai-calling-agent',
+  path: '/services/ai-calling-agent',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesAiChatbotRoute = ServicesAiChatbotRouteImport.update({
+  id: '/services/ai-chatbot',
+  path: '/services/ai-chatbot',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesAppDevelopmentRoute = ServicesAppDevelopmentRouteImport.update({
+  id: '/services/app-development',
+  path: '/services/app-development',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesBusinessAutomationRoute =
+  ServicesBusinessAutomationRouteImport.update({
+    id: '/services/business-automation',
+    path: '/services/business-automation',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ServicesSocialMediaGrowthRoute =
+  ServicesSocialMediaGrowthRouteImport.update({
+    id: '/services/social-media-growth',
+    path: '/services/social-media-growth',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ServicesUiUxProductDesignRoute =
+  ServicesUiUxProductDesignRouteImport.update({
+    id: '/services/ui-ux-product-design',
+    path: '/services/ui-ux-product-design',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ServicesWebDevelopmentRoute = ServicesWebDevelopmentRouteImport.update({
+  id: '/services/web-development',
+  path: '/services/web-development',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -232,9 +283,17 @@ export interface FileRoutesByFullPath {
   '/industries/roofing': typeof IndustriesRoofingRoute
   '/industries/salons': typeof IndustriesSalonsRoute
   '/portal/demo': typeof PortalDemoRoute
+  '/services/ai-calling-agent': typeof ServicesAiCallingAgentRoute
+  '/services/ai-chatbot': typeof ServicesAiChatbotRoute
+  '/services/app-development': typeof ServicesAppDevelopmentRoute
+  '/services/business-automation': typeof ServicesBusinessAutomationRoute
+  '/services/social-media-growth': typeof ServicesSocialMediaGrowthRoute
+  '/services/ui-ux-product-design': typeof ServicesUiUxProductDesignRoute
+  '/services/web-development': typeof ServicesWebDevelopmentRoute
   '/case-studies/': typeof CaseStudiesIndexRoute
   '/industries/': typeof IndustriesIndexRoute
   '/portal/': typeof PortalIndexRoute
+  '/services/': typeof ServicesIndexRoute
   '/admin/clients': typeof AuthenticatedAdminClientsRoute
   '/admin/invoices': typeof AuthenticatedAdminInvoicesRoute
   '/admin/messages': typeof AuthenticatedAdminMessagesRoute
@@ -264,9 +323,17 @@ export interface FileRoutesByTo {
   '/industries/roofing': typeof IndustriesRoofingRoute
   '/industries/salons': typeof IndustriesSalonsRoute
   '/portal/demo': typeof PortalDemoRoute
+  '/services/ai-calling-agent': typeof ServicesAiCallingAgentRoute
+  '/services/ai-chatbot': typeof ServicesAiChatbotRoute
+  '/services/app-development': typeof ServicesAppDevelopmentRoute
+  '/services/business-automation': typeof ServicesBusinessAutomationRoute
+  '/services/social-media-growth': typeof ServicesSocialMediaGrowthRoute
+  '/services/ui-ux-product-design': typeof ServicesUiUxProductDesignRoute
+  '/services/web-development': typeof ServicesWebDevelopmentRoute
   '/case-studies': typeof CaseStudiesIndexRoute
   '/industries': typeof IndustriesIndexRoute
   '/portal': typeof PortalIndexRoute
+  '/services': typeof ServicesIndexRoute
   '/admin/clients': typeof AuthenticatedAdminClientsRoute
   '/admin/invoices': typeof AuthenticatedAdminInvoicesRoute
   '/admin/messages': typeof AuthenticatedAdminMessagesRoute
@@ -299,9 +366,17 @@ export interface FileRoutesById {
   '/industries/roofing': typeof IndustriesRoofingRoute
   '/industries/salons': typeof IndustriesSalonsRoute
   '/portal/demo': typeof PortalDemoRoute
+  '/services/ai-calling-agent': typeof ServicesAiCallingAgentRoute
+  '/services/ai-chatbot': typeof ServicesAiChatbotRoute
+  '/services/app-development': typeof ServicesAppDevelopmentRoute
+  '/services/business-automation': typeof ServicesBusinessAutomationRoute
+  '/services/social-media-growth': typeof ServicesSocialMediaGrowthRoute
+  '/services/ui-ux-product-design': typeof ServicesUiUxProductDesignRoute
+  '/services/web-development': typeof ServicesWebDevelopmentRoute
   '/case-studies/': typeof CaseStudiesIndexRoute
   '/industries/': typeof IndustriesIndexRoute
   '/portal/': typeof PortalIndexRoute
+  '/services/': typeof ServicesIndexRoute
   '/_authenticated/admin/clients': typeof AuthenticatedAdminClientsRoute
   '/_authenticated/admin/invoices': typeof AuthenticatedAdminInvoicesRoute
   '/_authenticated/admin/messages': typeof AuthenticatedAdminMessagesRoute
@@ -334,9 +409,17 @@ export interface FileRouteTypes {
     | '/industries/roofing'
     | '/industries/salons'
     | '/portal/demo'
+    | '/services/ai-calling-agent'
+    | '/services/ai-chatbot'
+    | '/services/app-development'
+    | '/services/business-automation'
+    | '/services/social-media-growth'
+    | '/services/ui-ux-product-design'
+    | '/services/web-development'
     | '/case-studies/'
     | '/industries/'
     | '/portal/'
+    | '/services/'
     | '/admin/clients'
     | '/admin/invoices'
     | '/admin/messages'
@@ -366,9 +449,17 @@ export interface FileRouteTypes {
     | '/industries/roofing'
     | '/industries/salons'
     | '/portal/demo'
+    | '/services/ai-calling-agent'
+    | '/services/ai-chatbot'
+    | '/services/app-development'
+    | '/services/business-automation'
+    | '/services/social-media-growth'
+    | '/services/ui-ux-product-design'
+    | '/services/web-development'
     | '/case-studies'
     | '/industries'
     | '/portal'
+    | '/services'
     | '/admin/clients'
     | '/admin/invoices'
     | '/admin/messages'
@@ -400,9 +491,17 @@ export interface FileRouteTypes {
     | '/industries/roofing'
     | '/industries/salons'
     | '/portal/demo'
+    | '/services/ai-calling-agent'
+    | '/services/ai-chatbot'
+    | '/services/app-development'
+    | '/services/business-automation'
+    | '/services/social-media-growth'
+    | '/services/ui-ux-product-design'
+    | '/services/web-development'
     | '/case-studies/'
     | '/industries/'
     | '/portal/'
+    | '/services/'
     | '/_authenticated/admin/clients'
     | '/_authenticated/admin/invoices'
     | '/_authenticated/admin/messages'
@@ -434,9 +533,17 @@ export interface RootRouteChildren {
   IndustriesRoofingRoute: typeof IndustriesRoofingRoute
   IndustriesSalonsRoute: typeof IndustriesSalonsRoute
   PortalDemoRoute: typeof PortalDemoRoute
+  ServicesAiCallingAgentRoute: typeof ServicesAiCallingAgentRoute
+  ServicesAiChatbotRoute: typeof ServicesAiChatbotRoute
+  ServicesAppDevelopmentRoute: typeof ServicesAppDevelopmentRoute
+  ServicesBusinessAutomationRoute: typeof ServicesBusinessAutomationRoute
+  ServicesSocialMediaGrowthRoute: typeof ServicesSocialMediaGrowthRoute
+  ServicesUiUxProductDesignRoute: typeof ServicesUiUxProductDesignRoute
+  ServicesWebDevelopmentRoute: typeof ServicesWebDevelopmentRoute
   CaseStudiesIndexRoute: typeof CaseStudiesIndexRoute
   IndustriesIndexRoute: typeof IndustriesIndexRoute
   PortalIndexRoute: typeof PortalIndexRoute
+  ServicesIndexRoute: typeof ServicesIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -623,6 +730,62 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PortalDemoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/services/': {
+      id: '/services/'
+      path: '/services'
+      fullPath: '/services/'
+      preLoaderRoute: typeof ServicesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services/ai-calling-agent': {
+      id: '/services/ai-calling-agent'
+      path: '/services/ai-calling-agent'
+      fullPath: '/services/ai-calling-agent'
+      preLoaderRoute: typeof ServicesAiCallingAgentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services/ai-chatbot': {
+      id: '/services/ai-chatbot'
+      path: '/services/ai-chatbot'
+      fullPath: '/services/ai-chatbot'
+      preLoaderRoute: typeof ServicesAiChatbotRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services/app-development': {
+      id: '/services/app-development'
+      path: '/services/app-development'
+      fullPath: '/services/app-development'
+      preLoaderRoute: typeof ServicesAppDevelopmentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services/business-automation': {
+      id: '/services/business-automation'
+      path: '/services/business-automation'
+      fullPath: '/services/business-automation'
+      preLoaderRoute: typeof ServicesBusinessAutomationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services/social-media-growth': {
+      id: '/services/social-media-growth'
+      path: '/services/social-media-growth'
+      fullPath: '/services/social-media-growth'
+      preLoaderRoute: typeof ServicesSocialMediaGrowthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services/ui-ux-product-design': {
+      id: '/services/ui-ux-product-design'
+      path: '/services/ui-ux-product-design'
+      fullPath: '/services/ui-ux-product-design'
+      preLoaderRoute: typeof ServicesUiUxProductDesignRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services/web-development': {
+      id: '/services/web-development'
+      path: '/services/web-development'
+      fullPath: '/services/web-development'
+      preLoaderRoute: typeof ServicesWebDevelopmentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/admin/': {
       id: '/_authenticated/admin/'
       path: '/'
@@ -723,9 +886,17 @@ const rootRouteChildren: RootRouteChildren = {
   IndustriesRoofingRoute: IndustriesRoofingRoute,
   IndustriesSalonsRoute: IndustriesSalonsRoute,
   PortalDemoRoute: PortalDemoRoute,
+  ServicesAiCallingAgentRoute: ServicesAiCallingAgentRoute,
+  ServicesAiChatbotRoute: ServicesAiChatbotRoute,
+  ServicesAppDevelopmentRoute: ServicesAppDevelopmentRoute,
+  ServicesBusinessAutomationRoute: ServicesBusinessAutomationRoute,
+  ServicesSocialMediaGrowthRoute: ServicesSocialMediaGrowthRoute,
+  ServicesUiUxProductDesignRoute: ServicesUiUxProductDesignRoute,
+  ServicesWebDevelopmentRoute: ServicesWebDevelopmentRoute,
   CaseStudiesIndexRoute: CaseStudiesIndexRoute,
   IndustriesIndexRoute: IndustriesIndexRoute,
   PortalIndexRoute: PortalIndexRoute,
+  ServicesIndexRoute: ServicesIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
