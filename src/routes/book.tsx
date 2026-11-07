@@ -2,13 +2,14 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Check, MessageCircle, Phone } from "lucide-react";
 import { site } from "@/config/site";
 import { pillButton } from "@/components/site/Button";
-import { CalBooking } from "@/components/site/CalBooking";
+import { BookingWidget } from "@/components/site/BookingWidget";
 import { ContactForm } from "@/components/site/ContactForm";
 import { PageHero, seoHead } from "@/components/site/PageHero";
 import { Reveal, Section, SectionHeading } from "@/components/site/primitives";
 
 export const Route = createFileRoute("/book")({
   staticData: { sitemap: true },
+  validateSearch: (input: Record<string, unknown>): { plan?: string; service?: string } => ({ plan: typeof input.plan === 'string' ? input.plan : undefined, service: typeof input.service === 'string' ? input.service : undefined }),
   head: () =>
     seoHead(
       "Book a Free Call | Incodet",
@@ -24,6 +25,7 @@ const expect = [
 ];
 
 function BookPage() {
+  const { plan, service } = Route.useSearch();
   return (
     <>
       <PageHero badge="Free discovery call" title="Book a free call" className="pb-12 md:pb-16">
@@ -59,7 +61,7 @@ function BookPage() {
             </div>
           </Reveal>
           <Reveal delay={80}>
-            <CalBooking />
+            <BookingWidget plan={plan} service={service} />
           </Reveal>
         </div>
       </section>

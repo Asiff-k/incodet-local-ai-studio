@@ -77,7 +77,7 @@ export function organizationLd() {
     postalCode: "6025",
     addressCountry: "AU",
   };
-  const areaServed = ["United States", "United Kingdom", "Canada", "Australia", "Europe"].map((name) => ({ "@type": "Place", name }));
+  const areaServed = ["Australia", "United Kingdom", "Canada", "United States", "Europe", "Bangladesh"].map((name) => ({ "@type": "Place", name }));
   const base = {
     name: site.name,
     url: site.siteUrl,

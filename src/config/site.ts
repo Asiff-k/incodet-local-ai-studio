@@ -11,6 +11,17 @@ export const site = {
     "https://wa.me/61451526342?text=Hi%20Incodet%2C%20I%27d%20like%20to%20discuss%20a%20project.",
   address: "Camberwarra Drive, Craigie WA 6025, Australia",
   locationLabel: "Perth, Western Australia",
+  teamsLabel: "Teams in Australia, UK, Canada & Bangladesh",
+  teamsCitiesLabel: "Teams in Perth, Dhaka, Sylhet, Montreal, Leeds and Birmingham",
+  availabilityLabel: "Available 24/7 across our teams in Australia, UK, Canada and Bangladesh",
+  locations: [
+    { city: 'Perth', country: 'Australia', code: 'AU', label: 'Head office' },
+    { city: 'Dhaka', country: 'Bangladesh', code: 'BD' },
+    { city: 'Sylhet', country: 'Bangladesh', code: 'BD' },
+    { city: 'Montreal', country: 'Canada', code: 'CA' },
+    { city: 'Leeds', country: 'United Kingdom', code: 'GB' },
+    { city: 'Birmingham', country: 'United Kingdom', code: 'GB' },
+  ],
   mapsUrl:
     "https://www.google.com/maps/search/?api=1&query=Camberwarra+Drive+Craigie+WA+6025+Australia",
   socials: {
@@ -22,8 +33,6 @@ export const site = {
   },
   // Analytics: provider "plausible" (id = your domain) or "ga4" (id = G-XXXX). Empty = no banner, no scripts.
   analytics: { provider: "" as "" | "plausible" | "ga4", id: "" },
-  // Cal.com booking link, format "username/event-slug". Empty shows the "Online booking opens soon" card.
-  calLink: "",
   // Pexels clip 10651140 by Kostas Exarhos (free license), cropped, slowed and self-hosted.
   // src720 plays on screens under 768px.
   heroVideo: { src: "/videos/hero.mp4", src720: "/videos/hero-720.mp4", poster: "/videos/hero-poster.webp" },

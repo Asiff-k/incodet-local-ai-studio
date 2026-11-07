@@ -3,7 +3,6 @@ import { faq } from "@/content/faq";
 import { createFileRoute } from "@tanstack/react-router";
 import { Hero } from "@/components/site/Hero";
 import {
-  BookingCta,
   CaseStudiesPreview,
   FactsRow,
   Faq,
@@ -15,6 +14,7 @@ import {
 } from "@/components/home/HomeSections";
 import { CallingAgent, ClientPortalPreview, FloatingProjects, WorkCarousel } from "@/components/home/HomeExtras";
 import { ScrollProcess } from "@/components/home/ScrollProcess";
+import { BookingSection } from "@/components/site/BookingSection";
 
 const title = "Incodet | Websites, AI Agents & Custom Software";
 const description =
@@ -43,7 +43,7 @@ function Index() {
       <PlansPreview />
       <Reviews />
       <Faq />
-      <BookingCta />
+      <BookingSection />
     </>
   );
 }
