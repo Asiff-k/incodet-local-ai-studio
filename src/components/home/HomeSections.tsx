@@ -88,9 +88,9 @@ export function IndustriesStrip() {
 
 /* 3. Who we are */
 const whoTags = [
-  { label: "Never miss a call", cls: "bg-panel-orange -rotate-6", pos: "lg:-top-6 lg:left-[2%]" },
-  { label: "Book online 24/7", cls: "bg-panel-violet rotate-[5deg]", pos: "lg:top-[38%] lg:-right-6" },
-  { label: "Live in 1 to 2 weeks", cls: "bg-panel-blue -rotate-3", pos: "lg:-bottom-5 lg:left-[18%]" },
+  { label: "Never miss a call", cls: "bg-panel-orange -rotate-6", pos: "lg:-top-12 lg:left-[3%]" },
+  { label: "Book online 24/7", cls: "bg-panel-violet rotate-[5deg]", pos: "lg:bottom-0 lg:right-[3%]" },
+  { label: "Live in 1 to 2 weeks", cls: "bg-panel-blue -rotate-3", pos: "lg:bottom-0 lg:left-[3%]" },
 ];
 
 export function WhoWeAre() {
