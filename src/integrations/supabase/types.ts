@@ -26,6 +26,60 @@ export type Database = {
         }
         Relationships: []
       }
+      bookings: {
+        Row: {
+          budget: string
+          company_email: string
+          company_name: string
+          created_at: string
+          delivery_time: string
+          email_sent: boolean
+          full_name: string
+          id: string
+          message: string
+          phone: string | null
+          project_type: string
+          slot_end: string
+          slot_start: string
+          status: string
+          visitor_timezone: string
+        }
+        Insert: {
+          budget: string
+          company_email: string
+          company_name: string
+          created_at?: string
+          delivery_time: string
+          email_sent?: boolean
+          full_name: string
+          id?: string
+          message: string
+          phone?: string | null
+          project_type: string
+          slot_end: string
+          slot_start: string
+          status?: string
+          visitor_timezone: string
+        }
+        Update: {
+          budget?: string
+          company_email?: string
+          company_name?: string
+          created_at?: string
+          delivery_time?: string
+          email_sent?: boolean
+          full_name?: string
+          id?: string
+          message?: string
+          phone?: string | null
+          project_type?: string
+          slot_end?: string
+          slot_start?: string
+          status?: string
+          visitor_timezone?: string
+        }
+        Relationships: []
+      }
       clients: {
         Row: {
           business_name: string | null
@@ -372,6 +426,7 @@ export type Database = {
     }
     Functions: {
       claim_portal_access: { Args: never; Returns: undefined }
+      consume_contact_rate_limit: { Args: { hash: string }; Returns: boolean }
       current_client_id: { Args: never; Returns: string }
       has_role: {
         Args: {
@@ -387,6 +442,12 @@ export type Database = {
         Returns: undefined
       }
       project_client_id: { Args: { _project: string }; Returns: string }
+      taken_booking_slots: {
+        Args: { range_end: string; range_start: string }
+        Returns: {
+          slot_start: string
+        }[]
+      }
     }
     Enums: {
       app_role: "admin" | "client"

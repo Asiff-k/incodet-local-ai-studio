@@ -1,5 +1,14 @@
 # Roadmap: Round 2 Part A (homepage)
 
+## Round 3 Part E
+- [ ] Service placeholder cap and generic UI fillers
+- [ ] Booking settings, secure storage and optional emails
+- [ ] Reusable calendar, project form, confirmation and calendar export
+- [ ] Homepage/book placement and plan/service preselection; remove Cal.com
+- [ ] Admin booking list/actions and overview count
+- [ ] Team locations and founding-year audit
+- [ ] Booking concurrency, cleanup, keyboard and responsive checks
+
 ## Round 3 Part D
 - [x] Hide carousel cursor on native/Lenis scroll and viewport exit; both scroll flows checked in browser.
 - [x] Study Orbix services; replace homepage with eight service panels using existing work and labelled placeholders.

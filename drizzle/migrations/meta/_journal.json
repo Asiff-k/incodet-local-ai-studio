@@ -15,6 +15,13 @@
       "when": 1794003641126,
       "tag": "0001_client_portal",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1794021272708,
+      "tag": "0002_booking_calendar",
+      "breakpoints": true
     }
   ]
 }
