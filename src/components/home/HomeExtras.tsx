@@ -20,12 +20,12 @@ const mock = (s: string) => `/images/mockups/${s}-sm.webp`;
 // Desktop layout: a loose cloud left and right of the centered text.
 const tiles: Tile[] = [
   { src: shot("western-cars-brighton"), w: 280, h: 175, left: "2%", top: "8%", speed: 1.15, framed: true },
-  { src: phone("bloom-studio"), w: 150, h: 325, left: "24%", top: "0%", speed: 0.9 },
+  { src: phone("bloom-studio"), w: 140, h: 303, left: "20%", top: "0%", speed: 0.9 },
   { src: mock("humandata-labs"), w: 250, h: 156, left: "0%", top: "40%", speed: 1.25 },
   { src: phone("gm-taxis-lewes"), w: 150, h: 325, left: "15%", top: "58%", speed: 0.85, framed: true },
   { src: shot("brhex-studio"), w: 220, h: 138, left: "30%", top: "88%", speed: 1.05 },
   { src: shot("barkers-executive"), w: 180, h: 113, left: "1%", top: "84%", speed: 1.2, framed: true },
-  { src: phone("western-cars-littlehampton"), w: 150, h: 325, left: "63%", top: "0%", speed: 1.2 },
+  { src: phone("western-cars-littlehampton"), w: 140, h: 303, left: "68%", top: "0%", speed: 1.2 },
   { src: mock("a1-airport-cars"), w: 270, h: 169, left: "77%", top: "9%", speed: 0.9, framed: true },
   { src: shot("gm-taxis-lewes"), w: 250, h: 156, left: "79%", top: "42%", speed: 1.1 },
   { src: phone("barkers-executive"), w: 150, h: 325, left: "75%", top: "62%", speed: 0.85, framed: true },
@@ -335,7 +335,7 @@ export function WorkCarousel() {
         }}
         onPointerLeave={() => setCursorOn(false)}
         className={cn(
-          "relative mt-10 touch-pan-y select-none md:mt-14",
+          "relative isolate mt-10 touch-pan-y select-none md:mt-14",
           finePointer && !overButton && "cursor-none",
         )}
         style={{ height: cardH + (mobile ? 90 : 150) }}
