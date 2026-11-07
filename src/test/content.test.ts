@@ -11,7 +11,7 @@ describe("content visibility", () => {
     expect(caseStudies.map((c) => c.name)).not.toContain("IncBlog");
   });
   it("features case studies in order", () => {
-    expect(featuredCaseStudies.map((c) => c.name)).toEqual(["Western Cars Brighton", "Barkers Executive Cars", "GM Taxis Lewes", "HumanData Labs", "BRHEX Studio"]);
+    expect(featuredCaseStudies.map((c) => c.name)).toEqual(["Western Cars Brighton", "Barkers Executive Cars", "GM Taxis Lewes", "HumanData Labs", "Western Cars Content Hub", "BRHEX Studio"]);
   });
   it("never links the staff registration tool", () => {
     const staff = caseStudies.find((c) => c.slug === "western-cars-staff-registration");

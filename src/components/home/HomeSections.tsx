@@ -11,12 +11,10 @@ import {
 } from "lucide-react";
 import type { ReactNode } from "react";
 import { site } from "@/config/site";
-import { caseStudies as allCaseStudies, featuredCaseStudies as caseStudies } from "@/content/caseStudies";
 import { faq } from "@/content/faq";
 import { industries } from "@/content/industries";
 import { industryIcon } from "@/components/site/industryIcons";
 import { plansNote } from "@/content/plans";
-import { CaseStudyWideCard } from "@/components/site/CaseStudyCard";
 import { PlanCards } from "@/components/site/PlanCards";
 import { reviews } from "@/content/reviews";
 import { services, type Service } from "@/content/services";
@@ -24,7 +22,8 @@ import { PillLink, pillButton } from "@/components/site/Button";
 import { Accordion, SegmentedTabs } from "@/components/site/Interactive";
 import { Logo } from "@/components/site/Logo";
 import { Card, PillBadge, Reveal, Section, SectionHeading } from "@/components/site/primitives";
-import { RevealText } from "@/components/site/RevealText";
+import { StatementWave } from "./StatementWave";
+import { FeaturedStudies } from "@/components/site/FeaturedStudies";
 import { StackedPanels } from "@/components/site/ScrollSections";
 import { cn } from "@/lib/utils";
 import {
@@ -86,38 +85,8 @@ export function IndustriesStrip() {
 }
 
 /* 3. Who we are */
-const whoTags = [
-  { label: "Never miss a call", cls: "bg-panel-orange -rotate-6", pos: "lg:-top-12 lg:left-[3%]" },
-  { label: "Book online 24/7", cls: "bg-panel-violet rotate-[5deg]", pos: "lg:bottom-0 lg:right-[3%]" },
-  { label: "Live in 1 to 2 weeks", cls: "bg-panel-blue -rotate-3", pos: "lg:bottom-0 lg:left-[3%]" },
-];
-
 export function WhoWeAre() {
-  return (
-    <Section className="relative overflow-hidden">
-      <div className="mx-auto max-w-[1100px] text-center">
-        <Reveal>
-          <PillBadge>Who we are</PillBadge>
-        </Reveal>
-        <h2 className="sr-only">Who we are</h2>
-        <div className="relative mt-8">
-          <RevealText
-            size="statement"
-            text="Incodet builds websites, AI agents and custom software for businesses of every size. Small businesses get online bookings, growing businesses automate calls and enquiries, and established companies get complete platforms. You pay for the features you need and use."
-          />
-          <ul className="mt-8 flex flex-wrap justify-center gap-3 lg:mt-0">
-            {whoTags.map((t, i) => (
-              <Reveal as="li" key={t.label} delay={200 + i * 150} className={cn("lg:absolute", t.pos)}>
-                <span className={cn("inline-block rounded-full px-5 py-2.5 text-[15px] font-medium text-on-dark shadow-pill", t.cls)}>
-                  {t.label}
-                </span>
-              </Reveal>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </Section>
-  );
+  return <StatementWave />;
 }
 
 /* 4. Facts row */
@@ -230,27 +199,7 @@ export function Process({ title = "How it works", intro = "A simple process, fro
 
 /* 8. Case studies */
 export function CaseStudiesPreview() {
-  if (!caseStudies.length) return null;
-  return (
-    <Section theme="soft">
-      <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-        <Reveal>
-          <h2 className="type-h2">Our work</h2>
-          <p className="mt-4 type-body">Real projects with live links you can open.</p>
-        </Reveal>
-        <PillLink to="/case-studies" variant="secondary" className="self-start md:self-auto">
-          View all {allCaseStudies.length} case studies <ArrowRight aria-hidden className="size-4" />
-        </PillLink>
-      </div>
-      <div className="mt-12 flex flex-col gap-6">
-        {caseStudies.map((c) => (
-          <Reveal key={c.slug}>
-            <CaseStudyWideCard c={c} />
-          </Reveal>
-        ))}
-      </div>
-    </Section>
-  );
+  return <FeaturedStudies />;
 }
 
 /* 9. Plans */

@@ -13,6 +13,7 @@ import {
   type CaseStudyFilter,
 } from "@/content/caseStudies";
 import { cn } from "@/lib/utils";
+import { FeaturedStudies } from "@/components/site/FeaturedStudies";
 
 export const Route = createFileRoute("/case-studies/")({
   staticData: { sitemap: true },
@@ -30,6 +31,7 @@ function CaseStudiesPage() {
   return (
     <>
       <PageHero title="Our work">Real projects with live links you can open.</PageHero>
+      <FeaturedStudies />
       <Section>
         <div role="group" aria-label="Filter case studies" className="flex flex-wrap gap-2">
           {caseStudyFilters.map((f) => (
