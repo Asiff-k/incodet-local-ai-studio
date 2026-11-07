@@ -565,7 +565,7 @@ html.lenis, html.lenis body { height: auto; }
 @media (prefers-reduced-motion: reduce) { .deck-page { transition: none; translate: 0; } }
 @media screen and (max-width: 767px) and (orientation: portrait) {
  .deck-stage { position: relative; inset: auto; overflow: visible; padding-top: 64px; padding-bottom: 60px; }
- .deck-page { position: relative; top: auto; left: auto; width: 100%; height: auto; min-height: 540px; margin: 0; transform: none; visibility: visible; opacity: 1; translate: 0; }
+ .company-deck .deck-page { position: relative; top: auto; left: auto; width: 100%; height: auto; min-height: 540px; margin: 0; transform: none; visibility: visible; opacity: 1; translate: none; transition: none; }
  .deck-page-content { padding: 48px 24px 80px; }
  .deck-page-footer { left: 24px; right: 24px; bottom: 22px; font-size: 12px; }
  .deck-title,.deck-work-heading .deck-title { font-size: 36px; margin-bottom: 28px; }
