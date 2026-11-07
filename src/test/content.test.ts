@@ -1,11 +1,21 @@
 import { describe, expect, it } from "vitest";
-import { caseStudies, featuredCaseStudies, showcase } from "@/content/caseStudies";
+import { caseStudies, featuredCaseStudies, showcase, showcaseBadge } from "@/content/caseStudies";
 import { industries } from "@/content/industries";
 import { faq } from "@/content/faq";
 import { reviews } from "@/content/reviews";
 import { plans } from "@/content/plans";
 
 describe("content visibility", () => {
+  it("classifies Demo projects separately, including Bloom Studio", () => {
+    expect(showcaseBadge("Demo")).toBe("Demo");
+    expect(showcase.find((c) => c.key === "bloom-studio")?.badge).toBe("Demo");
+  });
+  it("labels Concept projects as Concept", () => {
+    expect(showcaseBadge("Concept")).toBe("Concept");
+  });
+  it.each(["Website", "Platform", "Tool"] as const)("labels %s projects Live Now", (type) => {
+    expect(showcaseBadge(type)).toBe("Live Now");
+  });
   it("hides todo case studies", () => {
     expect(caseStudies.map((c) => c.name)).not.toContain("Vyra Shops");
     expect(caseStudies.map((c) => c.name)).not.toContain("IncBlog");

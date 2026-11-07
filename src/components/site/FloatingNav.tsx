@@ -54,7 +54,7 @@ export function FloatingNav() {
 
   return (
     <>
-      <div className="pointer-events-none fixed inset-x-4 bottom-4 z-40 flex justify-center md:bottom-6">
+      <div className="pointer-events-none fixed inset-x-4 bottom-4 z-[9100] flex justify-center md:bottom-6">
         <div
           ref={navRef}
           className={cn(
@@ -147,7 +147,7 @@ function MenuOverlay({ onClose }: { onClose: () => void }) {
       role="dialog"
       aria-modal="true"
       aria-label="Site menu"
-      className="fixed inset-0 z-50 overflow-y-auto bg-background animate-in fade-in duration-300"
+      className="fixed inset-0 z-[9200] overflow-y-auto bg-background animate-in fade-in duration-300"
     >
       <div className="container-site flex min-h-full flex-col py-5">
         <div className="flex h-14 items-center justify-between">

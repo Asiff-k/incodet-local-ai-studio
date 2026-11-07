@@ -286,22 +286,26 @@ export type ShowcaseItem = {
   name: string;
   description: string;
   url: string;
-  concept: boolean;
+  badge: "Demo" | "Concept" | "Live Now";
   tint: string;
   /** Wide device mockup or desktop screenshot. */
   image: string;
 };
 
+export function showcaseBadge(type: CaseStudyType): ShowcaseItem["badge"] {
+  return type === "Demo" ? "Demo" : type === "Concept" ? "Concept" : "Live Now";
+}
+
 /** Work carousel: every visible project with a live URL, newest first. Unlinked tools are never included. */
 export const showcase: ShowcaseItem[] = caseStudies
-  .filter((c) => c.liveUrl)
+  .filter((c): c is CaseStudy & { liveUrl: string } => Boolean(c.liveUrl))
   .sort((a, b) => b.end.localeCompare(a.end))
   .map((c) => ({
     key: c.slug,
     name: c.name,
     description: c.description,
-    url: c.liveUrl!,
-    concept: c.type === "Concept" || c.type === "Demo",
+    url: c.liveUrl,
+    badge: showcaseBadge(c.type),
     tint: c.tint,
     image: c.mockup ? mockupSm(c.mockup) : c.image.src,
   }));
