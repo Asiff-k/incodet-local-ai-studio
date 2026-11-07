@@ -440,8 +440,8 @@ html.lenis, html.lenis body { height: auto; }
 .deck-chrome button:hover,.deck-chrome a:not(.deck-wordmark):hover,.deck-controls button:hover { background: var(--hairline-dark); }
 .deck-wordmark { font-size: 22px; font-weight: 600; }
 .deck-stage { position: fixed; inset: 64px 0 72px; overflow: hidden; touch-action: pan-y; }
-.deck-page { width: 1920px; height: 1080px; position: absolute; top: 50%; left: 50%; margin: -540px 0 0 -960px; transform: scale(var(--deck-scale)); transform-origin: center; overflow: hidden; visibility: hidden; opacity: 0; transition: opacity 360ms var(--ease), translate 360ms var(--ease); translate: 24px 0; }
-.deck-page.is-current { visibility: visible; opacity: 1; translate: 0; }
+.deck-page { width: 1920px; height: 1080px; position: absolute; top: 50%; left: 50%; margin: -540px 0 0 -960px; transform: scale(var(--deck-scale)); transform-origin: center; overflow: hidden; visibility: hidden; opacity: 0; transition: opacity 360ms var(--ease); }
+.deck-page.is-current { visibility: visible; opacity: 1; }
 .deck-dark { --deck-surface: var(--dark); --deck-text: var(--on-dark); --deck-soft: var(--dark-card); --deck-muted: var(--on-dark-muted); --deck-line: var(--hairline-dark); --deck-wave: var(--deck-wave-dark); background: var(--deck-surface); color: var(--deck-text); }
 .deck-light { --deck-surface: var(--background); --deck-text: var(--ink); --deck-soft: var(--bg-soft); --deck-muted: var(--body); --deck-line: var(--border); --deck-wave: var(--deck-wave-light); background: var(--deck-surface); color: var(--deck-text); }
 .deck-page-content { position: relative; padding: 96px 110px 100px; height: 100%; }
@@ -565,7 +565,7 @@ html.lenis, html.lenis body { height: auto; }
 @media (prefers-reduced-motion: reduce) { .deck-page { transition: none; translate: 0; } }
 @media screen and (max-width: 767px) and (orientation: portrait) {
  .deck-stage { position: relative; inset: auto; overflow: visible; padding-top: 64px; padding-bottom: 60px; }
- .deck-page { position: relative; top: auto; left: auto; width: 100%; height: auto; min-height: 540px; margin: 0; transform: none; visibility: visible; opacity: 1; translate: 0; }
+ .company-deck .deck-page { position: relative; top: auto; left: auto; width: 100%; height: auto; min-height: 540px; margin: 0; transform: none; visibility: visible; opacity: 1; translate: none; transition: none; }
  .deck-page-content { padding: 48px 24px 80px; }
  .deck-page-footer { left: 24px; right: 24px; bottom: 22px; font-size: 12px; }
  .deck-title,.deck-work-heading .deck-title { font-size: 36px; margin-bottom: 28px; }
