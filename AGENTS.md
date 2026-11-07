@@ -50,3 +50,5 @@ use the editor.
 - The carousel cursor is portalled to the body with navigation layers above it; showcase badges derive from project type so demos and concepts remain distinct.
 - Service pages and homepage panels share typed service data and dedicated templates; add services through data and leaf routes to keep navigation, FAQs and visuals consistent.
 - SmoothScroll broadcasts its Lenis scroll updates as a browser event so body-level overlays can recheck pointer visibility without owning a second scrolling instance.
+- Booking settings and pure slot/calendar helpers are shared by the reusable widget and server validation; active slot uniqueness is enforced in the database so concurrent requests cannot double book.
+- Availability uses a narrowly projected public RPC; booking writes use validated server functions and shared atomic contact/booking spam allowance, while admin operations use caller-scoped RLS.

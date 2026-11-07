@@ -60,7 +60,7 @@ export function BookingWidget({ plan = '', service = '' }: { plan?: string; serv
   const visibleSlots = daySlots.filter(s => timeGroup(s, zone) === currentGroup);
   const today = now === null ? '' : dateKey(new Date(now), zone);
   const lastDay = now === null ? '' : dateKey(new Date(horizon(now)), zone);
-  const [year, monthNumber] = month.split('-').map(Number);
+  const [year = 1970, monthNumber = 1] = month.split('-').map(Number);
   const daysInMonth = year && monthNumber ? new Date(Date.UTC(year, monthNumber, 0)).getUTCDate() : 0;
   const offset = year && monthNumber ? (new Date(Date.UTC(year, monthNumber - 1, 1)).getUTCDay() + 6) % 7 : 0;
   const dateLabel = slot ? new Intl.DateTimeFormat('en', { timeZone: zone, dateStyle: 'full', timeStyle: 'short' }).format(new Date(slot)) : '';
@@ -146,7 +146,7 @@ export function BookingWidget({ plan = '', service = '' }: { plan?: string; serv
         <label className="block type-small font-medium">Project type<select id="booking-project_type" value={fields.project_type} onChange={e => setFields(f => ({ ...f, project_type: e.target.value as BookingFields['project_type'] }))} className={cn(inputClass, 'mt-2')}>{projectTypes.map(v => <option key={v}>{v}</option>)}</select></label>
         <label className="block type-small font-medium">Approximate budget<select id="booking-budget" value={fields.budget} onChange={e => setFields(f => ({ ...f, budget: e.target.value as BookingFields['budget'] }))} className={cn(inputClass, 'mt-2')}>{budgets.map(v => <option key={v}>{v}</option>)}</select></label>
         <fieldset><legend className="type-small font-medium">Preferred delivery time</legend><div className="mt-2 flex flex-wrap gap-2">{deliveryTimes.map(v => <PillButton key={v} type="button" size="sm" variant={fields.delivery_time === v ? 'primary' : 'secondary'} aria-pressed={fields.delivery_time === v} onClick={() => setFields(f => ({ ...f, delivery_time: v }))}>{v}</PillButton>)}</div></fieldset>
-        <label className="block type-small font-medium">Message<textarea id="booking-message" rows={4} placeholder="Tell us what you need" value={fields.message} onChange={e => setFields(f => ({ ...f, message: e.target.value }))} aria-invalid={Boolean(errors.message)} aria-describedby={errors.message ? 'error-message' : undefined} className={cn(inputClass, 'mt-2')} />{errors.message && <span id="error-message" className="mt-1 block text-destructive">{errors.message}</span>}</label>
+        <label className="block type-small font-medium">Message<textarea id="booking-message" rows={4} placeholder="Tell us what you need" value={fields.message} onChange={e => setFields(f => ({ ...f, message: e.target.value }))} aria-invalid={Boolean(errors['message'])} aria-describedby={errors['message'] ? 'error-message' : undefined} className={cn(inputClass, 'mt-2')} />{errors['message'] && <span id="error-message" className="mt-1 block text-destructive">{errors['message']}</span>}</label>
         <div aria-hidden className="hidden"><label>Website<input ref={honeypot} name="website" tabIndex={-1} autoComplete="off" /></label></div>
         <PillButton type="submit" className="w-full" disabled={busy}>{busy ? 'Confirming…' : 'Confirm booking'}<Check aria-hidden className="size-4" /></PillButton>
       </form>

@@ -98,6 +98,10 @@
 }
 
 :root {
+  --flag-blue: #012169;
+  --flag-red: #d80621;
+  --flag-green: #006a4e;
+  --flag-white: #ffffff;
   --wave-cyan: #5bc8e8;
   --wave-blue: #3b6cf6;
   --wave-purple: #8b5cf6;

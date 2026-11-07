@@ -258,7 +258,7 @@ export function BookingCta({ service }: { service?: string } = {}) {
               We learn your business, your customers and what you need. Free, no commitment.
             </p>
             <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
-              <PillLink to="/book" search={service ? {service} : undefined} variant="primary-inverted" size="lg">
+              <PillLink to="/book" search={service ? {service} : {}} variant="primary-inverted" size="lg">
                 Book a Free Call
               </PillLink>
               <ExternalPill href={site.whatsapp} variant="secondary-inverted">
