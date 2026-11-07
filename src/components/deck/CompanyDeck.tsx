@@ -22,7 +22,7 @@ export function CompanyDeck() {
   if(scroll&&window.matchMedia('(max-width: 767px) and (orientation: portrait)').matches) document.getElementById(`deck-slide-${next+1}`)?.scrollIntoView({behavior:'auto'});
  },[]);
  useEffect(()=>{
-  const readHash=()=>{const value=Number(window.location.hash.slice(1));go(Number.isInteger(value)&&value>0?value-1:0);};
+  const readHash=()=>{const value=Number(window.location.hash.slice(1));if(Number.isInteger(value)&&value>0)go(value-1);};
   readHash();window.addEventListener('hashchange',readHash);
   return()=>window.removeEventListener('hashchange',readHash);
  },[go]);
