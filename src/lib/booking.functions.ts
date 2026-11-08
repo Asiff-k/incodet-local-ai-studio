@@ -8,7 +8,7 @@ import { MIN_FILL_MS } from "./contact-schema";
 import type { Database } from "@/integrations/supabase/types";
 
 export const takenBookingSlots = createServerFn({ method: "GET" })
-  .inputValidator(
+  .validator(
     z
       .object({ start: z.string().datetime(), end: z.string().datetime() })
       .refine(
@@ -44,7 +44,7 @@ export const takenBookingSlots = createServerFn({ method: "GET" })
 type BookingResult =
   { ok: true; id: string; slot_start: string } | { ok: false; error: string; conflict?: boolean };
 export const submitBooking = createServerFn({ method: "POST" })
-  .inputValidator((input: unknown) => {
+  .validator((input: unknown) => {
     const result = bookingPayload.safeParse(input);
     return result.success
       ? { valid: true as const, value: result.data }

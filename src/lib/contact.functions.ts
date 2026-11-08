@@ -6,7 +6,7 @@ type Result = { ok: true } | { ok: false; error: string };
 
 /** Public contact form endpoint ("submit-contact"). Validates, filters spam, stores, optionally emails. */
 export const submitContact = createServerFn({ method: "POST" })
-  .inputValidator((input: unknown) => {
+  .validator((input: unknown) => {
     const parsed = contactPayload.safeParse(input);
     return parsed.success ? { ok: true as const, data: parsed.data } : { ok: false as const };
   })
