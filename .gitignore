@@ -36,3 +36,6 @@ dist-ssr
 
 # Supabase CLI local state (written by supabase link)
 supabase/.temp/
+
+# Internal business docs (kept out of the repo)
+docs/BRIEF.md
