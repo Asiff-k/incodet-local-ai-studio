@@ -6,7 +6,7 @@ Code lives on GitHub, production runs on Vercel, data and login run on our own S
 
 - TanStack Start (SSR and server functions), built with Vite and Nitro. Not a static site, so no "rewrite everything to index.html".
 - Nitro builds for **Cloudflare** by default. Vercel needs `NITRO_PRESET=vercel`.
-- Database and login: Supabase project `incodet-website` (ref `wbgpeivoqaclxzlunmgk`, London region). Migrations `0000` to `0003` in `drizzle/migrations/` are applied.
+- Database and login: Supabase project `incodet-website` (ref `wbgpeivoqaclxzlunmgk`, London region). Migrations `0000` to `0004` in `drizzle/migrations/` are applied, including the private `deliverables` storage bucket.
 - Server functions that use the service role key: booking (create booking, taken slots), contact form, client portal, admin.
 
 ## Step 1: local setup (developer)
@@ -28,7 +28,7 @@ Code lives on GitHub, production runs on Vercel, data and login run on our own S
    - Site URL `https://incodet.com`, redirect URLs `https://incodet.com/**`, the Vercel preview domain and `http://localhost:8080/**`
    - Enable email magic link
    - **Custom SMTP (Resend)**: Supabase's built-in email is limited to a few emails per hour, too low for portal logins
-2. Storage: create a private bucket named `deliverables` (the client portal file policies expect it).
+2. Admin access: add the admin email to `public.admin_allowlist` with a one-off SQL run (not in a migration, so emails stay out of git).
 3. New schema changes: add a numbered file in `drizzle/migrations/` and apply it with `npx supabase db query --remote -f <file>`. Never edit an applied migration.
 
 ## Step 4: Vercel project (Monir, 20 min)

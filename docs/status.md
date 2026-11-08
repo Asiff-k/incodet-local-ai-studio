@@ -1,7 +1,7 @@
 # Incodet website: build status (7 Nov 2026)
 
 Developed locally (branch workflow on GitHub). Not deployed yet; see docs/launch-guide.md.
-Supabase: own project incodet-website (wbgpeivoqaclxzlunmgk), migrations 0000 to 0003 applied (8 Nov 2026).
+Supabase: own project incodet-website (wbgpeivoqaclxzlunmgk), migrations 0000 to 0004 applied (8 Nov 2026).
 
 ## Done
 
