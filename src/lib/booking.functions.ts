@@ -83,8 +83,10 @@ export const submitBooking = createServerFn({ method: "POST" })
           conflict: true,
           error: "That time was just booked. Please pick another.",
         };
-      if (error || !row)
+      if (error || !row) {
+        console.error("[booking] insert failed:", error?.code, error?.message);
         return { ok: false, error: "Could not save your booking. Please try again." };
+      }
       const key = process.env["RESEND_API_KEY"];
       if (key) {
         const when = new Intl.DateTimeFormat("en", {
@@ -129,7 +131,9 @@ export const submitBooking = createServerFn({ method: "POST" })
           await supabaseAdmin.from("bookings").update({ email_sent: true }).eq("id", row.id);
       }
       return { ok: true, id: row.id, slot_start: row.slot_start };
-    } catch {
+    } catch (e) {
+      // Log the real cause (never keys) so failures are visible in the server logs.
+      console.error("[booking] submit failed:", e instanceof Error ? e.message : e);
       return { ok: false, error: "Could not save your booking. Please try again." };
     }
   });

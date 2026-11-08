@@ -41,7 +41,7 @@ export const submitContact = createServerFn({ method: "POST" })
         .select("id")
         .single();
       if (error || !row) {
-        console.error("contact insert failed", error);
+        console.error("[contact] insert failed:", error?.code, error?.message);
         return { ok: false, error: "Could not send your message." };
       }
 
@@ -60,25 +60,33 @@ export const submitContact = createServerFn({ method: "POST" })
         "Message:",
         d.message,
       ].join("\n");
-      const res = await fetch("https://api.resend.com/emails", {
-        method: "POST",
-        headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
-        body: JSON.stringify({
-          from: "Incodet Website <noreply@incodet.com>",
-          to: [site.email],
-          reply_to: d.email,
-          subject: `New enquiry from ${d.name}`,
-          text,
-        }),
-      });
-      if (res.ok) {
-        await supabaseAdmin.from("contact_messages").update({ email_sent: true }).eq("id", row.id);
-      } else {
-        console.error(`email failed [${res.status}]: ${await res.text()}`);
+      // The message is already saved: an email failure must never turn this into an error.
+      try {
+        const res = await fetch("https://api.resend.com/emails", {
+          method: "POST",
+          headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
+          body: JSON.stringify({
+            from: "Incodet Website <noreply@incodet.com>",
+            to: [site.email],
+            reply_to: d.email,
+            subject: `New enquiry from ${d.name}`,
+            text,
+          }),
+        });
+        if (res.ok) {
+          await supabaseAdmin
+            .from("contact_messages")
+            .update({ email_sent: true })
+            .eq("id", row.id);
+        } else {
+          console.error(`[contact] email failed [${res.status}]`);
+        }
+      } catch {
+        console.error("[contact] email could not be sent.");
       }
       return { ok: true };
     } catch (e) {
-      console.error("submitContact error", e);
+      console.error("[contact] submit failed:", e instanceof Error ? e.message : e);
       return { ok: false, error: "Could not send your message." };
     }
   });
