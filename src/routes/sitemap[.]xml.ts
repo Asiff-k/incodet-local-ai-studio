@@ -1,6 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { getRouterInstance } from "@tanstack/react-start";
-import { isSitemapRouteIncluded, sitemapPathForLocation, sitemapStaticPaths, sitemapXML, type SitemapEntry } from "@/lib/sitemap";
+import {
+  isSitemapRouteIncluded,
+  sitemapPathForLocation,
+  sitemapStaticPaths,
+  sitemapXML,
+  type SitemapEntry,
+} from "@/lib/sitemap";
 
 import { site } from "@/config/site";
 import { caseStudies } from "@/content/caseStudies";
@@ -23,7 +29,12 @@ export const Route = createFileRoute("/sitemap.xml")({
         const routeId = "/case-studies/$slug";
         if (isSitemapRouteIncluded(router.routesById[routeId])) {
           for (const c of caseStudies) {
-            const location = router.buildLocation({ to: "/case-studies/$slug", params: { slug: c.slug }, search: () => ({}), hash: "" });
+            const location = router.buildLocation({
+              to: "/case-studies/$slug",
+              params: { slug: c.slug },
+              search: () => ({}),
+              hash: "",
+            });
             const path = sitemapPathForLocation(router, location, routeId);
             if (path) entries.push({ path });
           }

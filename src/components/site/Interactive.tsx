@@ -11,7 +11,11 @@ export function Accordion({
   className?: string;
 }) {
   return (
-    <AccordionPrimitive.Root type="single" collapsible className={cn("flex flex-col gap-3", className)}>
+    <AccordionPrimitive.Root
+      type="single"
+      collapsible
+      className={cn("flex flex-col gap-3", className)}
+    >
       {items.map((it, i) => (
         <AccordionPrimitive.Item
           key={i}

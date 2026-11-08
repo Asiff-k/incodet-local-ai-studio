@@ -53,7 +53,14 @@ export function getDemoPortal(): PortalData {
       },
     ],
     payments: [
-      { id: "p1", invoice_id: "i1", method: "wise", reference: "INC-2026-001", reported_at: iso(-25), confirmed_at: iso(-24) },
+      {
+        id: "p1",
+        invoice_id: "i1",
+        method: "wise",
+        reference: "INC-2026-001",
+        reported_at: iso(-25),
+        confirmed_at: iso(-24),
+      },
     ],
   };
 }

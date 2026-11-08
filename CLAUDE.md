@@ -4,6 +4,7 @@ Agency site for Incodet: AI calling agents, AI chatbots, booking websites and cu
 Developed locally in VS Code with Claude Code.
 
 ## Stack
+
 - TanStack Start (SSR + server functions), React 19, TypeScript, Tailwind 4, shadcn/ui
 - Vite 8 + Nitro. Plain config in `vite.config.ts` (Nitro target defaults to Cloudflare; Vercel builds set `NITRO_PRESET=vercel`)
 - Supabase (Postgres, Auth magic link, RLS). Schema in `drizzle/migrations/`
@@ -12,6 +13,7 @@ Developed locally in VS Code with Claude Code.
 - Target hosting: Vercel (see docs/launch-guide.md)
 
 ## Where things live
+
 - Contact details, socials, logo, team locations: `src/config/site.ts` (single source, never hardcode elsewhere)
 - Booking rules (Perth timezone, 24/7, 30 min slots, 12h notice, 30 days ahead): `src/config/booking.ts`
 - Payment details (placeholders until Asif provides them): `src/config/payments.ts`
@@ -21,6 +23,7 @@ Developed locally in VS Code with Claude Code.
 - History of what was built and why: `AGENTS.md`, `roadmap.md`, `docs/status.md`
 
 ## Rules (every change)
+
 - Never use em dashes, in code comments shown to users or in site copy
 - No fake reviews, stats, metrics, projects, people or blog posts. Reviews section stays hidden until real reviews exist
 - No "#" links. Every link goes somewhere real or is hidden
@@ -38,6 +41,7 @@ Developed locally in VS Code with Claude Code.
 - Voice: clear, plain English, "we" not "I", no buzzwords
 
 ## Working rules for Claude Code
+
 - Never print, log or commit secret keys. Secrets live in `.env.local` (git-ignored) and Vercel env vars only
 - Database changes: add a new file in `drizzle/migrations/` and apply it to Supabase. Never edit old migrations
 - Run `bun run test` and `bun run build` before saying a change is done

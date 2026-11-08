@@ -12,7 +12,12 @@ import {
   Services,
   WhoWeAre,
 } from "@/components/home/HomeSections";
-import { CallingAgent, ClientPortalPreview, FloatingProjects, WorkCarousel } from "@/components/home/HomeExtras";
+import {
+  CallingAgent,
+  ClientPortalPreview,
+  FloatingProjects,
+  WorkCarousel,
+} from "@/components/home/HomeExtras";
 import { ScrollProcess } from "@/components/home/ScrollProcess";
 import { BookingSection } from "@/components/site/BookingSection";
 

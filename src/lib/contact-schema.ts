@@ -11,11 +11,24 @@ export const planLabels: Record<ContactPlan, string> = {
 };
 
 export const contactFields = z.object({
-  name: z.string().trim().min(2, "Please enter at least 2 characters.").max(100, "Please keep this under 100 characters."),
+  name: z
+    .string()
+    .trim()
+    .min(2, "Please enter at least 2 characters.")
+    .max(100, "Please keep this under 100 characters."),
   email: z.string().trim().email("Please enter a valid email address.").max(255),
-  business_name: z.string().trim().max(120, "Please keep this under 120 characters.").optional().default(""),
+  business_name: z
+    .string()
+    .trim()
+    .max(120, "Please keep this under 120 characters.")
+    .optional()
+    .default(""),
   plan: z.enum(contactPlans),
-  message: z.string().trim().min(10, "Please write at least 10 characters.").max(3000, "Please keep this under 3000 characters."),
+  message: z
+    .string()
+    .trim()
+    .min(10, "Please write at least 10 characters.")
+    .max(3000, "Please keep this under 3000 characters."),
 });
 
 export const contactPayload = contactFields.extend({

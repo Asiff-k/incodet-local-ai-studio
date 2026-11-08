@@ -10,7 +10,10 @@ export const ogImage = {
 
 type Script = { type: string; children: string };
 
-export const jsonLd = (data: unknown): Script => ({ type: "application/ld+json", children: JSON.stringify(data) });
+export const jsonLd = (data: unknown): Script => ({
+  type: "application/ld+json",
+  children: JSON.stringify(data),
+});
 
 /** Per-page head: title, description, canonical, Open Graph and Twitter tags. */
 export function seoHead(
@@ -77,7 +80,14 @@ export function organizationLd() {
     postalCode: "6025",
     addressCountry: "AU",
   };
-  const areaServed = ["Australia", "United Kingdom", "Canada", "United States", "Europe", "Bangladesh"].map((name) => ({ "@type": "Place", name }));
+  const areaServed = [
+    "Australia",
+    "United Kingdom",
+    "Canada",
+    "United States",
+    "Europe",
+    "Bangladesh",
+  ].map((name) => ({ "@type": "Place", name }));
   const base = {
     name: site.name,
     url: site.siteUrl,
@@ -88,7 +98,19 @@ export function organizationLd() {
     ...(sameAs.length ? { sameAs } : {}),
   };
   return [
-    jsonLd({ "@context": "https://schema.org", "@type": "Organization", "@id": `${site.siteUrl}/#organization`, logo: `${site.siteUrl}/apple-touch-icon.png`, ...base }),
-    jsonLd({ "@context": "https://schema.org", "@type": "LocalBusiness", "@id": `${site.siteUrl}/#localbusiness`, image: ogImage.png, ...base }),
+    jsonLd({
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "@id": `${site.siteUrl}/#organization`,
+      logo: `${site.siteUrl}/apple-touch-icon.png`,
+      ...base,
+    }),
+    jsonLd({
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "@id": `${site.siteUrl}/#localbusiness`,
+      image: ogImage.png,
+      ...base,
+    }),
   ];
 }

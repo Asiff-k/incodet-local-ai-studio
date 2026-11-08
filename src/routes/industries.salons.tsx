@@ -10,6 +10,9 @@ const { page } = getIndustry("salons");
 
 export const Route = createFileRoute("/industries/salons")({
   staticData: { sitemap: true },
-  head: () => seoHead(page.title, page.description, "/industries/salons", { scripts: [faqLd(faqFor(industryFaq))] }),
+  head: () =>
+    seoHead(page.title, page.description, "/industries/salons", {
+      scripts: [faqLd(faqFor(industryFaq))],
+    }),
   component: () => <IndustryPage slug="salons" />,
 });

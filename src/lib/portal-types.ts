@@ -4,8 +4,18 @@ export type ProjectStatus = "planning" | "in_progress" | "review" | "live" | "on
 export type MilestoneStatus = "todo" | "in_progress" | "done";
 export type InvoiceStatus = "draft" | "sent" | "pending_confirmation" | "paid" | "overdue";
 
-export type PortalMilestone = { id: string; title: string; status: MilestoneStatus; due_date: string | null };
-export type PortalDeliverable = { id: string; title: string; file_path: string | null; external_url: string | null };
+export type PortalMilestone = {
+  id: string;
+  title: string;
+  status: MilestoneStatus;
+  due_date: string | null;
+};
+export type PortalDeliverable = {
+  id: string;
+  title: string;
+  file_path: string | null;
+  external_url: string | null;
+};
 export type PortalProject = {
   id: string;
   name: string;
@@ -65,10 +75,16 @@ export const milestoneStatusLabels: Record<MilestoneStatus, string> = {
 export const invoiceTotal = (inv: { items: PortalInvoiceItem[] }) =>
   inv.items.reduce((s, it) => s + Number(it.quantity) * Number(it.unit_price), 0);
 
-export const usd = (n: number) => new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(n);
+export const usd = (n: number) =>
+  new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(n);
 
 export function fmtDate(d: string | null | undefined) {
   if (!d) return "Not set";
   const date = new Date(d.length === 10 ? `${d}T00:00:00Z` : d);
-  return new Intl.DateTimeFormat("en-AU", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" }).format(date);
+  return new Intl.DateTimeFormat("en-AU", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+    timeZone: "UTC",
+  }).format(date);
 }

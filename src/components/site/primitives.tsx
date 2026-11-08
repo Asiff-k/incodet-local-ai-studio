@@ -141,7 +141,13 @@ export function Reveal({
 }
 
 /** Soft-grey frame shown until a real screenshot is dropped in. */
-export function ImagePlaceholder({ className, label = "Screenshot coming soon" }: { className?: string; label?: string }) {
+export function ImagePlaceholder({
+  className,
+  label = "Screenshot coming soon",
+}: {
+  className?: string;
+  label?: string;
+}) {
   return (
     <div
       data-placeholder="true"

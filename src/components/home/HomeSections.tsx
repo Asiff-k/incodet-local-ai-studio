@@ -38,7 +38,15 @@ import {
   PlanUI,
 } from "./MiniUI";
 
-function ExternalPill({ href, children, variant }: { href: string; children: ReactNode; variant: "primary" | "secondary" | "primary-inverted" | "secondary-inverted" }) {
+function ExternalPill({
+  href,
+  children,
+  variant,
+}: {
+  href: string;
+  children: ReactNode;
+  variant: "primary" | "secondary" | "primary-inverted" | "secondary-inverted";
+}) {
   return (
     <a href={href} target="_blank" rel="noopener noreferrer" className={pillButton({ variant })}>
       {children}
@@ -53,9 +61,15 @@ const tileCls =
 
 export function IndustriesStrip() {
   return (
-    <section aria-labelledby="industries-title" className="relative z-10 bg-bg-soft pt-4 pb-[72px] md:pb-[120px]">
+    <section
+      aria-labelledby="industries-title"
+      className="relative z-10 bg-bg-soft pt-4 pb-[72px] md:pb-[120px]"
+    >
       <div className="container-site">
-        <h2 id="industries-title" className="text-center type-small font-medium text-muted-foreground">
+        <h2
+          id="industries-title"
+          className="text-center type-small font-medium text-muted-foreground"
+        >
           Built for businesses that run on calls and bookings
         </h2>
         <ul className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4 lg:grid-cols-6">
@@ -74,7 +88,9 @@ export function IndustriesStrip() {
             <Link to="/book" className={tileCls}>
               <Plus aria-hidden className="size-6 text-ink" strokeWidth={1.5} />
               <span className="text-[15px] leading-tight font-medium text-ink">Your business?</span>
-              <span className="type-small text-muted-foreground">Any business that takes bookings</span>
+              <span className="type-small text-muted-foreground">
+                Any business that takes bookings
+              </span>
             </Link>
           </Reveal>
         </ul>
@@ -102,8 +118,15 @@ export function FactsRow() {
       <div className="container-site">
         <ul className="grid grid-cols-2 border-t border-l border-border md:grid-cols-4">
           {facts.map((f, i) => (
-            <Reveal as="li" key={f.big} delay={i * 80} className="border-r border-b border-border px-4 py-8 text-center md:px-6 md:py-12">
-              <p className="text-[26px] leading-tight font-medium tracking-tight text-ink md:text-[36px]">{f.big}</p>
+            <Reveal
+              as="li"
+              key={f.big}
+              delay={i * 80}
+              className="border-r border-b border-border px-4 py-8 text-center md:px-6 md:py-12"
+            >
+              <p className="text-[26px] leading-tight font-medium tracking-tight text-ink md:text-[36px]">
+                {f.big}
+              </p>
               <p className="mt-2 type-small text-muted-foreground">{f.label}</p>
             </Reveal>
           ))}
@@ -119,7 +142,9 @@ export function Services() {
     <section aria-labelledby="services-title" className="bg-background pt-[72px] md:pt-[120px]">
       <div className="container-site mb-10 md:mb-14">
         <Reveal>
-          <h2 id="services-title" className="text-center type-h2">What we build</h2>
+          <h2 id="services-title" className="text-center type-h2">
+            What we build
+          </h2>
         </Reveal>
       </div>
       <ServicePanels />
@@ -129,13 +154,39 @@ export function Services() {
 
 /* 7. Process */
 const steps: { title: string; body: string; icon: LucideIcon; ui: () => ReactNode }[] = [
-  { title: "Discovery Call", body: "We learn your business, your customers and what you need. Free, no commitment.", icon: Phone, ui: DiscoveryUI },
-  { title: "Plan & Design", body: "We map the features, design the screens and agree on scope before building.", icon: Layers, ui: PlanUI },
-  { title: "Build & Integrate", body: "We build, connect your tools and show you progress every week.", icon: Hammer, ui: BuildUI },
-  { title: "Launch & Support", body: "We go live, test everything and stay on to support and improve it.", icon: Rocket, ui: LaunchUI },
+  {
+    title: "Discovery Call",
+    body: "We learn your business, your customers and what you need. Free, no commitment.",
+    icon: Phone,
+    ui: DiscoveryUI,
+  },
+  {
+    title: "Plan & Design",
+    body: "We map the features, design the screens and agree on scope before building.",
+    icon: Layers,
+    ui: PlanUI,
+  },
+  {
+    title: "Build & Integrate",
+    body: "We build, connect your tools and show you progress every week.",
+    icon: Hammer,
+    ui: BuildUI,
+  },
+  {
+    title: "Launch & Support",
+    body: "We go live, test everything and stay on to support and improve it.",
+    icon: Rocket,
+    ui: LaunchUI,
+  },
 ];
 
-export function Process({ title = "How it works", intro = "A simple process, from first call to launch." }: { title?: string; intro?: string }) {
+export function Process({
+  title = "How it works",
+  intro = "A simple process, from first call to launch.",
+}: {
+  title?: string;
+  intro?: string;
+}) {
   return (
     <Section>
       <SectionHeading title={title}>{intro}</SectionHeading>
@@ -224,7 +275,9 @@ export function Faq() {
       <div className="grid gap-12 lg:grid-cols-[1fr_1.4fr] lg:gap-16">
         <Reveal className="flex flex-col gap-6">
           <h2 className="type-h2">Questions, answered</h2>
-          <p className="type-body">Can't find what you need? Book a free call or message us on WhatsApp.</p>
+          <p className="type-body">
+            Can't find what you need? Book a free call or message us on WhatsApp.
+          </p>
           <div className="rounded-card border border-border bg-background p-6 md:p-8">
             <div className="flex items-center gap-3">
               <Logo variant="mark" />
@@ -252,13 +305,23 @@ export function BookingCta({ service }: { service?: string } = {}) {
     <section aria-labelledby="cta-title" className="bg-background pt-[72px] md:pt-[120px]">
       <div className="container-site">
         <Reveal>
-          <div data-theme="dark" className="rounded-card bg-dark px-6 py-16 text-center md:px-12 md:py-24">
-            <h2 id="cta-title" className="type-h2 text-on-dark">Book a free call</h2>
+          <div
+            data-theme="dark"
+            className="rounded-card bg-dark px-6 py-16 text-center md:px-12 md:py-24"
+          >
+            <h2 id="cta-title" className="type-h2 text-on-dark">
+              Book a free call
+            </h2>
             <p className="mx-auto mt-5 max-w-xl type-body text-on-dark-muted">
               We learn your business, your customers and what you need. Free, no commitment.
             </p>
             <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
-              <PillLink to="/book" search={service ? {service} : {}} variant="primary-inverted" size="lg">
+              <PillLink
+                to="/book"
+                search={service ? { service } : {}}
+                variant="primary-inverted"
+                size="lg"
+              >
                 Book a Free Call
               </PillLink>
               <ExternalPill href={site.whatsapp} variant="secondary-inverted">

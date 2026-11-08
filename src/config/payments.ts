@@ -39,5 +39,11 @@ export function bankDetails() {
 }
 
 export function methodLink(m: PaymentMethod): string {
-  return m === "payoneer" ? payments.payoneerUrl : m === "wise" ? payments.wiseUrl : m === "paypal" ? payments.paypalUrl : "";
+  return m === "payoneer"
+    ? payments.payoneerUrl
+    : m === "wise"
+      ? payments.wiseUrl
+      : m === "paypal"
+        ? payments.paypalUrl
+        : "";
 }

@@ -2,7 +2,13 @@ import { useEffect, useId, useRef, useState, type FormEvent } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { Loader2 } from "lucide-react";
 import { site } from "@/config/site";
-import { contactFields, contactPlans, isPlan, planLabels, type ContactPlan } from "@/lib/contact-schema";
+import {
+  contactFields,
+  contactPlans,
+  isPlan,
+  planLabels,
+  type ContactPlan,
+} from "@/lib/contact-schema";
 import { submitContact } from "@/lib/contact.functions";
 import { PillButton } from "./Button";
 import { cn } from "@/lib/utils";
@@ -50,7 +56,12 @@ export function ContactForm({ sourcePage, className }: { sourcePage: string; cla
     setState("submitting");
     try {
       const res = await submit({
-        data: { ...values, source_page: sourcePage, website: String(fd.get("website") ?? ""), rendered_at: renderedAt.current },
+        data: {
+          ...values,
+          source_page: sourcePage,
+          website: String(fd.get("website") ?? ""),
+          rendered_at: renderedAt.current,
+        },
       });
       setState(res.ok ? "success" : "error");
     } catch {
@@ -60,7 +71,13 @@ export function ContactForm({ sourcePage, className }: { sourcePage: string; cla
 
   if (state === "success") {
     return (
-      <div role="status" className={cn("rounded-card border border-border bg-background p-8 text-center md:p-12", className)}>
+      <div
+        role="status"
+        className={cn(
+          "rounded-card border border-border bg-background p-8 text-center md:p-12",
+          className,
+        )}
+      >
         <p className="type-h3">Thanks, we have your message. We will reply by email soon.</p>
         <button
           type="button"
@@ -91,15 +108,23 @@ export function ContactForm({ sourcePage, className }: { sourcePage: string; cla
   const label = "mb-2 block type-small font-medium text-ink";
 
   return (
-    <form noValidate onSubmit={onSubmit} className={cn("rounded-card border border-border bg-background p-6 md:p-10", className)}>
+    <form
+      noValidate
+      onSubmit={onSubmit}
+      className={cn("rounded-card border border-border bg-background p-6 md:p-10", className)}
+    >
       <div className="grid gap-5 md:grid-cols-2">
         <div>
-          <label htmlFor={`${id}-name`} className={label}>Name</label>
+          <label htmlFor={`${id}-name`} className={label}>
+            Name
+          </label>
           <input {...field("name")} autoComplete="name" className={inputCls} />
           {err("name")}
         </div>
         <div>
-          <label htmlFor={`${id}-email`} className={label}>Email</label>
+          <label htmlFor={`${id}-email`} className={label}>
+            Email
+          </label>
           <input {...field("email")} type="email" autoComplete="email" className={inputCls} />
           {err("email")}
         </div>
@@ -111,15 +136,26 @@ export function ContactForm({ sourcePage, className }: { sourcePage: string; cla
           {err("business_name")}
         </div>
         <div>
-          <label htmlFor={`${id}-plan`} className={label}>Plan you are interested in</label>
-          <select {...field("plan")} value={plan} onChange={(e) => setPlan(e.target.value as ContactPlan)} className={inputCls}>
+          <label htmlFor={`${id}-plan`} className={label}>
+            Plan you are interested in
+          </label>
+          <select
+            {...field("plan")}
+            value={plan}
+            onChange={(e) => setPlan(e.target.value as ContactPlan)}
+            className={inputCls}
+          >
             {contactPlans.map((p) => (
-              <option key={p} value={p}>{planLabels[p]}</option>
+              <option key={p} value={p}>
+                {planLabels[p]}
+              </option>
             ))}
           </select>
         </div>
         <div className="md:col-span-2">
-          <label htmlFor={`${id}-message`} className={label}>Message</label>
+          <label htmlFor={`${id}-message`} className={label}>
+            Message
+          </label>
           <textarea {...field("message")} rows={6} className={cn(inputCls, "resize-y")} />
           {err("message")}
         </div>
@@ -134,8 +170,19 @@ export function ContactForm({ sourcePage, className }: { sourcePage: string; cla
       {state === "error" && (
         <p role="alert" className="mt-6 rounded-2xl bg-bg-soft p-4 type-small text-ink">
           Something went wrong. Please email us at{" "}
-          <a href={`mailto:${site.email}`} className="font-medium underline underline-offset-4">{site.email}</a> or message us on{" "}
-          <a href={site.whatsapp} target="_blank" rel="noopener noreferrer" className="font-medium underline underline-offset-4">WhatsApp</a>.
+          <a href={`mailto:${site.email}`} className="font-medium underline underline-offset-4">
+            {site.email}
+          </a>{" "}
+          or message us on{" "}
+          <a
+            href={site.whatsapp}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-medium underline underline-offset-4"
+          >
+            WhatsApp
+          </a>
+          .
         </p>
       )}
 

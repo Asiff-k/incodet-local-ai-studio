@@ -4,7 +4,18 @@ export type Industry = {
   slug: string;
   name: string;
   to: string;
-  icon: "roof" | "floor" | "salon" | "barber" | "restaurant" | "hotel" | "car" | "wash" | "dental" | "medical" | "firm";
+  icon:
+    | "roof"
+    | "floor"
+    | "salon"
+    | "barber"
+    | "restaurant"
+    | "hotel"
+    | "car"
+    | "wash"
+    | "dental"
+    | "medical"
+    | "firm";
   page: {
     title: string;
     description: string;
@@ -37,12 +48,22 @@ const all: Industry[] = [
       intro:
         "Booking websites and a 24/7 AI calling agent for roofing companies. Every call answered, every inspection booked, even when you are up on a roof.",
       pains: [
-        { title: "Calls come in while you are on a roof", body: "You cannot answer the phone with a ladder in one hand." },
-        { title: "Storm season floods the phone", body: "More calls than you can handle, all on the same day." },
-        { title: "Missed calls go to the next roofer", body: "Most callers will not leave a voicemail. They just call someone else." },
+        {
+          title: "Calls come in while you are on a roof",
+          body: "You cannot answer the phone with a ladder in one hand.",
+        },
+        {
+          title: "Storm season floods the phone",
+          body: "More calls than you can handle, all on the same day.",
+        },
+        {
+          title: "Missed calls go to the next roofer",
+          body: "Most callers will not leave a voicemail. They just call someone else.",
+        },
       ],
       transcript: {
-        caller: "Hi, my roof started leaking after last night's storm. Can someone come and look at it?",
+        caller:
+          "Hi, my roof started leaking after last night's storm. Can someone come and look at it?",
         ai: "Sorry to hear that. I can book a roof inspection for you. What is the property address, and does tomorrow morning or afternoon suit you better?",
         alert: "New inspection booked: roof leak, tomorrow morning.",
       },
@@ -61,9 +82,18 @@ const all: Industry[] = [
       intro:
         "Booking websites and a 24/7 AI calling agent for epoxy flooring companies. The agent collects the job details and books the site visit while you are on a job.",
       pains: [
-        { title: "You are mid-pour when the phone rings", body: "Coatings do not wait, so calls get missed." },
-        { title: "Quotes need details first", body: "Floor size, current surface and timing, every single time." },
-        { title: "Leads go cold fast", body: "If nobody replies the same day, the customer moves on." },
+        {
+          title: "You are mid-pour when the phone rings",
+          body: "Coatings do not wait, so calls get missed.",
+        },
+        {
+          title: "Quotes need details first",
+          body: "Floor size, current surface and timing, every single time.",
+        },
+        {
+          title: "Leads go cold fast",
+          body: "If nobody replies the same day, the customer moves on.",
+        },
       ],
       transcript: {
         caller: "Hi, I would like a quote for an epoxy garage floor.",
@@ -85,9 +115,18 @@ const all: Industry[] = [
       intro:
         "Booking websites, an AI chatbot and a 24/7 AI calling agent for salons. Clients book any time and you stay focused on the person in your chair.",
       pains: [
-        { title: "The phone rings mid-appointment", body: "Stopping to answer means keeping a client waiting." },
-        { title: "Clients want to book at 10pm", body: "If they cannot book late at night, they book somewhere else." },
-        { title: "Gaps in the diary cost money", body: "Missed calls mean empty slots you could have filled." },
+        {
+          title: "The phone rings mid-appointment",
+          body: "Stopping to answer means keeping a client waiting.",
+        },
+        {
+          title: "Clients want to book at 10pm",
+          body: "If they cannot book late at night, they book somewhere else.",
+        },
+        {
+          title: "Gaps in the diary cost money",
+          body: "Missed calls mean empty slots you could have filled.",
+        },
       ],
       transcript: {
         caller: "Hi, can I book a cut and colour this Saturday?",
@@ -110,9 +149,18 @@ const all: Industry[] = [
       intro:
         "Booking websites and a 24/7 AI calling agent for barber shops. Every call answered and every booking made, without putting the clippers down.",
       pains: [
-        { title: "Clippers in hand, phone ringing", body: "You cannot stop a fade halfway to take a call." },
-        { title: "The same questions all day", body: "Opening hours, prices and wait times, over and over." },
-        { title: "After-hours calls are lost", body: "People book their next cut in the evening, when you are closed." },
+        {
+          title: "Clippers in hand, phone ringing",
+          body: "You cannot stop a fade halfway to take a call.",
+        },
+        {
+          title: "The same questions all day",
+          body: "Opening hours, prices and wait times, over and over.",
+        },
+        {
+          title: "After-hours calls are lost",
+          body: "People book their next cut in the evening, when you are closed.",
+        },
       ],
       transcript: {
         caller: "Have you got anything this afternoon for a skin fade?",
@@ -128,12 +176,20 @@ const all: Industry[] = [
     icon: "restaurant",
     page: {
       title: "AI Receptionist & Booking Websites for Restaurants | Incodet",
-      description: "Booking websites and a 24/7 AI calling agent for restaurants. Reservations, opening hours and menu questions handled while your team serves guests.",
+      description:
+        "Booking websites and a 24/7 AI calling agent for restaurants. Reservations, opening hours and menu questions handled while your team serves guests.",
       h1: "Every table booked, every call answered",
-      intro: "Booking websites and a 24/7 AI calling agent for restaurants. Reservations, opening hours and menu questions handled while your team serves guests.",
+      intro:
+        "Booking websites and a 24/7 AI calling agent for restaurants. Reservations, opening hours and menu questions handled while your team serves guests.",
       pains: [
-        { title: "The phone rings during the dinner rush", body: "Nobody is free to answer when you are busiest." },
-        { title: "The same questions all day", body: "Opening hours, parking and dietary options, again and again." },
+        {
+          title: "The phone rings during the dinner rush",
+          body: "Nobody is free to answer when you are busiest.",
+        },
+        {
+          title: "The same questions all day",
+          body: "Opening hours, parking and dietary options, again and again.",
+        },
         { title: "Missed calls mean empty tables", body: "Callers book wherever picks up first." },
       ],
       transcript: {
@@ -150,13 +206,21 @@ const all: Industry[] = [
     icon: "hotel",
     page: {
       title: "AI Receptionist & Booking Websites for Hotels | Incodet",
-      description: "Websites, an AI chatbot and a 24/7 AI calling agent for hotels and guesthouses. Room enquiries, check-in questions and booking requests answered day and night.",
+      description:
+        "Websites, an AI chatbot and a 24/7 AI calling agent for hotels and guesthouses. Room enquiries, check-in questions and booking requests answered day and night.",
       h1: "A front desk that never sleeps",
-      intro: "Websites, an AI chatbot and a 24/7 AI calling agent for hotels and guesthouses. Room enquiries, check-in questions and booking requests answered day and night.",
+      intro:
+        "Websites, an AI chatbot and a 24/7 AI calling agent for hotels and guesthouses. Room enquiries, check-in questions and booking requests answered day and night.",
       pains: [
         { title: "Calls at 2am", body: "Late arrivals and overseas guests call around the clock." },
-        { title: "Front desk stretched thin", body: "Staff juggle guests at the desk and a ringing phone." },
-        { title: "Lost direct bookings", body: "Unanswered enquiries end up on booking sites that charge commission." },
+        {
+          title: "Front desk stretched thin",
+          body: "Staff juggle guests at the desk and a ringing phone.",
+        },
+        {
+          title: "Lost direct bookings",
+          body: "Unanswered enquiries end up on booking sites that charge commission.",
+        },
       ],
       transcript: {
         caller: "Do you have a double room free this Friday and Saturday?",
@@ -172,13 +236,24 @@ const all: Industry[] = [
     icon: "car",
     page: {
       title: "AI Receptionist & Booking Websites for Car Rental Companies | Incodet",
-      description: "Booking websites and a 24/7 AI calling agent for car rental companies. Availability questions, pickup times and booking requests handled without hold music.",
+      description:
+        "Booking websites and a 24/7 AI calling agent for car rental companies. Availability questions, pickup times and booking requests handled without hold music.",
       h1: "Rental enquiries answered in seconds",
-      intro: "Booking websites and a 24/7 AI calling agent for car rental companies. Availability questions, pickup times and booking requests handled without hold music.",
+      intro:
+        "Booking websites and a 24/7 AI calling agent for car rental companies. Availability questions, pickup times and booking requests handled without hold music.",
       pains: [
-        { title: "Customers want answers now", body: "If you do not pick up, they call the next rental desk." },
-        { title: "The same questions on repeat", body: "Prices, deposits, licence rules and pickup times." },
-        { title: "Late flights, late calls", body: "Customers still need help after the office closes." },
+        {
+          title: "Customers want answers now",
+          body: "If you do not pick up, they call the next rental desk.",
+        },
+        {
+          title: "The same questions on repeat",
+          body: "Prices, deposits, licence rules and pickup times.",
+        },
+        {
+          title: "Late flights, late calls",
+          body: "Customers still need help after the office closes.",
+        },
       ],
       transcript: {
         caller: "Do you have an automatic SUV from Monday to Thursday?",
@@ -194,12 +269,20 @@ const all: Industry[] = [
     icon: "wash",
     page: {
       title: "AI Receptionist & Booking Websites for Car Washes | Incodet",
-      description: "Online booking and a 24/7 AI calling agent for car wash and detailing businesses. Customers pick a service and a time while you keep the bays moving.",
+      description:
+        "Online booking and a 24/7 AI calling agent for car wash and detailing businesses. Customers pick a service and a time while you keep the bays moving.",
       h1: "More washes booked, fewer missed calls",
-      intro: "Online booking and a 24/7 AI calling agent for car wash and detailing businesses. Customers pick a service and a time while you keep the bays moving.",
+      intro:
+        "Online booking and a 24/7 AI calling agent for car wash and detailing businesses. Customers pick a service and a time while you keep the bays moving.",
       pains: [
-        { title: "Hands busy, phone ringing", body: "You cannot answer while washing or detailing a car." },
-        { title: "Busy weekends, quiet weekdays", body: "No easy way to spread bookings across the week." },
+        {
+          title: "Hands busy, phone ringing",
+          body: "You cannot answer while washing or detailing a car.",
+        },
+        {
+          title: "Busy weekends, quiet weekdays",
+          body: "No easy way to spread bookings across the week.",
+        },
         { title: "Package questions", body: "Which wash, how long and how much, every time." },
       ],
       transcript: {
@@ -216,12 +299,20 @@ const all: Industry[] = [
     icon: "dental",
     page: {
       title: "AI Receptionist & Booking Websites for Dental Clinics | Incodet",
-      description: "Booking websites and a 24/7 AI calling agent for dental practices. New patient enquiries and appointment requests handled around the clock.",
+      description:
+        "Booking websites and a 24/7 AI calling agent for dental practices. New patient enquiries and appointment requests handled around the clock.",
       h1: "Patients booked, front desk freed up",
-      intro: "Booking websites and a 24/7 AI calling agent for dental practices. New patient enquiries and appointment requests handled around the clock.",
+      intro:
+        "Booking websites and a 24/7 AI calling agent for dental practices. New patient enquiries and appointment requests handled around the clock.",
       pains: [
-        { title: "Reception is always busy", body: "Patients at the desk, patients in the chair, phone ringing." },
-        { title: "After-hours tooth pain", body: "Patients call at night and need a clear next step." },
+        {
+          title: "Reception is always busy",
+          body: "Patients at the desk, patients in the chair, phone ringing.",
+        },
+        {
+          title: "After-hours tooth pain",
+          body: "Patients call at night and need a clear next step.",
+        },
         { title: "No-shows leave gaps", body: "Forgotten appointments mean empty chairs." },
       ],
       transcript: {
@@ -239,11 +330,16 @@ const all: Industry[] = [
     icon: "medical",
     page: {
       title: "AI Receptionist & Booking Websites for Medical Clinics | Incodet",
-      description: "Booking websites and a 24/7 AI calling agent for clinics and private practices. Patients book, reschedule and get answers to common questions any time.",
+      description:
+        "Booking websites and a 24/7 AI calling agent for clinics and private practices. Patients book, reschedule and get answers to common questions any time.",
       h1: "Appointments booked without the phone queue",
-      intro: "Booking websites and a 24/7 AI calling agent for clinics and private practices. Patients book, reschedule and get answers to common questions any time.",
+      intro:
+        "Booking websites and a 24/7 AI calling agent for clinics and private practices. Patients book, reschedule and get answers to common questions any time.",
       pains: [
-        { title: "The 8am phone rush", body: "Everyone calls at once and most hear the engaged tone." },
+        {
+          title: "The 8am phone rush",
+          body: "Everyone calls at once and most hear the engaged tone.",
+        },
         { title: "Rescheduling eats staff time", body: "Every change means another call." },
         { title: "Common questions on repeat", body: "Opening hours, parking and what to bring." },
       ],
@@ -262,13 +358,24 @@ const all: Industry[] = [
     icon: "firm",
     page: {
       title: "AI Receptionist & Booking Websites for Law & Accounting Firms | Incodet",
-      description: "Websites, an AI chatbot and a 24/7 AI calling agent for law firms, accountants and consultants. New enquiries are answered and booked in while you focus on clients.",
+      description:
+        "Websites, an AI chatbot and a 24/7 AI calling agent for law firms, accountants and consultants. New enquiries are answered and booked in while you focus on clients.",
       h1: "Every enquiry captured, every consultation booked",
-      intro: "Websites, an AI chatbot and a 24/7 AI calling agent for law firms, accountants and consultants. New enquiries are answered and booked in while you focus on clients.",
+      intro:
+        "Websites, an AI chatbot and a 24/7 AI calling agent for law firms, accountants and consultants. New enquiries are answered and booked in while you focus on clients.",
       pains: [
-        { title: "Billable time lost to the phone", body: "Every unplanned call interrupts client work." },
-        { title: "Enquiries after hours", body: "Prospects reach out in the evening and expect a reply." },
-        { title: "Calls you cannot take on", body: "Time spent on enquiries outside your services." },
+        {
+          title: "Billable time lost to the phone",
+          body: "Every unplanned call interrupts client work.",
+        },
+        {
+          title: "Enquiries after hours",
+          body: "Prospects reach out in the evening and expect a reply.",
+        },
+        {
+          title: "Calls you cannot take on",
+          body: "Time spent on enquiries outside your services.",
+        },
       ],
       transcript: {
         caller: "Hi, I need help with my small business tax return. Can I speak to someone?",
@@ -294,4 +401,8 @@ export const industryWhatYouGet = [
   "Owner alerts by email and WhatsApp with every booking",
 ];
 
-export const industryFaq = ["How does the 24/7 AI calling agent work?", "How long does it take?", "Is there a contract?"];
+export const industryFaq = [
+  "How does the 24/7 AI calling agent work?",
+  "How long does it take?",
+  "Is there a contract?",
+];

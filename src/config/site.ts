@@ -15,12 +15,12 @@ export const site = {
   teamsCitiesLabel: "Teams in Perth, Dhaka, Sylhet, Montreal, Leeds and Birmingham",
   availabilityLabel: "Available 24/7 across our teams in Australia, UK, Canada and Bangladesh",
   locations: [
-    { city: 'Perth', country: 'Australia', code: 'AU', label: 'Head office' },
-    { city: 'Dhaka', country: 'Bangladesh', code: 'BD' },
-    { city: 'Sylhet', country: 'Bangladesh', code: 'BD' },
-    { city: 'Montreal', country: 'Canada', code: 'CA' },
-    { city: 'Leeds', country: 'United Kingdom', code: 'GB' },
-    { city: 'Birmingham', country: 'United Kingdom', code: 'GB' },
+    { city: "Perth", country: "Australia", code: "AU", label: "Head office" },
+    { city: "Dhaka", country: "Bangladesh", code: "BD" },
+    { city: "Sylhet", country: "Bangladesh", code: "BD" },
+    { city: "Montreal", country: "Canada", code: "CA" },
+    { city: "Leeds", country: "United Kingdom", code: "GB" },
+    { city: "Birmingham", country: "United Kingdom", code: "GB" },
   ],
   mapsUrl:
     "https://www.google.com/maps/search/?api=1&query=Camberwarra+Drive+Craigie+WA+6025+Australia",
@@ -35,7 +35,11 @@ export const site = {
   analytics: { provider: "" as "" | "plausible" | "ga4", id: "" },
   // Pexels clip 10651140 by Kostas Exarhos (free license), cropped, slowed and self-hosted.
   // src720 plays on screens under 768px.
-  heroVideo: { src: "/videos/hero.mp4", src720: "/videos/hero-720.mp4", poster: "/videos/hero-poster.webp" },
+  heroVideo: {
+    src: "/videos/hero.mp4",
+    src720: "/videos/hero-720.mp4",
+    poster: "/videos/hero-poster.webp",
+  },
 } as const;
 
 export type SocialKey = keyof typeof site.socials;

@@ -4,6 +4,7 @@ Developed locally (branch workflow on GitHub). Not deployed yet; see docs/launch
 Supabase: own project incodet-website (wbgpeivoqaclxzlunmgk), migrations 0000 to 0003 applied (8 Nov 2026).
 
 ## Done
+
 - Phase 1: Orbix-style design system, floating pill nav, footer, site config (src/config/site.ts), swappable text logo
 - Phase 2: homepage (hero video + scroll effect, industries, who we are, AI agent cards, service panels, process, case studies, plans, FAQ)
 - Phase 3: pricing, custom software, industry pages, case study index + detail pages, privacy, terms, 404
@@ -19,6 +20,7 @@ Supabase: own project incodet-website (wbgpeivoqaclxzlunmgk), migrations 0000 to
 - Full-site test: every sitemap page returns 200 with one H1; no em dashes, no "#" links, no staff tool links, no broken internal links
 
 ## Decisions
+
 - Calls and bookings available 24/7
 - Team locations shown by city; only Perth shows a street address
 - No founding year on the site for now
@@ -26,6 +28,7 @@ Supabase: own project incodet-website (wbgpeivoqaclxzlunmgk), migrations 0000 to
 - Western Cars staff registration tool: screenshot only, never linked
 
 ## Waiting on Asif
+
 1. Email notifications: Resend key, verify incodet.com, RESEND_API_KEY in .env.local and Vercel env vars (booking and contact emails stay off until then; bookings still save to the database)
 2. Payment details: src/config/payments.ts (Payoneer, Wise, PayPal, bank)
 3. Sign in once at /portal with hello@incodet.com, open /admin, check Bookings and test with a dummy client

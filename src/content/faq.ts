@@ -33,7 +33,10 @@ const all: FaqItem[] = [
     question: "Which countries do you work with?",
     answer: "We work with businesses in the USA, UK, Canada, Australia and Europe.",
   },
-  { question: "Who owns the website?", answer: "You do. Once paid, your website and its content are yours." },
+  {
+    question: "Who owns the website?",
+    answer: "You do. Once paid, your website and its content are yours.",
+  },
   { question: "Which languages does the AI agent speak?", answer: "", todo: true },
 ];
 

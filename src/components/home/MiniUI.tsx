@@ -15,7 +15,15 @@ import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 /** Small code-built UI illustrations. Generic sample text only; decorative for screen readers. */
-function Frame({ children, className, tone = "light" }: { children: ReactNode; className?: string; tone?: "light" | "dark" }) {
+function Frame({
+  children,
+  className,
+  tone = "light",
+}: {
+  children: ReactNode;
+  className?: string;
+  tone?: "light" | "dark";
+}) {
   return (
     <div
       aria-hidden
@@ -31,7 +39,9 @@ function Frame({ children, className, tone = "light" }: { children: ReactNode; c
 }
 
 function Line({ w = "w-full", tone = "light" }: { w?: string; tone?: "light" | "dark" }) {
-  return <div className={cn("h-2 rounded-full", w, tone === "light" ? "bg-border" : "bg-on-dark/20")} />;
+  return (
+    <div className={cn("h-2 rounded-full", w, tone === "light" ? "bg-border" : "bg-on-dark/20")} />
+  );
 }
 
 export function CallCardUI({ tone = "light" }: { tone?: "light" | "dark" }) {
@@ -47,7 +57,9 @@ export function CallCardUI({ tone = "light" }: { tone?: "light" | "dark" }) {
         </div>
       </div>
       <div className="mt-4 flex gap-2">
-        <span className="flex-1 rounded-full bg-mint py-2 text-center font-medium text-mint-ink">Answered by AI</span>
+        <span className="flex-1 rounded-full bg-mint py-2 text-center font-medium text-mint-ink">
+          Answered by AI
+        </span>
       </div>
     </Frame>
   );
@@ -57,10 +69,20 @@ export function ChatUI({ tone = "light" }: { tone?: "light" | "dark" }) {
   const dark = tone === "dark";
   return (
     <Frame tone={tone} className="flex flex-col gap-2">
-      <div className={cn("max-w-[85%] self-end rounded-2xl rounded-br-sm px-3 py-2", dark ? "bg-on-dark/15" : "bg-bg-soft")}>
+      <div
+        className={cn(
+          "max-w-[85%] self-end rounded-2xl rounded-br-sm px-3 py-2",
+          dark ? "bg-on-dark/15" : "bg-bg-soft",
+        )}
+      >
         Hi, are you open on Saturday?
       </div>
-      <div className={cn("flex max-w-[90%] items-start gap-2 rounded-2xl rounded-bl-sm px-3 py-2", dark ? "bg-background text-ink" : "bg-ink text-primary-foreground")}>
+      <div
+        className={cn(
+          "flex max-w-[90%] items-start gap-2 rounded-2xl rounded-bl-sm px-3 py-2",
+          dark ? "bg-background text-ink" : "bg-ink text-primary-foreground",
+        )}
+      >
         <Bot className="mt-0.5 size-4 shrink-0" />
         Yes, we are open 9am to 4pm. Would you like to book a time?
       </div>
@@ -77,7 +99,9 @@ export function CalendarUI({ tone = "light" }: { tone?: "light" | "dark" }) {
       </div>
       <div className="mt-3 grid grid-cols-5 gap-1.5 text-center">
         {days.map((d) => (
-          <span key={d} className="opacity-70">{d}</span>
+          <span key={d} className="opacity-70">
+            {d}
+          </span>
         ))}
         {Array.from({ length: 10 }).map((_, i) => (
           <span
@@ -100,10 +124,20 @@ export function NotificationUI({ tone = "light" }: { tone?: "light" | "dark" }) 
   return (
     <Frame tone={tone} className="flex flex-col gap-2">
       {[
-        { icon: <MessageCircle className="size-4" />, t: "WhatsApp", d: "New booking: caller name and request" },
+        {
+          icon: <MessageCircle className="size-4" />,
+          t: "WhatsApp",
+          d: "New booking: caller name and request",
+        },
         { icon: <Mail className="size-4" />, t: "Email", d: "Call summary ready" },
       ].map((n) => (
-        <div key={n.t} className={cn("flex items-start gap-3 rounded-xl p-3", tone === "light" ? "bg-bg-soft" : "bg-on-dark/10")}>
+        <div
+          key={n.t}
+          className={cn(
+            "flex items-start gap-3 rounded-xl p-3",
+            tone === "light" ? "bg-bg-soft" : "bg-on-dark/10",
+          )}
+        >
           <span className="mt-0.5">{n.icon}</span>
           <div>
             <p className="font-medium">{n.t}</p>
@@ -122,18 +156,28 @@ export function BookingSiteUI() {
         <span className="size-2.5 rounded-full bg-border" />
         <span className="size-2.5 rounded-full bg-border" />
         <span className="size-2.5 rounded-full bg-border" />
-        <span className="ml-3 flex items-center gap-1.5 opacity-70"><Globe className="size-3.5" /> yourbusiness.com</span>
+        <span className="ml-3 flex items-center gap-1.5 opacity-70">
+          <Globe className="size-3.5" /> yourbusiness.com
+        </span>
       </div>
       <div className="p-5">
         <p className="text-[18px] font-medium">Book an appointment</p>
         <div className="mt-4 grid grid-cols-3 gap-2">
           {["9:00", "10:30", "12:00", "1:30", "3:00", "4:30"].map((t, i) => (
-            <span key={t} className={cn("rounded-full border py-2 text-center", i === 2 ? "border-ink bg-ink text-primary-foreground" : "border-border")}>
+            <span
+              key={t}
+              className={cn(
+                "rounded-full border py-2 text-center",
+                i === 2 ? "border-ink bg-ink text-primary-foreground" : "border-border",
+              )}
+            >
               {t}
             </span>
           ))}
         </div>
-        <div className="mt-4 rounded-full bg-ink py-2.5 text-center font-medium text-primary-foreground">Confirm booking</div>
+        <div className="mt-4 rounded-full bg-ink py-2.5 text-center font-medium text-primary-foreground">
+          Confirm booking
+        </div>
       </div>
     </Frame>
   );
@@ -142,11 +186,18 @@ export function BookingSiteUI() {
 export function AutomationUI() {
   return (
     <Frame className="flex flex-col gap-2">
-      <div className="flex items-center gap-2 font-medium"><Workflow className="size-4" /> Automations</div>
+      <div className="flex items-center gap-2 font-medium">
+        <Workflow className="size-4" /> Automations
+      </div>
       {["Booking reminder sent", "Follow-up message scheduled", "Owner notified"].map((t) => (
-        <div key={t} className="flex items-center justify-between rounded-xl bg-bg-soft px-3 py-2.5">
+        <div
+          key={t}
+          className="flex items-center justify-between rounded-xl bg-bg-soft px-3 py-2.5"
+        >
           {t}
-          <span className="flex size-5 items-center justify-center rounded-full bg-mint text-mint-ink"><Check className="size-3" /></span>
+          <span className="flex size-5 items-center justify-center rounded-full bg-mint text-mint-ink">
+            <Check className="size-3" />
+          </span>
         </div>
       ))}
     </Frame>
@@ -175,9 +226,13 @@ export function DashboardUI() {
 export function DiscoveryUI() {
   return (
     <Frame className="flex flex-col gap-3">
-      <div className="flex items-center gap-2 font-medium"><Phone className="size-4" /> Discovery call notes</div>
+      <div className="flex items-center gap-2 font-medium">
+        <Phone className="size-4" /> Discovery call notes
+      </div>
       {["Your services", "Your customers", "What you need"].map((t) => (
-        <div key={t} className="flex items-center gap-2"><Check className="size-4" /> {t}</div>
+        <div key={t} className="flex items-center gap-2">
+          <Check className="size-4" /> {t}
+        </div>
       ))}
     </Frame>
   );
@@ -207,7 +262,12 @@ export function BuildUI() {
         { t: "AI agent set up", done: false },
       ].map((s) => (
         <div key={s.t} className="flex items-center gap-2 rounded-xl bg-bg-soft px-3 py-2.5">
-          <span className={cn("flex size-5 items-center justify-center rounded-full", s.done ? "bg-mint text-mint-ink" : "border border-border")}>
+          <span
+            className={cn(
+              "flex size-5 items-center justify-center rounded-full",
+              s.done ? "bg-mint text-mint-ink" : "border border-border",
+            )}
+          >
             {s.done && <Check className="size-3" />}
           </span>
           {s.t}

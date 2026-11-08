@@ -37,7 +37,11 @@ function IndustriesPage() {
                   <h2 className="mt-5 type-h3">{ind.name}</h2>
                   <p className="mt-3 flex-1 type-body">{ind.page.intro}</p>
                   <span className="mt-6 inline-flex items-center gap-2 type-small font-medium text-ink">
-                    {ind.page.h1} <ArrowRight aria-hidden className="size-4 transition-transform group-hover:translate-x-1" />
+                    {ind.page.h1}{" "}
+                    <ArrowRight
+                      aria-hidden
+                      className="size-4 transition-transform group-hover:translate-x-1"
+                    />
                   </span>
                 </Link>
               </Reveal>

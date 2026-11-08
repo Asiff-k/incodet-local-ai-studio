@@ -21,7 +21,8 @@ export const reportPayment = createServerFn({ method: "POST" })
       .eq("id", data.invoiceId)
       .maybeSingle();
     if (!inv) return { ok: false, error: "Invoice not found." };
-    if (inv.status === "paid" || inv.status === "draft") return { ok: false, error: "This invoice cannot be updated." };
+    if (inv.status === "paid" || inv.status === "draft")
+      return { ok: false, error: "This invoice cannot be updated." };
 
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { error: payErr } = await supabaseAdmin.from("payments").insert({
@@ -34,7 +35,10 @@ export const reportPayment = createServerFn({ method: "POST" })
       console.error("payment insert failed", payErr);
       return { ok: false, error: "Could not record your payment." };
     }
-    await supabaseAdmin.from("invoices").update({ status: "pending_confirmation" }).eq("id", inv.id);
+    await supabaseAdmin
+      .from("invoices")
+      .update({ status: "pending_confirmation" })
+      .eq("id", inv.id);
 
     const key = process.env["RESEND_API_KEY"];
     if (!key) {

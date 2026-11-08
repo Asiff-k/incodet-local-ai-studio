@@ -11,10 +11,16 @@ export const Route = createFileRoute("/portal/")({
   head: () => ({
     meta: [
       { title: "Client Portal | Incodet" },
-      { name: "description", content: "Track your project, download files and pay invoices in one place." },
+      {
+        name: "description",
+        content: "Track your project, download files and pay invoices in one place.",
+      },
       { name: "robots", content: "noindex, nofollow" },
       { property: "og:title", content: "Client Portal | Incodet" },
-      { property: "og:description", content: "Track your project, download files and pay invoices in one place." },
+      {
+        property: "og:description",
+        content: "Track your project, download files and pay invoices in one place.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
@@ -70,19 +76,32 @@ function PortalLogin() {
         <Reveal className="mx-auto max-w-xl text-center">
           <PillBadge>Client portal</PillBadge>
           <h1 className="mt-6 type-h1">Client portal</h1>
-          <p className="mx-auto mt-6 max-w-md type-body">Track your project, download files and pay invoices in one place.</p>
+          <p className="mx-auto mt-6 max-w-md type-body">
+            Track your project, download files and pay invoices in one place.
+          </p>
         </Reveal>
         <Reveal delay={80} className="mx-auto mt-10 max-w-md">
           {state === "sent" ? (
-            <div role="status" className="rounded-card border border-border bg-background p-8 text-center">
+            <div
+              role="status"
+              className="rounded-card border border-border bg-background p-8 text-center"
+            >
               <MailCheck aria-hidden className="mx-auto size-8 text-ink" strokeWidth={1.5} />
               <p className="mt-4 type-h3">Check your email for a sign-in link.</p>
-              <button type="button" onClick={() => setState("idle")} className="mt-5 type-small font-medium text-ink underline underline-offset-4">
+              <button
+                type="button"
+                onClick={() => setState("idle")}
+                className="mt-5 type-small font-medium text-ink underline underline-offset-4"
+              >
                 Use a different email
               </button>
             </div>
           ) : (
-            <form noValidate onSubmit={onSubmit} className="rounded-card border border-border bg-background p-6 md:p-8">
+            <form
+              noValidate
+              onSubmit={onSubmit}
+              className="rounded-card border border-border bg-background p-6 md:p-8"
+            >
               <label htmlFor="portal-email" className="mb-2 block type-small font-medium text-ink">
                 Email or DEMO
               </label>

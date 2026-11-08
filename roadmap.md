@@ -1,12 +1,14 @@
 # Roadmap: Round 2 Part A (homepage)
 
 ## Round 3 Part F
+
 - [x] Deck navigation has a single hash reader, preserved history state and portrait-mobile-only tracking; browser checks at 1536x674, 1280x800 and 375x812 pass keyboard, dots, buttons, real touch swipe, shared hashes and print isolation. Nine deck tests pass; hosted verification still returns 401.
 - [x] Standalone 23-slide company deck with shared-source facts and reference-inspired visuals; additional featured work gets a More work slide
 - [x] Keyboard, hash/reload, real touch swipe, controls, mobile stack and print layout; 23 landscape pages verified from desktop and mobile
 - [x] Menu/footer/sitemap metadata; 375/768/1280 checks without horizontal scroll or runtime errors, no serious/critical axe findings, content-integrity tests pass
 
 ## Round 3 Part E
+
 - [x] Service placeholder cap and generic UI fillers
 - [x] Booking settings, secure storage and optional emails (no email secret configured, safely skipped)
 - [x] Reusable calendar, project form, confirmation and calendar export
@@ -17,6 +19,7 @@
 - [x] Real competing submissions: one stored booking, one conflict returned to calendar; Google/ICS checked; test row deleted. Keyboard and 375/768/1280 checks passed.
 
 ## Round 3 Part D
+
 - [x] Hide carousel cursor on native/Lenis scroll and viewport exit; both scroll flows checked in browser.
 - [x] Study Orbix services; replace homepage with eight service panels using existing work and labelled placeholders.
 - [x] Shared service template, seven new detail pages, index and restyled custom software; existing build copy/contact/pricing note retained.
@@ -24,6 +27,7 @@
 - [x] Keyboard Before/After, 25 content/routing tests, 375/768/1280 checks without overflow/errors; axe serious/critical zero across ten affected pages.
 
 ## Round 3 Part C
+
 - [ ] Preview follow-up: automatic build reports build OK; hosted asset and homepage both return 401 Unauthorized, blocking deployed-version verification. Manual builds are managed by the harness.
 - [x] Cursor follow-up: body portal at layer 9000; navigation/menu at 9100/9200. Screenshot and temporary hit-test probe confirm cursor above cards; pointer passthrough preserved.
 - [x] Badge follow-up: Demo versus Concept classification tested, 12 content tests pass; Bloom Demo verified in browser. No overflow at 375/768/1280 or runtime errors.

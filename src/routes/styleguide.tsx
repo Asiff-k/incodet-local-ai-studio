@@ -58,7 +58,9 @@ function Styleguide() {
           <div>
             <Label>Pill badges</Label>
             <div className="flex flex-wrap gap-3">
-              <PillBadge icon={<MapPin aria-hidden className="size-4" />}>Perth, Western Australia</PillBadge>
+              <PillBadge icon={<MapPin aria-hidden className="size-4" />}>
+                Perth, Western Australia
+              </PillBadge>
               <PillBadge>No icon</PillBadge>
               <PillBadge icon={<Sparkles aria-hidden className="size-4" />}>AI agents</PillBadge>
             </div>
@@ -104,9 +106,30 @@ function Styleguide() {
         <SegmentedTabs
           className="mt-10"
           tabs={[
-            { label: "Discover", content: <Card><p>We learn how your business runs today.</p></Card> },
-            { label: "Build", content: <Card><p>We build and test your website or agent.</p></Card> },
-            { label: "Launch", content: <Card><p>We go live and keep improving it.</p></Card> },
+            {
+              label: "Discover",
+              content: (
+                <Card>
+                  <p>We learn how your business runs today.</p>
+                </Card>
+              ),
+            },
+            {
+              label: "Build",
+              content: (
+                <Card>
+                  <p>We build and test your website or agent.</p>
+                </Card>
+              ),
+            },
+            {
+              label: "Launch",
+              content: (
+                <Card>
+                  <p>We go live and keep improving it.</p>
+                </Card>
+              ),
+            },
           ]}
         />
       </Section>
@@ -116,9 +139,18 @@ function Styleguide() {
         <Accordion
           className="mx-auto mt-10 max-w-3xl"
           items={[
-            { question: "Do I need to sign a long contract?", answer: "No. There are no lock-in contracts." },
-            { question: "Can the AI agent book appointments?", answer: "Yes. It can book straight into your calendar." },
-            { question: "Do you build custom software?", answer: "Yes. We build custom tools and SaaS products." },
+            {
+              question: "Do I need to sign a long contract?",
+              answer: "No. There are no lock-in contracts.",
+            },
+            {
+              question: "Can the AI agent book appointments?",
+              answer: "Yes. It can book straight into your calendar.",
+            },
+            {
+              question: "Do you build custom software?",
+              answer: "Yes. We build custom tools and SaaS products.",
+            },
           ]}
         />
       </Section>
@@ -129,9 +161,21 @@ function Styleguide() {
         </div>
         <StackedPanels
           panels={[
-            { title: "Booking websites", body: "Fast sites that turn visitors into bookings.", color: "violet" },
-            { title: "AI website chatbots", body: "Answers questions and captures leads around the clock.", color: "blue" },
-            { title: "24/7 AI phone agents", body: "Picks up every call and books the job.", color: "orange" },
+            {
+              title: "Booking websites",
+              body: "Fast sites that turn visitors into bookings.",
+              color: "violet",
+            },
+            {
+              title: "AI website chatbots",
+              body: "Answers questions and captures leads around the clock.",
+              color: "blue",
+            },
+            {
+              title: "24/7 AI phone agents",
+              body: "Picks up every call and books the job.",
+              color: "orange",
+            },
             { title: "Custom software", body: "Tools built around how you work.", color: "teal" },
             { title: "SaaS products", body: "From idea to launched product.", color: "black" },
           ]}
@@ -143,12 +187,14 @@ function Styleguide() {
           <SectionHeading title="Horizontal scroll cards" />
         </div>
         <HorizontalScrollCards>
-          {["Roofing", "Epoxy Flooring", "Salons", "Barber Shops", "Custom Software", "SaaS"].map((t) => (
-            <Card key={t} className="h-[320px]">
-              <h3 className="type-h3">{t}</h3>
-              <p className="mt-3">Example card content.</p>
-            </Card>
-          ))}
+          {["Roofing", "Epoxy Flooring", "Salons", "Barber Shops", "Custom Software", "SaaS"].map(
+            (t) => (
+              <Card key={t} className="h-[320px]">
+                <h3 className="type-h3">{t}</h3>
+                <p className="mt-3">Example card content.</p>
+              </Card>
+            ),
+          )}
         </HorizontalScrollCards>
       </section>
     </>

@@ -8,10 +8,17 @@ import { AdminTitle, Box, ConfirmButton, Field, inputCls } from "@/components/ad
 import { PillButton } from "@/components/site/Button";
 import { Slider } from "@/components/ui/slider";
 import { Chip } from "@/components/portal/PortalDashboard";
-import { milestoneStatusLabels, projectStatusLabels, type MilestoneStatus, type ProjectStatus } from "@/lib/portal-types";
+import {
+  milestoneStatusLabels,
+  projectStatusLabels,
+  type MilestoneStatus,
+  type ProjectStatus,
+} from "@/lib/portal-types";
 
 export const Route = createFileRoute("/_authenticated/admin/projects")({
-  staticData: { sitemap: false }, component: Projects });
+  staticData: { sitemap: false },
+  component: Projects,
+});
 
 const projectStatuses = Object.keys(projectStatusLabels) as ProjectStatus[];
 const milestoneStatuses = Object.keys(milestoneStatusLabels) as MilestoneStatus[];
@@ -21,7 +28,13 @@ function Projects() {
   const [selected, setSelected] = useState<string | null>(null);
   const clients = useQuery({
     queryKey: ["admin-clients"],
-    queryFn: async () => (await supabase.from("clients").select("id, name, business_name, email, user_id").order("name")).data ?? [],
+    queryFn: async () =>
+      (
+        await supabase
+          .from("clients")
+          .select("id, name, business_name, email, user_id")
+          .order("name")
+      ).data ?? [],
   });
   const projects = useQuery({
     queryKey: ["admin-projects"],
@@ -41,7 +54,11 @@ function Projects() {
     const name = String(fd.get("name") ?? "").trim();
     const client_id = String(fd.get("client_id") ?? "");
     if (!name || !client_id) return void toast.error("Pick a client and enter a project name.");
-    const { data, error } = await supabase.from("projects").insert({ name, client_id }).select("id").single();
+    const { data, error } = await supabase
+      .from("projects")
+      .insert({ name, client_id })
+      .select("id")
+      .single();
     if (error) return void toast.error("Could not create the project.");
     toast.success("Project created");
     e.currentTarget.reset();
@@ -87,8 +104,8 @@ function Projects() {
               >
                 <p className="font-medium text-ink">{p.name}</p>
                 <p className="mt-1 type-small text-muted-foreground">
-                  {(p.clients as { business_name: string | null; name: string } | null)?.business_name ||
-                    (p.clients as { name: string } | null)?.name}{" "}
+                  {(p.clients as { business_name: string | null; name: string } | null)
+                    ?.business_name || (p.clients as { name: string } | null)?.name}{" "}
                   · {p.progress}%
                 </p>
                 <div className="mt-2">
@@ -98,7 +115,11 @@ function Projects() {
             </li>
           ))}
         </ul>
-        {selected ? <ProjectEditor key={selected} id={selected} onDeleted={() => setSelected(null)} /> : <p className="type-body">Choose a project to edit it.</p>}
+        {selected ? (
+          <ProjectEditor key={selected} id={selected} onDeleted={() => setSelected(null)} />
+        ) : (
+          <p className="type-body">Choose a project to edit it.</p>
+        )}
       </div>
     </>
   );
@@ -116,7 +137,10 @@ function ProjectEditor({ id, onDeleted }: { id: string; onDeleted: () => void })
         .eq("id", id)
         .single();
       if (error) throw error;
-      return { ...data, milestones: [...data.milestones].sort((a, b) => a.sort_order - b.sort_order) };
+      return {
+        ...data,
+        milestones: [...data.milestones].sort((a, b) => a.sort_order - b.sort_order),
+      };
     },
   });
   const [progress, setProgress] = useState(0);
@@ -193,7 +217,9 @@ function ProjectEditor({ id, onDeleted }: { id: string; onDeleted: () => void })
     } else if (!/^https:\/\//.test(url)) {
       return void toast.error("Choose a file or enter an https link.");
     }
-    const { error } = await supabase.from("deliverables").insert({ project_id: id, title, file_path, external_url: file_path ? null : url });
+    const { error } = await supabase
+      .from("deliverables")
+      .insert({ project_id: id, title, file_path, external_url: file_path ? null : url });
     if (error) return void toast.error("Could not save the deliverable.");
     toast.success("Deliverable added");
     form.reset();
@@ -218,13 +244,30 @@ function ProjectEditor({ id, onDeleted }: { id: string; onDeleted: () => void })
           </Field>
           <div className="flex flex-col gap-3 type-small font-medium text-ink">
             <span id="progress-label">Progress: {progress}%</span>
-            <Slider aria-labelledby="progress-label" value={[progress]} min={0} max={100} step={5} onValueChange={(v) => setProgress(v[0] ?? 0)} />
+            <Slider
+              aria-labelledby="progress-label"
+              value={[progress]}
+              min={0}
+              max={100}
+              step={5}
+              onValueChange={(v) => setProgress(v[0] ?? 0)}
+            />
           </div>
           <Field label="Start date">
-            <input type="date" name="start_date" defaultValue={p.start_date ?? ""} className={inputCls} />
+            <input
+              type="date"
+              name="start_date"
+              defaultValue={p.start_date ?? ""}
+              className={inputCls}
+            />
           </Field>
           <Field label="Target date">
-            <input type="date" name="target_date" defaultValue={p.target_date ?? ""} className={inputCls} />
+            <input
+              type="date"
+              name="target_date"
+              defaultValue={p.target_date ?? ""}
+              className={inputCls}
+            />
           </Field>
           <Field label="Summary" className="md:col-span-2">
             <textarea name="summary" rows={3} defaultValue={p.summary ?? ""} className={inputCls} />
@@ -253,13 +296,19 @@ function ProjectEditor({ id, onDeleted }: { id: string; onDeleted: () => void })
         <h2 className="type-h3">Milestones</h2>
         <ol className="mt-4 flex flex-col gap-2">
           {p.milestones.map((m, i) => (
-            <li key={m.id} className="flex flex-wrap items-center gap-2 rounded-xl border border-border p-3">
+            <li
+              key={m.id}
+              className="flex flex-wrap items-center gap-2 rounded-xl border border-border p-3"
+            >
               <span className="min-w-0 flex-1 font-medium text-ink">{m.title}</span>
               <select
                 aria-label={`Status for ${m.title}`}
                 value={m.status}
                 onChange={async (e) => {
-                  await supabase.from("milestones").update({ status: e.target.value as MilestoneStatus }).eq("id", m.id);
+                  await supabase
+                    .from("milestones")
+                    .update({ status: e.target.value as MilestoneStatus })
+                    .eq("id", m.id);
                   refresh();
                 }}
                 className={`${inputCls} w-auto`}
@@ -270,10 +319,22 @@ function ProjectEditor({ id, onDeleted }: { id: string; onDeleted: () => void })
                   </option>
                 ))}
               </select>
-              <button type="button" aria-label="Move up" disabled={i === 0} onClick={() => move(i, -1)} className="rounded-full p-2 hover:bg-bg-soft disabled:opacity-30">
+              <button
+                type="button"
+                aria-label="Move up"
+                disabled={i === 0}
+                onClick={() => move(i, -1)}
+                className="rounded-full p-2 hover:bg-bg-soft disabled:opacity-30"
+              >
                 <ArrowUp aria-hidden className="size-4" />
               </button>
-              <button type="button" aria-label="Move down" disabled={i === p.milestones.length - 1} onClick={() => move(i, 1)} className="rounded-full p-2 hover:bg-bg-soft disabled:opacity-30">
+              <button
+                type="button"
+                aria-label="Move down"
+                disabled={i === p.milestones.length - 1}
+                onClick={() => move(i, 1)}
+                className="rounded-full p-2 hover:bg-bg-soft disabled:opacity-30"
+              >
                 <ArrowDown aria-hidden className="size-4" />
               </button>
               <ConfirmButton
@@ -288,7 +349,10 @@ function ProjectEditor({ id, onDeleted }: { id: string; onDeleted: () => void })
             </li>
           ))}
         </ol>
-        <form onSubmit={addMilestone} className="mt-4 grid gap-3 md:grid-cols-[1fr_180px_auto] md:items-end">
+        <form
+          onSubmit={addMilestone}
+          className="mt-4 grid gap-3 md:grid-cols-[1fr_180px_auto] md:items-end"
+        >
           <Field label="New milestone">
             <input name="title" className={inputCls} maxLength={150} />
           </Field>
@@ -305,16 +369,23 @@ function ProjectEditor({ id, onDeleted }: { id: string; onDeleted: () => void })
         <h2 className="type-h3">Deliverables</h2>
         <ul className="mt-4 flex flex-col gap-2">
           {p.deliverables.map((d) => (
-            <li key={d.id} className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-border p-3">
+            <li
+              key={d.id}
+              className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-border p-3"
+            >
               <span className="text-ink">
-                {d.title} <span className="type-small text-muted-foreground">({d.file_path ? "file" : "link"})</span>
+                {d.title}{" "}
+                <span className="type-small text-muted-foreground">
+                  ({d.file_path ? "file" : "link"})
+                </span>
               </span>
               <ConfirmButton
                 label="Delete"
                 title="Delete this deliverable?"
                 description={d.title}
                 onConfirm={async () => {
-                  if (d.file_path) await supabase.storage.from("deliverables").remove([d.file_path]);
+                  if (d.file_path)
+                    await supabase.storage.from("deliverables").remove([d.file_path]);
                   await supabase.from("deliverables").delete().eq("id", d.id);
                   refresh();
                 }}

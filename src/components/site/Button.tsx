@@ -26,12 +26,7 @@ export const pillButton = cva(
 
 type V = VariantProps<typeof pillButton>;
 
-export function PillButton({
-  className,
-  variant,
-  size,
-  ...props
-}: ComponentProps<"button"> & V) {
+export function PillButton({ className, variant, size, ...props }: ComponentProps<"button"> & V) {
   return <button className={cn(pillButton({ variant, size }), className)} {...props} />;
 }
 
@@ -44,9 +39,20 @@ export function PillLink({
   size,
   onClick,
   search,
-}: { to: string; children: ReactNode; className?: string; onClick?: () => void; search?: Record<string, string> } & V) {
+}: {
+  to: string;
+  children: ReactNode;
+  className?: string;
+  onClick?: () => void;
+  search?: Record<string, string>;
+} & V) {
   return (
-    <Link to={to} search={search as never} onClick={onClick} className={cn(pillButton({ variant, size }), className)}>
+    <Link
+      to={to}
+      search={search as never}
+      onClick={onClick}
+      className={cn(pillButton({ variant, size }), className)}
+    >
       {children}
     </Link>
   );

@@ -42,7 +42,15 @@ export function useTour(storageKey: string, ready: boolean) {
   return { open, start: () => setOpen(true), close };
 }
 
-export function Tour({ steps, open, onClose }: { steps: TourStep[]; open: boolean; onClose: () => void }) {
+export function Tour({
+  steps,
+  open,
+  onClose,
+}: {
+  steps: TourStep[];
+  open: boolean;
+  onClose: () => void;
+}) {
   const [i, setI] = useState(0);
   const [rect, setRect] = useState<DOMRect | null>(null);
   const nextRef = useRef<HTMLButtonElement>(null);
@@ -127,7 +135,11 @@ export function Tour({ steps, open, onClose }: { steps: TourStep[]; open: boolea
           {step.text}
         </p>
         <div className="mt-5 flex items-center justify-between gap-2">
-          <button type="button" onClick={onClose} className="type-small font-medium text-ink underline underline-offset-4">
+          <button
+            type="button"
+            onClick={onClose}
+            className="type-small font-medium text-ink underline underline-offset-4"
+          >
             Skip
           </button>
           <div className="flex gap-2">
@@ -136,7 +148,12 @@ export function Tour({ steps, open, onClose }: { steps: TourStep[]; open: boolea
                 Back
               </PillButton>
             )}
-            <PillButton ref={nextRef} type="button" size="sm" onClick={() => (last ? onClose() : setI(i + 1))}>
+            <PillButton
+              ref={nextRef}
+              type="button"
+              size="sm"
+              onClick={() => (last ? onClose() : setI(i + 1))}
+            >
               {last ? "Done" : "Next"}
             </PillButton>
           </div>

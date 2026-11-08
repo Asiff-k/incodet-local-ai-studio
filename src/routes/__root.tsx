@@ -30,8 +30,12 @@ function NotFoundComponent() {
         <p className="mt-4 type-body">This page does not exist or has moved.</p>
         <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
           <PillLink to="/">Home</PillLink>
-          <PillLink to="/pricing" variant="secondary">Pricing</PillLink>
-          <PillLink to="/book" variant="secondary">Book a Call</PillLink>
+          <PillLink to="/pricing" variant="secondary">
+            Pricing
+          </PillLink>
+          <PillLink to="/book" variant="secondary">
+            Book a Call
+          </PillLink>
         </div>
       </div>
     </section>
@@ -83,36 +87,36 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         (m) => (m as { globalNotFound?: boolean }).globalNotFound || m.status === "notFound",
       );
     return {
-    meta: [
-      { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { name: "theme-color", content: "#0A0A0A" },
-      ...(isNotFound
-        ? [{ title: "Page not found | Incodet" }, { name: "robots", content: "noindex" }]
-        : [{ title: "Incodet | Websites, AI Agents & Custom Software" }]),
-      {
-        name: "description",
-        content:
-          "Booking websites, 24/7 AI chatbots and calling agents, and custom software for small, growing and established businesses. Pay only for what you use.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-    links: [
-      {
-        rel: "stylesheet",
-        href: appCss,
-      },
-      { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
-      { rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png" },
-      { rel: "manifest", href: "/site.webmanifest" },
-      { rel: "preconnect", href: "https://api.fontshare.com" },
-      { rel: "preconnect", href: "https://cdn.fontshare.com", crossOrigin: "anonymous" },
-      {
-        rel: "stylesheet",
-        href: "https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap",
-      },
-    ],
+      meta: [
+        { charSet: "utf-8" },
+        { name: "viewport", content: "width=device-width, initial-scale=1" },
+        { name: "theme-color", content: "#0A0A0A" },
+        ...(isNotFound
+          ? [{ title: "Page not found | Incodet" }, { name: "robots", content: "noindex" }]
+          : [{ title: "Incodet | Websites, AI Agents & Custom Software" }]),
+        {
+          name: "description",
+          content:
+            "Booking websites, 24/7 AI chatbots and calling agents, and custom software for small, growing and established businesses. Pay only for what you use.",
+        },
+        { property: "og:type", content: "website" },
+        { name: "twitter:card", content: "summary_large_image" },
+      ],
+      links: [
+        {
+          rel: "stylesheet",
+          href: appCss,
+        },
+        { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
+        { rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png" },
+        { rel: "manifest", href: "/site.webmanifest" },
+        { rel: "preconnect", href: "https://api.fontshare.com" },
+        { rel: "preconnect", href: "https://cdn.fontshare.com", crossOrigin: "anonymous" },
+        {
+          rel: "stylesheet",
+          href: "https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap",
+        },
+      ],
     };
   },
   shellComponent: RootShell,

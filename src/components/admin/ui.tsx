@@ -14,7 +14,15 @@ import { cn } from "@/lib/utils";
 export const inputCls =
   "w-full rounded-xl border border-[#CFCFCF] bg-background px-3 py-2 text-[15px] text-ink outline-none focus-visible:border-ink focus-visible:ring-2 focus-visible:ring-ink";
 
-export function Field({ label, children, className }: { label: string; children: ReactNode; className?: string }) {
+export function Field({
+  label,
+  children,
+  className,
+}: {
+  label: string;
+  children: ReactNode;
+  className?: string;
+}) {
   return (
     <label className={cn("flex flex-col gap-1.5 type-small font-medium text-ink", className)}>
       {label}
@@ -33,7 +41,11 @@ export function AdminTitle({ title, action }: { title: string; action?: ReactNod
 }
 
 export function Box({ children, className }: { children: ReactNode; className?: string }) {
-  return <div className={cn("rounded-2xl border border-border bg-background p-5", className)}>{children}</div>;
+  return (
+    <div className={cn("rounded-2xl border border-border bg-background p-5", className)}>
+      {children}
+    </div>
+  );
 }
 
 /** Confirm dialog wrapper: renders trigger, asks before running onConfirm. */
@@ -53,7 +65,14 @@ export function ConfirmButton({
   const [open, setOpen] = useState(false);
   return (
     <>
-      <button type="button" onClick={() => setOpen(true)} className={cn("type-small font-medium text-destructive underline underline-offset-4", className)}>
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        className={cn(
+          "type-small font-medium text-destructive underline underline-offset-4",
+          className,
+        )}
+      >
         {label}
       </button>
       <AlertDialog open={open} onOpenChange={setOpen}>

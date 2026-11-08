@@ -27,14 +27,17 @@ export function RevealText({
   }, "through");
 
   return (
-    <p ref={ref} className={cn(
+    <p
+      ref={ref}
+      className={cn(
         size === "h2"
           ? "type-h2"
           : size === "statement"
             ? "text-[24px] leading-[1.3] font-medium tracking-tight md:text-[30px] lg:text-[40px]"
             : "type-h3 md:text-[40px] md:leading-[1.25]",
         className,
-      )}>
+      )}
+    >
       {words.map((w, i) => (
         <Fragment key={i}>
           <span

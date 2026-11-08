@@ -25,7 +25,9 @@ export const Route = createFileRoute("/pricing")({
     seoHead(
       "Pricing | Incodet",
       "Three simple plans for booking websites, AI chatbots and 24/7 AI calling agents. One-time setup, a simple monthly fee and no lock-in contracts.",
-      "/pricing", { scripts: [faqLd(faqFor(pricingFaq))] }),
+      "/pricing",
+      { scripts: [faqLd(faqFor(pricingFaq))] },
+    ),
   component: PricingPage,
 });
 
@@ -46,9 +48,18 @@ const rows: { label: string; cells: [Cell, Cell, Cell] }[] = [
   { label: "AI automation", cells: [false, false, true] },
   { label: "Client dashboards", cells: [false, false, true] },
   { label: "Custom integrations", cells: [false, false, true] },
-  { label: "Setup", cells: [val("starter", "setup"), val("growth", "setup"), val("scale", "setup")] },
-  { label: "Monthly", cells: [val("starter", "monthly"), val("growth", "monthly"), val("scale", "monthly")] },
-  { label: "Timeline", cells: [val("starter", "timeline"), val("growth", "timeline"), val("scale", "timeline")] },
+  {
+    label: "Setup",
+    cells: [val("starter", "setup"), val("growth", "setup"), val("scale", "setup")],
+  },
+  {
+    label: "Monthly",
+    cells: [val("starter", "monthly"), val("growth", "monthly"), val("scale", "monthly")],
+  },
+  {
+    label: "Timeline",
+    cells: [val("starter", "timeline"), val("growth", "timeline"), val("scale", "timeline")],
+  },
 ];
 const cols = ["Starter", "Growth", "Scale"];
 
@@ -73,7 +84,8 @@ function PricingPage() {
   return (
     <>
       <PageHero badge="Pricing" title="Pay for what you use. Nothing more.">
-        Three plans with a one-time setup fee and a simple monthly fee. All prices in USD. No lock-in contracts.
+        Three plans with a one-time setup fee and a simple monthly fee. All prices in USD. No
+        lock-in contracts.
       </PageHero>
 
       <Section>
@@ -89,9 +101,18 @@ function PricingPage() {
               <caption className="sr-only">Plan comparison</caption>
               <thead>
                 <tr className="border-b border-border">
-                  <th scope="col" className="p-5 type-small font-medium text-muted-foreground">Feature</th>
+                  <th scope="col" className="p-5 type-small font-medium text-muted-foreground">
+                    Feature
+                  </th>
                   {cols.map((c) => (
-                    <th key={c} scope="col" className={cn("p-5 text-center text-[18px] font-medium text-ink", c === "Growth" && "bg-bg-soft")}>
+                    <th
+                      key={c}
+                      scope="col"
+                      className={cn(
+                        "p-5 text-center text-[18px] font-medium text-ink",
+                        c === "Growth" && "bg-bg-soft",
+                      )}
+                    >
                       {c}
                     </th>
                   ))}
@@ -100,7 +121,9 @@ function PricingPage() {
               <tbody>
                 {rows.map((r) => (
                   <tr key={r.label} className="border-b border-border last:border-0">
-                    <th scope="row" className="p-5 text-[16px] font-normal text-ink">{r.label}</th>
+                    <th scope="row" className="p-5 text-[16px] font-normal text-ink">
+                      {r.label}
+                    </th>
                     {r.cells.map((v, i) => (
                       <td key={i} className={cn("p-5 text-center", i === 1 && "bg-bg-soft")}>
                         <CellValue v={v} />
@@ -120,7 +143,9 @@ function PricingPage() {
                   {rows.map((r) => (
                     <div key={r.label} className="flex items-center justify-between gap-4 py-3">
                       <dt className="text-[15px] text-ink">{r.label}</dt>
-                      <dd className="max-w-[55%] text-right"><CellValue v={r.cells[ci] ?? false} /></dd>
+                      <dd className="max-w-[55%] text-right">
+                        <CellValue v={r.cells[ci] ?? false} />
+                      </dd>
                     </div>
                   ))}
                 </dl>
@@ -131,13 +156,17 @@ function PricingPage() {
       </Section>
 
       <Section>
-        <SectionHeading title="Need just one feature?">Every feature is also available on its own.</SectionHeading>
+        <SectionHeading title="Need just one feature?">
+          Every feature is also available on its own.
+        </SectionHeading>
         <ul className="mt-12 grid gap-5 md:grid-cols-3">
           {single.map((s, i) => (
             <Reveal as="li" key={s} delay={i * 80}>
               <Card size="sm" className="flex h-full flex-col items-start justify-between gap-6">
                 <h3 className="type-h3">{s}</h3>
-                <PillLink to="/book" variant="secondary" size="sm">Ask for a quote</PillLink>
+                <PillLink to="/book" variant="secondary" size="sm">
+                  Ask for a quote
+                </PillLink>
               </Card>
             </Reveal>
           ))}
@@ -146,16 +175,15 @@ function PricingPage() {
 
       <Section theme="soft">
         <SectionHeading title="Extra call minutes">
-          Growth includes 300 AI call minutes a month. Extra minutes cost $0.20 each, billed only if you use them.
+          Growth includes 300 AI call minutes a month. Extra minutes cost $0.20 each, billed only if
+          you use them.
         </SectionHeading>
       </Section>
 
       <Section>
         <SectionHeading title="Questions, answered" />
         <Reveal className="mx-auto mt-12 max-w-3xl">
-          <Accordion
-            items={faqFor(pricingFaq)}
-          />
+          <Accordion items={faqFor(pricingFaq)} />
         </Reveal>
       </Section>
 

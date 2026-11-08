@@ -20,9 +20,12 @@ export const submitContact = createServerFn({ method: "POST" })
 
     try {
       const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-      const { consumeFormAllowance } = await import('./form-spam.server');
-      if (!await consumeFormAllowance()) {
-        return { ok: false, error: "Too many messages from this connection. Please try again later." };
+      const { consumeFormAllowance } = await import("./form-spam.server");
+      if (!(await consumeFormAllowance())) {
+        return {
+          ok: false,
+          error: "Too many messages from this connection. Please try again later.",
+        };
       }
 
       const { data: row, error } = await supabaseAdmin

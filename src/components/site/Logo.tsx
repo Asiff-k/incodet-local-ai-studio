@@ -34,5 +34,7 @@ export function Logo({ tone = "ink", variant = "full", className }: Props) {
       </span>
     );
   }
-  return <span className={cn("wordmark text-2xl leading-none", color, className)}>{site.name}</span>;
+  return (
+    <span className={cn("wordmark text-2xl leading-none", color, className)}>{site.name}</span>
+  );
 }

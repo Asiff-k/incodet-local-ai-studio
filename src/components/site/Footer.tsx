@@ -4,7 +4,7 @@ import { services } from "@/content/services";
 import { PillLink } from "./Button";
 import { Logo } from "./Logo";
 import { SocialIcon } from "./SocialIcon";
-import { TeamFlag } from './TeamFlag';
+import { TeamFlag } from "./TeamFlag";
 
 const linkCls = "rounded-sm text-body transition-colors hover:text-ink";
 
@@ -38,7 +38,12 @@ export function Footer() {
               <div>
                 <dt className="type-small text-muted-foreground">Message us</dt>
                 <dd className="mt-1">
-                  <a href={site.whatsapp} target="_blank" rel="noopener noreferrer" className="text-ink hover:underline">
+                  <a
+                    href={site.whatsapp}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-ink hover:underline"
+                  >
                     WhatsApp
                   </a>
                 </dd>
@@ -51,7 +56,11 @@ export function Footer() {
 
           <div className="grid grid-cols-2 gap-10 md:grid-cols-3">
             <FooterCol title="Company">
-              <li><Link to="/deck" className={linkCls}>Company Deck</Link></li>
+              <li>
+                <Link to="/deck" className={linkCls}>
+                  Company Deck
+                </Link>
+              </li>
               {pageLinks.map((l) => (
                 <li key={l.to}>
                   <Link to={l.to} className={linkCls}>
@@ -61,8 +70,18 @@ export function Footer() {
               ))}
             </FooterCol>
             <FooterCol title="Services">
-              {services.map(s=><li key={s.id}><Link to={s.to} className={linkCls}>{s.title}</Link></li>)}
-              <li><Link to="/services" className={`${linkCls} font-medium text-ink`}>All services</Link></li>
+              {services.map((s) => (
+                <li key={s.id}>
+                  <Link to={s.to} className={linkCls}>
+                    {s.title}
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <Link to="/services" className={`${linkCls} font-medium text-ink`}>
+                  All services
+                </Link>
+              </li>
             </FooterCol>
             <FooterCol title="Industries">
               {industryLinks.slice(0, 6).map((l) => (
@@ -82,7 +101,12 @@ export function Footer() {
               <FooterCol title="Follow Us">
                 {activeSocials.map((s) => (
                   <li key={s.key}>
-                    <a href={s.href} target="_blank" rel="noopener noreferrer" className={`${linkCls} inline-flex items-center gap-2`}>
+                    <a
+                      href={s.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`${linkCls} inline-flex items-center gap-2`}
+                    >
                       <SocialIcon name={s.key} /> {s.label}
                     </a>
                   </li>
@@ -93,9 +117,30 @@ export function Footer() {
         </div>
 
         <section aria-labelledby="teams-title" className="mt-16 border-t border-border pt-8">
-          <h2 id="teams-title" className="type-small font-medium text-muted-foreground">Our teams</h2>
+          <h2 id="teams-title" className="type-small font-medium text-muted-foreground">
+            Our teams
+          </h2>
           <ul className="mt-6 grid grid-cols-2 gap-x-5 gap-y-8 md:grid-cols-3 xl:grid-cols-6">
-            {site.locations.map(location => <li key={location.city} className="min-w-0"><TeamFlag code={location.code} /><p className="mt-3 text-[15px] text-ink">{location.city}</p><p className="mt-1 text-[13px] text-muted-foreground">{location.country}</p>{'label' in location && <><p className="mt-2 text-[12px] font-medium text-ink">{location.label}</p><a href={site.mapsUrl} target="_blank" rel="noopener noreferrer" className="mt-2 block text-[13px] text-muted-foreground hover:text-ink hover:underline">{site.address}</a></>}</li>)}
+            {site.locations.map((location) => (
+              <li key={location.city} className="min-w-0">
+                <TeamFlag code={location.code} />
+                <p className="mt-3 text-[15px] text-ink">{location.city}</p>
+                <p className="mt-1 text-[13px] text-muted-foreground">{location.country}</p>
+                {"label" in location && (
+                  <>
+                    <p className="mt-2 text-[12px] font-medium text-ink">{location.label}</p>
+                    <a
+                      href={site.mapsUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-2 block text-[13px] text-muted-foreground hover:text-ink hover:underline"
+                    >
+                      {site.address}
+                    </a>
+                  </>
+                )}
+              </li>
+            ))}
           </ul>
         </section>
 

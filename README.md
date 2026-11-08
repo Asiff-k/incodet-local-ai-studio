@@ -26,37 +26,37 @@ The dev server runs on http://localhost:8080.
 
 ### Environment variables
 
-| File | Holds | In git |
-|---|---|---|
-| `.env` | Public values: `VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY`, `VITE_SUPABASE_PROJECT_ID`, `SUPABASE_URL`, `SUPABASE_PUBLISHABLE_KEY`, `SUPABASE_PROJECT_ID` | Yes |
-| `.env.local` | Secrets: `SUPABASE_SERVICE_ROLE_KEY`, `DATABASE_URL`, optional `RESEND_API_KEY` | No (git-ignored) |
+| File         | Holds                                                                                                                                                              | In git           |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------- |
+| `.env`       | Public values: `VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY`, `VITE_SUPABASE_PROJECT_ID`, `SUPABASE_URL`, `SUPABASE_PUBLISHABLE_KEY`, `SUPABASE_PROJECT_ID` | Yes              |
+| `.env.local` | Secrets: `SUPABASE_SERVICE_ROLE_KEY`, `DATABASE_URL`, optional `RESEND_API_KEY`                                                                                    | No (git-ignored) |
 
 Never commit secret keys. Without `RESEND_API_KEY`, booking and contact messages are still saved, and the email step is skipped.
 
 ### Scripts
 
-| Command | What it does |
-|---|---|
-| `bun run dev` | Start the dev server |
-| `bun run build` | Production build into `.output/` |
+| Command           | What it does                       |
+| ----------------- | ---------------------------------- |
+| `bun run dev`     | Start the dev server               |
+| `bun run build`   | Production build into `.output/`   |
 | `bun run preview` | Serve the production build locally |
-| `bun run test` | Run the tests once |
-| `bun run lint` | ESLint and Prettier checks |
-| `bun run format` | Format all files with Prettier |
+| `bun run test`    | Run the tests once                 |
+| `bun run lint`    | ESLint and Prettier checks         |
+| `bun run format`  | Format all files with Prettier     |
 
 ## Project structure
 
-| Path | Contents |
-|---|---|
-| `src/config/site.ts` | Contact details, socials, team locations. The only place these live |
-| `src/config/booking.ts` | Booking rules (Perth time zone, 30 minute slots, notice and horizon) |
-| `src/config/payments.ts` | Payment details shown in the client portal |
-| `src/content/` | Services, case studies, industries, plans, FAQ, process, deck, reviews |
-| `src/routes/` | Pages. Portal dashboard and admin live under `_authenticated/` |
-| `src/lib/*.functions.ts` | Server functions (booking, contact, portal) |
-| `src/integrations/supabase/` | Supabase browser, server and auth clients |
-| `drizzle/migrations/` | Database schema, applied in order |
-| `docs/` | Launch guide and build status |
+| Path                         | Contents                                                               |
+| ---------------------------- | ---------------------------------------------------------------------- |
+| `src/config/site.ts`         | Contact details, socials, team locations. The only place these live    |
+| `src/config/booking.ts`      | Booking rules (Perth time zone, 30 minute slots, notice and horizon)   |
+| `src/config/payments.ts`     | Payment details shown in the client portal                             |
+| `src/content/`               | Services, case studies, industries, plans, FAQ, process, deck, reviews |
+| `src/routes/`                | Pages. Portal dashboard and admin live under `_authenticated/`         |
+| `src/lib/*.functions.ts`     | Server functions (booking, contact, portal)                            |
+| `src/integrations/supabase/` | Supabase browser, server and auth clients                              |
+| `drizzle/migrations/`        | Database schema, applied in order                                      |
+| `docs/`                      | Launch guide and build status                                          |
 
 ## Database changes
 

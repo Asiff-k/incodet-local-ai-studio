@@ -1,6 +1,15 @@
 import { createFileRoute, Link, Outlet, useNavigate } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { CalendarDays, FileText, FolderKanban, LayoutDashboard, Loader2, LogOut, Mail, Users } from "lucide-react";
+import {
+  CalendarDays,
+  FileText,
+  FolderKanban,
+  LayoutDashboard,
+  Loader2,
+  LogOut,
+  Mail,
+  Users,
+} from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Logo } from "@/components/site/Logo";
 import { pillButton } from "@/components/site/Button";
@@ -70,11 +79,19 @@ function AdminLayout() {
       <aside className="border-b border-border bg-background md:sticky md:top-0 md:h-screen md:w-60 md:shrink-0 md:border-r md:border-b-0">
         <div className="flex items-center justify-between p-4 md:p-6">
           <Logo />
-          <button type="button" onClick={signOut} aria-label="Sign out" className="rounded-full p-2 text-ink hover:bg-bg-soft md:hidden">
+          <button
+            type="button"
+            onClick={signOut}
+            aria-label="Sign out"
+            className="rounded-full p-2 text-ink hover:bg-bg-soft md:hidden"
+          >
             <LogOut aria-hidden className="size-5" />
           </button>
         </div>
-        <nav aria-label="Admin" className="flex gap-1 overflow-x-auto px-3 pb-3 md:flex-col md:px-4">
+        <nav
+          aria-label="Admin"
+          className="flex gap-1 overflow-x-auto px-3 pb-3 md:flex-col md:px-4"
+        >
           {nav.map((n) => (
             <Link
               key={n.to}
@@ -87,7 +104,11 @@ function AdminLayout() {
           ))}
         </nav>
         <div className="hidden p-4 md:absolute md:bottom-0 md:block">
-          <button type="button" onClick={signOut} className="flex items-center gap-2 type-small font-medium text-ink hover:underline">
+          <button
+            type="button"
+            onClick={signOut}
+            className="flex items-center gap-2 type-small font-medium text-ink hover:underline"
+          >
             <LogOut aria-hidden className="size-4" /> Sign out
           </button>
         </div>

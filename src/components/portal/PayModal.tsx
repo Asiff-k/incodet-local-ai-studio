@@ -1,11 +1,22 @@
 import { useState } from "react";
 import { Check, Copy, ExternalLink, Loader2 } from "lucide-react";
 import { toast } from "sonner";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PillButton, pillButton } from "@/components/site/Button";
 import { site } from "@/config/site";
-import { bankDetails, methodLink, paymentMethodLabels, type PaymentMethod } from "@/config/payments";
+import {
+  bankDetails,
+  methodLink,
+  paymentMethodLabels,
+  type PaymentMethod,
+} from "@/config/payments";
 import { invoiceTotal, usd, type PortalInvoice } from "@/lib/portal-types";
 
 const methods: PaymentMethod[] = ["payoneer", "wise", "paypal", "bank_transfer"];
@@ -16,7 +27,10 @@ function NotSet() {
   return (
     <p className="type-body">
       We will email you these payment details. Questions? Email{" "}
-      <a href={`mailto:${site.email}`} className="font-medium text-ink underline underline-offset-4">
+      <a
+        href={`mailto:${site.email}`}
+        className="font-medium text-ink underline underline-offset-4"
+      >
         {site.email}
       </a>
       .
@@ -70,8 +84,16 @@ export function PayModal({
               <p className="type-small text-ink">
                 Use <strong>{invoice.number}</strong> as your payment reference
               </p>
-              <button type="button" onClick={copy} className={pillButton({ size: "sm", variant: "secondary" })}>
-                {copied ? <Check aria-hidden className="size-4" /> : <Copy aria-hidden className="size-4" />}
+              <button
+                type="button"
+                onClick={copy}
+                className={pillButton({ size: "sm", variant: "secondary" })}
+              >
+                {copied ? (
+                  <Check aria-hidden className="size-4" />
+                ) : (
+                  <Copy aria-hidden className="size-4" />
+                )}
                 {copied ? "Copied" : "Copy"}
               </button>
             </div>
@@ -105,8 +127,14 @@ export function PayModal({
                             <NotSet />
                           )
                         ) : link ? (
-                          <a href={link} target="_blank" rel="noopener noreferrer" className={pillButton()}>
-                            Pay with {paymentMethodLabels[m]} <ExternalLink aria-hidden className="size-4" />
+                          <a
+                            href={link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={pillButton()}
+                          >
+                            Pay with {paymentMethodLabels[m]}{" "}
+                            <ExternalLink aria-hidden className="size-4" />
                           </a>
                         ) : (
                           <NotSet />
@@ -115,7 +143,12 @@ export function PayModal({
                     );
                   })}
                 </Tabs>
-                <PillButton type="button" variant="secondary" className="w-full" onClick={() => setStep("report")}>
+                <PillButton
+                  type="button"
+                  variant="secondary"
+                  className="w-full"
+                  onClick={() => setStep("report")}
+                >
                   I've paid
                 </PillButton>
               </>
@@ -131,10 +164,18 @@ export function PayModal({
                 }}
               >
                 <div>
-                  <label htmlFor="pay-method" className="mb-2 block type-small font-medium text-ink">
+                  <label
+                    htmlFor="pay-method"
+                    className="mb-2 block type-small font-medium text-ink"
+                  >
                     How did you pay?
                   </label>
-                  <select id="pay-method" value={method} onChange={(e) => setMethod(e.target.value as PaymentMethod)} className={field}>
+                  <select
+                    id="pay-method"
+                    value={method}
+                    onChange={(e) => setMethod(e.target.value as PaymentMethod)}
+                    className={field}
+                  >
                     {methods.map((m) => (
                       <option key={m} value={m}>
                         {paymentMethodLabels[m]}
@@ -144,16 +185,24 @@ export function PayModal({
                 </div>
                 <div>
                   <label htmlFor="pay-ref" className="mb-2 block type-small font-medium text-ink">
-                    Transaction reference <span className="font-normal text-muted-foreground">(optional)</span>
+                    Transaction reference{" "}
+                    <span className="font-normal text-muted-foreground">(optional)</span>
                   </label>
-                  <input id="pay-ref" value={reference} maxLength={200} onChange={(e) => setReference(e.target.value)} className={field} />
+                  <input
+                    id="pay-ref"
+                    value={reference}
+                    maxLength={200}
+                    onChange={(e) => setReference(e.target.value)}
+                    className={field}
+                  />
                 </div>
                 <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
                   <PillButton type="button" variant="secondary" onClick={() => setStep("details")}>
                     Back
                   </PillButton>
                   <PillButton type="submit" disabled={busy}>
-                    {busy && <Loader2 aria-hidden className="size-4 animate-spin" />} Confirm payment
+                    {busy && <Loader2 aria-hidden className="size-4 animate-spin" />} Confirm
+                    payment
                   </PillButton>
                 </div>
               </form>

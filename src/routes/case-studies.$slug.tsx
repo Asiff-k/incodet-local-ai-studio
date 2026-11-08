@@ -2,7 +2,13 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowUpRight, Check, ChevronRight } from "lucide-react";
 import { BookingCta } from "@/components/home/HomeSections";
 import { pillButton } from "@/components/site/Button";
-import { CaseStudyGridCard, CaseStudyImage, CaseStudyMeta, ExternalPill, liveLabel } from "@/components/site/CaseStudyCard";
+import {
+  CaseStudyGridCard,
+  CaseStudyImage,
+  CaseStudyMeta,
+  ExternalPill,
+  liveLabel,
+} from "@/components/site/CaseStudyCard";
 import { seoHead } from "@/components/site/PageHero";
 import { breadcrumbLd } from "@/lib/seo";
 import { Reveal, Section, SectionHeading } from "@/components/site/primitives";
@@ -17,17 +23,34 @@ export const Route = createFileRoute("/case-studies/$slug")({
   },
   head: ({ loaderData }) =>
     loaderData
-      ? seoHead(`${loaderData.name} Case Study | Incodet`, loaderData.description, `/case-studies/${loaderData.slug}`, {
-          type: "article",
-          scripts: [breadcrumbLd([{ name: "Our work", path: "/case-studies" }, { name: loaderData.name, path: `/case-studies/${loaderData.slug}` }])],
-        })
-      : { meta: [{ title: "Case study not found | Incodet" }, { name: "robots", content: "noindex" }] },
+      ? seoHead(
+          `${loaderData.name} Case Study | Incodet`,
+          loaderData.description,
+          `/case-studies/${loaderData.slug}`,
+          {
+            type: "article",
+            scripts: [
+              breadcrumbLd([
+                { name: "Our work", path: "/case-studies" },
+                { name: loaderData.name, path: `/case-studies/${loaderData.slug}` },
+              ]),
+            ],
+          },
+        )
+      : {
+          meta: [
+            { title: "Case study not found | Incodet" },
+            { name: "robots", content: "noindex" },
+          ],
+        },
   component: CaseStudyPage,
   notFoundComponent: () => (
     <Section className="pt-40">
       <div className="text-center">
         <h1 className="type-h1">Case study not found</h1>
-        <Link to="/case-studies" className={pillButton({ variant: "primary" }) + " mt-8"}>Back to our work</Link>
+        <Link to="/case-studies" className={pillButton({ variant: "primary" }) + " mt-8"}>
+          Back to our work
+        </Link>
       </div>
     </Section>
   ),
@@ -35,7 +58,9 @@ export const Route = createFileRoute("/case-studies/$slug")({
     <Section className="pt-40">
       <div className="text-center">
         <h1 className="type-h1">Something went wrong</h1>
-        <Link to="/case-studies" className={pillButton({ variant: "primary" }) + " mt-8"}>Back to our work</Link>
+        <Link to="/case-studies" className={pillButton({ variant: "primary" }) + " mt-8"}>
+          Back to our work
+        </Link>
       </div>
     </Section>
   ),
@@ -44,7 +69,9 @@ export const Route = createFileRoute("/case-studies/$slug")({
 function CaseStudyPage() {
   const c = Route.useLoaderData();
   const idx = caseStudies.findIndex((x) => x.slug === c.slug);
-  const more = [1, 2, 3].map((k) => caseStudies[(idx + k) % caseStudies.length]).filter((x): x is NonNullable<typeof x> => Boolean(x) && x!.slug !== c.slug);
+  const more = [1, 2, 3]
+    .map((k) => caseStudies[(idx + k) % caseStudies.length])
+    .filter((x): x is NonNullable<typeof x> => Boolean(x) && x!.slug !== c.slug);
   const steps = deliverySteps(c);
   return (
     <>
@@ -52,9 +79,17 @@ function CaseStudyPage() {
         <div className="container-site">
           <nav aria-label="Breadcrumb">
             <ol className="flex flex-wrap items-center gap-1.5 type-small text-muted-foreground">
-              <li><Link to="/case-studies" className="hover:text-ink">Our work</Link></li>
-              <li aria-hidden><ChevronRight className="size-4" /></li>
-              <li aria-current="page" className="text-ink">{c.name}</li>
+              <li>
+                <Link to="/case-studies" className="hover:text-ink">
+                  Our work
+                </Link>
+              </li>
+              <li aria-hidden>
+                <ChevronRight className="size-4" />
+              </li>
+              <li aria-current="page" className="text-ink">
+                {c.name}
+              </li>
             </ol>
           </nav>
           <Reveal className="mt-8 max-w-4xl">
@@ -105,7 +140,12 @@ function CaseStudyPage() {
               <h2 className="type-h3">Tech used</h2>
               <ul className="mt-4 flex flex-wrap gap-2">
                 {c.tags.map((t) => (
-                  <li key={t} className="rounded-full border border-border px-4 py-1.5 type-small text-ink">{t}</li>
+                  <li
+                    key={t}
+                    className="rounded-full border border-border px-4 py-1.5 type-small text-ink"
+                  >
+                    {t}
+                  </li>
                 ))}
               </ul>
             </Reveal>
@@ -120,7 +160,12 @@ function CaseStudyPage() {
         </Reveal>
         <ol className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
           {steps.map((s, i) => (
-            <Reveal as="li" key={s.title} delay={i * 80} className="relative rounded-card border border-border bg-background p-6">
+            <Reveal
+              as="li"
+              key={s.title}
+              delay={i * 80}
+              className="relative rounded-card border border-border bg-background p-6"
+            >
               <span className="flex size-9 items-center justify-center rounded-full bg-ink type-small font-medium text-primary-foreground">
                 {i + 1}
               </span>

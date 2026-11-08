@@ -9,12 +9,16 @@ import { Reveal, Section, SectionHeading } from "@/components/site/primitives";
 
 export const Route = createFileRoute("/book")({
   staticData: { sitemap: true },
-  validateSearch: (input: Record<string, unknown>): { plan?: string; service?: string } => ({ ...(typeof input['plan'] === 'string' ? { plan: input['plan'] } : {}), ...(typeof input['service'] === 'string' ? { service: input['service'] } : {}) }),
+  validateSearch: (input: Record<string, unknown>): { plan?: string; service?: string } => ({
+    ...(typeof input["plan"] === "string" ? { plan: input["plan"] } : {}),
+    ...(typeof input["service"] === "string" ? { service: input["service"] } : {}),
+  }),
   head: () =>
     seoHead(
       "Book a Free Call | Incodet",
       "Book a free discovery call with Incodet. We learn your business, your customers and what you need. Free, no commitment.",
-      "/book"),
+      "/book",
+    ),
   component: BookPage,
 });
 
@@ -50,7 +54,12 @@ function BookPage() {
               <div className="mt-10 border-t border-border pt-8">
                 <p className="font-medium text-ink">Prefer to talk now?</p>
                 <div className="mt-4 flex flex-col gap-3 sm:flex-row lg:flex-col xl:flex-row">
-                  <a href={site.whatsapp} target="_blank" rel="noopener noreferrer" className={pillButton()}>
+                  <a
+                    href={site.whatsapp}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={pillButton()}
+                  >
                     <MessageCircle aria-hidden className="size-4" /> WhatsApp
                   </a>
                   <a href={site.phoneHref} className={pillButton({ variant: "secondary" })}>
@@ -61,7 +70,7 @@ function BookPage() {
             </div>
           </Reveal>
           <Reveal delay={80}>
-            <BookingWidget plan={plan ?? ''} service={service ?? ''} />
+            <BookingWidget plan={plan ?? ""} service={service ?? ""} />
           </Reveal>
         </div>
       </section>

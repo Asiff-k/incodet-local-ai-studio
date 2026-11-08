@@ -44,7 +44,11 @@ function Dashboard() {
       </div>
     );
   } else if (q.isError) {
-    content = <p className="container-site py-24 type-body">We could not load your portal. Please refresh the page.</p>;
+    content = (
+      <p className="container-site py-24 type-body">
+        We could not load your portal. Please refresh the page.
+      </p>
+    );
   } else if (q.data.kind === "none") {
     content = (
       <div className="container-site py-16">
@@ -52,11 +56,19 @@ function Dashboard() {
           <h1 className="type-h3">We could not find a project for this email.</h1>
           <p className="mt-4 type-body">
             You are signed in as {q.data.email}. If you think this is a mistake, email us at{" "}
-            <a href={`mailto:${site.email}`} className="font-medium text-ink underline underline-offset-4">
+            <a
+              href={`mailto:${site.email}`}
+              className="font-medium text-ink underline underline-offset-4"
+            >
               {site.email}
             </a>{" "}
             or message us on{" "}
-            <a href={site.whatsapp} target="_blank" rel="noopener noreferrer" className="font-medium text-ink underline underline-offset-4">
+            <a
+              href={site.whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-medium text-ink underline underline-offset-4"
+            >
               WhatsApp
             </a>
             .
@@ -83,8 +95,11 @@ function Dashboard() {
         onSignOut={signOut}
         onDownloadDeliverable={async (d) => {
           if (!d.file_path) return;
-          const { data: signed, error } = await supabase.storage.from("deliverables").createSignedUrl(d.file_path, 60);
-          if (error || !signed) return void toast.error("Could not open this file. Please try again.");
+          const { data: signed, error } = await supabase.storage
+            .from("deliverables")
+            .createSignedUrl(d.file_path, 60);
+          if (error || !signed)
+            return void toast.error("Could not open this file. Please try again.");
           window.open(signed.signedUrl, "_blank", "noopener");
         }}
         onDownloadInvoice={async (inv) => {

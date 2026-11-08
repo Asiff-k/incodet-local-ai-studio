@@ -10,10 +10,16 @@ export const Route = createFileRoute("/portal/demo")({
   head: () => ({
     meta: [
       { title: "Portal Demo | Incodet" },
-      { name: "description", content: "Explore a sample project in the Incodet client portal. Example data only." },
+      {
+        name: "description",
+        content: "Explore a sample project in the Incodet client portal. Example data only.",
+      },
       { name: "robots", content: "noindex, nofollow" },
       { property: "og:title", content: "Portal Demo | Incodet" },
-      { property: "og:description", content: "Explore a sample project in the Incodet client portal." },
+      {
+        property: "og:description",
+        content: "Explore a sample project in the Incodet client portal.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
@@ -28,7 +34,8 @@ function PortalDemo() {
       <div role="note" className="border-y border-border bg-demo-note text-ink">
         <div className="container-site flex flex-wrap items-center justify-between gap-3 py-3 type-small">
           <p className="inline-flex items-center gap-2 font-medium">
-            <Info aria-hidden className="size-4 shrink-0" /> Sample project. This is example data, not a real client.
+            <Info aria-hidden className="size-4 shrink-0" /> Sample project. This is example data,
+            not a real client.
           </p>
           <Link to="/portal" className="font-medium underline underline-offset-4">
             Exit demo

@@ -21,7 +21,8 @@ export const Route = createFileRoute("/case-studies/")({
     seoHead(
       "Our Work | Incodet",
       "Websites, AI tools and platforms we have built for taxi companies, local businesses and technology teams.",
-      "/case-studies"),
+      "/case-studies",
+    ),
   component: CaseStudiesPage,
 });
 
@@ -42,11 +43,15 @@ function CaseStudiesPage() {
               onClick={() => setFilter(f.key)}
               className={cn(
                 "inline-flex h-11 items-center gap-2 rounded-full border px-5 type-small font-medium transition-colors",
-                filter === f.key ? "border-ink bg-ink text-primary-foreground" : "border-border bg-background text-ink hover:bg-bg-soft",
+                filter === f.key
+                  ? "border-ink bg-ink text-primary-foreground"
+                  : "border-border bg-background text-ink hover:bg-bg-soft",
               )}
             >
               {f.label}
-              {f.key === "all" && <span className="tabular-nums opacity-70">{caseStudies.length}</span>}
+              {f.key === "all" && (
+                <span className="tabular-nums opacity-70">{caseStudies.length}</span>
+              )}
             </button>
           ))}
         </div>

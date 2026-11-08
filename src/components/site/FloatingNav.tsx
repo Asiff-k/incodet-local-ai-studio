@@ -66,7 +66,10 @@ export function FloatingNav() {
           <Link to="/" aria-label="Incodet home" className="rounded-md">
             <Logo variant="mark" tone={inverted ? "ink" : "white"} />
           </Link>
-          <span className="type-small font-medium tabular-nums" aria-label={`Page scrolled ${pct}%`}>
+          <span
+            className="type-small font-medium tabular-nums"
+            aria-label={`Page scrolled ${pct}%`}
+          >
             {pct}%
           </span>
           <div className="flex items-center">
@@ -179,10 +182,30 @@ function MenuOverlay({ onClose }: { onClose: () => void }) {
                 </li>
               ))}
             </ul>
-            <p className={`${label} menu-item mt-8`} style={stagger(n++)}>Services</p>
+            <p className={`${label} menu-item mt-8`} style={stagger(n++)}>
+              Services
+            </p>
             <ul className="mt-3 grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-2">
-              {services.map(s=><li key={s.id} className="menu-item" style={stagger(n++)}><Link to={s.to} onClick={onClose} className="inline-block rounded-md text-[17px] font-medium text-ink hover:text-muted-foreground">{s.title}</Link></li>)}
-              <li><Link to="/services" onClick={onClose} className="text-[17px] font-medium text-ink hover:text-muted-foreground">All services</Link></li>
+              {services.map((s) => (
+                <li key={s.id} className="menu-item" style={stagger(n++)}>
+                  <Link
+                    to={s.to}
+                    onClick={onClose}
+                    className="inline-block rounded-md text-[17px] font-medium text-ink hover:text-muted-foreground"
+                  >
+                    {s.title}
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <Link
+                  to="/services"
+                  onClick={onClose}
+                  className="text-[17px] font-medium text-ink hover:text-muted-foreground"
+                >
+                  All services
+                </Link>
+              </li>
             </ul>
             <p className={`${label} menu-item mt-8`} style={stagger(n++)}>
               Industries
@@ -221,7 +244,12 @@ function MenuOverlay({ onClose }: { onClose: () => void }) {
               <div className="menu-item" style={stagger(n++)}>
                 <dt className={label}>WhatsApp</dt>
                 <dd className="mt-1 text-[18px]">
-                  <a href={site.whatsapp} target="_blank" rel="noopener noreferrer" className="text-ink hover:underline">
+                  <a
+                    href={site.whatsapp}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-ink hover:underline"
+                  >
                     Message us on WhatsApp
                   </a>
                 </dd>
@@ -238,8 +266,12 @@ function MenuOverlay({ onClose }: { onClose: () => void }) {
             <div className="menu-item" style={stagger(n++)}>
               <SocialRow />
             </div>
-            <p className="menu-item type-small text-muted-foreground" style={stagger(n++)}>{site.teamsCitiesLabel}</p>
-            <Link to="/deck" onClick={onClose} className="type-small text-ink hover:underline">Company Deck</Link>
+            <p className="menu-item type-small text-muted-foreground" style={stagger(n++)}>
+              {site.teamsCitiesLabel}
+            </p>
+            <Link to="/deck" onClick={onClose} className="type-small text-ink hover:underline">
+              Company Deck
+            </Link>
             <div className="menu-item" style={stagger(n++)}>
               <PillLink to="/book" onClick={onClose}>
                 Book a Free Call

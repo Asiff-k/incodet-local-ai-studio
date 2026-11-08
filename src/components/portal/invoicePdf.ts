@@ -1,6 +1,17 @@
 import { site } from "@/config/site";
-import { bankDetails, methodLink, paymentMethodLabels, type PaymentMethod } from "@/config/payments";
-import { fmtDate, invoiceStatusLabels, invoiceTotal, usd, type PortalInvoice } from "@/lib/portal-types";
+import {
+  bankDetails,
+  methodLink,
+  paymentMethodLabels,
+  type PaymentMethod,
+} from "@/config/payments";
+import {
+  fmtDate,
+  invoiceStatusLabels,
+  invoiceTotal,
+  usd,
+  type PortalInvoice,
+} from "@/lib/portal-types";
 
 async function toDataUrl(url: string): Promise<string | null> {
   try {
@@ -130,11 +141,16 @@ export async function downloadInvoicePdf(
     let detail: string;
     if (m === "bank_transfer") {
       const b = bankDetails();
-      detail = b.length ? b.map((f) => `${f.label}: ${f.value}`).join(", ") : "Details sent by email";
+      detail = b.length
+        ? b.map((f) => `${f.label}: ${f.value}`).join(", ")
+        : "Details sent by email";
     } else {
       detail = methodLink(m) || "Details sent by email";
     }
-    const lines = doc.splitTextToSize(`${paymentMethodLabels[m]}: ${detail}`, W - 2 * M) as string[];
+    const lines = doc.splitTextToSize(
+      `${paymentMethodLabels[m]}: ${detail}`,
+      W - 2 * M,
+    ) as string[];
     doc.text(lines, M, y);
     y += 14 * lines.length + 4;
   }
@@ -157,7 +173,11 @@ export async function downloadSamplePdf(title: string) {
   doc.text(title, 48, 80);
   doc.setFont("helvetica", "normal");
   doc.setFontSize(11);
-  doc.text("Sample file from the Incodet portal demo. This is example content, not a real client file.", 48, 110);
+  doc.text(
+    "Sample file from the Incodet portal demo. This is example content, not a real client file.",
+    48,
+    110,
+  );
   doc.setTextColor(225, 225, 225);
   doc.setFontSize(110);
   doc.text("SAMPLE", 300, 480, { align: "center", angle: 35 });

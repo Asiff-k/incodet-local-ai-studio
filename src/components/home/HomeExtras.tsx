@@ -1,5 +1,21 @@
-import { ArrowLeft, ArrowRight, ArrowUpRight, Check, CheckCircle2, Circle, CircleDot, Phone } from "lucide-react";
-import { useCallback, useEffect, useRef, useState, type CSSProperties, type PointerEvent as RPointerEvent } from "react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  ArrowUpRight,
+  Check,
+  CheckCircle2,
+  Circle,
+  CircleDot,
+  Phone,
+} from "lucide-react";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+  type PointerEvent as RPointerEvent,
+} from "react";
 import { createPortal } from "react-dom";
 import { loadScrollMotion } from "@/lib/scroll-motion";
 import { showcase } from "@/content/caseStudies";
@@ -14,32 +30,93 @@ import { CalendarUI, CallCardUI, ChatUI, NotificationUI } from "./MiniUI";
 /* Floating projects                                                   */
 /* ------------------------------------------------------------------ */
 
-type Tile = { src: string; w: number; h: number; left: string; top: string; speed: number; framed?: boolean };
+type Tile = {
+  src: string;
+  w: number;
+  h: number;
+  left: string;
+  top: string;
+  speed: number;
+  framed?: boolean;
+};
 const shot = (s: string) => `/images/case-studies/${s}.webp`;
 const phone = (s: string) => `/images/mobile/${s}.webp`;
 const mock = (s: string) => `/images/mockups/${s}-sm.webp`;
 
 // Desktop layout: a loose cloud left and right of the centered text.
 const tiles: Tile[] = [
-  { src: shot("western-cars-brighton"), w: 280, h: 175, left: "2%", top: "8%", speed: 1.15, framed: true },
+  {
+    src: shot("western-cars-brighton"),
+    w: 280,
+    h: 175,
+    left: "2%",
+    top: "8%",
+    speed: 1.15,
+    framed: true,
+  },
   { src: phone("bloom-studio"), w: 140, h: 303, left: "20%", top: "0%", speed: 0.9 },
   { src: mock("humandata-labs"), w: 250, h: 156, left: "0%", top: "40%", speed: 1.25 },
-  { src: phone("gm-taxis-lewes"), w: 150, h: 325, left: "15%", top: "58%", speed: 0.85, framed: true },
+  {
+    src: phone("gm-taxis-lewes"),
+    w: 150,
+    h: 325,
+    left: "15%",
+    top: "58%",
+    speed: 0.85,
+    framed: true,
+  },
   { src: shot("brhex-studio"), w: 220, h: 138, left: "30%", top: "88%", speed: 1.05 },
-  { src: shot("barkers-executive"), w: 180, h: 113, left: "1%", top: "84%", speed: 1.2, framed: true },
+  {
+    src: shot("barkers-executive"),
+    w: 180,
+    h: 113,
+    left: "1%",
+    top: "84%",
+    speed: 1.2,
+    framed: true,
+  },
   { src: phone("western-cars-littlehampton"), w: 140, h: 303, left: "68%", top: "0%", speed: 1.2 },
-  { src: mock("a1-airport-cars"), w: 270, h: 169, left: "77%", top: "9%", speed: 0.9, framed: true },
+  {
+    src: mock("a1-airport-cars"),
+    w: 270,
+    h: 169,
+    left: "77%",
+    top: "9%",
+    speed: 0.9,
+    framed: true,
+  },
   { src: shot("gm-taxis-lewes"), w: 250, h: 156, left: "79%", top: "42%", speed: 1.1 },
-  { src: phone("barkers-executive"), w: 150, h: 325, left: "75%", top: "62%", speed: 0.85, framed: true },
+  {
+    src: phone("barkers-executive"),
+    w: 150,
+    h: 325,
+    left: "75%",
+    top: "62%",
+    speed: 0.85,
+    framed: true,
+  },
   { src: mock("bloom-studio"), w: 180, h: 113, left: "86%", top: "86%", speed: 1.25 },
   { src: phone("a1-airport-cars"), w: 150, h: 325, left: "60%", top: "88%", speed: 1 },
 ];
-const mobileTiles = [tiles[1], tiles[0], tiles[6], tiles[7], tiles[3], tiles[8], tiles[9], tiles[10]];
+const mobileTiles = [
+  tiles[1],
+  tiles[0],
+  tiles[6],
+  tiles[7],
+  tiles[3],
+  tiles[8],
+  tiles[9],
+  tiles[10],
+];
 
 function TileImg({ t, className, style }: { t: Tile; className?: string; style?: CSSProperties }) {
   return (
     <div
-      className={cn("overflow-hidden rounded-[14px] shadow-soft", t.framed ? "bg-background p-1.5" : "bg-bg-soft", className)}
+      className={cn(
+        "overflow-hidden rounded-[14px] shadow-soft",
+        t.framed ? "bg-background p-1.5" : "bg-bg-soft",
+        className,
+      )}
       style={style}
     >
       <img
@@ -71,15 +148,49 @@ export function FloatingProjects() {
       mm.add("(min-width: 768px) and (prefers-reduced-motion: no-preference)", () => {
         const el = ref.current;
         if (!el) return;
-        const tl = gsap.timeline({ scrollTrigger: { id: "floating-burst", trigger: el, start: "top top", end: () => `+=${window.innerHeight * 2}`, pin: true, scrub: true, invalidateOnRefresh: true, refreshPriority: 30 } });
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            id: "floating-burst",
+            trigger: el,
+            start: "top top",
+            end: () => `+=${window.innerHeight * 2}`,
+            pin: true,
+            scrub: true,
+            invalidateOnRefresh: true,
+            refreshPriority: 30,
+          },
+        });
         tileRefs.current.forEach((tile, i) => {
           if (!tile) return;
           const angle = (i / tiles.length) * Math.PI * 2 - Math.PI / 2;
           const dx = () => Math.cos(angle) * window.innerWidth * (0.38 + (i % 3) * 0.08);
           const dy = () => Math.sin(angle) * window.innerHeight * (0.4 + (i % 2) * 0.1);
           const at = i * 0.012;
-          tl.fromTo(tile, { x: 0, y: 0, scale: 0.2, opacity: 0, filter: "blur(7px)" }, { x: dx, y: dy, scale: 1, opacity: 1, filter: "blur(0px)", duration: 0.38, ease: "none" }, at)
-            .to(tile, { x: () => dx() * 2.5, y: () => dy() * 2.5, scale: 1.6, opacity: 0, duration: 0.4, ease: "none" }, 0.5 + at);
+          tl.fromTo(
+            tile,
+            { x: 0, y: 0, scale: 0.2, opacity: 0, filter: "blur(7px)" },
+            {
+              x: dx,
+              y: dy,
+              scale: 1,
+              opacity: 1,
+              filter: "blur(0px)",
+              duration: 0.38,
+              ease: "none",
+            },
+            at,
+          ).to(
+            tile,
+            {
+              x: () => dx() * 2.5,
+              y: () => dy() * 2.5,
+              scale: 1.6,
+              opacity: 0,
+              duration: 0.4,
+              ease: "none",
+            },
+            0.5 + at,
+          );
         });
         tl.to({}, { duration: 0.12 });
         ScrollTrigger.sort();
@@ -87,24 +198,82 @@ export function FloatingProjects() {
       });
       revert = () => mm.revert();
     });
-    return () => { cancelled = true; revert?.(); };
+    return () => {
+      cancelled = true;
+      revert?.();
+    };
   }, [animated]);
   const text = (
     <div className="burst-text relative z-10 mx-auto flex max-w-[620px] flex-col items-center text-center">
-      <h2 id="team-title" className="type-h2">Get a full web and AI team for less than hiring in-house</h2>
-      <p className="mt-5 type-body">Local businesses lose calls, bookings and hours juggling freelancers, apps and missed messages. We design, build and run your website and AI agents, so you can focus on the work.</p>
-      <PillLink to="/pricing" className="mt-8">See plans &amp; pricing</PillLink>
+      <h2 id="team-title" className="type-h2">
+        Get a full web and AI team for less than hiring in-house
+      </h2>
+      <p className="mt-5 type-body">
+        Local businesses lose calls, bookings and hours juggling freelancers, apps and missed
+        messages. We design, build and run your website and AI agents, so you can focus on the work.
+      </p>
+      <PillLink to="/pricing" className="mt-8">
+        See plans &amp; pricing
+      </PillLink>
       <p className="mt-10 type-small text-muted-foreground">We are available on socials</p>
       <SocialRow className="mt-3 justify-center" />
     </div>
   );
   return (
-    <section ref={ref} aria-labelledby="team-title" className={cn("burst-section relative overflow-hidden bg-bg-soft", animated && "burst-animated")}>
-      {animated && <div aria-hidden className="absolute inset-0 z-0">{tiles.map((t, i) => <div key={t.src} ref={(el) => { tileRefs.current[i] = el; }} className="burst-tile absolute left-1/2 top-1/2 will-change-transform" style={{ width: t.w, height: t.h, marginLeft: -t.w / 2, marginTop: -t.h / 2 }}><TileImg t={t} className="size-full" /></div>)}</div>}
+    <section
+      ref={ref}
+      aria-labelledby="team-title"
+      className={cn(
+        "burst-section relative overflow-hidden bg-bg-soft",
+        animated && "burst-animated",
+      )}
+    >
+      {animated && (
+        <div aria-hidden className="absolute inset-0 z-0">
+          {tiles.map((t, i) => (
+            <div
+              key={t.src}
+              ref={(el) => {
+                tileRefs.current[i] = el;
+              }}
+              className="burst-tile absolute left-1/2 top-1/2 will-change-transform"
+              style={{ width: t.w, height: t.h, marginLeft: -t.w / 2, marginTop: -t.h / 2 }}
+            >
+              <TileImg t={t} className="size-full" />
+            </div>
+          ))}
+        </div>
+      )}
       <div className="container-site relative py-[72px] md:py-[100px]">
-        {!animated && <div aria-hidden className="grid grid-cols-4 items-start gap-2 md:gap-4">{mobileTiles.slice(0, 4).map((t, i) => t && <TileImg key={t.src} t={t} className={cn("aspect-[3/5]", i % 2 && "mt-6")} />)}</div>}
+        {!animated && (
+          <div aria-hidden className="grid grid-cols-4 items-start gap-2 md:gap-4">
+            {mobileTiles
+              .slice(0, 4)
+              .map(
+                (t, i) =>
+                  t && (
+                    <TileImg key={t.src} t={t} className={cn("aspect-[3/5]", i % 2 && "mt-6")} />
+                  ),
+              )}
+          </div>
+        )}
         <div className={cn(!animated && "py-12")}>{text}</div>
-        {!animated && <div aria-hidden className="grid grid-cols-4 items-start gap-2 md:gap-4">{mobileTiles.slice(4).map((t, i) => t && <TileImg key={t.src} t={t} className={cn("aspect-[3/5]", i % 2 === 0 && "mt-6")} />)}</div>}
+        {!animated && (
+          <div aria-hidden className="grid grid-cols-4 items-start gap-2 md:gap-4">
+            {mobileTiles
+              .slice(4)
+              .map(
+                (t, i) =>
+                  t && (
+                    <TileImg
+                      key={t.src}
+                      t={t}
+                      className={cn("aspect-[3/5]", i % 2 === 0 && "mt-6")}
+                    />
+                  ),
+              )}
+          </div>
+        )}
       </div>
     </section>
   );
@@ -131,7 +300,14 @@ export function WorkCarousel() {
   const [pos, setPos] = useState(2);
   const posRef = useRef(2);
   const anim = useRef(0);
-  const drag = useRef<{ x: number; start: number; lastX: number; lastT: number; v: number; moved: boolean } | null>(null);
+  const drag = useRef<{
+    x: number;
+    start: number;
+    lastX: number;
+    lastT: number;
+    v: number;
+    moved: boolean;
+  } | null>(null);
   const [dragging, setDragging] = useState(false);
   const wheelTimer = useRef(0);
   const stage = useRef<HTMLDivElement>(null);
@@ -146,7 +322,13 @@ export function WorkCarousel() {
     const checkPointer = () => {
       const r = el.getBoundingClientRect();
       const { x, y } = cursorTarget.current;
-      const inside = r.bottom > 0 && r.top < window.innerHeight && x >= r.left && x <= r.right && y >= r.top && y <= r.bottom;
+      const inside =
+        r.bottom > 0 &&
+        r.top < window.innerHeight &&
+        x >= r.left &&
+        x <= r.right &&
+        y >= r.top &&
+        y <= r.bottom;
       const hit = inside ? document.elementFromPoint(x, y) : null;
       setCursorOn(inside && Boolean(hit && el.contains(hit)));
       setOverButton(Boolean(hit?.closest("a,button")));
@@ -204,7 +386,14 @@ export function WorkCarousel() {
   const onPointerDown = (e: RPointerEvent<HTMLDivElement>) => {
     if ((e.target as HTMLElement).closest("a,button")) return;
     cancelAnimationFrame(anim.current);
-    drag.current = { x: e.clientX, start: posRef.current, lastX: e.clientX, lastT: performance.now(), v: 0, moved: false };
+    drag.current = {
+      x: e.clientX,
+      start: posRef.current,
+      lastX: e.clientX,
+      lastT: performance.now(),
+      v: 0,
+      moved: false,
+    };
     setDragging(true);
     e.currentTarget.setPointerCapture(e.pointerId);
   };
@@ -228,7 +417,9 @@ export function WorkCarousel() {
     if (!d) return;
     if (!d.moved) {
       // A click on a side card centers it.
-      const card = (document.elementsFromPoint(e.clientX, e.clientY) as HTMLElement[]).find((el) => el.dataset["index"]);
+      const card = (document.elementsFromPoint(e.clientX, e.clientY) as HTMLElement[]).find(
+        (el) => el.dataset["index"],
+      );
       if (card) animateTo(posRef.current + offset(Number(card.dataset["index"]), posRef.current));
       return;
     }
@@ -262,7 +453,8 @@ export function WorkCarousel() {
       const k = reduced ? 1 : 0.22;
       c.x += (t.x - c.x) * k;
       c.y += (t.y - c.y) * k;
-      if (cursor.current) cursor.current.style.transform = `translate3d(${c.x}px, ${c.y}px, 0) translate(-50%, -50%)`;
+      if (cursor.current)
+        cursor.current.style.transform = `translate3d(${c.x}px, ${c.y}px, 0) translate(-50%, -50%)`;
       raf = requestAnimationFrame(loop);
     };
     raf = requestAnimationFrame(loop);
@@ -274,15 +466,18 @@ export function WorkCarousel() {
   const showCursor = finePointer && cursorOn && !overButton;
 
   return (
-    <section aria-labelledby="work-title" className="overflow-hidden bg-background pt-[72px] pb-[72px] md:pt-[120px] md:pb-[100px]">
+    <section
+      aria-labelledby="work-title"
+      className="overflow-hidden bg-background pt-[72px] pb-[72px] md:pt-[120px] md:pb-[100px]"
+    >
       <div className="container-site">
         <Reveal className="mx-auto max-w-3xl text-center">
           <h2 id="work-title" className="type-h2">
             Explore our latest work across industries
           </h2>
           <p className="mt-5 type-body">
-            From local service websites to AI tools and custom platforms, see how we turn ideas into fast, easy to use
-            products that win customers.
+            From local service websites to AI tools and custom platforms, see how we turn ideas into
+            fast, easy to use products that win customers.
           </p>
         </Reveal>
       </div>
@@ -354,13 +549,27 @@ export function WorkCarousel() {
                 }}
               >
                 <div className="pointer-events-none flex items-center gap-2">
-                  <span aria-hidden className="flex size-7 items-center justify-center rounded-full bg-live">
+                  <span
+                    aria-hidden
+                    className="flex size-7 items-center justify-center rounded-full bg-live"
+                  >
                     <span className="size-2.5 rounded-full bg-on-dark" />
                   </span>
-                  <span className={cn("rounded-full px-3 py-1 type-small font-medium text-ink", it.badge === "Live Now" ? "bg-background" : "bg-muted")}>{it.badge}</span>
+                  <span
+                    className={cn(
+                      "rounded-full px-3 py-1 type-small font-medium text-ink",
+                      it.badge === "Live Now" ? "bg-background" : "bg-muted",
+                    )}
+                  >
+                    {it.badge}
+                  </span>
                 </div>
-                <h3 className="pointer-events-none mt-5 text-[24px] leading-tight font-medium text-ink md:text-[28px]">{it.name}</h3>
-                <p className="pointer-events-none mt-2 line-clamp-2 type-small text-body">{it.description}</p>
+                <h3 className="pointer-events-none mt-5 text-[24px] leading-tight font-medium text-ink md:text-[28px]">
+                  {it.name}
+                </h3>
+                <p className="pointer-events-none mt-2 line-clamp-2 type-small text-body">
+                  {it.description}
+                </p>
                 <div className="pointer-events-none relative -mx-6 mt-5 flex-1 overflow-hidden md:-mx-8">
                   <img
                     src={it.image}
@@ -373,7 +582,10 @@ export function WorkCarousel() {
                     className="absolute top-0 left-1/2 w-[135%] max-w-none -translate-x-1/2"
                   />
                 </div>
-                <div aria-hidden className="carousel-frost pointer-events-none absolute inset-x-0 bottom-0 h-[38%]" />
+                <div
+                  aria-hidden
+                  className="carousel-frost pointer-events-none absolute inset-x-0 bottom-0 h-[38%]"
+                />
                 <a
                   href={it.url}
                   target="_blank"
@@ -391,31 +603,34 @@ export function WorkCarousel() {
           })}
         </ul>
 
-        {finePointer && cursorOn && createPortal(
-          <div
-            ref={cursor}
-            aria-hidden
-            data-carousel-cursor
-            className={cn(
-              "pointer-events-none fixed top-0 left-0 z-[9000] size-16 transition-opacity duration-200",
-              showCursor ? "opacity-100" : "opacity-0",
-            )}
-          >
-            <div className="relative">
-              <span
-                className="absolute top-1/2 left-1/2 size-1.5 -translate-y-1/2 rounded-full bg-ink transition-transform duration-300"
-                style={{ transform: `translate(${dragging ? -58 : -44}px, -50%)` }}
-              />
-              <span className="flex size-16 items-center justify-center rounded-full bg-ink text-[13px] font-semibold tracking-wide text-primary-foreground">
-                DRAG
-              </span>
-              <span
-                className="absolute top-1/2 left-1/2 size-1.5 rounded-full bg-ink transition-transform duration-300"
-                style={{ transform: `translate(${dragging ? 52 : 38}px, -50%)` }}
-              />
-            </div>
-          </div>, document.body
-        )}
+        {finePointer &&
+          cursorOn &&
+          createPortal(
+            <div
+              ref={cursor}
+              aria-hidden
+              data-carousel-cursor
+              className={cn(
+                "pointer-events-none fixed top-0 left-0 z-[9000] size-16 transition-opacity duration-200",
+                showCursor ? "opacity-100" : "opacity-0",
+              )}
+            >
+              <div className="relative">
+                <span
+                  className="absolute top-1/2 left-1/2 size-1.5 -translate-y-1/2 rounded-full bg-ink transition-transform duration-300"
+                  style={{ transform: `translate(${dragging ? -58 : -44}px, -50%)` }}
+                />
+                <span className="flex size-16 items-center justify-center rounded-full bg-ink text-[13px] font-semibold tracking-wide text-primary-foreground">
+                  DRAG
+                </span>
+                <span
+                  className="absolute top-1/2 left-1/2 size-1.5 rounded-full bg-ink transition-transform duration-300"
+                  style={{ transform: `translate(${dragging ? 52 : 38}px, -50%)` }}
+                />
+              </div>
+            </div>,
+            document.body,
+          )}
       </div>
 
       <div className="mt-4 flex items-center justify-center gap-3">
@@ -427,7 +642,10 @@ export function WorkCarousel() {
         >
           <ArrowLeft aria-hidden className="size-5" />
         </button>
-        <p aria-live="polite" className="min-w-[64px] text-center type-small text-muted-foreground tabular-nums">
+        <p
+          aria-live="polite"
+          className="min-w-[64px] text-center type-small text-muted-foreground tabular-nums"
+        >
           {active + 1} / {items.length}
         </p>
         <button
@@ -451,21 +669,46 @@ function UsageUI({ tone = "light" }: { tone?: "light" | "dark" }) {
   const dark = tone === "dark";
   return (
     <div className={cn("rounded-2xl p-5", dark ? "bg-ink text-on-dark" : "bg-bg-soft text-ink")}>
-      <p className={cn("type-small", dark ? "text-on-dark-muted" : "text-muted-foreground")}>AI call minutes this month</p>
+      <p className={cn("type-small", dark ? "text-on-dark-muted" : "text-muted-foreground")}>
+        AI call minutes this month
+      </p>
       <p className="mt-2 text-[28px] leading-none font-medium">300 included</p>
-      <div className={cn("mt-4 h-2 overflow-hidden rounded-full", dark ? "bg-on-dark/20" : "bg-border")}>
+      <div
+        className={cn(
+          "mt-4 h-2 overflow-hidden rounded-full",
+          dark ? "bg-on-dark/20" : "bg-border",
+        )}
+      >
         <div className={cn("h-full w-[62%] rounded-full", dark ? "bg-on-dark" : "bg-ink")} />
       </div>
-      <p className={cn("mt-3 type-small", dark ? "text-on-dark-muted" : "text-body")}>Extra minutes $0.20, only if used</p>
+      <p className={cn("mt-3 type-small", dark ? "text-on-dark-muted" : "text-body")}>
+        Extra minutes $0.20, only if used
+      </p>
     </div>
   );
 }
 
 const callCards = [
-  { title: "A customer calls", body: "Day, night or weekend, including after hours.", ui: CallCardUI },
-  { title: "The AI agent answers", body: "It greets the caller, answers questions and gives your business information.", ui: ChatUI },
-  { title: "It books the appointment", body: "The booking goes straight into your calendar.", ui: CalendarUI },
-  { title: "You get the details", body: "Owner alerts by email or WhatsApp, with the caller's name and request.", ui: NotificationUI },
+  {
+    title: "A customer calls",
+    body: "Day, night or weekend, including after hours.",
+    ui: CallCardUI,
+  },
+  {
+    title: "The AI agent answers",
+    body: "It greets the caller, answers questions and gives your business information.",
+    ui: ChatUI,
+  },
+  {
+    title: "It books the appointment",
+    body: "The booking goes straight into your calendar.",
+    ui: CalendarUI,
+  },
+  {
+    title: "You get the details",
+    body: "Owner alerts by email or WhatsApp, with the caller's name and request.",
+    ui: NotificationUI,
+  },
   {
     title: "You pay for what you use",
     body: "Growth includes 300 AI call minutes a month. Extra minutes are $0.20, only if used.",
@@ -473,7 +716,15 @@ const callCards = [
   },
 ];
 
-function CallCard({ c, i, className }: { c: (typeof callCards)[number]; i: number; className?: string }) {
+function CallCard({
+  c,
+  i,
+  className,
+}: {
+  c: (typeof callCards)[number];
+  i: number;
+  className?: string;
+}) {
   const light = i % 2 === 0;
   const UI = c.ui;
   return (
@@ -484,7 +735,14 @@ function CallCard({ c, i, className }: { c: (typeof callCards)[number]; i: numbe
         className,
       )}
     >
-      <h3 className={cn("text-[26px] leading-tight font-medium md:text-[32px]", light ? "text-ink" : "text-on-dark")}>{c.title}</h3>
+      <h3
+        className={cn(
+          "text-[26px] leading-tight font-medium md:text-[32px]",
+          light ? "text-ink" : "text-on-dark",
+        )}
+      >
+        {c.title}
+      </h3>
       <p className={cn("mt-3 type-body", light ? "text-body" : "text-on-dark-muted")}>{c.body}</p>
       <div className="mt-auto pt-6 text-left">
         <UI tone={light ? "dark" : "light"} />
@@ -545,7 +803,10 @@ export function CallingAgent() {
       <PillBadge tone="mint" icon={<Phone aria-hidden className="size-4" />}>
         24/7 AI Calling Agent
       </PillBadge>
-      <h2 id="calling-title" className="mx-auto mt-6 max-w-5xl type-h2 text-on-dark lg:text-[64px] lg:leading-[1.1]">
+      <h2
+        id="calling-title"
+        className="mx-auto mt-6 max-w-5xl type-h2 text-on-dark lg:text-[64px] lg:leading-[1.1]"
+      >
         Picks up every call, books appointments and sends you the details.
       </h2>
     </div>
@@ -557,7 +818,11 @@ export function CallingAgent() {
         <div ref={outer} style={{ height: `calc(100vh + ${dist}px)` }} className="relative">
           <div className="sticky top-0 flex h-screen items-center overflow-hidden">
             <div className="relative z-0 w-full">{statement}</div>
-            <div ref={track} className="absolute top-[10vh] left-0 z-10 flex gap-6 will-change-transform" style={{ transform: "translate3d(100vw,0,0)" }}>
+            <div
+              ref={track}
+              className="absolute top-[10vh] left-0 z-10 flex gap-6 will-change-transform"
+              style={{ transform: "translate3d(100vw,0,0)" }}
+            >
               {callCards.map((c, i) => (
                 <CallCard key={c.title} c={c} i={i} className="h-[80vh] w-[360px]" />
               ))}
@@ -574,7 +839,12 @@ export function CallingAgent() {
             className="mt-12 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-4 md:px-8 [scrollbar-width:none]"
           >
             {callCards.map((c, i) => (
-              <CallCard key={c.title} c={c} i={i} className="h-[460px] w-[300px] snap-center md:w-[360px]" />
+              <CallCard
+                key={c.title}
+                c={c}
+                i={i}
+                className="h-[460px] w-[300px] snap-center md:w-[360px]"
+              />
             ))}
           </div>
         </div>
@@ -609,11 +879,15 @@ export function ClientPortalPreview() {
             Your project, always in view
           </h2>
           <p className="mt-5 max-w-xl type-body">
-            Every client gets a private portal to track progress, download files and pay invoices. Try it now with sample
-            data.
+            Every client gets a private portal to track progress, download files and pay invoices.
+            Try it now with sample data.
           </p>
           <ul className="mt-8 flex flex-col gap-3">
-            {["Live project progress", "All your files in one place", "Simple invoices and payments"].map((x) => (
+            {[
+              "Live project progress",
+              "All your files in one place",
+              "Simple invoices and payments",
+            ].map((x) => (
               <li key={x} className="flex items-center gap-3 text-ink">
                 <span className="flex size-6 items-center justify-center rounded-full bg-ink text-primary-foreground">
                   <Check aria-hidden className="size-3.5" />
@@ -631,7 +905,10 @@ export function ClientPortalPreview() {
         </Reveal>
 
         <Reveal delay={120}>
-          <div aria-hidden className="animate-[portal-float_6s_ease-in-out_infinite] motion-reduce:animate-none">
+          <div
+            aria-hidden
+            className="animate-[portal-float_6s_ease-in-out_infinite] motion-reduce:animate-none"
+          >
             <div className="overflow-hidden rounded-[20px] border border-border bg-background shadow-soft">
               <div className="flex items-center gap-2 border-b border-border px-4 py-3">
                 <span className="size-2.5 rounded-full bg-border" />
@@ -651,10 +928,16 @@ export function ClientPortalPreview() {
                   <p className="type-small font-medium text-ink">Milestones</p>
                   <ul className="mt-3 grid gap-2 sm:grid-cols-2">
                     {miniMilestones.map((m) => {
-                      const Icon = m.s === "done" ? CheckCircle2 : m.s === "in_progress" ? CircleDot : Circle;
+                      const Icon =
+                        m.s === "done" ? CheckCircle2 : m.s === "in_progress" ? CircleDot : Circle;
                       return (
                         <li key={m.t} className="flex items-center gap-2 type-small text-ink">
-                          <Icon className={cn("size-4 shrink-0", m.s === "todo" && "text-muted-foreground")} />
+                          <Icon
+                            className={cn(
+                              "size-4 shrink-0",
+                              m.s === "todo" && "text-muted-foreground",
+                            )}
+                          />
                           {m.t}
                         </li>
                       );
@@ -668,7 +951,9 @@ export function ClientPortalPreview() {
                   </div>
                   <div className="flex items-center gap-3">
                     <span className="type-small font-medium text-ink">$149</span>
-                    <span className="rounded-full bg-ink px-4 py-1.5 type-small font-medium text-primary-foreground">Pay</span>
+                    <span className="rounded-full bg-ink px-4 py-1.5 type-small font-medium text-primary-foreground">
+                      Pay
+                    </span>
                   </div>
                 </div>
               </div>

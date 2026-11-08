@@ -11,7 +11,9 @@ import { fmtDate } from "@/lib/portal-types";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/_authenticated/admin/messages")({
-  staticData: { sitemap: false }, component: Messages });
+  staticData: { sitemap: false },
+  component: Messages,
+});
 
 type Filter = "new" | "read" | "archived" | "all";
 
@@ -22,7 +24,10 @@ function Messages() {
   const q = useQuery({
     queryKey: ["admin-messages", filter],
     queryFn: async () => {
-      let query = supabase.from("contact_messages").select("*").order("created_at", { ascending: false });
+      let query = supabase
+        .from("contact_messages")
+        .select("*")
+        .order("created_at", { ascending: false });
       if (filter !== "all") query = query.eq("status", filter);
       const { data, error } = await query;
       if (error) throw error;
@@ -47,7 +52,12 @@ function Messages() {
             role="tab"
             aria-selected={filter === f}
             onClick={() => setFilter(f)}
-            className={cn("rounded-full border px-4 py-1.5 type-small font-medium capitalize", filter === f ? "border-ink bg-ink text-primary-foreground" : "border-border bg-background text-ink")}
+            className={cn(
+              "rounded-full border px-4 py-1.5 type-small font-medium capitalize",
+              filter === f
+                ? "border-ink bg-ink text-primary-foreground"
+                : "border-border bg-background text-ink",
+            )}
           >
             {f}
           </button>
@@ -77,21 +87,35 @@ function Messages() {
                       {m.email} · {fmtDate(m.created_at)} · {planLabels[m.plan]} · {m.source_page}
                     </span>
                   </span>
-                  <Chip status={m.status === "new" ? "pending_confirmation" : "sent"} label={m.status} />
+                  <Chip
+                    status={m.status === "new" ? "pending_confirmation" : "sent"}
+                    label={m.status}
+                  />
                 </button>
                 {open && (
                   <div className="mt-4 border-t border-border pt-4">
                     <p className="whitespace-pre-wrap text-ink">{m.message}</p>
                     <div className="mt-4 flex flex-wrap items-center gap-3">
-                      <a href={`mailto:${m.email}`} className="type-small font-medium text-ink underline underline-offset-4">
+                      <a
+                        href={`mailto:${m.email}`}
+                        className="type-small font-medium text-ink underline underline-offset-4"
+                      >
                         Reply by email
                       </a>
                       {m.status !== "archived" ? (
-                        <PillButton size="sm" variant="secondary" onClick={() => setStatus(m.id, "archived")}>
+                        <PillButton
+                          size="sm"
+                          variant="secondary"
+                          onClick={() => setStatus(m.id, "archived")}
+                        >
                           Archive
                         </PillButton>
                       ) : (
-                        <PillButton size="sm" variant="secondary" onClick={() => setStatus(m.id, "read")}>
+                        <PillButton
+                          size="sm"
+                          variant="secondary"
+                          onClick={() => setStatus(m.id, "read")}
+                        >
                           Unarchive
                         </PillButton>
                       )}
@@ -100,7 +124,10 @@ function Messages() {
                         title="Delete this message?"
                         description="This permanently removes the message."
                         onConfirm={async () => {
-                          const { error } = await supabase.from("contact_messages").delete().eq("id", m.id);
+                          const { error } = await supabase
+                            .from("contact_messages")
+                            .delete()
+                            .eq("id", m.id);
                           if (error) return void toast.error("Could not delete the message.");
                           toast.success("Message deleted");
                           refresh();

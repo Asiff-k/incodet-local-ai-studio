@@ -10,6 +10,9 @@ const { page } = getIndustry("car-rentals");
 
 export const Route = createFileRoute("/industries/car-rentals")({
   staticData: { sitemap: true },
-  head: () => seoHead(page.title, page.description, "/industries/car-rentals", { scripts: [faqLd(faqFor(industryFaq))] }),
+  head: () =>
+    seoHead(page.title, page.description, "/industries/car-rentals", {
+      scripts: [faqLd(faqFor(industryFaq))],
+    }),
   component: () => <IndustryPage slug="car-rentals" />,
 });

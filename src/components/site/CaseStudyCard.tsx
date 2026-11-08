@@ -17,7 +17,12 @@ export function ExternalPill({
   className?: string;
 }) {
   return (
-    <a href={href} target="_blank" rel="noopener noreferrer" className={cn(pillButton({ variant }), className)}>
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={cn(pillButton({ variant }), className)}
+    >
       {children}
     </a>
   );
@@ -28,10 +33,20 @@ export function liveLabel(c: CaseStudy) {
 }
 
 export function mockupAlt(name: string, laptopOnly = false) {
-  return laptopOnly ? `${name} website shown on a laptop` : `${name} website shown on a laptop and phone`;
+  return laptopOnly
+    ? `${name} website shown on a laptop`
+    : `${name} website shown on a laptop and phone`;
 }
 
-export function CaseStudyImage({ c, className, eager }: { c: CaseStudy; className?: string; eager?: boolean }) {
+export function CaseStudyImage({
+  c,
+  className,
+  eager,
+}: {
+  c: CaseStudy;
+  className?: string;
+  eager?: boolean;
+}) {
   if (c.mockup) {
     return (
       <img
@@ -65,10 +80,20 @@ export function CaseStudyMeta({ c }: { c: CaseStudy }) {
   return (
     <div className="flex flex-wrap items-center gap-2">
       <span className="type-small text-muted-foreground">{c.category}</span>
-      <span aria-hidden className="type-small text-muted-foreground">·</span>
+      <span aria-hidden className="type-small text-muted-foreground">
+        ·
+      </span>
       <span className="type-small text-muted-foreground">{c.period}</span>
-      {c.type === "Demo" && <span className="rounded-full bg-bg-soft px-3 py-1 type-small font-medium text-ink">Demo project</span>}
-      {c.type === "Concept" && <span className="rounded-full bg-bg-soft px-3 py-1 type-small font-medium text-ink">Concept</span>}
+      {c.type === "Demo" && (
+        <span className="rounded-full bg-bg-soft px-3 py-1 type-small font-medium text-ink">
+          Demo project
+        </span>
+      )}
+      {c.type === "Concept" && (
+        <span className="rounded-full bg-bg-soft px-3 py-1 type-small font-medium text-ink">
+          Concept
+        </span>
+      )}
     </div>
   );
 }
@@ -76,7 +101,11 @@ export function CaseStudyMeta({ c }: { c: CaseStudy }) {
 export function CaseStudyActions({ c }: { c: CaseStudy }) {
   return (
     <div className="mt-8 flex flex-wrap gap-3">
-      <Link to="/case-studies/$slug" params={{ slug: c.slug }} className={pillButton({ variant: "primary" })}>
+      <Link
+        to="/case-studies/$slug"
+        params={{ slug: c.slug }}
+        className={pillButton({ variant: "primary" })}
+      >
         Read Case Study
       </Link>
       {c.liveUrl && (
@@ -101,7 +130,12 @@ export function CaseStudyWideCard({ c }: { c: CaseStudy }) {
         {c.tags && c.tags.length > 0 && (
           <ul className="mt-5 flex flex-wrap gap-2" aria-label="Technologies">
             {c.tags.map((t) => (
-              <li key={t} className="rounded-full border border-border px-3 py-1 type-small text-ink">{t}</li>
+              <li
+                key={t}
+                className="rounded-full border border-border px-3 py-1 type-small text-ink"
+              >
+                {t}
+              </li>
             ))}
           </ul>
         )}
@@ -112,7 +146,13 @@ export function CaseStudyWideCard({ c }: { c: CaseStudy }) {
 }
 
 /** Compact card used in grids. */
-export function CaseStudyGridCard({ c, headingLevel = "h2" }: { c: CaseStudy; headingLevel?: "h2" | "h3" }) {
+export function CaseStudyGridCard({
+  c,
+  headingLevel = "h2",
+}: {
+  c: CaseStudy;
+  headingLevel?: "h2" | "h3";
+}) {
   const H = headingLevel;
   return (
     <article className="flex h-full flex-col rounded-card border border-border bg-background p-4 md:p-5">

@@ -1,5 +1,14 @@
 import { useMemo, useState, type ReactNode } from "react";
-import { CheckCircle2, Circle, CircleDot, Download, ExternalLink, FileText, HelpCircle, LogOut } from "lucide-react";
+import {
+  CheckCircle2,
+  Circle,
+  CircleDot,
+  Download,
+  ExternalLink,
+  FileText,
+  HelpCircle,
+  LogOut,
+} from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { PillButton, pillButton } from "@/components/site/Button";
 import { paymentMethodLabels, type PaymentMethod } from "@/config/payments";
@@ -28,15 +37,34 @@ const chipCls: Record<string, string> = {
 };
 export function Chip({ status, label }: { status: string; label: string }) {
   return (
-    <span className={cn("inline-flex rounded-full px-3 py-1 type-small font-medium", chipCls[status] ?? "bg-bg-soft text-ink")}>
+    <span
+      className={cn(
+        "inline-flex rounded-full px-3 py-1 type-small font-medium",
+        chipCls[status] ?? "bg-bg-soft text-ink",
+      )}
+    >
       {label}
     </span>
   );
 }
 
-function Panel({ title, children, className, tour }: { title: string; children: ReactNode; className?: string; tour?: string }) {
+function Panel({
+  title,
+  children,
+  className,
+  tour,
+}: {
+  title: string;
+  children: ReactNode;
+  className?: string;
+  tour?: string;
+}) {
   return (
-    <section data-tour={tour} aria-labelledby={`h-${title}`} className={cn("rounded-card border border-border bg-background p-6 md:p-8", className)}>
+    <section
+      data-tour={tour}
+      aria-labelledby={`h-${title}`}
+      className={cn("rounded-card border border-border bg-background p-6 md:p-8", className)}
+    >
       <h2 id={`h-${title}`} className="type-h3">
         {title}
       </h2>
@@ -64,7 +92,10 @@ export function PortalDashboard({
   const [paying, setPaying] = useState<PortalInvoice | null>(null);
   const project = data.projects.find((p) => p.id === projectId) ?? data.projects[0];
   const tour = useTour(`incodet-portal-tour-${mode}`, true);
-  const invoiceNumbers = useMemo(() => new Map(data.invoices.map((i) => [i.id, i.number])), [data.invoices]);
+  const invoiceNumbers = useMemo(
+    () => new Map(data.invoices.map((i) => [i.id, i.number])),
+    [data.invoices],
+  );
   const payable = (s: InvoiceStatus) => s === "sent" || s === "overdue";
 
   return (
@@ -117,15 +148,25 @@ export function PortalDashboard({
         <p className="mt-10 type-body">Your project will appear here once our team sets it up.</p>
       ) : (
         <div className="mt-8 grid gap-5 lg:grid-cols-3">
-          <section data-tour="progress" aria-labelledby="h-progress" className="rounded-card bg-dark p-6 text-on-dark md:p-8 lg:col-span-2">
+          <section
+            data-tour="progress"
+            aria-labelledby="h-progress"
+            className="rounded-card bg-dark p-6 text-on-dark md:p-8 lg:col-span-2"
+          >
             <div className="flex flex-wrap items-center justify-between gap-3">
               <h2 id="h-progress" className="type-h3 text-on-dark">
                 {project.name}
               </h2>
-              <span className="rounded-full bg-on-dark px-3 py-1 type-small font-medium text-ink">{projectStatusLabels[project.status]}</span>
+              <span className="rounded-full bg-on-dark px-3 py-1 type-small font-medium text-ink">
+                {projectStatusLabels[project.status]}
+              </span>
             </div>
-            {project.summary && <p className="mt-3 type-small text-on-dark-muted">{project.summary}</p>}
-            <p className="mt-8 text-[64px] leading-none font-medium tracking-tight">{project.progress}%</p>
+            {project.summary && (
+              <p className="mt-3 type-small text-on-dark-muted">{project.summary}</p>
+            )}
+            <p className="mt-8 text-[64px] leading-none font-medium tracking-tight">
+              {project.progress}%
+            </p>
             <div
               role="progressbar"
               aria-label="Project progress"
@@ -134,9 +175,14 @@ export function PortalDashboard({
               aria-valuemax={100}
               className="mt-5 h-3 overflow-hidden rounded-full bg-on-dark/20"
             >
-              <div className="h-full rounded-full bg-on-dark" style={{ width: `${project.progress}%` }} />
+              <div
+                className="h-full rounded-full bg-on-dark"
+                style={{ width: `${project.progress}%` }}
+              />
             </div>
-            <p className="mt-4 type-small text-on-dark-muted">Target date: {fmtDate(project.target_date)}</p>
+            <p className="mt-4 type-small text-on-dark-muted">
+              Target date: {fmtDate(project.target_date)}
+            </p>
           </section>
 
           <Panel title="Milestones">
@@ -145,10 +191,21 @@ export function PortalDashboard({
             ) : (
               <ol className="flex flex-col gap-4">
                 {project.milestones.map((m) => {
-                  const Icon = m.status === "done" ? CheckCircle2 : m.status === "in_progress" ? CircleDot : Circle;
+                  const Icon =
+                    m.status === "done"
+                      ? CheckCircle2
+                      : m.status === "in_progress"
+                        ? CircleDot
+                        : Circle;
                   return (
                     <li key={m.id} className="flex items-start gap-3">
-                      <Icon aria-hidden className={cn("mt-0.5 size-5 shrink-0", m.status === "todo" ? "text-muted-foreground" : "text-ink")} />
+                      <Icon
+                        aria-hidden
+                        className={cn(
+                          "mt-0.5 size-5 shrink-0",
+                          m.status === "todo" ? "text-muted-foreground" : "text-ink",
+                        )}
+                      />
                       <div>
                         <p className="font-medium text-ink">{m.title}</p>
                         <p className="type-small text-muted-foreground">
@@ -174,11 +231,21 @@ export function PortalDashboard({
                       <FileText aria-hidden className="size-5" /> {d.title}
                     </span>
                     {d.file_path ? (
-                      <PillButton type="button" size="sm" variant="secondary" onClick={() => onDownloadDeliverable(d)}>
+                      <PillButton
+                        type="button"
+                        size="sm"
+                        variant="secondary"
+                        onClick={() => onDownloadDeliverable(d)}
+                      >
                         <Download aria-hidden className="size-4" /> Download
                       </PillButton>
                     ) : d.external_url ? (
-                      <a href={d.external_url} target="_blank" rel="noopener noreferrer" className={pillButton({ size: "sm", variant: "secondary" })}>
+                      <a
+                        href={d.external_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={pillButton({ size: "sm", variant: "secondary" })}
+                      >
                         <ExternalLink aria-hidden className="size-4" /> Open
                       </a>
                     ) : null}
@@ -220,11 +287,23 @@ export function PortalDashboard({
                     </td>
                     <td className="w-[260px] py-4 text-right">
                       <div className="flex justify-end gap-2">
-                        <PillButton type="button" size="sm" variant="secondary" data-tour="download" onClick={() => onDownloadInvoice(inv)}>
+                        <PillButton
+                          type="button"
+                          size="sm"
+                          variant="secondary"
+                          data-tour="download"
+                          onClick={() => onDownloadInvoice(inv)}
+                        >
                           <Download aria-hidden className="size-4" /> Download invoice
                         </PillButton>
                         {payable(inv.status) ? (
-                          <PillButton type="button" size="sm" data-tour="pay" onClick={() => setPaying(inv)} className="w-[72px]">
+                          <PillButton
+                            type="button"
+                            size="sm"
+                            data-tour="pay"
+                            onClick={() => setPaying(inv)}
+                            className="w-[72px]"
+                          >
                             Pay
                           </PillButton>
                         ) : (
@@ -252,11 +331,22 @@ export function PortalDashboard({
                     <dd className="text-ink">{usd(invoiceTotal(inv))}</dd>
                   </dl>
                   <div className="mt-4 flex flex-col gap-2">
-                    <PillButton type="button" size="sm" variant="secondary" data-tour="download" onClick={() => onDownloadInvoice(inv)}>
+                    <PillButton
+                      type="button"
+                      size="sm"
+                      variant="secondary"
+                      data-tour="download"
+                      onClick={() => onDownloadInvoice(inv)}
+                    >
                       <Download aria-hidden className="size-4" /> Download invoice
                     </PillButton>
                     {payable(inv.status) && (
-                      <PillButton type="button" size="sm" data-tour="pay" onClick={() => setPaying(inv)}>
+                      <PillButton
+                        type="button"
+                        size="sm"
+                        data-tour="pay"
+                        onClick={() => setPaying(inv)}
+                      >
                         Pay
                       </PillButton>
                     )}
@@ -277,14 +367,20 @@ export function PortalDashboard({
               <li key={p.id} className="flex flex-wrap items-center justify-between gap-3 py-3">
                 <div>
                   <p className="font-medium text-ink">
-                    {invoiceNumbers.get(p.invoice_id) ?? "Invoice"} · {paymentMethodLabels[p.method]}
+                    {invoiceNumbers.get(p.invoice_id) ?? "Invoice"} ·{" "}
+                    {paymentMethodLabels[p.method]}
                   </p>
                   <p className="type-small text-muted-foreground">
-                    {p.confirmed_at ? `Confirmed ${fmtDate(p.confirmed_at)}` : `Reported ${fmtDate(p.reported_at)}`}
+                    {p.confirmed_at
+                      ? `Confirmed ${fmtDate(p.confirmed_at)}`
+                      : `Reported ${fmtDate(p.reported_at)}`}
                     {p.reference ? ` · Ref ${p.reference}` : ""}
                   </p>
                 </div>
-                <Chip status={p.confirmed_at ? "paid" : "pending_confirmation"} label={p.confirmed_at ? "Confirmed" : "Reported"} />
+                <Chip
+                  status={p.confirmed_at ? "paid" : "pending_confirmation"}
+                  label={p.confirmed_at ? "Confirmed" : "Reported"}
+                />
               </li>
             ))}
           </ul>

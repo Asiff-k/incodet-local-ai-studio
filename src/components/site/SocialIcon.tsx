@@ -13,7 +13,13 @@ const paths: Record<SocialKey, string> = {
     "M16.6 5.8A4.3 4.3 0 0 1 15.5 3h-3.1v12.4a2.6 2.6 0 1 1-1.8-2.5V9.7a5.7 5.7 0 1 0 4.9 5.7V9.1a7.4 7.4 0 0 0 4.3 1.4V7.4a4.3 4.3 0 0 1-3.2-1.6Z",
 };
 
-export function SocialIcon({ name, className = "size-4" }: { name: SocialKey; className?: string }) {
+export function SocialIcon({
+  name,
+  className = "size-4",
+}: {
+  name: SocialKey;
+  className?: string;
+}) {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden className={className}>
       <path d={paths[name]} />
@@ -22,7 +28,13 @@ export function SocialIcon({ name, className = "size-4" }: { name: SocialKey; cl
 }
 
 /** Row of social icons. Only socials with a URL in site config are shown. */
-export function SocialRow({ className, tone = "light" }: { className?: string; tone?: "light" | "dark" }) {
+export function SocialRow({
+  className,
+  tone = "light",
+}: {
+  className?: string;
+  tone?: "light" | "dark";
+}) {
   const ring = tone === "dark" ? "border-on-dark/30 text-on-dark" : "border-border text-ink";
   if (!activeSocials.length) return null;
   return (

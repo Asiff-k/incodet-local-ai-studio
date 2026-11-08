@@ -29,7 +29,11 @@ export function Hero() {
     }
     const go = () => {
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || saveData()) return;
-      setVideoSrc(window.matchMedia("(min-width: 768px)").matches ? site.heroVideo.src : site.heroVideo.src720);
+      setVideoSrc(
+        window.matchMedia("(min-width: 768px)").matches
+          ? site.heroVideo.src
+          : site.heroVideo.src720,
+      );
     };
     if (document.readyState === "complete") go();
     else window.addEventListener("load", go, { once: true });
@@ -87,8 +91,17 @@ export function Hero() {
         aria-labelledby="hero-title"
         className="sticky top-0 flex h-svh min-h-[640px] items-center justify-center overflow-hidden bg-dark"
       >
-        <div ref={media} aria-hidden className="absolute inset-0 origin-center will-change-transform">
-          <img src={site.heroVideo.poster} alt="" className="absolute inset-0 size-full object-cover" fetchPriority="high" />
+        <div
+          ref={media}
+          aria-hidden
+          className="absolute inset-0 origin-center will-change-transform"
+        >
+          <img
+            src={site.heroVideo.poster}
+            alt=""
+            className="absolute inset-0 size-full object-cover"
+            fetchPriority="high"
+          />
           {videoSrc && (
             <video
               key={videoSrc}
@@ -104,7 +117,10 @@ export function Hero() {
           )}
         </div>
         {/* Black wash keeps the white text AA readable over bright lightning frames. */}
-        <div aria-hidden className="absolute inset-0 bg-[linear-gradient(180deg,color-mix(in_oklab,var(--dark)_80%,transparent)_0%,color-mix(in_oklab,var(--dark)_62%,transparent)_45%,color-mix(in_oklab,var(--dark)_70%,transparent)_75%,var(--dark)_100%)]" />
+        <div
+          aria-hidden
+          className="absolute inset-0 bg-[linear-gradient(180deg,color-mix(in_oklab,var(--dark)_80%,transparent)_0%,color-mix(in_oklab,var(--dark)_62%,transparent)_45%,color-mix(in_oklab,var(--dark)_70%,transparent)_75%,var(--dark)_100%)]"
+        />
         <div ref={fade} aria-hidden style={{ opacity: 0 }} className="absolute inset-0 bg-dark" />
 
         <div className="container-site relative z-10 flex flex-col items-center pt-16 text-center">
@@ -132,7 +148,12 @@ export function Hero() {
             <PillLink to="/book" variant="primary-inverted" size="lg">
               Book a Free Call
             </PillLink>
-            <PillLink to="/pricing" variant="secondary-inverted" size="lg" className="border-on-dark">
+            <PillLink
+              to="/pricing"
+              variant="secondary-inverted"
+              size="lg"
+              className="border-on-dark"
+            >
               See Plans
             </PillLink>
           </div>
