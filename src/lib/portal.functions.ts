@@ -13,7 +13,7 @@ const input = z.object({
 /** Client reports a payment for their own invoice. Ownership is checked through RLS as the caller. */
 export const reportPayment = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: unknown) => input.parse(d))
+  .validator((d: unknown) => input.parse(d))
   .handler(async ({ data, context }): Promise<{ ok: boolean; error?: string }> => {
     const { data: inv } = await context.supabase
       .from("invoices")
