@@ -23,6 +23,8 @@ import { getCaseStudy, type CaseStudy } from "@/content/caseStudies";
 import { faqLd, seoHead } from "@/lib/seo";
 import { PillButton, PillLink } from "./Button";
 import { ServiceImage, ServicePlaceholder } from "./ServicePanels";
+import { TempImage } from "./TempImage";
+import type { TempImageId } from "@/content/tempImages";
 import { Section, SectionHeading, Card } from "./primitives";
 import { Accordion } from "./Interactive";
 import { CaseStudyGridCard } from "./CaseStudyCard";
@@ -59,27 +61,48 @@ export const serviceHead = (service: Service) =>
     scripts: [faqLd(service.faq)],
   });
 
-export function BeforeAfter() {
+const comparisonSizes = "(min-width: 1280px) 1216px, calc(100vw - 32px)";
+
+export function BeforeAfter({
+  before,
+  after: afterImage,
+}: {
+  before?: TempImageId | undefined;
+  after?: TempImageId | undefined;
+}) {
   const [after, setAfter] = useState(false);
   return (
     <div className="service-comparison">
-      <div
-        aria-hidden={after}
-        className="absolute inset-0 flex items-end justify-center pb-14 type-body text-ink"
-        data-placeholder="true"
-      >
-        Before image coming soon
-      </div>
-      <div
-        aria-hidden={!after}
-        data-placeholder="true"
-        className={cn(
-          "service-comparison-after flex items-end justify-center pb-14 type-body text-ink",
-          after && "is-after",
-        )}
-      >
-        After image coming soon
-      </div>
+      {before ? (
+        <div aria-hidden={after} className="absolute inset-0">
+          <TempImage id={before} sizes={comparisonSizes} />
+        </div>
+      ) : (
+        <div
+          aria-hidden={after}
+          className="absolute inset-0 flex items-end justify-center pb-14 type-body text-ink"
+          data-placeholder="true"
+        >
+          Before image coming soon
+        </div>
+      )}
+      {afterImage ? (
+        <div aria-hidden={!after} className={cn("service-comparison-after", after && "is-after")}>
+          {/* Eager: this layer is clipped until toggled, so lazy loading would never start it. */}
+          <TempImage id={afterImage} sizes={comparisonSizes} eager />
+        </div>
+      ) : (
+        <div
+          aria-hidden={!after}
+          data-placeholder="true"
+          className={cn(
+            "service-comparison-after flex items-end justify-center pb-14 type-body text-ink",
+            after && "is-after",
+          )}
+        >
+          After image coming soon
+        </div>
+      )}
       <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
         <PillButton
           variant="secondary"
@@ -93,7 +116,13 @@ export function BeforeAfter() {
         </PillButton>
       </div>
       <p aria-live="polite" className="sr-only">
-        {after ? "After image coming soon" : "Before image coming soon"}
+        {after
+          ? afterImage
+            ? "Showing after"
+            : "After image coming soon"
+          : before
+            ? "Showing before"
+            : "Before image coming soon"}
       </p>
     </div>
   );
@@ -125,6 +154,12 @@ export function ServicePage({ service: s }: { service: Service }) {
           <div className={cn("aspect-[8/5] overflow-hidden rounded-card", s.color)}>
             {s.images[0] ? (
               <ServiceImage slug={s.images[0]} eager />
+            ) : s.temp?.hero ? (
+              <TempImage
+                id={s.temp.hero}
+                eager
+                sizes="(min-width: 1280px) 580px, (min-width: 1024px) 45vw, calc(100vw - 32px)"
+              />
             ) : (
               <ServicePlaceholder className="size-full" />
             )}
@@ -166,7 +201,7 @@ export function ServicePage({ service: s }: { service: Service }) {
         <Section theme="soft">
           <SectionHeading title="Before / After" />
           <div className="mt-10">
-            <BeforeAfter />
+            <BeforeAfter before={s.temp?.before} after={s.temp?.after} />
           </div>
         </Section>
       )}

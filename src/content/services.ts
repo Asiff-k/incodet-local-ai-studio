@@ -1,5 +1,6 @@
 import type { FaqItem } from "./faq";
 import { faqFor } from "./faq";
+import type { TempImageId } from "./tempImages";
 
 export type Service = {
   id: string;
@@ -16,6 +17,12 @@ export type Service = {
   ui?: "call" | "chat";
   related: string[];
   comparison?: boolean;
+  /**
+   * Temporary images (docs/temp-images.md) for slots that have no real work yet:
+   * strip fills the empty homepage tiles in order, hero the page and /services image,
+   * before/after the comparison slider. Remove once real images exist.
+   */
+  temp?: { strip?: TempImageId[]; hero?: TempImageId; before?: TempImageId; after?: TempImageId };
 };
 const features = (rows: [string, string][]) => rows.map(([title, body]) => ({ title, body }));
 const questions = (rows: [string, string][]): FaqItem[] =>
@@ -23,6 +30,7 @@ const questions = (rows: [string, string][]): FaqItem[] =>
 export const services: Service[] = [
   {
     id: "web-development",
+    temp: { before: "webdev-bloom-before", after: "webdev-bloom-after" },
     title: "Websites & Web Development",
     short: "Fast websites that win customers",
     description:
@@ -69,6 +77,7 @@ export const services: Service[] = [
   },
   {
     id: "ai-calling-agent",
+    temp: { strip: ["calling-phone-desk"] },
     title: "24/7 AI Calling Agent",
     short: "Never miss a call again",
     description:
@@ -112,6 +121,7 @@ export const services: Service[] = [
   },
   {
     id: "ai-chatbot",
+    temp: { strip: ["chatbot-bloom-assistant"] },
     title: "AI Website Chatbot",
     short: "Answers on your site, around the clock",
     description:
@@ -149,6 +159,12 @@ export const services: Service[] = [
   },
   {
     id: "app-development",
+    temp: {
+      strip: ["app-wireframe-paper", "app-wireframe-blue"],
+      hero: "app-wireframe-paper-wide",
+      before: "appdev-humandata-mobile-before",
+      after: "appdev-humandata-mobile-after",
+    },
     title: "Mobile App Development",
     short: "iOS and Android apps, built to last",
     description:
@@ -183,6 +199,11 @@ export const services: Service[] = [
   },
   {
     id: "ui-ux-product-design",
+    temp: {
+      strip: ["uiux-humandata-mobile"],
+      before: "uiux-bloom-mobile-before",
+      after: "uiux-bloom-mobile-after",
+    },
     title: "UI/UX & Product Design",
     short: "Design that makes products easy to use",
     description:
@@ -216,6 +237,7 @@ export const services: Service[] = [
   },
   {
     id: "software",
+    temp: { strip: ["software-portal-demo", "software-brhex-floorplan"] },
     title: "SaaS & Custom Software",
     short: "Platforms built around how you work",
     description:
@@ -284,6 +306,10 @@ export const services: Service[] = [
   },
   {
     id: "social-media-growth",
+    temp: {
+      strip: ["social-studio-lights", "social-planning-flatlay"],
+      hero: "social-studio-lights-wide",
+    },
     title: "Social Media Growth",
     short: "More reach, more enquiries",
     description:

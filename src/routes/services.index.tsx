@@ -5,6 +5,7 @@ import { seoHead } from "@/lib/seo";
 import { PageHero } from "@/components/site/PageHero";
 import { Section } from "@/components/site/primitives";
 import { ServiceImage, ServicePlaceholder } from "@/components/site/ServicePanels";
+import { TempImage } from "@/components/site/TempImage";
 import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/services/")({
   staticData: { sitemap: true },
@@ -40,6 +41,11 @@ function ServicesIndex() {
               <div className="mt-6 aspect-[8/5] overflow-hidden rounded-[12px]">
                 {s.images[0] ? (
                   <ServiceImage slug={s.images[0]} />
+                ) : s.temp?.hero ? (
+                  <TempImage
+                    id={s.temp.hero}
+                    sizes="(min-width: 768px) 532px, calc(100vw - 80px)"
+                  />
                 ) : (
                   <ServicePlaceholder className="size-full" />
                 )}

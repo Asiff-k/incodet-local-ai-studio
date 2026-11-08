@@ -1,0 +1,45 @@
+# Temporary images (replace before launch)
+
+These images fill slots that had "Image coming soon" placeholders. They are self-hosted in
+`public/images/temp/` as WebP, at 1x and 2x of their displayed size (file name `<id>-<width>.webp`).
+
+How they are wired:
+
+- Alt text and widths: `src/content/tempImages.ts`
+- Which slot uses which image: the `temp` field of each service in `src/content/services.ts`
+  (`strip` = homepage panel tiles, `hero` = service page hero and /services card, `before` / `after` = comparison slider)
+
+To replace one: add the real work (usually a case study slug in the service's `images` list, or a real
+before/after pair), then delete the `temp` reference, the entry in `tempImages.ts` and its files.
+When every entry is gone, delete `tempImages.ts`, `TempImage.tsx`, the `temp` field and this file.
+
+Captured and downloaded on 9 Nov 2026. Unsplash photos are free for commercial use under the
+[Unsplash License](https://unsplash.com/license) (no attribution required; credited here anyway).
+Screenshots are of Incodet's own live work.
+
+| File (`public/images/temp/`)                          | Page                                        | Section                                      | Source                                                                                                                | Photographer / licence                             | Replace with                                                                 |
+| ----------------------------------------------------- | ------------------------------------------- | -------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `calling-phone-desk-{300,600}.webp`                   | Home                                        | What we build: 24/7 AI Calling Agent tile    | [Unsplash -PRUXZmu0EA](https://unsplash.com/photos/a-phone-pad-and-pen-sit-on-a-wooden-desk--PRUXZmu0EA)              | Robert Bye (@robertbye), Unsplash License          | Screenshot of a real call summary or owner alert from a live calling agent   |
+| `chatbot-bloom-assistant-{300,600}.webp`              | Home                                        | What we build: AI Website Chatbot tile       | Screenshot of [bloom.incodet.com](https://bloom.incodet.com) with the salon assistant open                            | Incodet (own demo)                                 | Chatbot from a live client site                                              |
+| `app-wireframe-paper-{300,600}.webp`                  | Home                                        | What we build: Mobile App Development tile 1 | [Unsplash 4UGmm3WRUoQ](https://unsplash.com/photos/website-wireframe-sketch-on-paper-4UGmm3WRUoQ)                     | Compagnons (@sigmund), Unsplash License            | Screens from a real app we built                                             |
+| `app-wireframe-blue-{300,600}.webp`                   | Home                                        | What we build: Mobile App Development tile 2 | [Unsplash _dJCBtdUu74](https://unsplash.com/photos/website-wireframe-sketches-on-blue-_dJCBtdUu74)                    | Compagnons (@sigmund), Unsplash License            | Screens from a real app we built                                             |
+| `app-wireframe-paper-wide-{640,1280}.webp`            | /services/app-development and /services     | Page hero; Mobile App Development card       | [Unsplash 4UGmm3WRUoQ](https://unsplash.com/photos/website-wireframe-sketch-on-paper-4UGmm3WRUoQ)                     | Compagnons (@sigmund), Unsplash License            | Device mockup of a real app (add it as a case study and list it in `images`) |
+| `uiux-humandata-mobile-{300,600}.webp`                | Home                                        | What we build: UI/UX & Product Design tile   | Screenshot of [humandatalabs.tech](https://humandatalabs.tech) at phone width                                         | Incodet (own work)                                 | Design file or prototype screen from a real project                          |
+| `software-portal-demo-{300,600}.webp`                 | Home                                        | What we build: SaaS & Custom Software tile 1 | Screenshot of our own client portal demo ([/portal/demo](https://incodet.com/portal/demo), sample data)               | Incodet (own software)                             | Dashboard or admin screen from a live client platform                        |
+| `software-brhex-floorplan-{300,600}.webp`             | Home                                        | What we build: SaaS & Custom Software tile 2 | Screenshot of the [BRHEX demo](https://virtual-tour-poc.vercel.app/tour/50ad98c9) floor plan view                     | Incodet (own demo)                                 | Second screen from a live platform                                           |
+| `social-studio-lights-{300,600}.webp`                 | Home                                        | What we build: Social Media Growth tile 1    | [Unsplash vhKyOG9LjqI](https://unsplash.com/photos/a-photography-studio-setup-with-lighting-equipment-vhKyOG9LjqI)    | Sofia Lasheva (@sofizz), Unsplash License          | A real post or short video we produced for a client                          |
+| `social-planning-flatlay-{300,600}.webp`              | Home                                        | What we build: Social Media Growth tile 2    | [Unsplash 9byKncZaV0c](https://unsplash.com/photos/desk-flat-lay-with-stationery-and-macaron-9byKncZaV0c)             | Jess Bailey (@jessbaileydesigns), Unsplash License | A real content calendar (client details removed)                             |
+| `social-studio-lights-wide-{640,1280}.webp`           | /services/social-media-growth and /services | Page hero; Social Media Growth card          | [Unsplash vhKyOG9LjqI](https://unsplash.com/photos/a-photography-studio-setup-with-lighting-equipment-vhKyOG9LjqI)    | Sofia Lasheva (@sofizz), Unsplash License          | Grid of real client posts                                                    |
+| `webdev-bloom-before-{700,1300,2432}.webp`            | /services/web-development                   | Before / After: before                       | Grey-box wireframe generated from [bloom.incodet.com](https://bloom.incodet.com)                                      | Incodet (own demo)                                 | Real "before" screenshot of a client's old site                              |
+| `webdev-bloom-after-{700,1300,2432}.webp`             | /services/web-development                   | Before / After: after                        | Screenshot of [bloom.incodet.com](https://bloom.incodet.com) (cropped above the demo's review and founding-year line) | Incodet (own demo)                                 | The same client's new site                                                   |
+| `uiux-bloom-mobile-before-{700,1300,2432}.webp`       | /services/ui-ux-product-design              | Before / After: before                       | Grey-box wireframe of [bloom.incodet.com](https://bloom.incodet.com) at phone width                                   | Incodet (own demo)                                 | Real wireframe from a design project                                         |
+| `uiux-bloom-mobile-after-{700,1300,2432}.webp`        | /services/ui-ux-product-design              | Before / After: after                        | Screenshot of [bloom.incodet.com](https://bloom.incodet.com) at phone width                                           | Incodet (own demo)                                 | The finished design                                                          |
+| `appdev-humandata-mobile-before-{700,1300,2432}.webp` | /services/app-development                   | Before / After: before                       | Grey-box wireframe of [humandatalabs.tech](https://humandatalabs.tech) at phone width                                 | Incodet (own work)                                 | Real app wireframe                                                           |
+| `appdev-humandata-mobile-after-{700,1300,2432}.webp`  | /services/app-development                   | Before / After: after                        | Screenshot of [humandatalabs.tech](https://humandatalabs.tech) at phone width                                         | Incodet (own work)                                 | The finished app screen                                                      |
+
+Notes:
+
+- The Bloom Studio demo itself shows "4.9 · 500+ Google reviews", "Est. 2014" and em dashes. Those parts
+  are cropped out of every image here, but they are worth removing from the demo site too.
+- The phone-width before/after images place the phone screenshot on a plain backdrop so the whole
+  screen stays visible in the wide slider.

@@ -5,6 +5,7 @@ import { CallCardUI, ChatUI } from "@/components/home/MiniUI";
 import { cn } from "@/lib/utils";
 import { ServiceSampleUI } from "./ServiceSampleUI";
 import { serviceStripEntries } from "@/lib/service-strip";
+import { TempImage } from "./TempImage";
 
 export function DiamondDots() {
   return (
@@ -54,6 +55,8 @@ export function ServiceImage({ slug, eager = false }: { slug: string; eager?: bo
 }
 export function ServiceStrip({ service }: { service: Service }) {
   const entries = serviceStripEntries(service);
+  // Empty positions take the service's temporary images in order (docs/temp-images.md).
+  const temps = [...(service.temp?.strip ?? [])];
   return (
     <div
       role="region"
@@ -62,6 +65,7 @@ export function ServiceStrip({ service }: { service: Service }) {
       className="service-image-strip"
     >
       {entries.map((entry, i) => {
+        const temp = entry ? undefined : temps.shift();
         return (
           <div key={`${entry}-${i}`} className="service-image-tile">
             {entry === "call" ? (
@@ -83,6 +87,8 @@ export function ServiceStrip({ service }: { service: Service }) {
               />
             ) : entry ? (
               <ServiceImage slug={entry} />
+            ) : temp ? (
+              <TempImage id={temp} sizes="(min-width: 768px) 258px, 240px" />
             ) : (
               <ServicePlaceholder className="size-full" />
             )}
