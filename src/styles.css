@@ -364,14 +364,17 @@ h2 {
 .burst-tile {
   opacity: 0;
 }
-.carousel-frost {
-  background: linear-gradient(
-    to bottom,
-    transparent,
-    color-mix(in srgb, var(--background) 65%, transparent)
-  );
-  backdrop-filter: blur(12px);
-  mask-image: linear-gradient(to bottom, transparent, var(--ink) 65%);
+/* The static tile grid (phones, reduced motion) is server-rendered. Where the animated tiles
+   replace it, hide it so its lazy images are never downloaded. */
+@media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+  .burst-static {
+    display: none;
+  }
+}
+/* Carousel screenshot: sharp, with a thin fade into the card's own tint at the very bottom.
+   An alpha mask only (no blur), so "View Project" stays readable on every card colour. */
+.carousel-shot {
+  mask-image: linear-gradient(to bottom, #000 calc(100% - 72px), transparent);
 }
 .statement-wave {
   padding-block: 72px;
@@ -403,6 +406,52 @@ h2 {
 .wave-tag-live {
   background: var(--wave-tag-indigo);
   transform: rotate(-3deg);
+}
+/* "Who we are" pills: a row under the paragraph (wraps to two rows on phones). From 1280px
+   they sit beside and below the paragraph in their own grid cells, so they never cover words. */
+.wave-layout {
+  max-width: 1100px;
+}
+.wave-pills {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 32px;
+}
+@media (min-width: 1280px) {
+  .wave-layout {
+    max-width: none;
+    display: grid;
+    grid-template-columns: 220px minmax(0, 1fr) 220px;
+    grid-template-areas:
+      "left text right"
+      ". bottom .";
+    column-gap: 24px;
+  }
+  .wave-layout .wave-paragraph {
+    grid-area: text;
+  }
+  .wave-pills {
+    display: contents;
+  }
+  .wave-tag-call {
+    grid-area: left;
+    align-self: start;
+    justify-self: center;
+    margin-top: 48px;
+  }
+  .wave-tag-book {
+    grid-area: right;
+    align-self: end;
+    justify-self: center;
+    margin-bottom: 16px;
+  }
+  .wave-tag-live {
+    grid-area: bottom;
+    justify-self: center;
+    margin-top: 40px;
+  }
 }
 .process-gradient-0,
 .process-tint-0 {
@@ -481,11 +530,6 @@ h2 {
   .wave-paragraph {
     font-size: 28px;
   }
-  .wave-pill {
-    position: absolute;
-    translate: -50% -50%;
-    z-index: 2;
-  }
   .process-cluster {
     height: 380px;
   }
@@ -511,13 +555,6 @@ h2 {
   .featured-card {
     position: relative;
     top: auto;
-  }
-  .wave-pill {
-    position: static;
-    translate: none;
-  }
-  .wave-pills {
-    margin-top: 32px;
   }
 }
 html.lenis,

@@ -29,7 +29,10 @@ export function SmoothScroll() {
         ScrollTrigger.update();
         window.dispatchEvent(new Event("incodet:lenis-scroll"));
       });
+      // One animation loop: Lenis runs on GSAP's ticker. No lag smoothing, so scroll-linked
+      // animations never jump to catch up after a slow frame.
       gsap.ticker.add(tick);
+      gsap.ticker.lagSmoothing(0);
       const lock = () => {
         if (document.body.style.overflow === "hidden") lenis.stop();
         else lenis.start();
@@ -41,6 +44,7 @@ export function SmoothScroll() {
       dispose = () => {
         observer.disconnect();
         gsap.ticker.remove(tick);
+        gsap.ticker.lagSmoothing(500, 33);
         lenis.destroy();
         delete document.documentElement.dataset["smoothScroll"];
       };

@@ -1,6 +1,5 @@
 import { defineConfig, loadEnv, type UserConfig } from "vite";
 import tailwindcss from "@tailwindcss/vite";
-import tsConfigPaths from "vite-tsconfig-paths";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import { nitro } from "nitro/vite";
 import viteReact from "@vitejs/plugin-react";
@@ -17,7 +16,6 @@ export default defineConfig(({ command, mode }) => {
   const config: UserConfig = {
     plugins: [
       tailwindcss(),
-      tsConfigPaths({ projects: ["./tsconfig.json"] }),
       tanstackStart({
         // Server-only code must never be bundled into the browser.
         importProtection: {
@@ -35,6 +33,8 @@ export default defineConfig(({ command, mode }) => {
     define: envDefine,
     css: { transformer: "lightningcss" },
     resolve: {
+      // Vite resolves tsconfig "paths" natively (replaces the vite-tsconfig-paths plugin).
+      tsconfigPaths: true,
       alias: { "@": `${process.cwd()}/src` },
       dedupe: [
         "react",

@@ -49,8 +49,13 @@ export function Footer() {
                 </dd>
               </div>
             </dl>
-            <div className="mt-10">
-              <PillLink to="/book">Book a Free Call</PillLink>
+            <div className="mt-10 grid w-full gap-3 sm:w-fit">
+              <PillLink to="/book" className="w-full">
+                Book a Free Call
+              </PillLink>
+              <PillLink to="/deck" variant="secondary" className="w-full border-ink">
+                Company Deck
+              </PillLink>
             </div>
           </div>
 

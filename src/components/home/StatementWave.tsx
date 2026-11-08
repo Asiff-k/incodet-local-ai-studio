@@ -30,44 +30,32 @@ export function StatementWave() {
           if (!el) return;
           const words = Array.from(el.querySelectorAll<HTMLElement>("[data-wave-word]"));
           const pills = Array.from(el.querySelectorAll<HTMLElement>("[data-wave-pill]"));
-          const paragraph = el.querySelector<HTMLElement>("[data-wave-paragraph]");
-          const place = () => {
-            if (!desktop || !paragraph) return [10, 15, 24];
-            const lines: HTMLElement[][] = [];
-            words.forEach((word) => {
-              const line = lines.find((l) => l[0]?.offsetTop === word.offsetTop);
-              if (line) line.push(word);
-              else lines.push([word]);
-            });
-            return pills.map((pill, i) => {
-              const line = lines[i] ?? lines[lines.length - 1] ?? [];
-              const word =
-                i === 0
-                  ? line[line.length - 2]
-                  : i === 1
-                    ? line[1]
-                    : line[Math.floor(line.length / 2)];
-              if (!word) return 0;
-              pill.style.left = `${word.offsetLeft + word.offsetWidth / 2}px`;
-              pill.style.top = `${word.offsetTop + word.offsetHeight / 2}px`;
-              return words.indexOf(word);
-            });
-          };
-          const positions = place();
+          const label = el.querySelector<HTMLElement>("[data-wave-label]");
           if (reduced) return;
           gsap.set(words, { opacity: 0 });
           gsap.set(pills, { opacity: 0, scale: 0.6 });
+          // Desktop: the section pins at "top top", but the words start revealing as soon as
+          // the label enters the viewport, so the screen is never empty before the pin.
+          const pin = desktop
+            ? ScrollTrigger.create({
+                id: "statement-wave-pin",
+                trigger: el,
+                start: "top top",
+                end: () => `+=${window.innerHeight * 1.5}`,
+                pin: true,
+                invalidateOnRefresh: true,
+                refreshPriority: 20,
+              })
+            : undefined;
           const tl = gsap.timeline({
             scrollTrigger: {
               id: "statement-wave",
-              trigger: el,
-              start: desktop ? "top top" : "top 85%",
-              end: desktop ? () => `+=${window.innerHeight * 1.5}` : "bottom 40%",
-              pin: Boolean(desktop),
+              trigger: desktop && label ? label : el,
+              start: "top 85%",
+              end: pin ? () => pin.end : "bottom 40%",
               scrub: true,
               invalidateOnRefresh: true,
-              refreshPriority: 20,
-              onRefresh: place,
+              refreshPriority: 19,
             },
           });
           words.forEach((word, i) => {
@@ -77,7 +65,10 @@ export function StatementWave() {
               .to(word, { color: "var(--wave-magenta)", duration: 1 }, i + 3.5)
               .to(word, { color: "var(--wave-ink)", duration: 1.5 }, i + 4.5);
           });
+          // Pills sit beside or below the paragraph (never on words) and pop in spread
+          // across the wave.
           pills.forEach((pill, i) => {
+            const at = Math.round((words.length * (i + 1)) / (pills.length + 1));
             tl.to(
               pill,
               {
@@ -87,12 +78,8 @@ export function StatementWave() {
                 duration: 1.2,
                 ease: "back.out(2)",
               },
-              positions[i] ?? 0,
-            ).to(
-              pill,
-              { scale: 1, rotation: tags[i]?.rotation ?? 0, duration: 1 },
-              (positions[i] ?? 0) + 1.2,
-            );
+              at,
+            ).to(pill, { scale: 1, rotation: tags[i]?.rotation ?? 0, duration: 1 }, at + 1.2);
           });
           ScrollTrigger.sort();
           ScrollTrigger.refresh();
@@ -108,11 +95,13 @@ export function StatementWave() {
   return (
     <section ref={root} className="statement-wave bg-background" aria-labelledby="who-title">
       <div className="container-site mx-auto text-center">
-        <PillBadge>Who we are</PillBadge>
+        <span data-wave-label className="inline-block">
+          <PillBadge>Who we are</PillBadge>
+        </span>
         <h2 id="who-title" className="sr-only">
           Who we are
         </h2>
-        <div className="relative mx-auto mt-8 max-w-[1100px]">
+        <div className="wave-layout relative mx-auto mt-8">
           <p className="sr-only">{sentence}</p>
           <p data-wave-paragraph aria-hidden="true" className="wave-paragraph">
             {sentence.split(" ").map((word, i) => (
@@ -123,7 +112,7 @@ export function StatementWave() {
               </Fragment>
             ))}
           </p>
-          <ul className="wave-pills mt-8 flex flex-wrap justify-center gap-3 md:mt-0">
+          <ul role="list" className="wave-pills">
             {tags.map((tag) => (
               <li data-wave-pill key={tag.label} className={`wave-pill ${tag.cls}`}>
                 <span>{tag.label}</span>

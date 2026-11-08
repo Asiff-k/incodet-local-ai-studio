@@ -39,9 +39,10 @@ type Tile = {
   speed: number;
   framed?: boolean;
 };
-const shot = (s: string) => `/images/case-studies/${s}.webp`;
-const phone = (s: string) => `/images/mobile/${s}.webp`;
-const mock = (s: string) => `/images/mockups/${s}-sm.webp`;
+// Resized copies in public/images/burst at 1x and 2x of each tile width ("<base>-<width>.webp").
+const shot = (s: string) => `/images/burst/case-studies-${s}`;
+const phone = (s: string) => `/images/burst/mobile-${s}`;
+const mock = (s: string) => `/images/burst/mockups-${s}`;
 
 // Desktop layout: a loose cloud left and right of the centered text.
 const tiles: Tile[] = [
@@ -98,6 +99,8 @@ const tiles: Tile[] = [
   { src: mock("bloom-studio"), w: 180, h: 113, left: "86%", top: "86%", speed: 1.25 },
   { src: phone("a1-airport-cars"), w: 150, h: 325, left: "60%", top: "88%", speed: 1 },
 ];
+// Static 4-column grid (phones and reduced motion): each tile is about a quarter of the width.
+const staticSizes = "(min-width: 1280px) 290px, 23vw";
 const mobileTiles = [
   tiles[1],
   tiles[0],
@@ -109,7 +112,17 @@ const mobileTiles = [
   tiles[10],
 ];
 
-function TileImg({ t, className, style }: { t: Tile; className?: string; style?: CSSProperties }) {
+function TileImg({
+  t,
+  className,
+  style,
+  sizes = `${t.w}px`,
+}: {
+  t: Tile;
+  className?: string;
+  style?: CSSProperties;
+  sizes?: string;
+}) {
   return (
     <div
       className={cn(
@@ -120,7 +133,9 @@ function TileImg({ t, className, style }: { t: Tile; className?: string; style?:
       style={style}
     >
       <img
-        src={t.src}
+        src={`${t.src}-${t.w}.webp`}
+        srcSet={`${t.src}-${t.w}.webp ${t.w}w, ${t.src}-${t.w * 2}.webp ${t.w * 2}w`}
+        sizes={sizes}
         alt=""
         loading="lazy"
         decoding="async"
@@ -148,6 +163,7 @@ export function FloatingProjects() {
       mm.add("(min-width: 768px) and (prefers-reduced-motion: no-preference)", () => {
         const el = ref.current;
         if (!el) return;
+        const tileEls = tileRefs.current.filter((t): t is HTMLDivElement => Boolean(t));
         const tl = gsap.timeline({
           scrollTrigger: {
             id: "floating-burst",
@@ -158,8 +174,12 @@ export function FloatingProjects() {
             scrub: true,
             invalidateOnRefresh: true,
             refreshPriority: 30,
+            // Promote tiles to their own layers only while the section animates.
+            onToggle: (self) =>
+              gsap.set(tileEls, { willChange: self.isActive ? "transform" : "auto" }),
           },
         });
+        // Only transform and opacity animate. Scale stays near 1 so layers stay sharp.
         tileRefs.current.forEach((tile, i) => {
           if (!tile) return;
           const angle = (i / tiles.length) * Math.PI * 2 - Math.PI / 2;
@@ -168,23 +188,15 @@ export function FloatingProjects() {
           const at = i * 0.012;
           tl.fromTo(
             tile,
-            { x: 0, y: 0, scale: 0.2, opacity: 0, filter: "blur(7px)" },
-            {
-              x: dx,
-              y: dy,
-              scale: 1,
-              opacity: 1,
-              filter: "blur(0px)",
-              duration: 0.38,
-              ease: "none",
-            },
+            { x: 0, y: 0, scale: 0.6, opacity: 0 },
+            { x: dx, y: dy, scale: 1, opacity: 1, duration: 0.38, ease: "none" },
             at,
           ).to(
             tile,
             {
               x: () => dx() * 2.5,
               y: () => dy() * 2.5,
-              scale: 1.6,
+              scale: 1.25,
               opacity: 0,
               duration: 0.4,
               ease: "none",
@@ -236,7 +248,7 @@ export function FloatingProjects() {
               ref={(el) => {
                 tileRefs.current[i] = el;
               }}
-              className="burst-tile absolute left-1/2 top-1/2 will-change-transform"
+              className="burst-tile absolute left-1/2 top-1/2"
               style={{ width: t.w, height: t.h, marginLeft: -t.w / 2, marginTop: -t.h / 2 }}
             >
               <TileImg t={t} className="size-full" />
@@ -246,20 +258,25 @@ export function FloatingProjects() {
       )}
       <div className="container-site relative py-[72px] md:py-[100px]">
         {!animated && (
-          <div aria-hidden className="grid grid-cols-4 items-start gap-2 md:gap-4">
+          <div aria-hidden className="burst-static grid grid-cols-4 items-start gap-2 md:gap-4">
             {mobileTiles
               .slice(0, 4)
               .map(
                 (t, i) =>
                   t && (
-                    <TileImg key={t.src} t={t} className={cn("aspect-[3/5]", i % 2 && "mt-6")} />
+                    <TileImg
+                      key={t.src}
+                      t={t}
+                      sizes={staticSizes}
+                      className={cn("aspect-[3/5]", i % 2 && "mt-6")}
+                    />
                   ),
               )}
           </div>
         )}
         <div className={cn(!animated && "py-12")}>{text}</div>
         {!animated && (
-          <div aria-hidden className="grid grid-cols-4 items-start gap-2 md:gap-4">
+          <div aria-hidden className="burst-static grid grid-cols-4 items-start gap-2 md:gap-4">
             {mobileTiles
               .slice(4)
               .map(
@@ -268,6 +285,7 @@ export function FloatingProjects() {
                     <TileImg
                       key={t.src}
                       t={t}
+                      sizes={staticSizes}
                       className={cn("aspect-[3/5]", i % 2 === 0 && "mt-6")}
                     />
                   ),
@@ -570,7 +588,7 @@ export function WorkCarousel() {
                 <p className="pointer-events-none mt-2 line-clamp-2 type-small text-body">
                   {it.description}
                 </p>
-                <div className="pointer-events-none relative -mx-6 mt-5 flex-1 overflow-hidden md:-mx-8">
+                <div className="carousel-shot pointer-events-none relative -mx-6 mt-5 flex-1 overflow-hidden md:-mx-8">
                   <img
                     src={it.image}
                     alt={`${it.name} website`}
@@ -582,10 +600,6 @@ export function WorkCarousel() {
                     className="absolute top-0 left-1/2 w-[135%] max-w-none -translate-x-1/2"
                   />
                 </div>
-                <div
-                  aria-hidden
-                  className="carousel-frost pointer-events-none absolute inset-x-0 bottom-0 h-[38%]"
-                />
                 <a
                   href={it.url}
                   target="_blank"
