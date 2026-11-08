@@ -1,14 +1,13 @@
 # Incodet website: build status (7 Nov 2026)
 
-Lovable project: https://lovable.dev/projects/ac30251d-e1bb-44e4-935d-7f7b5392f597
-Preview: https://id-preview--ac30251d-e1bb-44e4-935d-7f7b5392f597.lovable.app
-Not published yet. Note: the plain preview link can show an older cached build until you publish. Open the project in the Lovable editor and use its "open in new tab" button to see the latest version.
+Developed locally (branch workflow on GitHub). Not deployed yet; see docs/launch-guide.md.
+Supabase: own project incodet-website (wbgpeivoqaclxzlunmgk), migrations 0000 to 0003 applied (8 Nov 2026).
 
 ## Done
 - Phase 1: Orbix-style design system, floating pill nav, footer, site config (src/config/site.ts), swappable text logo
 - Phase 2: homepage (hero video + scroll effect, industries, who we are, AI agent cards, service panels, process, case studies, plans, FAQ)
 - Phase 3: pricing, custom software, industry pages, case study index + detail pages, privacy, terms, 404
-- Phase 4: Lovable Cloud, contact form (spam protection, rate limit), /book page
+- Phase 4: Supabase backend, contact form (spam protection, rate limit), /book page
 - Phase 5: client portal (magic link), DEMO mode, guided tour, invoice PDF, pay modal, "I've paid" flow, admin panel (admin = hello@incodet.com only)
 - Phase 6: SEO (titles, canonical, OG image, JSON-LD, sitemap, robots), consent-gated analytics, performance (under 2 MB before scroll), axe 0 serious issues
 - Round 2: thunderstorm hero, arc drag carousel, client portal section on homepage, new menu, social icons, grey demo banner, invoice alignment, 11 industries, every project its own case study with month-range period and story
@@ -27,15 +26,15 @@ Not published yet. Note: the plain preview link can show an older cached build u
 - Western Cars staff registration tool: screenshot only, never linked
 
 ## Waiting on Asif
-1. Email notifications: Resend key, verify incodet.com, Lovable Project Settings > Secrets > RESEND_API_KEY (booking and contact emails stay off until then; bookings still save to the database)
+1. Email notifications: Resend key, verify incodet.com, RESEND_API_KEY in .env.local and Vercel env vars (booking and contact emails stay off until then; bookings still save to the database)
 2. Payment details: src/config/payments.ts (Payoneer, Wise, PayPal, bank)
 3. Sign in once at /portal with hello@incodet.com, open /admin, check Bookings and test with a dummy client
 4. Real Vapi cost per minute (overage currently $0.20/min)
 5. Logo file (set logoUrl in site config), Perth street number, social URLs, analytics provider
-6. FAQ answers still hidden: website ownership, agent languages
+6. FAQ answer still hidden: agent languages
 7. Read the case study stories and service page copy and correct any detail
 8. Legal pages: liability cap (3 months of fees) and retention periods need a qualified review
 9. Tell Western Cars the staff registration form is publicly reachable; fix typos and 2021 footers on the Crawley, East Grinstead, Horley and Horsham sites
 10. Update the project brief: other team locations are now allowed, founding year not shown, Cal.com replaced by own calendar
 11. Replace "Image coming soon" tiles (app development, social media, a few others) with real work when available
-12. Publish in Lovable, then GitHub export for Monir > Vercel, point incodet.com
+12. Deploy to Vercel (Monir), point incodet.com

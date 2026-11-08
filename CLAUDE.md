@@ -1,11 +1,11 @@
 # Incodet website (incodet.com)
 
 Agency site for Incodet: AI calling agents, AI chatbots, booking websites and custom software for local businesses.
-Built in Lovable (Nov 2026), now developed here in VS Code with Claude Code. Lovable is no longer used for edits.
+Developed locally in VS Code with Claude Code.
 
 ## Stack
 - TanStack Start (SSR + server functions), React 19, TypeScript, Tailwind 4, shadcn/ui
-- Vite 8 + Nitro. Build config comes from `@lovable.dev/vite-tanstack-config` (Nitro target defaults to Cloudflare)
+- Vite 8 + Nitro. Plain config in `vite.config.ts` (Nitro target defaults to Cloudflare; Vercel builds set `NITRO_PRESET=vercel`)
 - Supabase (Postgres, Auth magic link, RLS). Schema in `drizzle/migrations/`
 - Motion: GSAP ScrollTrigger + Lenis (off on touch and reduced motion)
 - Package manager: bun. Tests: vitest
@@ -24,7 +24,7 @@ Built in Lovable (Nov 2026), now developed here in VS Code with Claude Code. Lov
 - Never use em dashes, in code comments shown to users or in site copy
 - No fake reviews, stats, metrics, projects, people or blog posts. Reviews section stays hidden until real reviews exist
 - No "#" links. Every link goes somewhere real or is hidden
-- No AI attribution anywhere ("made with AI", "powered by Lovable", Lovable badge)
+- No AI attribution anywhere ("made with AI", "powered by" text, site-builder badges)
 - No stock photos of people as the team. No custom cursor (the carousel DRAG ball is the only exception)
 - Mobile-first: perfect at 375, 768, 1280+. No horizontal scroll
 - First load under 2 MB before scroll, WebP images, lazy loading, self-hosted media only

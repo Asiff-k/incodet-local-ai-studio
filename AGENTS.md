@@ -1,7 +1,6 @@
 > [!IMPORTANT]
-> This project was built in Lovable and is now developed locally in VS Code.
-> Lovable is no longer used for edits. CLAUDE.md is the source of truth for the
-> stack, site rules and working rules; read it first.
+> This project is developed locally in VS Code. CLAUDE.md is the source of truth
+> for the stack, site rules and working rules; read it first.
 
 ## Working rules
 

@@ -34,14 +34,9 @@ HIDE = r"""
   [id*="intercom" i],[class*="intercom" i],[id*="crisp" i],[class*="crisp" i],[id*="tawk" i],
   [id*="hubspot-messages" i],[class*="chat-widget" i],[id*="chat-widget" i],[class*="drift" i],
   iframe[src*="chat" i],iframe[title*="chat" i],
-  a[href*="wa.me"],a[href*="whatsapp" i],[class*="whatsapp" i],[id*="whatsapp" i],
-  #lovable-badge,[id*="lovable" i],a[href*="lovable.dev"],[class*="lovable-badge" i]
+  a[href*="wa.me"],a[href*="whatsapp" i],[class*="whatsapp" i],[id*="whatsapp" i]
   {display:none!important;visibility:hidden!important}`;
   const s = document.createElement('style'); s.textContent = css; document.head.appendChild(s);
-  document.querySelectorAll('a,div,button').forEach(el => {
-    const t = (el.textContent||'').trim();
-    if (/^Edit with Lovable$/i.test(t)) el.style.setProperty('display','none','important');
-  });
   // Fixed/sticky overlays: consent dialogs (by text) and floating chat bubbles (small, bottom corner).
   const vw = innerWidth, vh = innerHeight;
   document.querySelectorAll('body *').forEach(el => {
