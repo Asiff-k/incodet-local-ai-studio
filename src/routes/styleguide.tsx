@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, notFound } from "@tanstack/react-router";
 import { MapPin, Sparkles } from "lucide-react";
 import { PillButton } from "@/components/site/Button";
 import { Accordion, SegmentedTabs } from "@/components/site/Interactive";
@@ -8,6 +8,10 @@ import { HorizontalScrollCards, StackedPanels } from "@/components/site/ScrollSe
 
 export const Route = createFileRoute("/styleguide")({
   staticData: { sitemap: false },
+  // Internal reference page: available in dev only, a 404 in production builds.
+  loader: () => {
+    if (import.meta.env.PROD) throw notFound();
+  },
   head: () => ({
     meta: [
       { title: "Styleguide | Incodet" },

@@ -24,6 +24,8 @@ export type CaseStudy = {
   tags?: string[];
   /** Omit for internal tools that must never be linked. */
   liveUrl?: string;
+  /** Overrides the live button text (default: "View Live Demo" for demos, else "Visit Live Site"). */
+  liveLabel?: "View Live Demo" | "Visit Live Site";
   image: { src: string; alt: string; ready: boolean };
   /** Device mockup built by scripts/mockups (full 1600x1000; a -sm 800x500 sits beside it). */
   mockup?: string;
@@ -203,7 +205,7 @@ const all: CaseStudy[] = [
     challenge: "Real estate agents often use one vendor for 360° tours and another for floor plans, each with its own branding. We call it the double vendor trap.",
     solution: "One white-label platform with a 360° WebGL tour viewer with hotspots, an SVG floor plan engine with a one-click toggle between the two, lead capture and custom branding.",
     highlights: ["360° WebGL tour viewer with hotspots", "SVG floor plan engine with a one-click toggle", "Lead capture and custom branding"],
-    liveUrl: "https://virtual-tour-poc.vercel.app/tour/50ad98c9",
+    liveUrl: "https://virtual-tour-poc.vercel.app/tour/50ad98c9", liveLabel: "View Live Demo",
     imageAlt: "360° tour viewer in the BRHEX Studio platform",
   }),
   make({

@@ -1,4 +1,4 @@
-import { allSocials, type SocialKey } from "@/config/site";
+import { activeSocials, type SocialKey } from "@/config/site";
 
 const paths: Record<SocialKey, string> = {
   linkedin:
@@ -21,28 +21,23 @@ export function SocialIcon({ name, className = "size-4" }: { name: SocialKey; cl
   );
 }
 
-/** Row of all social icons. Set ones link out in a new tab; unset ones are muted, non-clickable "coming soon" icons. */
+/** Row of social icons. Only socials with a URL in site config are shown. */
 export function SocialRow({ className, tone = "light" }: { className?: string; tone?: "light" | "dark" }) {
   const ring = tone === "dark" ? "border-on-dark/30 text-on-dark" : "border-border text-ink";
+  if (!activeSocials.length) return null;
   return (
     <ul className={["flex flex-wrap gap-2", className].filter(Boolean).join(" ")}>
-      {allSocials.map((s) => (
+      {activeSocials.map((s) => (
         <li key={s.key}>
-          {s.href ? (
-            <a
-              href={s.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={s.label}
-              className={`flex size-11 items-center justify-center rounded-full border transition-colors hover:bg-bg-soft ${ring}`}
-            >
-              <SocialIcon name={s.key} />
-            </a>
-          ) : (
-            <span role="img" aria-label={`${s.label}, coming soon`} className={`flex size-11 items-center justify-center rounded-full border opacity-50 ${ring}`}>
-              <SocialIcon name={s.key} />
-            </span>
-          )}
+          <a
+            href={s.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={s.label}
+            className={`flex size-11 items-center justify-center rounded-full border transition-colors hover:bg-bg-soft ${ring}`}
+          >
+            <SocialIcon name={s.key} />
+          </a>
         </li>
       ))}
     </ul>

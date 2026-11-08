@@ -24,7 +24,7 @@ export function ExternalPill({
 }
 
 export function liveLabel(c: CaseStudy) {
-  return c.type === "Demo" ? "View Live Demo" : "Visit Live Site";
+  return c.liveLabel ?? (c.type === "Demo" ? "View Live Demo" : "Visit Live Site");
 }
 
 export function mockupAlt(name: string, laptopOnly = false) {

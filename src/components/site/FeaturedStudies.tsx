@@ -52,7 +52,7 @@ export function FeaturedStudies() {
                   <p className="mt-3 line-clamp-3 type-body">{c.description}</p>
                   <p className="mt-5 text-[32px] leading-tight font-medium text-ink">{c.period}</p>
                   <p className="mt-1 type-small text-muted-foreground">Delivered</p>
-                  <PillLink to={`/case-studies/${c.slug}`} className="mt-5" size="sm">Read case study</PillLink>
+                  <PillLink to={`/case-studies/${c.slug}`} className="mt-5" size="sm">Read Case Study</PillLink>
                 </div>
               </article>
             );

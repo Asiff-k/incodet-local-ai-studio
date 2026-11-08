@@ -48,14 +48,7 @@ export const socialLabels: Record<SocialKey, string> = {
   threads: "Threads",
 };
 
-/** Every social, set or not; unset ones render as non-clickable "coming soon" icons. */
-export const allSocials = (Object.keys(site.socials) as SocialKey[]).map((k) => ({
-  key: k,
-  label: socialLabels[k],
-  href: site.socials[k] as string,
-}));
-
-/** Only socials with a non-empty URL. */
+/** Only socials with a non-empty URL. Unset socials are never shown. */
 export const activeSocials = (Object.keys(site.socials) as SocialKey[])
   .filter((k) => site.socials[k])
   .map((k) => ({ key: k, label: socialLabels[k], href: site.socials[k] }));

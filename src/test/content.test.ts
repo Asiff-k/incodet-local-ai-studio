@@ -34,7 +34,9 @@ describe("content visibility", () => {
     expect(industries).toHaveLength(11);
   });
   it("hides todo FAQ items", () => {
-    expect(faq).toHaveLength(8);
+    expect(faq).toHaveLength(9);
+    expect(faq.some((f) => f.question === "Who owns the website?")).toBe(true);
+    expect(faq.some((f) => f.question === "Which languages does the AI agent speak?")).toBe(false);
   });
   it("has no reviews", () => {
     expect(reviews).toHaveLength(0);

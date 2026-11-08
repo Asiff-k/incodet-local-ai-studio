@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { allSocials, industryLinks, pageLinks, site } from "@/config/site";
+import { activeSocials, industryLinks, pageLinks, site } from "@/config/site";
 import { services } from "@/content/services";
 import { PillLink } from "./Button";
 import { Logo } from "./Logo";
@@ -78,22 +78,17 @@ export function Footer() {
                 </Link>
               </li>
             </FooterCol>
-            <FooterCol title="Follow Us">
-              {allSocials.map((s) => (
-                <li key={s.key}>
-                  {s.href ? (
+            {activeSocials.length > 0 && (
+              <FooterCol title="Follow Us">
+                {activeSocials.map((s) => (
+                  <li key={s.key}>
                     <a href={s.href} target="_blank" rel="noopener noreferrer" className={`${linkCls} inline-flex items-center gap-2`}>
                       <SocialIcon name={s.key} /> {s.label}
                     </a>
-                  ) : (
-                    <span className="inline-flex items-center gap-2 text-muted-foreground">
-                      <SocialIcon name={s.key} className="size-4 opacity-50" /> <span aria-hidden>{s.label}</span>
-                      <span className="sr-only">{s.label}, coming soon</span>
-                    </span>
-                  )}
-                </li>
-              ))}
-            </FooterCol>
+                  </li>
+                ))}
+              </FooterCol>
+            )}
           </div>
         </div>
 

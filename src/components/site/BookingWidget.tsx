@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useServerFn } from '@tanstack/react-start';
 import { ChevronLeft, ChevronRight, ArrowLeft, CalendarPlus, Download, Check } from 'lucide-react';
 import { booking, budgets, deliveryTimes, projectTypes } from '@/config/booking';
@@ -42,12 +42,14 @@ export function BookingWidget({ plan = '', service = '' }: { plan?: string; serv
     return () => window.clearInterval(timer);
   }, []);
   useEffect(() => { setFields(f => ({ ...f, ...bookingPreselection(plan, service) })); }, [plan, service]);
-  async function refresh(instant: number) {
+  // availability comes from useServerFn, which returns a stable callback, so refresh is stable too.
+  const refresh = useCallback(async (instant: number) => {
     setLoaded(false);
     try { setTaken(await availability({ data: { start: new Date(instant).toISOString(), end: new Date(horizon(instant) + 86400_000).toISOString() } })); setLoaded(true); }
     catch { setError('Could not load available times. Please try again.'); }
-  }
-  useEffect(() => { if (now !== null) void refresh(now); }, [now]);
+  }, [availability]);
+
+  useEffect(() => { if (now !== null) void refresh(now); }, [now, refresh]);
   const slots = useMemo(() => now === null ? [] : generateSlots(now, taken), [now, taken]);
   const byDay = useMemo(() => {
     const result: Record<string, string[]> = {};
