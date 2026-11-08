@@ -66,7 +66,7 @@ export const submitContact = createServerFn({ method: "POST" })
           method: "POST",
           headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
           body: JSON.stringify({
-            from: "Incodet Website <noreply@incodet.com>",
+            from: "Incodet <noreply@incodet.com>",
             to: [site.email],
             reply_to: d.email,
             subject: `New enquiry from ${d.name}`,
