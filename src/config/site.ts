@@ -22,6 +22,15 @@ export const site = {
     { city: "Leeds", country: "United Kingdom", code: "GB" },
     { city: "Birmingham", country: "United Kingdom", code: "GB" },
   ],
+  // Footer contact card. Phone, WhatsApp and email reuse the values above.
+  // Photo: initials placeholder until a real photo exists (docs/temp-images.md).
+  ceo: {
+    name: "Asif Khan",
+    title: "CEO",
+    initials: "AK",
+    location: "Perth, Australia",
+    linkedin: "https://www.linkedin.com/in/asif-khan-0b4a00312",
+  },
   mapsUrl:
     "https://www.google.com/maps/search/?api=1&query=Camberwarra+Drive+Craigie+WA+6025+Australia",
   socials: {

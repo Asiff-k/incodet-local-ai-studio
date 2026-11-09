@@ -137,7 +137,7 @@ export function ScrollProcess() {
             pin: true,
             scrub: true,
             invalidateOnRefresh: true,
-            refreshPriority: 10,
+            refreshPriority: 30,
             onUpdate: (self) => select(Math.min(3, Math.floor(self.progress * 4))),
           });
           scrollToStep.current = (i) => {

@@ -16,12 +16,13 @@ import { industries } from "@/content/industries";
 import { industryIcon } from "@/components/site/industryIcons";
 import { plansNote } from "@/content/plans";
 import { PlanCards } from "@/components/site/PlanCards";
-import { reviews } from "@/content/reviews";
+import { reviewsToShow } from "@/content/reviews";
+import { ReviewsCarousel } from "./ReviewsCarousel";
 import { ServicePanels } from "@/components/site/ServicePanels";
 import { PillLink, pillButton } from "@/components/site/Button";
 import { Accordion, SegmentedTabs } from "@/components/site/Interactive";
 import { Logo } from "@/components/site/Logo";
-import { Card, PillBadge, Reveal, Section, SectionHeading } from "@/components/site/primitives";
+import { PillBadge, Reveal, Section, SectionHeading } from "@/components/site/primitives";
 import { StatementWave } from "./StatementWave";
 import { FeaturedStudies } from "@/components/site/FeaturedStudies";
 import { cn } from "@/lib/utils";
@@ -248,21 +249,14 @@ export function PlansPreview() {
   );
 }
 
-/* 10. Reviews (hidden while empty) */
+/* 10. Reviews: hidden in production until real reviews exist; sample cards on the dev server only */
 export function Reviews() {
-  if (!reviews.length) return null;
+  const list = reviewsToShow(import.meta.env.DEV);
+  if (!list.length) return null;
   return (
     <Section theme="soft">
       <SectionHeading title="What our clients say" />
-      <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-        {reviews.map((r) => (
-          <Card key={r.name + r.business}>
-            <blockquote className="type-body text-ink">{r.quote}</blockquote>
-            <p className="mt-6 font-medium text-ink">{r.name}</p>
-            <p className="type-small text-muted-foreground">{r.business}</p>
-          </Card>
-        ))}
-      </div>
+      <ReviewsCarousel reviews={list} />
     </Section>
   );
 }

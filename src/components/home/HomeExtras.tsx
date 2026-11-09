@@ -173,7 +173,8 @@ export function FloatingProjects() {
             pin: true,
             scrub: true,
             invalidateOnRefresh: true,
-            refreshPriority: 30,
+            // Pinned and scrubbed triggers refresh in page order (higher first).
+            refreshPriority: 50,
             // Promote tiles to their own layers only while the section animates.
             onToggle: (self) =>
               gsap.set(tileEls, { willChange: self.isActive ? "transform" : "auto" }),
@@ -771,7 +772,10 @@ export function CallingAgent() {
   const pinned = desktop && !reduced;
   const outer = useRef<HTMLDivElement>(null);
   const track = useRef<HTMLDivElement>(null);
-  const [dist, setDist] = useState(0);
+  // Reserve the final scroll distance on first render (cards are w-[360px] with gap-6, plus
+  // 48px end space) so this section never grows after the pins below have measured. The
+  // measurement in the effect still corrects it if card sizes ever change.
+  const [dist, setDist] = useState(callCards.length * 360 + (callCards.length - 1) * 24 + 48);
 
   useEffect(() => {
     if (!pinned) return;

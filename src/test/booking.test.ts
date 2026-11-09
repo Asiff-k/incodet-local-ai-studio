@@ -1,13 +1,22 @@
 import { describe, expect, it } from "vitest";
-import { booking, budgets, deliveryTimes, projectTypes } from "@/config/booking";
+import {
+  booking,
+  budgets,
+  deliveryTimes,
+  listedZones,
+  projectTypes,
+  zoneGroups,
+} from "@/config/booking";
 import {
   bookingPreselection,
+  canonicalZone,
   dateKey,
   generateSlots,
   googleCalendarLink,
   bookingIcs,
   timeGroup,
   validSlot,
+  zoneLabel,
 } from "@/lib/booking";
 import { MIN_FILL_MS, RATE_LIMIT_PER_HOUR } from "@/lib/contact-schema";
 import { site } from "@/config/site";
@@ -108,4 +117,35 @@ describe("booking rules", () => {
       "Leeds",
       "Birmingham",
     ]));
+});
+
+describe("booking time zones", () => {
+  it("offers the 21 requested zones in four regions", () => {
+    expect(zoneGroups.map((g) => g.label)).toEqual(["Asia", "Europe", "Oceania", "North America"]);
+    expect(listedZones).toHaveLength(21);
+    expect(listedZones).toContain("Pacific/Auckland");
+  });
+  it("labels zones by city with the current offset", () => {
+    const winter = new Date("2026-01-15T12:00:00Z");
+    const summer = new Date("2026-07-15T12:00:00Z");
+    expect(zoneLabel("Europe/London", winter)).toBe("London (GMT+0)");
+    expect(zoneLabel("Europe/London", summer)).toBe("London (GMT+1)");
+    expect(zoneLabel("Asia/Kolkata", winter)).toBe("Kolkata (GMT+5:30)");
+    expect(zoneLabel("America/Los_Angeles", winter)).toBe("Los Angeles (GMT-8)");
+    expect(zoneLabel("Australia/Perth", winter)).toBe("Perth (GMT+8)");
+  });
+  it("keeps the same UTC slot when the shown zone changes", () => {
+    const slot = "2026-01-20T02:00:00.000Z";
+    expect(dateKey(new Date(slot), "Australia/Sydney")).toBe("2026-01-20");
+    expect(dateKey(new Date(slot), "America/New_York")).toBe("2026-01-19");
+    expect(googleCalendarLink(slot)).toContain("20260120T020000Z");
+  });
+});
+
+describe("detected time zone aliases", () => {
+  it("maps old browser zone names to the listed zones", () => {
+    expect(canonicalZone("Asia/Calcutta")).toBe("Asia/Kolkata");
+    expect(canonicalZone("US/Pacific")).toBe("America/Los_Angeles");
+    expect(canonicalZone("Africa/Lagos")).toBe("Africa/Lagos");
+  });
 });

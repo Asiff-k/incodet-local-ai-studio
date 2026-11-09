@@ -58,7 +58,11 @@ export default defineConfig(({ command, mode }) => {
     server: {
       host: "::",
       port: 8080,
-      watch: { awaitWriteFinish: { stabilityThreshold: 1000, pollInterval: 100 } },
+      watch: {
+        awaitWriteFinish: { stabilityThreshold: 1000, pollInterval: 100 },
+        // Build output is rewritten by `bun run build`; watching it crashes the dev server on Windows.
+        ignored: ["**/.output/**", "**/.vercel/**", "**/.wrangler/**", "**/.tanstack/tmp/**"],
+      },
     },
   };
 

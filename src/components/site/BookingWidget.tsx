@@ -1,17 +1,27 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { ChevronLeft, ChevronRight, ArrowLeft, CalendarPlus, Download, Check } from "lucide-react";
-import { booking, budgets, deliveryTimes, projectTypes } from "@/config/booking";
+import {
+  booking,
+  budgets,
+  deliveryTimes,
+  listedZones,
+  projectTypes,
+  zoneGroups,
+} from "@/config/booking";
 import {
   bookingFields,
   bookingIcs,
   bookingPreselection,
+  canonicalZone,
   dateKey,
   generateSlots,
   googleCalendarLink,
   horizon,
   timeGroup,
   timeGroups,
+  zoneCity,
+  zoneLabel,
   type BookingFields,
 } from "@/lib/booking";
 import { submitBooking, takenBookingSlots } from "@/lib/booking.functions";
@@ -31,17 +41,6 @@ const defaultFields: BookingFields = {
   delivery_time: "Flexible",
   message: "",
 };
-const zones = [
-  "Australia/Perth",
-  "Australia/Sydney",
-  "Europe/London",
-  "America/Toronto",
-  "America/New_York",
-  "America/Los_Angeles",
-  "Asia/Dhaka",
-  "Asia/Kolkata",
-  "UTC",
-];
 
 export function BookingWidget({ plan = "", service = "" }: { plan?: string; service?: string }) {
   const [now, setNow] = useState<number | null>(null);
@@ -69,7 +68,7 @@ export function BookingWidget({ plan = "", service = "" }: { plan?: string; serv
 
   useEffect(() => {
     const instant = Date.now();
-    const detected = Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC";
+    const detected = canonicalZone(Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC");
     setNow(instant);
     setZone(detected);
     setMonth(dateKey(new Date(instant), detected).slice(0, 7));
@@ -124,6 +123,11 @@ export function BookingWidget({ plan = "", service = "" }: { plan?: string; serv
     year && monthNumber ? new Date(Date.UTC(year, monthNumber, 0)).getUTCDate() : 0;
   const offset =
     year && monthNumber ? (new Date(Date.UTC(year, monthNumber - 1, 1)).getUTCDay() + 6) % 7 : 0;
+  // Offsets use the moment the visitor is booking, so daylight saving is current. They are only
+  // added after mount (when now is set): the server and the first client render show city names
+  // only, so hydration never depends on the clock or on the time zone data of either side.
+  const nameZone = (z: string) => (now === null ? zoneCity(z) : zoneLabel(z, new Date(now)));
+  const zoneName = nameZone(zone);
   const dateLabel = slot
     ? new Intl.DateTimeFormat("en", {
         timeZone: zone,
@@ -262,14 +266,32 @@ export function BookingWidget({ plan = "", service = "" }: { plan?: string; serv
               onChange={(e) => {
                 const z = e.target.value;
                 setZone(z);
-                setDay("");
-                setSlot("");
-                if (now !== null) setMonth(dateKey(new Date(now), z).slice(0, 7));
+                if (slot) {
+                  // Keep the chosen time (stored in UTC) and show its day in the new zone.
+                  const key = dateKey(new Date(slot), z);
+                  setDay(key);
+                  setMonth(key.slice(0, 7));
+                  setGroup(timeGroup(slot, z));
+                } else {
+                  setDay("");
+                  if (now !== null) setMonth(dateKey(new Date(now), z).slice(0, 7));
+                }
               }}
               className={cn(inputClass, "mt-2")}
             >
-              {Array.from(new Set([zone, ...zones])).map((z) => (
-                <option key={z}>{z}</option>
+              {!listedZones.includes(zone) && (
+                <optgroup label="Your time zone">
+                  <option value={zone}>{nameZone(zone)}</option>
+                </optgroup>
+              )}
+              {zoneGroups.map((g) => (
+                <optgroup key={g.label} label={g.label}>
+                  {g.zones.map((z) => (
+                    <option key={z} value={z}>
+                      {nameZone(z)}
+                    </option>
+                  ))}
+                </optgroup>
               ))}
             </select>
           </label>
@@ -414,7 +436,7 @@ export function BookingWidget({ plan = "", service = "" }: { plan?: string; serv
                 </div>
               )}
               <p className="mt-4 break-words type-small text-muted-foreground">
-                Times shown in {zone}
+                Times shown in {zoneName}
               </p>
               {slot && <p className="mt-4 type-small font-medium">{dateLabel}</p>}
               <PillButton
@@ -437,7 +459,7 @@ export function BookingWidget({ plan = "", service = "" }: { plan?: string; serv
             <ArrowLeft /> Back
           </Button>
           <p className="mt-3 type-small font-medium">
-            {dateLabel} ({zone})
+            {dateLabel} ({zoneName})
           </p>
           <form onSubmit={confirm} noValidate className="mt-6 space-y-5">
             {field("full_name", "Full name")}
@@ -528,7 +550,7 @@ export function BookingWidget({ plan = "", service = "" }: { plan?: string; serv
       {step === 3 && (
         <div className="mt-6">
           <p className="font-medium">{dateLabel}</p>
-          <p className="mt-2 type-small text-muted-foreground">Times shown in {zone}</p>
+          <p className="mt-2 type-small text-muted-foreground">Times shown in {zoneName}</p>
           <p className="mt-5 type-body">We will email you a meeting link before the call.</p>
           <div className="mt-6 flex flex-col gap-3">
             <a

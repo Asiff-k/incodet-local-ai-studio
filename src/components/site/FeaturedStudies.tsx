@@ -32,6 +32,7 @@ export function FeaturedStudies() {
                 start: "top 65%",
                 end: "top 96px",
                 scrub: true,
+                refreshPriority: 20,
                 invalidateOnRefresh: true,
               },
             },

@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { caseStudies, featuredCaseStudies, showcase, showcaseBadge } from "@/content/caseStudies";
 import { industries } from "@/content/industries";
 import { faq } from "@/content/faq";
-import { reviews } from "@/content/reviews";
+import { reviews, reviewsToShow, sampleReviews } from "@/content/reviews";
 import { plans } from "@/content/plans";
 
 describe("content visibility", () => {
@@ -47,6 +47,12 @@ describe("content visibility", () => {
   });
   it("has no reviews", () => {
     expect(reviews).toHaveLength(0);
+  });
+  it("never shows sample reviews in production", () => {
+    expect(reviewsToShow(false)).toHaveLength(0);
+    expect(reviewsToShow(true)).toHaveLength(6);
+    expect(sampleReviews.every((r) => r.sample)).toBe(true);
+    expect(reviews.some((r) => r.sample)).toBe(false);
   });
   it("features Growth", () => {
     expect(plans.find((p) => p.featured)?.name).toBe("Growth");

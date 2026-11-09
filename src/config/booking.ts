@@ -7,6 +7,41 @@ export const booking = {
   meetingLabel: "30 minute video call",
 } as const;
 
+/** Time zones offered in the booking calendar, grouped by region. The visitor's own zone is
+ * added on top when it is not in this list. Slots are always stored in UTC. */
+export const zoneGroups = [
+  {
+    label: "Asia",
+    zones: ["Asia/Dhaka", "Asia/Kolkata", "Asia/Dubai", "Asia/Singapore", "Asia/Tokyo"],
+  },
+  {
+    label: "Europe",
+    zones: ["Europe/London", "Europe/Dublin", "Europe/Paris", "Europe/Berlin", "Europe/Amsterdam"],
+  },
+  {
+    label: "Oceania",
+    zones: [
+      "Australia/Perth",
+      "Australia/Sydney",
+      "Australia/Melbourne",
+      "Australia/Brisbane",
+      "Pacific/Auckland",
+    ],
+  },
+  {
+    label: "North America",
+    zones: [
+      "America/Toronto",
+      "America/Vancouver",
+      "America/New_York",
+      "America/Chicago",
+      "America/Denver",
+      "America/Los_Angeles",
+    ],
+  },
+] as const;
+export const listedZones: readonly string[] = zoneGroups.flatMap((g) => g.zones);
+
 export const projectTypes = [
   "Booking website",
   "AI website chatbot",

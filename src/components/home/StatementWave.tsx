@@ -44,7 +44,7 @@ export function StatementWave() {
                 end: () => `+=${window.innerHeight * 1.5}`,
                 pin: true,
                 invalidateOnRefresh: true,
-                refreshPriority: 20,
+                refreshPriority: 40,
               })
             : undefined;
           const tl = gsap.timeline({
@@ -55,7 +55,7 @@ export function StatementWave() {
               end: pin ? () => pin.end : "bottom 40%",
               scrub: true,
               invalidateOnRefresh: true,
-              refreshPriority: 19,
+              refreshPriority: 39,
             },
           });
           words.forEach((word, i) => {

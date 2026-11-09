@@ -65,6 +65,49 @@ export function dateKey(date: Date, zone: string) {
   }).formatToParts(date);
   return ["year", "month", "day"].map((k) => parts.find((p) => p.type === k)?.value).join("-");
 }
+/** Older zone names some browsers still report, mapped to the names in the booking list. */
+const zoneAliases: Record<string, string> = {
+  "Asia/Calcutta": "Asia/Kolkata",
+  "Asia/Dacca": "Asia/Dhaka",
+  Singapore: "Asia/Singapore",
+  Japan: "Asia/Tokyo",
+  GB: "Europe/London",
+  "Europe/Belfast": "Europe/London",
+  Eire: "Europe/Dublin",
+  "Australia/West": "Australia/Perth",
+  "Australia/ACT": "Australia/Sydney",
+  "Australia/Canberra": "Australia/Sydney",
+  "Australia/NSW": "Australia/Sydney",
+  "Australia/Victoria": "Australia/Melbourne",
+  "Australia/Queensland": "Australia/Brisbane",
+  NZ: "Pacific/Auckland",
+  "Canada/Eastern": "America/Toronto",
+  "Canada/Pacific": "America/Vancouver",
+  "US/Eastern": "America/New_York",
+  "US/Central": "America/Chicago",
+  "US/Mountain": "America/Denver",
+  "US/Pacific": "America/Los_Angeles",
+};
+/** The detected zone, renamed to its current name when the browser reports an old alias. */
+export function canonicalZone(zone: string) {
+  return zoneAliases[zone] ?? zone;
+}
+/** City part of an IANA zone, e.g. "America/Los_Angeles" becomes "Los Angeles". */
+export function zoneCity(zone: string) {
+  return (zone.split("/").pop() ?? zone).replace(/_/g, " ");
+}
+/** Current UTC offset of a zone at a given moment, e.g. "GMT+5:30" or "GMT+0". */
+export function zoneOffset(zone: string, at: Date) {
+  const name =
+    new Intl.DateTimeFormat("en-US", { timeZone: zone, timeZoneName: "shortOffset" })
+      .formatToParts(at)
+      .find((p) => p.type === "timeZoneName")?.value ?? "GMT";
+  return name === "GMT" ? "GMT+0" : name;
+}
+/** Dropdown label, e.g. "London (GMT+0)". */
+export function zoneLabel(zone: string, at: Date) {
+  return `${zoneCity(zone)} (${zoneOffset(zone, at)})`;
+}
 export const timeGroups = ["Morning", "Afternoon", "Evening", "Night"] as const;
 export function timeGroup(start: string, zone: string): (typeof timeGroups)[number] {
   const hour = Number(

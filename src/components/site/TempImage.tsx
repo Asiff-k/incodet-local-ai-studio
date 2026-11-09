@@ -13,14 +13,16 @@ export function TempImage({
   eager?: boolean;
   className?: string;
 }) {
-  const { widths, alt } = tempImages[id];
+  const { widths, w, h, alt } = tempImages[id];
   const smallest = widths[0] ?? 300;
   return (
     <img
       src={tempImageSrc(id, smallest)}
-      srcSet={widths.map((w) => `${tempImageSrc(id, w)} ${w}w`).join(", ")}
+      srcSet={widths.map((width) => `${tempImageSrc(id, width)} ${width}w`).join(", ")}
       sizes={sizes}
       alt={alt}
+      width={w}
+      height={h}
       loading={eager ? "eager" : "lazy"}
       decoding="async"
       className={cn("size-full object-cover", className)}

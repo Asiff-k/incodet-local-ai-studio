@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { Mail, MessageCircle } from "lucide-react";
 import { activeSocials, industryLinks, pageLinks, site } from "@/config/site";
 import { services } from "@/content/services";
 import { PillLink } from "./Button";
@@ -7,6 +8,69 @@ import { SocialIcon } from "./SocialIcon";
 import { TeamFlag } from "./TeamFlag";
 
 const linkCls = "rounded-sm text-body transition-colors hover:text-ink";
+const iconBtn =
+  "flex size-10 items-center justify-center rounded-full border border-border bg-background text-ink transition-colors hover:bg-bg-soft";
+
+/** Direct contact card for the CEO, placed above the offices row. Values come from site config. */
+function CeoCard() {
+  const { ceo } = site;
+  return (
+    <section
+      aria-labelledby="ceo-name"
+      className="mt-16 flex flex-col gap-5 rounded-card border border-border bg-background p-5 sm:flex-row sm:items-center sm:justify-between md:max-w-[560px]"
+    >
+      <div className="flex items-center gap-4">
+        {/* Photo placeholder until a real photo exists (docs/temp-images.md). */}
+        <span
+          aria-hidden
+          className="flex size-14 shrink-0 items-center justify-center rounded-full bg-ink text-[18px] font-medium text-primary-foreground"
+        >
+          {ceo.initials}
+        </span>
+        <div className="min-w-0">
+          <h2 id="ceo-name" className="text-[16px] font-medium text-ink">
+            {ceo.name}
+          </h2>
+          <p className="type-small text-muted-foreground">
+            {ceo.title}, {ceo.location}
+          </p>
+          <a href={site.phoneHref} className={`${linkCls} mt-1 inline-block type-small`}>
+            {site.phoneDisplay}
+          </a>
+        </div>
+      </div>
+      <ul className="flex gap-2">
+        <li>
+          <a
+            href={ceo.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`${ceo.name} on LinkedIn (opens in a new tab)`}
+            className={iconBtn}
+          >
+            <SocialIcon name="linkedin" />
+          </a>
+        </li>
+        <li>
+          <a
+            href={site.whatsapp}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Message ${ceo.name} on WhatsApp (opens in a new tab)`}
+            className={iconBtn}
+          >
+            <MessageCircle aria-hidden className="size-4" />
+          </a>
+        </li>
+        <li>
+          <a href={`mailto:${site.email}`} aria-label={`Email ${site.email}`} className={iconBtn}>
+            <Mail aria-hidden className="size-4" />
+          </a>
+        </li>
+      </ul>
+    </section>
+  );
+}
 
 export function Footer() {
   return (
@@ -121,7 +185,9 @@ export function Footer() {
           </div>
         </div>
 
-        <section aria-labelledby="teams-title" className="mt-16 border-t border-border pt-8">
+        <CeoCard />
+
+        <section aria-labelledby="teams-title" className="mt-10 border-t border-border pt-8">
           <h2 id="teams-title" className="type-small font-medium text-muted-foreground">
             Our teams
           </h2>

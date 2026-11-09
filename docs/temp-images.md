@@ -43,3 +43,10 @@ Notes:
   are cropped out of every image here, but they are worth removing from the demo site too.
 - The phone-width before/after images place the phone screenshot on a plain backdrop so the whole
   screen stays visible in the wide slider.
+
+## Other placeholders (not images)
+
+| What                                                                  | Where                                                                                                                             | Data                                                                                          | Replace with                                                                                                                                        |
+| --------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 6 sample review cards ("Sample review" label, "Client name", 5 stars) | Home: "What our clients say" carousel. Shown on the dev server only; production hides the section while there are no real reviews | `sampleReviews` in `src/content/reviews.ts`                                                   | Real reviews (with the client's permission) in the `all` list in the same file. The section then appears in production and the samples stop showing |
+| CEO photo (initials "AK" circle)                                      | Footer: CEO contact card above the offices row                                                                                    | `site.ceo` in `src/config/site.ts`, rendered by `CeoCard` in `src/components/site/Footer.tsx` | A real photo of Asif, self-hosted as WebP (about 112px, plus 2x)                                                                                    |
