@@ -7,9 +7,11 @@ import { Logo } from "./Logo";
 import { SocialIcon } from "./SocialIcon";
 import { TeamFlag } from "./TeamFlag";
 
-const linkCls = "rounded-sm text-body transition-colors hover:text-ink";
+// inline-flex so touch screens can give every link a 44px target (see styles.css).
+const linkCls =
+  "-my-[3px] inline-flex items-center rounded-sm py-[3px] text-body transition-colors hover:text-ink";
 const iconBtn =
-  "flex size-10 items-center justify-center rounded-full border border-border bg-background text-ink transition-colors hover:bg-bg-soft";
+  "flex size-11 items-center justify-center rounded-full border border-border bg-background text-ink transition-colors hover:bg-bg-soft";
 
 /** Direct contact card for the CEO, placed above the offices row. Values come from site config. */
 function CeoCard() {
@@ -34,7 +36,7 @@ function CeoCard() {
           <p className="type-small text-muted-foreground">
             {ceo.title}, {ceo.location}
           </p>
-          <a href={site.phoneHref} className={`${linkCls} mt-1 inline-block type-small`}>
+          <a href={site.phoneHref} className={`${linkCls} mt-1 type-small`}>
             {site.phoneDisplay}
           </a>
         </div>
@@ -86,7 +88,10 @@ export function Footer() {
               <div>
                 <dt className="type-small text-muted-foreground">Drop us a line</dt>
                 <dd className="mt-1">
-                  <a href={`mailto:${site.email}`} className="text-ink hover:underline">
+                  <a
+                    href={`mailto:${site.email}`}
+                    className="-my-[3px] inline-flex items-center py-[3px] text-ink hover:underline"
+                  >
                     {site.email}
                   </a>
                 </dd>
@@ -94,7 +99,10 @@ export function Footer() {
               <div>
                 <dt className="type-small text-muted-foreground">Call us</dt>
                 <dd className="mt-1">
-                  <a href={site.phoneHref} className="text-ink hover:underline">
+                  <a
+                    href={site.phoneHref}
+                    className="-my-[3px] inline-flex items-center py-[3px] text-ink hover:underline"
+                  >
                     {site.phoneDisplay}
                   </a>
                 </dd>
@@ -106,7 +114,7 @@ export function Footer() {
                     href={site.whatsapp}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-ink hover:underline"
+                    className="-my-[3px] inline-flex items-center py-[3px] text-ink hover:underline"
                   >
                     WhatsApp
                   </a>
@@ -218,10 +226,16 @@ export function Footer() {
         <div className="mt-20 flex flex-col gap-4 border-t border-border pt-8 type-small text-muted-foreground md:flex-row md:items-center md:justify-between">
           <p>© 2026 {site.name}. All rights reserved.</p>
           <div className="flex gap-6">
-            <Link to="/privacy" className="hover:text-ink">
+            <Link
+              to="/privacy"
+              className="-my-[3px] inline-flex items-center py-[3px] hover:text-ink"
+            >
               Privacy Policy
             </Link>
-            <Link to="/terms" className="hover:text-ink">
+            <Link
+              to="/terms"
+              className="-my-[3px] inline-flex items-center py-[3px] hover:text-ink"
+            >
               Terms
             </Link>
           </div>

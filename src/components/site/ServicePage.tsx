@@ -61,7 +61,9 @@ export const serviceHead = (service: Service) =>
     scripts: [faqLd(service.faq)],
   });
 
-const comparisonSizes = "(min-width: 1280px) 1216px, calc(100vw - 32px)";
+// The image covers its box (object-fit: cover): the box is 480px tall from 768px and about 340px on
+// phones, so the wide image renders about 1220px and 860px wide before cropping.
+const comparisonSizes = "(min-width: 768px) 1220px, 880px";
 
 export function BeforeAfter({
   before,
@@ -153,7 +155,11 @@ export function ServicePage({ service: s }: { service: Service }) {
           </div>
           <div className={cn("aspect-[8/5] overflow-hidden rounded-card", s.color)}>
             {s.images[0] ? (
-              <ServiceImage slug={s.images[0]} eager />
+              <ServiceImage
+                slug={s.images[0]}
+                eager
+                sizes="(min-width: 1280px) 580px, (min-width: 1024px) 45vw, calc(100vw - 32px)"
+              />
             ) : s.temp?.hero ? (
               <TempImage
                 id={s.temp.hero}
@@ -227,7 +233,7 @@ export function ServicePage({ service: s }: { service: Service }) {
                   <span className="type-small text-muted-foreground">/0{i + 1}</span>
                 </div>
                 <h3 className="mt-5 text-[22px] text-ink">{p.title}</h3>
-                <p className="mt-3 type-small">{p.body}</p>
+                <p className="mt-3 type-small-body">{p.body}</p>
               </li>
             );
           })}

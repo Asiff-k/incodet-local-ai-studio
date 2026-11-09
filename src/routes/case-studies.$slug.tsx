@@ -80,7 +80,10 @@ function CaseStudyPage() {
           <nav aria-label="Breadcrumb">
             <ol className="flex flex-wrap items-center gap-1.5 type-small text-muted-foreground">
               <li>
-                <Link to="/case-studies" className="hover:text-ink">
+                <Link
+                  to="/case-studies"
+                  className="-my-[3px] inline-flex items-center py-[3px] hover:text-ink"
+                >
                   Our work
                 </Link>
               </li>
@@ -110,7 +113,12 @@ function CaseStudyPage() {
       <section className="bg-bg-soft pb-[72px] md:pb-[120px]">
         <div className="container-site">
           <Reveal>
-            <CaseStudyImage c={c} eager className="rounded-card border border-border" />
+            <CaseStudyImage
+              c={c}
+              eager
+              sizes="(min-width: 1280px) 1216px, calc(100vw - 32px)"
+              className="rounded-card border border-border"
+            />
           </Reveal>
         </div>
       </section>

@@ -60,7 +60,7 @@ export function CookieConsent() {
     <div
       role="region"
       aria-label="Cookie consent"
-      className="fixed bottom-24 left-4 z-[60] w-[calc(100%-2rem)] max-w-sm rounded-2xl border border-border bg-background p-5 shadow-pill md:bottom-6 md:left-6"
+      className="fixed bottom-[calc(6rem+env(safe-area-inset-bottom))] left-[max(1rem,env(safe-area-inset-left))] z-[60] w-[calc(100%-2rem)] max-w-sm rounded-2xl border border-border bg-background p-5 shadow-pill md:bottom-[calc(1.5rem+env(safe-area-inset-bottom))] md:left-6"
     >
       <p className="type-small text-ink">
         We use privacy-friendly analytics to see how our website is used, only if you accept.{" "}

@@ -1,5 +1,6 @@
 import { Fragment, useEffect, useRef } from "react";
 import { loadScrollMotion } from "@/lib/scroll-motion";
+import { PIN_QUERY } from "@/hooks/use-motion";
 import { PillBadge } from "@/components/site/primitives";
 
 const sentence =
@@ -21,7 +22,7 @@ export function StatementWave() {
       mm.add(
         {
           all: "(min-width: 0px)",
-          desktop: "(min-width: 768px)",
+          desktop: PIN_QUERY,
           reduced: "(prefers-reduced-motion: reduce)",
         },
         (context) => {

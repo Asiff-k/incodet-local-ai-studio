@@ -3,6 +3,7 @@ import { AppWindow, Diamond, Globe, Layers } from "lucide-react";
 import { featuredCaseStudies, mockupSm } from "@/content/caseStudies";
 import { PillLink } from "./Button";
 import { loadScrollMotion } from "@/lib/scroll-motion";
+import { PIN_QUERY } from "@/hooks/use-motion";
 
 export function FeaturedStudies() {
   const root = useRef<HTMLElement>(null);
@@ -12,7 +13,7 @@ export function FeaturedStudies() {
     void loadScrollMotion().then(({ gsap, ScrollTrigger }) => {
       if (cancelled || !root.current) return;
       const mm = gsap.matchMedia();
-      mm.add("(min-width: 768px) and (prefers-reduced-motion: no-preference)", () => {
+      mm.add(`${PIN_QUERY} and (prefers-reduced-motion: no-preference)`, () => {
         const el = root.current;
         if (!el) return;
         const cards = Array.from(el.querySelectorAll<HTMLElement>("[data-featured-card]"));

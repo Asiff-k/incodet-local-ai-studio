@@ -162,7 +162,7 @@ export function PortalDashboard({
               </span>
             </div>
             {project.summary && (
-              <p className="mt-3 type-small text-on-dark-muted">{project.summary}</p>
+              <p className="mt-3 type-small-body text-on-dark-muted">{project.summary}</p>
             )}
             <p className="mt-8 text-[64px] leading-none font-medium tracking-tight">
               {project.progress}%

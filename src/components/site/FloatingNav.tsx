@@ -55,7 +55,7 @@ export function FloatingNav() {
 
   return (
     <>
-      <div className="pointer-events-none fixed inset-x-4 bottom-4 z-[9100] flex justify-center md:bottom-6">
+      <div className="pointer-events-none fixed right-[max(1rem,env(safe-area-inset-right))] bottom-[calc(1rem+env(safe-area-inset-bottom))] left-[max(1rem,env(safe-area-inset-left))] z-[9100] flex justify-center md:bottom-[calc(1.5rem+env(safe-area-inset-bottom))]">
         <div
           ref={navRef}
           className={cn(
@@ -63,7 +63,7 @@ export function FloatingNav() {
             inverted ? "bg-background text-ink" : "bg-dark text-on-dark",
           )}
         >
-          <Link to="/" aria-label="Incodet home" className="rounded-md">
+          <Link to="/" aria-label="Incodet home" className="inline-flex items-center rounded-md">
             <Logo variant="mark" tone={inverted ? "ink" : "white"} />
           </Link>
           <span
@@ -151,11 +151,16 @@ function MenuOverlay({ onClose }: { onClose: () => void }) {
       role="dialog"
       aria-modal="true"
       aria-label="Site menu"
-      className="fixed inset-0 z-[9200] overflow-y-auto bg-background animate-in fade-in duration-300"
+      className="fixed inset-0 z-[9200] overflow-y-auto bg-background pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)] animate-in fade-in duration-300"
     >
       <div className="container-site flex min-h-full flex-col py-5">
         <div className="flex h-14 items-center justify-between">
-          <Link to="/" onClick={onClose} aria-label="Incodet home" className="rounded-md">
+          <Link
+            to="/"
+            onClick={onClose}
+            aria-label="Incodet home"
+            className="inline-flex items-center rounded-md"
+          >
             <Logo />
           </Link>
           <button
@@ -236,7 +241,10 @@ function MenuOverlay({ onClose }: { onClose: () => void }) {
               <div className="menu-item" style={stagger(n++)}>
                 <dt className={label}>Drop us a line</dt>
                 <dd className="mt-1 text-[18px]">
-                  <a href={`mailto:${site.email}`} className="text-ink hover:underline">
+                  <a
+                    href={`mailto:${site.email}`}
+                    className="-my-[3px] inline-flex items-center py-[3px] text-ink hover:underline"
+                  >
                     {site.email}
                   </a>
                 </dd>
@@ -248,7 +256,7 @@ function MenuOverlay({ onClose }: { onClose: () => void }) {
                     href={site.whatsapp}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-ink hover:underline"
+                    className="-my-[3px] inline-flex items-center py-[3px] text-ink hover:underline"
                   >
                     Message us on WhatsApp
                   </a>
@@ -257,7 +265,10 @@ function MenuOverlay({ onClose }: { onClose: () => void }) {
               <div className="menu-item" style={stagger(n++)}>
                 <dt className={label}>Call us</dt>
                 <dd className="mt-1 text-[18px]">
-                  <a href={site.phoneHref} className="text-ink hover:underline">
+                  <a
+                    href={site.phoneHref}
+                    className="-my-[3px] inline-flex items-center py-[3px] text-ink hover:underline"
+                  >
                     {site.phoneDisplay}
                   </a>
                 </dd>

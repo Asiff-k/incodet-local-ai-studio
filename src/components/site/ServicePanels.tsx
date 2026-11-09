@@ -36,14 +36,23 @@ export function ServicePlaceholder({
     </div>
   );
 }
-export function ServiceImage({ slug, eager = false }: { slug: string; eager?: boolean }) {
+export function ServiceImage({
+  slug,
+  eager = false,
+  sizes = "(min-width: 768px) 420px, 300px",
+}: {
+  slug: string;
+  eager?: boolean;
+  /** Displayed width; the page hero is much wider than the homepage tiles. */
+  sizes?: string;
+}) {
   const c = getCaseStudy(slug);
   if (!c) return <ServicePlaceholder className="size-full" />;
   return (
     <img
       src={c.mockup ? mockupSm(c.mockup) : c.image.src}
       srcSet={c.mockup ? `${mockupSm(c.mockup)} 800w, ${c.mockup} 1600w` : undefined}
-      sizes="(min-width: 768px) 420px, 300px"
+      sizes={sizes}
       alt={`${c.name} ${c.type === "Demo" ? "demo" : c.type === "Concept" ? "concept" : "website"} mockup`}
       loading={eager ? "eager" : "lazy"}
       decoding="async"
@@ -119,7 +128,7 @@ export function ServicePanels() {
                 <DiamondDots />
                 Get Started
               </PillLink>
-              <p className="service-panel-copy max-w-md type-small">{s.description}</p>
+              <p className="service-panel-copy max-w-md type-small-body">{s.description}</p>
             </div>
             <ServiceStrip service={s} />
           </div>

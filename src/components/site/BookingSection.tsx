@@ -57,7 +57,7 @@ export function BookingSection() {
               </li>
             ))}
           </ul>
-          <p className="mt-8 type-small text-ink">{site.availabilityLabel}</p>
+          <p className="mt-8 type-small-body text-ink">{site.availabilityLabel}</p>
           <div className="mt-6 flex flex-wrap gap-3">
             <a
               href={site.whatsapp}

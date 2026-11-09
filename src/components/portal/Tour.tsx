@@ -138,7 +138,7 @@ export function Tour({
           <button
             type="button"
             onClick={onClose}
-            className="type-small font-medium text-ink underline underline-offset-4"
+            className="-my-[3px] type-small py-[3px] font-medium text-ink underline underline-offset-4"
           >
             Skip
           </button>

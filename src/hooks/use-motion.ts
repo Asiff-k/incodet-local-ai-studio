@@ -12,6 +12,13 @@ export function usePrefersReducedMotion() {
   return reduced;
 }
 
+/**
+ * Pinned and scroll-driven effects need room: at least tablet width and 600px of height.
+ * Shorter screens (phones in landscape, small laptop windows) get the simple stacked layout.
+ */
+export const PIN_QUERY = "(min-width: 768px) and (min-height: 600px)";
+export const PIN_QUERY_WIDE = "(min-width: 1024px) and (min-height: 600px)";
+
 export function useMediaQuery(query: string) {
   const [match, setMatch] = useState(false);
   useEffect(() => {

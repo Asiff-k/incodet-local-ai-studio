@@ -1,14 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { ChevronLeft, ChevronRight, ArrowLeft, CalendarPlus, Download, Check } from "lucide-react";
-import {
-  booking,
-  budgets,
-  deliveryTimes,
-  listedZones,
-  projectTypes,
-  zoneGroups,
-} from "@/config/booking";
+import { booking, budgets, deliveryTimes, projectTypes } from "@/config/booking";
 import {
   bookingFields,
   bookingIcs,
@@ -26,6 +19,7 @@ import {
 } from "@/lib/booking";
 import { submitBooking, takenBookingSlots } from "@/lib/booking.functions";
 import { PillButton, pillButton } from "./Button";
+import { TimeZonePicker } from "./TimeZonePicker";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -45,6 +39,7 @@ const defaultFields: BookingFields = {
 export function BookingWidget({ plan = "", service = "" }: { plan?: string; service?: string }) {
   const [now, setNow] = useState<number | null>(null);
   const [zone, setZone] = useState("UTC");
+  const [detected, setDetected] = useState("UTC");
   const [month, setMonth] = useState("");
   const [day, setDay] = useState("");
   const [slot, setSlot] = useState("");
@@ -71,6 +66,7 @@ export function BookingWidget({ plan = "", service = "" }: { plan?: string; serv
     const detected = canonicalZone(Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC");
     setNow(instant);
     setZone(detected);
+    setDetected(detected);
     setMonth(dateKey(new Date(instant), detected).slice(0, 7));
     renderedAt.current = instant;
     const timer = window.setInterval(() => setNow(Date.now()), 60_000);
@@ -258,13 +254,16 @@ export function BookingWidget({ plan = "", service = "" }: { plan?: string; serv
       )}
       {step === 1 && (
         <>
-          <label className="mt-5 block type-small font-medium">
-            Timezone
-            <select
-              aria-label="Timezone"
+          <div className="mt-5">
+            <p id="booking-timezone-label" className="type-small font-medium">
+              Time zone
+            </p>
+            <TimeZonePicker
+              className="mt-2"
               value={zone}
-              onChange={(e) => {
-                const z = e.target.value;
+              detected={detected}
+              now={now}
+              onChange={(z) => {
                 setZone(z);
                 if (slot) {
                   // Keep the chosen time (stored in UTC) and show its day in the new zone.
@@ -277,24 +276,8 @@ export function BookingWidget({ plan = "", service = "" }: { plan?: string; serv
                   if (now !== null) setMonth(dateKey(new Date(now), z).slice(0, 7));
                 }
               }}
-              className={cn(inputClass, "mt-2")}
-            >
-              {!listedZones.includes(zone) && (
-                <optgroup label="Your time zone">
-                  <option value={zone}>{nameZone(zone)}</option>
-                </optgroup>
-              )}
-              {zoneGroups.map((g) => (
-                <optgroup key={g.label} label={g.label}>
-                  {g.zones.map((z) => (
-                    <option key={z} value={z}>
-                      {nameZone(z)}
-                    </option>
-                  ))}
-                </optgroup>
-              ))}
-            </select>
-          </label>
+            />
+          </div>
           {now === null ? (
             <p role="status" className="py-12">
               Loading calendar…

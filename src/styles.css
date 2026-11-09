@@ -238,13 +238,25 @@
   font-size: 14px;
   line-height: 1.4;
 }
+/* Body copy that is small on larger screens but at least 16px on phones. */
+@utility type-small-body {
+  font-size: 16px;
+  line-height: 1.45;
+  @media (min-width: 768px) {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+}
 @utility container-site {
   width: 100%;
   max-width: 1280px;
   margin-inline: auto;
-  padding-inline: 16px;
+  /* At least the side safe areas (notch) on phones in landscape. */
+  padding-left: max(16px, env(safe-area-inset-left));
+  padding-right: max(16px, env(safe-area-inset-right));
   @media (min-width: 768px) {
-    padding-inline: 32px;
+    padding-left: max(32px, env(safe-area-inset-left));
+    padding-right: max(32px, env(safe-area-inset-right));
   }
 }
 @utility section-y {
@@ -366,7 +378,7 @@ h2 {
 }
 /* The static tile grid (phones, reduced motion) is server-rendered. Where the animated tiles
    replace it, hide it so its lazy images are never downloaded. */
-@media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+@media (min-width: 768px) and (min-height: 600px) and (prefers-reduced-motion: no-preference) {
   .burst-static {
     display: none;
   }
@@ -516,15 +528,7 @@ h2 {
   }
 }
 @media (min-width: 768px) {
-  .scroll-process {
-    min-height: 100svh;
-    display: flex;
-    align-items: center;
-  }
   .statement-wave {
-    min-height: 100svh;
-    display: flex;
-    align-items: center;
     padding-block: 100px;
   }
   .wave-paragraph {
@@ -534,13 +538,29 @@ h2 {
     height: 380px;
   }
   .featured-card {
-    position: sticky;
-    top: 96px;
     min-height: 440px;
-    transform-origin: center top;
   }
   .featured-deck {
     padding-bottom: 40px;
+  }
+}
+/* Full-screen and sticky effects only where there is room (same as PIN_QUERY in use-motion.ts).
+   Phones in landscape and short windows get the stacked layout. */
+@media (min-width: 768px) and (min-height: 600px) {
+  .scroll-process {
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+  }
+  .statement-wave {
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+  }
+  .featured-card {
+    position: sticky;
+    top: 96px;
+    transform-origin: center top;
   }
 }
 @media (min-width: 1024px) {
@@ -645,10 +665,14 @@ html.lenis body {
 .service-comparison-after.is-after {
   clip-path: inset(0);
 }
-@media (min-width: 768px) {
+@media (min-width: 768px) and (min-height: 600px) {
   .service-panel {
     position: sticky;
     top: 72px;
+  }
+}
+@media (min-width: 768px) {
+  .service-panel {
     padding: 44px 40px 0;
   }
   .service-panel-title {
@@ -735,7 +759,8 @@ html.lenis body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 24px;
+  padding: max(16px, env(safe-area-inset-top)) max(24px, env(safe-area-inset-right)) 16px
+    max(24px, env(safe-area-inset-left));
   color: var(--on-dark);
   background: var(--dark-card);
   height: 64px;
@@ -757,12 +782,14 @@ html.lenis body {
   background: var(--hairline-dark);
 }
 .deck-wordmark {
+  display: inline-flex;
+  align-items: center;
   font-size: 22px;
   font-weight: 600;
 }
 .deck-stage {
   position: fixed;
-  inset: 64px 0 72px;
+  inset: calc(64px + env(safe-area-inset-top)) 0 calc(72px + env(safe-area-inset-bottom));
   overflow: hidden;
   touch-action: pan-y;
 }
@@ -1333,7 +1360,8 @@ html.lenis body {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 72px;
+  height: calc(72px + env(safe-area-inset-bottom));
+  padding-bottom: env(safe-area-inset-bottom);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1439,7 +1467,7 @@ html.lenis body {
     padding-inline: 8px;
   }
   .deck-controls {
-    height: 56px;
+    height: calc(56px + env(safe-area-inset-bottom));
     gap: 12px;
   }
   .deck-dots {
@@ -1711,5 +1739,57 @@ html.lenis body {
     bottom: 34px;
     left: 110px;
     right: 110px;
+  }
+}
+
+/* Touch targets: on touch screens every control is at least 44px. Links inside running text stay
+   inline (WCAG inline exception). Desktop with a mouse is unchanged. The deck's 23 slide dots are
+   excluded (arrows and swipe remain); 44px each would overflow the control bar. */
+@media (pointer: coarse) {
+  :where(
+    a[href]:not(p a, li > p a, blockquote a),
+    button:not(.deck-dot),
+    [role="button"],
+    [role="tab"],
+    [role="option"],
+    summary,
+    select
+  ) {
+    min-height: 44px;
+  }
+  :where(
+    a[href]:not(p a, li > p a, blockquote a),
+    button:not(.deck-dot),
+    [role="button"],
+    [role="tab"]
+  ) {
+    min-width: 44px;
+  }
+}
+
+/* Reduced motion everywhere: no animations or smooth scrolling (scroll effects already fall back
+   to static layouts in their components). */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Very narrow phones (320 to 359px): keep large headings from breaking one word per line. */
+@media (max-width: 359px) {
+  .service-panel-title {
+    font-size: 26px;
+  }
+  .deck-title,
+  .deck-work-heading .deck-title {
+    font-size: 30px;
+  }
+  .deck-title-xl {
+    font-size: 36px;
   }
 }

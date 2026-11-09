@@ -1,12 +1,5 @@
 import { describe, expect, it } from "vitest";
-import {
-  booking,
-  budgets,
-  deliveryTimes,
-  listedZones,
-  projectTypes,
-  zoneGroups,
-} from "@/config/booking";
+import { booking, budgets, deliveryTimes, projectTypes, quickPickZones } from "@/config/booking";
 import {
   bookingPreselection,
   canonicalZone,
@@ -16,6 +9,7 @@ import {
   bookingIcs,
   timeGroup,
   validSlot,
+  zoneCity,
   zoneLabel,
 } from "@/lib/booking";
 import { MIN_FILL_MS, RATE_LIMIT_PER_HOUR } from "@/lib/contact-schema";
@@ -120,10 +114,17 @@ describe("booking rules", () => {
 });
 
 describe("booking time zones", () => {
-  it("offers the 21 requested zones in four regions", () => {
-    expect(zoneGroups.map((g) => g.label)).toEqual(["Asia", "Europe", "Oceania", "North America"]);
-    expect(listedZones).toHaveLength(21);
-    expect(listedZones).toContain("Pacific/Auckland");
+  it("quick picks are the eight requested cities", () => {
+    expect(quickPickZones.map((z) => zoneCity(z))).toEqual([
+      "Dhaka",
+      "Kolkata",
+      "Perth",
+      "Sydney",
+      "London",
+      "Toronto",
+      "New York",
+      "Los Angeles",
+    ]);
   });
   it("labels zones by city with the current offset", () => {
     const winter = new Date("2026-01-15T12:00:00Z");

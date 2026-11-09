@@ -85,7 +85,7 @@ export function IndustryPage({ slug }: { slug: string }) {
 
       <Section>
         <SectionHeading title="Sound familiar?" />
-        <ul className="mt-12 grid gap-5 md:grid-cols-3">
+        <ul className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {p.pains.map((pain, i) => (
             <Reveal as="li" key={pain.title} delay={i * 80}>
               <Card className="h-full">
@@ -103,7 +103,7 @@ export function IndustryPage({ slug }: { slug: string }) {
         <Reveal className="mt-12">
           <TranscriptCard {...p.transcript} />
           {p.note && (
-            <p className="mx-auto mt-5 max-w-2xl text-center type-small text-muted-foreground">
+            <p className="mx-auto mt-5 max-w-2xl text-center type-small-body text-muted-foreground">
               {p.note}
             </p>
           )}

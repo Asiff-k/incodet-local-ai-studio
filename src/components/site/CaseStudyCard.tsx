@@ -42,17 +42,20 @@ export function CaseStudyImage({
   c,
   className,
   eager,
+  sizes = "(min-width: 768px) 50vw, 100vw",
 }: {
   c: CaseStudy;
   className?: string;
   eager?: boolean;
+  /** Displayed width, so the browser downloads the right file (full width on detail pages). */
+  sizes?: string;
 }) {
   if (c.mockup) {
     return (
       <img
         src={c.mockup}
         srcSet={`${mockupSm(c.mockup)} 800w, ${c.mockup} 1600w`}
-        sizes="(min-width: 768px) 50vw, 100vw"
+        sizes={sizes}
         alt={mockupAlt(c.name, c.laptopOnly)}
         loading={eager ? "eager" : "lazy"}
         decoding="async"

@@ -1,3 +1,4 @@
+import { currentZone } from "./timezones";
 import { z } from "zod";
 import { booking, budgets, deliveryTimes, projectTypes } from "@/config/booking";
 
@@ -90,7 +91,7 @@ const zoneAliases: Record<string, string> = {
 };
 /** The detected zone, renamed to its current name when the browser reports an old alias. */
 export function canonicalZone(zone: string) {
-  return zoneAliases[zone] ?? zone;
+  return zoneAliases[zone] ?? currentZone(zone);
 }
 /** City part of an IANA zone, e.g. "America/Los_Angeles" becomes "Los Angeles". */
 export function zoneCity(zone: string) {

@@ -37,7 +37,10 @@ function PortalDemo() {
             <Info aria-hidden className="size-4 shrink-0" /> Sample project. This is example data,
             not a real client.
           </p>
-          <Link to="/portal" className="font-medium underline underline-offset-4">
+          <Link
+            to="/portal"
+            className="-my-[3px] inline-flex items-center py-[3px] font-medium underline underline-offset-4"
+          >
             Exit demo
           </Link>
         </div>

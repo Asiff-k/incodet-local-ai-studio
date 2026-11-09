@@ -4,6 +4,7 @@ import { processSteps } from "@/content/process";
 import { PillButton, PillLink } from "@/components/site/Button";
 import { SectionHeading } from "@/components/site/primitives";
 import { loadScrollMotion } from "@/lib/scroll-motion";
+import { PIN_QUERY } from "@/hooks/use-motion";
 import { cn } from "@/lib/utils";
 
 const icons = { hammer: Hammer, layers: Layers, phone: Phone, rocket: Rocket };
@@ -87,7 +88,7 @@ export function ScrollProcess() {
       mm.add(
         {
           all: "(min-width: 0px)",
-          desktop: "(min-width: 768px)",
+          desktop: PIN_QUERY,
           reduced: "(prefers-reduced-motion: reduce)",
         },
         (context) => {

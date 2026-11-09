@@ -22,7 +22,12 @@ import { showcase } from "@/content/caseStudies";
 import { PillLink } from "@/components/site/Button";
 import { PillBadge, Reveal } from "@/components/site/primitives";
 import { SocialRow } from "@/components/site/SocialIcon";
-import { useMediaQuery, usePrefersReducedMotion } from "@/hooks/use-motion";
+import {
+  PIN_QUERY,
+  PIN_QUERY_WIDE,
+  useMediaQuery,
+  usePrefersReducedMotion,
+} from "@/hooks/use-motion";
 import { cn } from "@/lib/utils";
 import { CalendarUI, CallCardUI, ChatUI, NotificationUI } from "./MiniUI";
 
@@ -149,7 +154,7 @@ function TileImg({
 
 export function FloatingProjects() {
   const reduced = usePrefersReducedMotion();
-  const desktop = useMediaQuery("(min-width: 768px)");
+  const desktop = useMediaQuery(PIN_QUERY);
   const ref = useRef<HTMLElement>(null);
   const tileRefs = useRef<(HTMLDivElement | null)[]>([]);
   const animated = desktop && !reduced;
@@ -160,7 +165,7 @@ export function FloatingProjects() {
     void loadScrollMotion().then(({ gsap, ScrollTrigger }) => {
       if (cancelled || !ref.current) return;
       const mm = gsap.matchMedia();
-      mm.add("(min-width: 768px) and (prefers-reduced-motion: no-preference)", () => {
+      mm.add(`${PIN_QUERY} and (prefers-reduced-motion: no-preference)`, () => {
         const el = ref.current;
         if (!el) return;
         const tileEls = tileRefs.current.filter((t): t is HTMLDivElement => Boolean(t));
@@ -542,7 +547,8 @@ export function WorkCarousel() {
             transform: "translateX(-50%)",
           }}
         />
-        <ul className="absolute inset-x-0 top-0">
+        {/* Cards fan out and overlap on purpose (opaque, front card on top). */}
+        <ul data-overlap-ok className="absolute inset-x-0 top-0">
           {items.map((it, i) => {
             const d = offset(i, pos);
             const hidden = Math.abs(d) > 4;
@@ -586,12 +592,14 @@ export function WorkCarousel() {
                 <h3 className="pointer-events-none mt-5 text-[24px] leading-tight font-medium text-ink md:text-[28px]">
                   {it.name}
                 </h3>
-                <p className="pointer-events-none mt-2 line-clamp-2 type-small text-body">
+                <p className="pointer-events-none mt-2 line-clamp-2 type-small-body text-body">
                   {it.description}
                 </p>
                 <div className="carousel-shot pointer-events-none relative -mx-6 mt-5 flex-1 overflow-hidden md:-mx-8">
                   <img
                     src={it.image}
+                    srcSet={it.imageLarge ? `${it.image} 800w, ${it.imageLarge} 1600w` : undefined}
+                    sizes="(min-width: 768px) 567px, 135vw"
                     alt={`${it.name} website`}
                     loading="lazy"
                     decoding="async"
@@ -767,7 +775,7 @@ function CallCard({
 }
 
 export function CallingAgent() {
-  const desktop = useMediaQuery("(min-width: 1024px)");
+  const desktop = useMediaQuery(PIN_QUERY_WIDE);
   const reduced = usePrefersReducedMotion();
   const pinned = desktop && !reduced;
   const outer = useRef<HTMLDivElement>(null);

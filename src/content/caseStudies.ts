@@ -513,6 +513,8 @@ export type ShowcaseItem = {
   tint: string;
   /** Wide device mockup or desktop screenshot. */
   image: string;
+  /** Full-size mockup for high-density screens (when there is one). */
+  imageLarge?: string | undefined;
 };
 
 export function showcaseBadge(type: CaseStudyType): ShowcaseItem["badge"] {
@@ -531,4 +533,5 @@ export const showcase: ShowcaseItem[] = caseStudies
     badge: showcaseBadge(c.type),
     tint: c.tint,
     image: c.mockup ? mockupSm(c.mockup) : c.image.src,
+    imageLarge: c.mockup ?? undefined,
   }));
